@@ -1,15 +1,17 @@
 package primeraIteracion.personas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import primeraIteracion.mascotas.MascotaPerdida;
+import primeraIteracion.mascotas.Mascota;
 
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.
  */
-public class Rescatista extends Persona {
-  private MascotaPerdida mascota;
+public class Duenio extends Persona {
+  private List<Mascota> mascotas = new ArrayList<>();
 
   /**
    * Constructor de la clase.
@@ -19,16 +21,28 @@ public class Rescatista extends Persona {
    * @param _nombreYApellido es el nombre y apellido de la persona.
    * @param _fechaNacimiento es la fecha de nacimiento de la persona.
    * @param _contacto es la lista de formas de contacto que tiene la persona.
-   * @param _mascota es la mascota rescatada por el rescatista.
+   * @param _mascotas es lista de mascotas que posee el dueño.
    */
-  public Rescatista (String _nombreYApellido,
+  public Duenio(String _nombreYApellido,
                  LocalDate _fechaNacimiento,
                  List<Contacto> _contacto,
-                 MascotaPerdida _mascota) {
+                 List<Mascota> _mascotas) {
     super(_nombreYApellido, _fechaNacimiento, _contacto);
-    if(Objects.isNull(_mascota)){
+    if (Objects.isNull(_mascotas)) {
       //TODO
     }
-    this.mascota = _mascota;
+    if (_mascotas.isEmpty()) {
+      //TODO
+    }
+    Collections.copy(mascotas, _mascotas);
+  }
+
+  /**
+   * Agrega una mascota a la lista de mascotas de la clase
+   *
+   * @param mascota es la mascota a ser agregada
+   */
+  public void agregarMascota(Mascota mascota) {
+    this.mascotas.add(mascota);
   }
 }
