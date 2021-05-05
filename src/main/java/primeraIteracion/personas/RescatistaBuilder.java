@@ -1,5 +1,6 @@
 package primeraIteracion.personas;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import primeraIteracion.mascotas.MascotaPerdida;
 
@@ -9,6 +10,7 @@ import primeraIteracion.mascotas.MascotaPerdida;
  * con otros builder de clases que heredan de persona.
  */
 public class RescatistaBuilder extends PersonaBuilder {
+  private LocalDate fecha;
   private MascotaPerdida mascota;
 
   /**
@@ -16,6 +18,15 @@ public class RescatistaBuilder extends PersonaBuilder {
    */
   public RescatistaBuilder() {
 
+  }
+
+  /**
+   * Setter de la fecha de la mascota encontrada.
+   *
+   * @param fecha es la fecha a settear.
+   */
+  public void setFecha(LocalDate fecha) {
+    this.fecha = fecha;
   }
 
   /**
@@ -35,13 +46,16 @@ public class RescatistaBuilder extends PersonaBuilder {
    */
   @Override
   public Rescatista creacionEspecifica() {
-    if(Objects.isNull(this.mascota)){
+    if(Objects.isNull(this.mascota)
+       || Objects.isNull(this.fecha)){
       //TODO
     }
     return new Rescatista(
         this.nombreYApellido,
         this.fechaNacimiento,
         this.contactos,
+        this.fecha,
         this.mascota);
   }
+
 }
