@@ -3,6 +3,11 @@ package primeraIteracion.mascotas;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Clase que representa una caracteristica.
+ * La clase caracteristica conoce una lista de los parametros/atributos relacionados
+ * a la caracteristica.
+ */
 public class Caracteristica {
   HashMap<String,Parametro> parametros = new HashMap<>();
 
@@ -28,6 +33,6 @@ public class Caracteristica {
     return this.parametros
         .values()
         .stream()
-        .allMatch(parametro -> !Objects.isNull(parametro.getValor()));
+        .noneMatch(parametro -> Objects.isNull(parametro.getValor()));
   }
 }

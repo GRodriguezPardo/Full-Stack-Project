@@ -6,7 +6,6 @@ public class MascotaPerdida {
   private Integer posicionX;
   private Integer posicionY;
 
-
   public MascotaPerdida(String descripcionEstado,
                         Integer posicionX,
                         Integer posicionY) {
