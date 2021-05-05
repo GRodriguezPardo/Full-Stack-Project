@@ -15,7 +15,7 @@ public class Rescatista extends Persona {
 
   /**
    * Constructor de la clase.
-   * Los primeros 3 parametros son heredeados.
+   * Los primeros 4 parametros son heredeados.
    * El ultimo parametro es propio de la clase.
    *
    * @param _nombreYApellido es el nombre y apellido de la persona.
@@ -36,5 +36,9 @@ public class Rescatista extends Persona {
     }
     this.mascota = _mascota;
     this.fecha = _fecha;
+  }
+
+  public LocalDate getFecha() {
+    return this.fecha;
   }
 }
