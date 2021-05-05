@@ -3,6 +3,8 @@ package primeraIteracion.personas;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import primeraIteracion.mascotas.Mascota;
 import primeraIteracion.mascotas.MascotaPerdida;
 
 /**
@@ -38,7 +40,19 @@ public class Rescatista extends Persona {
     this.fecha = _fecha;
   }
 
+  /**
+   * Getter de la fecha.
+   * @return retorna la fecha.
+   */
   public LocalDate getFecha() {
     return this.fecha;
+  }
+
+  /**
+   * Getter de la mascota perdida.
+   * @return retorna la mascota perdida.
+   */
+  public MascotaPerdida getMascota() {
+    return this.mascota;
   }
 }
