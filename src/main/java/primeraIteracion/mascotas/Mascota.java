@@ -1,9 +1,12 @@
 package primeraIteracion.mascotas;
 
+import java.util.HashMap;
+import java.util.Objects;
 import primeraIteracion.exceptions.FaltanDatosException;
 
-import java.util.*;
-
+/**
+ * Clase que representa una mascota que posee un dueño.
+ */
 public class Mascota {
   private Especie especie;
   private String nombre;
@@ -14,7 +17,19 @@ public class Mascota {
   //private List<Foto> fotos;
   private HashMap<String,Caracteristica> caracteristicas;
 
-
+  /**
+   * Constructor de una mascota.
+   * Realiza los checkeos de los datos minimos que se debe saber de la misma.
+   *
+   * @param _especie es la especie de la mascota.
+   * @param _nombre es el nombre de la mascota.
+   * @param _apodo es el apodo de la mascota.
+   * @param _edad es la edad aproximada de la mascota.
+   * @param _sexo es el sexo de la mascota.
+   * @param _descripcion es una descripcion fisica de la mascota.
+   * @param _caracteristicas es un hashMap de caracteristicas de la mascota,
+   *                         referenciadas por su nombre.
+   */
   public Mascota(Especie _especie,
                  String _nombre,
                  String _apodo,

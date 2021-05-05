@@ -5,15 +5,15 @@ import java.util.Objects;
 
 /**
  * Clase que representa una caracteristica.
- * La clase caracteristica conoce una lista de los parametros/atributos relacionados
- * a la caracteristica.
+ * La clase Caracteristica conoce una hashMap que relaciona el nombre de un parametro
+ * con un parametro que posee la caracteristica.
  */
 public class Caracteristica {
   HashMap<String,Parametro> parametros = new HashMap<>();
 
   /**
    * Constructor de la clase.
-   * Pide una lista de atributos que posee la Caracteristica.
+   * Pide un hashMap atributos que posee la Caracteristica.
    *
    * @param _parametros es un hashMap que relaciona un nombre de un parametro como
    *                    key, a dicho parametro.
@@ -23,7 +23,7 @@ public class Caracteristica {
   }
 
   /**
-   * Crea una version clonada de la Lista de los Parametros y de los objetos que contiene.
+   * Crea una version clonada del hashMap Parametros y de los objetos que contiene.
    * Luego crea un clon de si mismo con esa lista clonada.
    *
    * @return Devuelve un clon de si mismo.
