@@ -9,13 +9,13 @@ import primeraIteracion.mascotas.Mascota;
  * Hereda de un builder abstracto de la clase persona ya que comparte comportamiento
  * con otros builder de clases que heredan de persona.
  */
-public class DueñoBuilder extends PersonaBuilder {
+public class DuenioBuilder extends PersonaBuilder {
   private List<Mascota> mascotas = new ArrayList<>();
 
   /**
    * Constructor vacio propio de un builder sin variables.
    */
-  public DueñoBuilder(){
+  public DuenioBuilder(){
 
   }
 
@@ -36,11 +36,6 @@ public class DueñoBuilder extends PersonaBuilder {
    */
   @Override
   public Duenio creacionEspecifica() {
-
-    /**sacamos esto? El chequeo ya se hace en Duenio*/
-    if (mascotas.isEmpty()) {
-      //TODO
-    }
     return new Duenio(
         this.nombreYApellido,
         this.fechaNacimiento,
