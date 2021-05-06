@@ -1,5 +1,7 @@
 package primeraIteracion.mascotas;
 
+import primeraIteracion.exceptions.FaltanDatosException;
+
 import java.util.HashMap;
 
 /**
