@@ -12,11 +12,11 @@ import primeraIteracion.exceptions.FaltanDatosException;
  * Clase que representa una mascota que posee un dueño.
  */
 public class Mascota {
-  private Especie especie;
-  private String nombre;
-  private String apodo;
+  private final Especie especie;
+  private final String nombre;
+  private final String apodo;
   private Short edad;
-  private Sexo sexo;
+  private final Sexo sexo;
   private String descripcion;
   private List<Image> fotos;
   private HashMap<String,Caracteristica> caracteristicas;
