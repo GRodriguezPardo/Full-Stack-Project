@@ -1,6 +1,8 @@
 package primeraIteracion.mascotas;
 
 import java.util.List;
+import java.util.Objects;
+
 import javafx.scene.image.Image;
 import primeraIteracion.exceptions.FaltanDatosException;
 
@@ -26,6 +28,9 @@ public class MascotaPerdida {
                         Integer posicionX,
                         Integer posicionY) {
     this.descripcionEstado = descripcionEstado;
+    if(Objects.isNull(_fotos)){
+      throw new FaltanDatosException("Se necesita proveer minimo una foro");
+    }
     if (_fotos.isEmpty()){
       throw new FaltanDatosException("Se necesita proveer minimo una foro");
       }
