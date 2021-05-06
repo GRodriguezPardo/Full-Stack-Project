@@ -18,16 +18,14 @@ public class RepositorioDeRescates {
    * Contructor privado al ser singleton.
    */
   private RepositorioDeRescates() {
-
   }
 
   /**
    * Metodo estatico para obtener al singleton.
    * @return retorna al singleton.
    */
-  public static RepositorioDeRescates getInstance() {
-    return INSTANCE;
-  }
+  public static RepositorioDeRescates getInstance() { return INSTANCE; }
+
 
   /**
    * Permite agregar un nuevo aviso de rescate a la lista de rescates que posee

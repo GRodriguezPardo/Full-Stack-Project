@@ -32,7 +32,9 @@ public class CaracteristicaBuilder {
    */
   public Caracteristica finalizarCaracteristica() {
     if (parametros.isEmpty()) {
-      //TODO
+      throw new FaltanDatosException(
+              "Se debe proveer un parametro"
+      );
     }
     return new Caracteristica(parametros);
   }

@@ -36,6 +36,8 @@ public class DueñoBuilder extends PersonaBuilder {
    */
   @Override
   public Duenio creacionEspecifica() {
+
+    /**sacamos esto? El chequeo ya se hace en Duenio*/
     if (mascotas.isEmpty()) {
       //TODO
     }

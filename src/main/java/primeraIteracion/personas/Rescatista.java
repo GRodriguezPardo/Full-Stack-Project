@@ -34,10 +34,15 @@ public class Rescatista extends Persona {
     super(_nombreYApellido, _fechaNacimiento, _contacto);
     if(Objects.isNull(_mascota)
        || Objects.isNull(_fecha)){
-      //TODO
+      throw new FaltanDatosException(
+              "Se debe proveer mascota y fecha"
+      );
     }
     this.mascota = _mascota;
     this.fecha = _fecha;
+
+    RepositorioDeRescates repositorio = RepositorioDeRescates.getInstance();
+    repositorio.agregarRescate(this);
   }
 
   /**
@@ -55,4 +60,10 @@ public class Rescatista extends Persona {
   public MascotaPerdida getMascota() {
     return this.mascota;
   }
+
+  public void agregarAlRepositorio() {
+    RepositorioDeRescates a = RepositorioDeRescates.getInstance();
+    a.agregarRescate(this);
+  }
+
 }

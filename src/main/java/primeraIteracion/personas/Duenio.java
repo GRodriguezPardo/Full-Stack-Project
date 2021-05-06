@@ -28,11 +28,12 @@ public class Duenio extends Persona {
                  List<Contacto> _contacto,
                  List<Mascota> _mascotas) {
     super(_nombreYApellido, _fechaNacimiento, _contacto);
-    if (Objects.isNull(_mascotas)) {
-      //TODO
-    }
-    if (_mascotas.isEmpty()) {
-      //TODO
+
+    
+    if (Objects.isNull(_mascotas) || _mascotas.isEmpty()) {
+      throw new FaltanDatosException(
+              "Se debe proveer al menos una mascota"
+      );
     }
     Collections.copy(mascotas, _mascotas);
   }
@@ -44,5 +45,10 @@ public class Duenio extends Persona {
    */
   public void agregarMascota(Mascota mascota) {
     this.mascotas.add(mascota);
+  }
+
+  public void generarUsuario(String usuario, String clave) {
+    RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
+    repositorio.agregarUsuario(usuario, clave);
   }
 }

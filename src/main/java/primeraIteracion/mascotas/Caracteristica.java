@@ -30,7 +30,7 @@ public class Caracteristica {
    */
   public Caracteristica clone() {
     HashMap<String,Parametro> copiaParametros = new HashMap<>();
-    parametros.forEach((nombre, parametero) -> copiaParametros.put(nombre,parametero.clone()));
+    parametros.forEach((nombre, parametro) -> copiaParametros.put(nombre,parametro.clone()));
     return new Caracteristica(copiaParametros);
   }
 
