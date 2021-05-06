@@ -114,7 +114,9 @@ public class MascotaBuilder {
    */
   public void finalizarNuevaCaracteristica() {
     if(Objects.isNull(this.caracteristicaEnCreacion)){
-      //TODO
+      throw new FaltanDatosException(
+              "Faltan caracteristicas"
+      );
     }
     this.caracteristicas
         .put(this.nombreCaracteristicaEnCreacion, this.caracteristicaEnCreacion);
