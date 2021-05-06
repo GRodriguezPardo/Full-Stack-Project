@@ -1,7 +1,11 @@
 package primeraIteracion.mascotas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
+
+import javafx.scene.image.Image;
 import primeraIteracion.exceptions.FaltanDatosException;
 
 /**
@@ -14,7 +18,7 @@ public class Mascota {
   private Short edad;
   private Sexo sexo;
   private String descripcion;
-  //private List<Foto> fotos;
+  private List<Image> fotos;
   private HashMap<String,Caracteristica> caracteristicas;
 
   /**
@@ -36,6 +40,7 @@ public class Mascota {
                  Short _edad,
                  Sexo _sexo,
                  String _descripcion,
+                 List<Image> _fotos,
                  HashMap<String,Caracteristica> _caracteristicas) {
     if(Objects.isNull(_nombre)
        || Objects.isNull(_edad)
@@ -51,6 +56,7 @@ public class Mascota {
     this.edad = _edad;
     this.sexo = _sexo;
     this.descripcion = _descripcion;
+    this.fotos = new ArrayList<>(_fotos);
     this.caracteristicas = new HashMap<>(_caracteristicas);
   }
 }

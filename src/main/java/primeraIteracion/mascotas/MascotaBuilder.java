@@ -1,7 +1,11 @@
 package primeraIteracion.mascotas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
+
+import javafx.scene.image.Image;
 import primeraIteracion.exceptions.FaltanDatosException;
 
 /**
@@ -14,7 +18,7 @@ public class MascotaBuilder {
   private Short edad;
   private Sexo sexo;
   private String descripcion;
-  //private List<Foto> fotos;
+  private List<Image> fotos = new ArrayList<>();
   private HashMap<String, Caracteristica> caracteristicas = new HashMap<>();
   private Caracteristica caracteristicaEnCreacion;
   private String nombreCaracteristicaEnCreacion;
@@ -81,6 +85,15 @@ public class MascotaBuilder {
   }
 
   /**
+   * Agrega una imagen a la lista de fotos de la mascota obtenida del url dado.
+   *
+   * @param url es el url de la foto.
+   */
+  public void agregarImagen(String url){
+    fotos.add(new Image(url));
+  }
+
+  /**
    * Empieza el proceso de agregado de una caracteristica obteniendo una plantilla
    * de la misma del repositorio de PosiblesCaracteristicas, y guardandola en un
    * atributo local.
@@ -125,20 +138,11 @@ public class MascotaBuilder {
   }
 
   /**
-   * Finaliza la creacion de la mascota luego de chequear que tenga los atributos
-   * minimos instanciados.
+   * Finaliza la creacion de la mascota.
    *
    * @return retorna la mascota creada.
    */
   public Mascota finalizarMascota() {
-     if(Objects.isNull(this.nombre)
-       || Objects.isNull(this.edad)
-       || Objects.isNull(this.sexo)
-       || Objects.isNull(this.descripcion)){
-      throw new FaltanDatosException(
-          "Se debe proveer un nombre, una edad aproximada, el sexo, y una descripcion"
-      );
-    }
     return new Mascota(
          this.especie,
          this.nombre,
@@ -146,6 +150,7 @@ public class MascotaBuilder {
          this.edad,
          this.sexo,
          this.descripcion,
+         this.fotos,
          this.caracteristicas);
   }
 }
