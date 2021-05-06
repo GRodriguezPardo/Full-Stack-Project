@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.mascotas.Mascota;
 import primeraIteracion.mascotas.MascotaPerdida;
 

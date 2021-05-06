@@ -32,10 +32,14 @@ public class Duenio extends Persona {
     super(_nombreYApellido, _fechaNacimiento, _contacto);
 
     
-    if (Objects.isNull(_mascotas) || _mascotas.isEmpty()) {
+    if (Objects.isNull(_mascotas) ) {
       throw new FaltanDatosException(
               "Se debe proveer al menos una mascota"
       );
+      if (_mascotas.isEmpty()) {
+        throw new FaltanDatosException(
+                "Se debe proveer al menos una mascota"
+        );
     }
     Collections.copy(mascotas, _mascotas);
   }

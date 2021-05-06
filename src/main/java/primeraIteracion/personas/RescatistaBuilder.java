@@ -47,12 +47,6 @@ public class RescatistaBuilder extends PersonaBuilder {
   @Override
   public Rescatista creacionEspecifica() {
 
-    /**sacamos esto? El chequeo ya se hace en Rescatista*/
-    if(Objects.isNull(this.mascota)
-       || Objects.isNull(this.fecha)){
-      //TODO
-    }
-
     return new Rescatista(
         this.nombreYApellido,
         this.fechaNacimiento,
