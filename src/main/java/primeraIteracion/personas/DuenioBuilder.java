@@ -30,7 +30,6 @@ public class DuenioBuilder extends PersonaBuilder {
 
   /**
    * Definicion del metodo abstracto declarado en su clase padre.
-   * Hace los checkeos especificos para la creacion de la clase.
    *
    * @return Retorna el duenio creado con todos los parametros que se definieron.
    */
