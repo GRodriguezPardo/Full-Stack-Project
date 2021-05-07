@@ -38,14 +38,24 @@ public class PrimeraIteracionTest {
   ValidacionesDeSeguridad validaciones = new ValidacionesDeSeguridad();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @Test
+  public void unaMascotaVaciaFalla() {
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null,null,null,null, null, null, null, null));
+  }
+
+  @Test
   public void puedoCrearUnaMascotaSinProblema() {
     Assertions.assertNotNull(this.mascota());
   }
 
   @Test
-  public void elNombreDeUnaMascotaSeAsignaCorrectamente(){
+  public void losDatosDeUnaMascotaSeAsignanCorrectamente(){
     Mascota mascota = this.mascota();
     Assertions.assertEquals("Sergio Ramos",mascota.getNombre());
+    Assertions.assertEquals("Noventa y ramos",mascota.getApodo());
+    Assertions.assertEquals(Especie.PERRO,mascota.getEspecie());
+    Assertions.assertEquals("Un jugador de futbol del real madrid",mascota.getDescripcion());
+    Assertions.assertEquals((short) 35,mascota.getEdad());
+    Assertions.assertEquals(Sexo.MACHO,mascota.getSexo());
   }
 
   @Test
@@ -68,6 +78,12 @@ public class PrimeraIteracionTest {
   public void laDescripcionDeUnaMascotaPerdidaSeAsignaCorrectamente() {
     MascotaPerdida mascotaPerdida = this.mascotaPerdida();
     Assertions.assertEquals("Estaba intentando marcar a Messi",mascotaPerdida.getDescripcionEstado());
+  }
+
+  @Test
+  public void finalizarCarateristicaVaciaDaError() {
+    MascotaBuilder mascotaBuilder = new MascotaBuilder();
+    Assertions.assertThrows(FaltanDatosException.class, () -> mascotaBuilder.finalizarNuevaCaracteristica());
   }
 
   @Test
@@ -106,6 +122,12 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void cambioClaveCorrectamente() throws IOException {
+    RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa", "aguanteLaBolgnesa");
+    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose","aguanteLaBolgnesa"));
+  }
+
+  @Test
   public void rebotarInicioDeSesionVacio() {
     Assertions.assertFalse(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose",null));
   }
@@ -115,6 +137,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.rellenarParametroCaracteristica("Red", red);
     mascotaBuilder.rellenarParametroCaracteristica("Green", green);
     mascotaBuilder.rellenarParametroCaracteristica("Blue", blue);
+    mascotaBuilder.finalizarNuevaCaracteristica();
   }
 
   public void settearCastrado(MascotaBuilder mascotaBuilder, Boolean estado) {
@@ -125,10 +148,12 @@ public class PrimeraIteracionTest {
   public Mascota mascota() {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
     mascotaBuilder.setNombre("Sergio Ramos");
+    mascotaBuilder.setApodo("Noventa y ramos");
     mascotaBuilder.setEspecie(Especie.PERRO);
     mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
+    mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder,1000,1000,1000);
     return mascotaBuilder.finalizarMascota();
   }

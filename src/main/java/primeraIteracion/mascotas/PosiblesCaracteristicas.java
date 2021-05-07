@@ -1,6 +1,9 @@
 package primeraIteracion.mascotas;
 
+import primeraIteracion.exceptions.FaltanDatosException;
+
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Clase singleton que guarda todas las posible caracteristicas que puede
@@ -35,6 +38,9 @@ public class PosiblesCaracteristicas {
    * @param nuevaCaracteristica nueva psoible Caracteristica.
    */
   public void agregarPosibleCaracteristica(String nombre, Caracteristica nuevaCaracteristica) {
+    if(Objects.isNull(nuevaCaracteristica)) {
+      throw new FaltanDatosException("No ha aportado caracteristica");
+    }
     this.caracteristicas.put(nombre, nuevaCaracteristica);
   }
 
