@@ -41,7 +41,7 @@ public class RepositorioDeUsuarios {
      * Permite agregar un Usuario y clave a la lista del singleton
      */
     public void agregarUsuario(String usuario, Perfil perfil) throws IOException {
-        if (Objects.isNull(usuario) || Objects.isNull(perfil)) {
+        if (Objects.isNull(usuario) || Objects.isNull(perfil) || Objects.isNull(perfil.getClave())) {
             throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
         }
         if (usuarioYClave.containsKey(usuario)) {

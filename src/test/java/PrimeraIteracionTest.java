@@ -91,7 +91,7 @@ public class PrimeraIteracionTest {
     Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
   }
 
-  @Test void rebotarClaveVacia() {
+  @Test void rebotarPerfilVacio() {
     Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",null));
   }
 
