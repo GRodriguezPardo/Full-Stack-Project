@@ -47,7 +47,7 @@ public class Duenio extends Persona {
 
     public void generarUsuario (String usuario, String clave) throws IOException {
       RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
-      repositorio.agregarUsuario(usuario, clave);
+      repositorio.agregarUsuario(usuario, new Usuario(clave, this));
     }
   }
 

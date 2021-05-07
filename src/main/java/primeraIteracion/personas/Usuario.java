@@ -1,9 +1,9 @@
 package primeraIteracion.personas;
 
-public class usuario extends Perfil {
+public class Usuario extends Perfil {
   private final Duenio duenio;
 
-  public usuario(String _clave, Duenio _duenio) {
+  public Usuario(String _clave, Duenio _duenio) {
     super(_clave);
     this.duenio = _duenio;
   }

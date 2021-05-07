@@ -1,7 +1,8 @@
 package primeraIteracion.personas;
 
 public abstract class Perfil {
-  String clave;
+  private String clave;
+
   public Perfil(String _clave) {
     this.clave = _clave;
   }
@@ -9,7 +10,7 @@ public abstract class Perfil {
     return clave;
   }
 
-  public void setContrasenia(String _clave) {
+  public void setClave(String _clave) {
     this.clave = _clave;
   }
 }

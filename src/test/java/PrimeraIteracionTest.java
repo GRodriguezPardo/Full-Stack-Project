@@ -60,13 +60,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void puedoCrearUnDuenioSinProblemas() {
-    DuenioBuilder duenioBuilder = new DuenioBuilder();
-    duenioBuilder.setNombreYApellido("Lionel Andres Messi");
-    duenioBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
-    duenioBuilder.agregarContacto(metodoContacto);
-    duenioBuilder.agregarMascota(this.mascota());
-    Assertions.assertNotNull(duenioBuilder.crearPersona());
+    Assertions.assertNotNull(this.duenio());
   }
 
   @Test
@@ -108,7 +102,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaDebil2() throws IOException {
-    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose","blitz")); //Esa es la ultima del txt
+    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Usuario("blitz",this.duenio()))); //Esa es la ultima del txt
   }
 
   @Test
@@ -118,7 +112,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void noRebotarContraseniaFuerte2() throws IOException {
-    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose","viVaLaPaTrIa")); //Esa es la ultima del txt
+    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa"))); //Esa es la ultima del txt
   }
 
   @Test
@@ -184,6 +178,16 @@ public class PrimeraIteracionTest {
     MascotaPerdida unaMascota = this.mascotaPerdida();
     rescatistaBuilder.setMascota(unaMascota);
     return rescatistaBuilder.crearPersona();
+  }
+
+  public Duenio duenio() {
+    DuenioBuilder duenioBuilder = new DuenioBuilder();
+    duenioBuilder.setNombreYApellido("Lionel Andres Messi");
+    duenioBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
+    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
+    duenioBuilder.agregarContacto(metodoContacto);
+    duenioBuilder.agregarMascota(this.mascota());
+    return duenioBuilder.crearPersona();
   }
 
 

@@ -3,15 +3,12 @@ package primeraIteracion.personas;
 import primeraIteracion.exceptions.EsContraseniaDebilException;
 import primeraIteracion.exceptions.FaltanDatosException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +18,7 @@ import java.util.stream.Stream;
  */
 public class RepositorioDeUsuarios {
     private final static RepositorioDeUsuarios INSTANCE = new RepositorioDeUsuarios();
-    private HashMap<String, String> usuarioYClave = new HashMap<>();
+    private HashMap<String, Perfil> usuarioYClave = new HashMap<>();
 
     /**
      * Contructor privado al ser singleton.
@@ -40,49 +37,49 @@ public class RepositorioDeUsuarios {
 
 
     /**
-     * Permite agregar un usuario y clave a la lista del singleton
+     * Permite agregar un Usuario y clave a la lista del singleton
      */
-    public void agregarUsuario(String usuario, String clave) throws IOException {
-        if (Objects.isNull(usuario) || Objects.isNull(clave)) {
-            throw new FaltanDatosException("Se debe proveer un usuario y una contraseña");
+    public void agregarUsuario(String usuario, Perfil perfil) throws IOException {
+        if (Objects.isNull(usuario) || Objects.isNull(perfil)) {
+            throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
         }
         if (usuarioYClave.containsKey(usuario)) {
             //TODO.
-            // throw new excpetion usuarioExistenteException("Nombre de usuario tomado, elegir otro");
+            // throw new excpetion usuarioExistenteException("Nombre de Usuario tomado, elegir otro");
         }
-        this.comprobarSeguridadClave(clave);
-        this.usuarioYClave.put(usuario, clave);
+        this.comprobarSeguridadClave(perfil.getClave());
+        this.usuarioYClave.put(usuario, perfil);
     }
 
     /**
-     * Permite a comprobar las credenciales de un usuario.
+     * Permite a comprobar las credenciales de un Usuario.
      *
-     * @param usuario es el nombre de usuario.
-     * @param clave   es la contraseña del usuario.
+     * @param usuario es el nombre de Usuario.
+     * @param clave   es la contraseña del Usuario.
      * @return es el resultado de la comprobacion.
      */
     public Boolean iniciarSesion(String usuario, String clave) {
         if(Objects.isNull(clave)){
             return false;
         }
-        return this.usuarioYClave.get(usuario).equals(clave);
+        return this.usuarioYClave.get(usuario).getClave().equals(clave);
     }
 
     /**
-     * Permite a un usuario cambiar su contraseña.
+     * Permite a un Usuario cambiar su contraseña.
      *
-     * @param usuario    es el usuario cuya contraseña cambiara.
-     * @param claveVieja es la anterior clave del usuario, necesaria para
+     * @param usuario    es el Usuario cuya contraseña cambiara.
+     * @param claveVieja es la anterior clave del Usuario, necesaria para
      *                   comprobar sus credenciales.
      * @param claveNueva es la nueva clave.
      */
     public void cambiarClave(String usuario, String claveVieja, String claveNueva) throws IOException {
         if (this.iniciarSesion(usuario, claveVieja)) {
                 this.comprobarSeguridadClave(claveNueva);
-                this.usuarioYClave.replace(usuario, claveNueva);
+                this.usuarioYClave.get(usuario).setClave(claveNueva);
         } else {
             //Todo.
-            // Throw new exception datosErroneosException("usuario o contraseña erroneos")
+            // Throw new exception datosErroneosException("Usuario o contraseña erroneos")
         }
     }
 
