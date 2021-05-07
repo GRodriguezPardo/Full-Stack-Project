@@ -60,4 +60,36 @@ public class Mascota {
     this.fotos = new ArrayList<>(_fotos);
     this.caracteristicas = new HashMap<>(_caracteristicas);
   }
+
+  public Especie getEspecie() {
+    return especie;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public String getApodo() {
+    return apodo;
+  }
+
+  public Short getEdad() {
+    return edad;
+  }
+
+  public Sexo getSexo() {
+    return sexo;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
+  }
+
+  public List<Image> getFotos() {
+    return fotos;
+  }
+
+  public HashMap<String, Caracteristica> getCaracteristicas() {
+    return caracteristicas;
+  }
 }

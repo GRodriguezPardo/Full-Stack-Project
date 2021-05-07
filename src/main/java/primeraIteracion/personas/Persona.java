@@ -50,4 +50,12 @@ public abstract class Persona {
   public void agregarContacto(Contacto contacto) {
     this.contactos.add(contacto);
   }
+
+  public String getNombreYApellido() {
+    return this.nombreYApellido;
+  }
+
+  public LocalDate getFechaNacimiento() {
+    return this.fechaNacimiento;
+  }
 }

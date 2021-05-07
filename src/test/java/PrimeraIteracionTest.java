@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.personas.*;
 import primeraIteracion.exceptions.EsContraseniaDebilException;
 import primeraIteracion.seguridad.ValidacionesDeSeguridad;
@@ -42,6 +43,12 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void elNombreDeUnaMascotaSeAsignaCorrectamente(){
+    Mascota mascota = this.mascota();
+    Assertions.assertEquals("Sergio Ramos",mascota.getNombre());
+  }
+
+  @Test
   public void puedoCrearUnDuenioSinProblemas() {
     DuenioBuilder duenioBuilder = new DuenioBuilder();
     duenioBuilder.setNombreYApellido("Lionel Andres Messi");
@@ -58,6 +65,12 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void laDescripcionDeUnaMascotaPerdidaSeAsignaCorrectamente() {
+    MascotaPerdida mascotaPerdida = this.mascotaPerdida();
+    Assertions.assertEquals("Estaba intentando marcar a Messi",mascotaPerdida.getDescripcionEstado());
+  }
+
+  @Test
   public void puedoCrearUnRescatistaSinProblema() {
     Assertions.assertNotNull(this.rescatista());
   }
@@ -65,8 +78,37 @@ public class PrimeraIteracionTest {
   @Test
   public void puedoAgregarUnRescateAlRepositorioDeRescatesYVerloEnLosUltimos10Dias() {
     RepositorioDeRescates.getInstance().agregarRescate(this.rescatista());
+    Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
   }
 
+  @Test void rebotarClaveVacia() {
+    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",null));
+  }
+
+  @Test
+  public void rebotarContraseniaDebil() throws IOException {
+    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
+  }
+
+  @Test
+  public void rebotarContraseniaDebil2() throws IOException {
+    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose","blitz")); //Esa es la ultima del txt
+  }
+
+  @Test
+  public void noRebotarContraseniaFuerte() throws IOException {
+    Assertions.assertDoesNotThrow(() ->validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
+  }
+
+  @Test
+  public void noRebotarContraseniaFuerte2() throws IOException {
+    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose","viVaLaPaTrIa")); //Esa es la ultima del txt
+  }
+
+  @Test
+  public void rebotarInicioDeSesionVacio() {
+    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose",null));
+  }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, int red, int green, int blue) {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal");
@@ -86,7 +128,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.setEspecie(Especie.PERRO);
     mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
     mascotaBuilder.setEdad((short) 35);
-    mascotaBuilder.setSexo(Sexo.MASCULINO);
+    mascotaBuilder.setSexo(Sexo.MACHO);
     this.settearColorPrincipal(mascotaBuilder,1000,1000,1000);
     return mascotaBuilder.finalizarMascota();
   }
@@ -120,14 +162,5 @@ public class PrimeraIteracionTest {
   }
 
 
-  @Test
-  public void rebotarContraseniaDebil() throws IOException {
-    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
-  }
-
-  @Test
-  public void noRebotarContraseniaFuerte() throws IOException {
-    Assertions.assertDoesNotThrow(() ->validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
-  }
 
 }

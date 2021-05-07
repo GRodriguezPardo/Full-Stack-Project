@@ -39,4 +39,20 @@ public class MascotaPerdida {
     this.posicionX = posicionX;
     this.posicionY = posicionY;
   }
+
+  public String getDescripcionEstado() {
+    return descripcionEstado;
+  }
+
+  public List<Image> getFotos() {
+    return fotos;
+  }
+
+  public Integer getPosicionX() {
+    return posicionX;
+  }
+
+  public Integer getPosicionY() {
+    return posicionY;
+  }
 }

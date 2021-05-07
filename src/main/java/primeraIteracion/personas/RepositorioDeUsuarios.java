@@ -1,12 +1,19 @@
 package primeraIteracion.personas;
 
+import primeraIteracion.exceptions.EsContraseniaDebilException;
 import primeraIteracion.exceptions.FaltanDatosException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -35,7 +42,7 @@ public class RepositorioDeUsuarios {
     /**
      * Permite agregar un usuario y clave a la lista del singleton
      */
-    public void agregarUsuario(String usuario, String clave) {
+    public void agregarUsuario(String usuario, String clave) throws IOException {
         if (Objects.isNull(usuario) || Objects.isNull(clave)) {
             throw new FaltanDatosException("Se debe proveer un usuario y una contraseña");
         }
@@ -43,7 +50,7 @@ public class RepositorioDeUsuarios {
             //TODO.
             // throw new excpetion usuarioExistenteException("Nombre de usuario tomado, elegir otro");
         }
-        if(this.comprobarSeguridadClave(clave))
+        this.comprobarSeguridadClave(clave);
         this.usuarioYClave.put(usuario, clave);
     }
 
@@ -69,18 +76,17 @@ public class RepositorioDeUsuarios {
      *                   comprobar sus credenciales.
      * @param claveNueva es la nueva clave.
      */
-    public void cambiarClave(String usuario, String claveVieja, String claveNueva) {
+    public void cambiarClave(String usuario, String claveVieja, String claveNueva) throws IOException {
         if (this.iniciarSesion(usuario, claveVieja)) {
-                if(this.comprobarSeguridadClave(claveNueva)){
+                this.comprobarSeguridadClave(claveNueva);
                 this.usuarioYClave.replace(usuario, claveNueva);
-            }
         } else {
             //Todo.
             // Throw new exception datosErroneosException("usuario o contraseña erroneos")
         }
     }
 
-    /**
+    /*
      * Comprueba que la clave no este en el top 10.000 claves mas comunes.
      * Dichas claves se encuentran en un .txt en
      * /otherFiles/10-million-password-list-top-10000.txt
@@ -89,6 +95,7 @@ public class RepositorioDeUsuarios {
      * @param clave es la clave cuya seguridad se validara.
      * @return retorna si la clave es segura, es decir, si no la encontro en el archivo.
      */
+    /*
     public Boolean comprobarSeguridadClave(String clave) {
         File peoresClaves = new File("../../../../../otherFiles/10-million-password-list-top-10000.txt");
         Scanner scanner = null;
@@ -106,5 +113,13 @@ public class RepositorioDeUsuarios {
         }
         return true;
     }
+     */
+    public void comprobarSeguridadClave(String contrasenia) throws IOException {
+    Stream<String> top = Files.lines(Paths.get("recursos\\xato-net-10-million-passwords-10000.txt"));
+    List<Boolean> temp= top.map(p -> p.contentEquals(contrasenia)).collect(Collectors.toList()) ;
+    if(temp.contains(true)) {
+     throw new EsContraseniaDebilException("Es una contrasenia debil , piense otra");
+    }
+  }
 
 }

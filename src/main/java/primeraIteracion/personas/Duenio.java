@@ -1,5 +1,6 @@
 package primeraIteracion.personas;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class Duenio extends Persona {
       this.mascotas.add(mascota);
     }
 
-    public void generarUsuario (String usuario, String clave){
+    public void generarUsuario (String usuario, String clave) throws IOException {
       RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
       repositorio.agregarUsuario(usuario, clave);
     }
