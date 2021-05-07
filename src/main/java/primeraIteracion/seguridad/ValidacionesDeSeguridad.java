@@ -6,6 +6,8 @@ singleton en ella.No importa que se pueden crear varias instancias.
 */
 
 
+import primeraIteracion.exceptions.EsContraseniaDebilException;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,11 +24,12 @@ public class ValidacionesDeSeguridad {
   /*El txt de las contrasenias es bajado de aca https://github.com/danielmiessler/SecLists/tree/master/Passwords, esta linkeado en el
 * pdf de owasp.Hay dos archivos que podian ser , por el nombre.El de darkweb me parecio que no y baje el otro.*/
 
-  public boolean verificarQueEsContraseniaFuerte(String contrasenia) throws IOException {
+  public void verificarQueEsContraseniaFuerte(String contrasenia) throws IOException {
     Stream<String> top = Files.lines(Paths.get("recursos\\xato-net-10-million-passwords-10000.txt"));
     List<Boolean> temp= top.map(p -> p.contentEquals(contrasenia)).collect(Collectors.toList()) ;
-    if(temp.contains(true)){return false;}
-    else{return  true;}
+    if(temp.contains(true)) {
+     throw new EsContraseniaDebilException("Es una contrasenia debil , piense otra");
+    }
   }
 
 
