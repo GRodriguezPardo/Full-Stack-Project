@@ -1,8 +1,6 @@
 package primeraIteracion.personas;
 
-import primeraIteracion.exceptions.DatosErroneosException;
-import primeraIteracion.exceptions.EsContraseniaDebilException;
-import primeraIteracion.exceptions.FaltanDatosException;
+import primeraIteracion.exceptions.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -117,5 +115,19 @@ public class RepositorioDeUsuarios {
      throw new EsContraseniaDebilException("Es una contrasenia debil , piense otra");
     }
   }
+
+
+    public void verificarQueEsContraseniaLarga(String contrasenia){
+        if(contrasenia.length() < 8){
+            throw  new EsContraseniaCortaException("La contraseña debe tener al menos 8 caracteres");
+        }
+    }
+    /*Alfanumerica es que contiene numeros y letras (pudiendo tener ademas simbolos especiales) */
+    public void verificarQueEsContraseniaAlfanumerica(String contrasenia){
+        boolean tieneNumeros= contrasenia.matches(".*[0-9].*");
+        boolean tieneLetras= contrasenia.matches(".*[a-z].*")  || contrasenia.matches(".*[A-Z].*");
+
+        if(tieneLetras == false || tieneNumeros == false){ throw new NoEsContraseniaAlfanumericaException("La contrasenia debe ser alfanumerica");}
+    }
 
 }
