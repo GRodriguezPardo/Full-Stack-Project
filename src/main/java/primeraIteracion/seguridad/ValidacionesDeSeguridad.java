@@ -28,14 +28,21 @@ public class ValidacionesDeSeguridad {
     Stream<String> top = Files.lines(Paths.get("recursos\\xato-net-10-million-passwords-10000.txt"));
     List<Boolean> temp= top.map(p -> p.contentEquals(contrasenia)).collect(Collectors.toList()) ;
     if(temp.contains(true)) {
-     throw new EsContraseniaDebilException("Es una contrasenia debil , piense otra");
+     throw new EsContraseniaDebilException("Es una contraseña debil , piense otra");
     }
   }
 
   public void verificarQueEsContraseniaLarga(String contrasenia){
     if(contrasenia.length() < 8){
-      throw  new EsContraseniaCortaException("La contrasenia debe tener al menos 8 caracteres");
+      throw  new EsContraseniaCortaException("La contraseña debe tener al menos 8 caracteres");
     }
+  }
+  /*Alfanumerica es que contiene numeros y letras (pudiendo tener ademas simbolos especiales) */
+  public void verificarQueEsContraseniaAlfanumerica(String contrasenia){
+   boolean tieneNumeros= contrasenia.matches(".*[0-9].*");
+   boolean tieneLetras= contrasenia.matches(".*[a-z].*")  || contrasenia.matches(".*[A-Z].*");
+
+   if(tieneLetras == false || tieneNumeros == false){ throw new NoEsContraseniaAlfanumericaException("La contrasenia debe ser alfanumerica");}
   }
 
 }

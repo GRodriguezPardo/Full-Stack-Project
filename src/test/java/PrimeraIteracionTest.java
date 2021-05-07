@@ -126,6 +126,25 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void rebotarContraseniaNoAlfanumerica1() {
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("soloLetras"));
+  }
+
+  @Test
+  public void rebotarContraseniaNoAlfanumerica2() {
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("soloNumeros"));
+  }
+  @Test
+  public void rebotarContraseniaNoAlfanumerica3() {
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("!$%&/()=?¿+*-_:;{}[]"));
+  }
+
+  @Test
+  public void noRebotarContraseniaAlfanumerica() {
+    Assertions.assertDoesNotThrow(() ->  validaciones.verificarQueEsContraseniaAlfanumerica("letras_y_numeros(148)"));
+  }
+
+  @Test
   public void cambioClaveCorrectamente() throws IOException {
     RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa", "aguanteLaBolgnesa");
     Assertions.assertTrue(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose","aguanteLaBolgnesa"));
