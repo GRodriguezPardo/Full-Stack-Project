@@ -3,12 +3,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import primeraIteracion.seguridad.ValidacionesDeSeguridad;
+
 import primeraIteracion.mascotas.*;
 import primeraIteracion.personas.Contacto;
 import primeraIteracion.personas.DuenioBuilder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class PrimeraIteracionTest {
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",estaCastrado);
 
   }
+
+  ValidacionesDeSeguridad validaciones = new ValidacionesDeSeguridad();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @Test
   public void puedoCrearUnaMascotaSinProblema() {
@@ -90,4 +95,16 @@ public class PrimeraIteracionTest {
     MascotaPerdida unSergioRamosPerdido = new MascotaPerdida(descripcion, fotos, 12345,54321);
     return unSergioRamosPerdido;
   }
+
+
+  @Test
+  public void rebotarContraseniaDebil() throws IOException {
+    Assertions.assertFalse(validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
+  }
+
+  @Test
+  public void noRebotarContraseniaFuerte() throws IOException {
+    Assertions.assertTrue(validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
+  }
+
 }
