@@ -39,7 +39,7 @@ public abstract class Persona {
     }
     this.nombreYApellido = _nombreYApellido;
     this.fechaNacimiento = _fechaNacimiento;
-    Collections.copy(this.contactos, _contacto);
+    this.contactos.addAll(_contacto);
   }
 
   /**

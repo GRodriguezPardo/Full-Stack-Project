@@ -34,7 +34,7 @@ public class Duenio extends Persona {
             "Se debe proveer al menos una mascota"
         );
       }
-      Collections.copy(mascotas, _mascotas);
+      this.mascotas.addAll(_mascotas);
     }
 
     /**

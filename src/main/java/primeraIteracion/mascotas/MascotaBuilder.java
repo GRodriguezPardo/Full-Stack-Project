@@ -1,12 +1,14 @@
 package primeraIteracion.mascotas;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.scene.image.Image;
 import primeraIteracion.exceptions.FaltanDatosException;
+
+import javax.swing.*;
 
 /**
  * Builder de la clase Mascota.
@@ -90,7 +92,9 @@ public class MascotaBuilder {
    * @param url es el url de la foto.
    */
   public void agregarImagen(String url){
-    fotos.add(new Image(url));
+    ImageIcon _foto = new ImageIcon(url);
+    Image foto = _foto.getImage();
+    fotos.add(foto);
   }
 
   /**

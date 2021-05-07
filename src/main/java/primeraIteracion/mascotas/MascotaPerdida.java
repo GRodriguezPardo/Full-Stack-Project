@@ -1,9 +1,10 @@
 package primeraIteracion.mascotas;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.scene.image.Image;
+
 import primeraIteracion.exceptions.FaltanDatosException;
 
 /**

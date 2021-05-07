@@ -43,6 +43,7 @@ public class RepositorioDeUsuarios {
             //TODO.
             // throw new excpetion usuarioExistenteException("Nombre de usuario tomado, elegir otro");
         }
+        if(this.comprobarSeguridadClave(clave))
         this.usuarioYClave.put(usuario, clave);
     }
 
@@ -54,6 +55,9 @@ public class RepositorioDeUsuarios {
      * @return es el resultado de la comprobacion.
      */
     public Boolean iniciarSesion(String usuario, String clave) {
+        if(Objects.isNull(clave)){
+            return false;
+        }
         return this.usuarioYClave.get(usuario).equals(clave);
     }
 
