@@ -1,5 +1,6 @@
 package primeraIteracion.personas;
 
+import primeraIteracion.exceptions.DatosErroneosException;
 import primeraIteracion.exceptions.EsContraseniaDebilException;
 import primeraIteracion.exceptions.FaltanDatosException;
 
@@ -44,8 +45,7 @@ public class RepositorioDeUsuarios {
             throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
         }
         if (usuarioYClave.containsKey(usuario)) {
-            //TODO.
-            // throw new excpetion usuarioExistenteException("Nombre de Usuario tomado, elegir otro");
+            throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
         }
         this.comprobarSeguridadClave(perfil.getClave());
         this.usuarioYClave.put(usuario, perfil);
@@ -78,8 +78,7 @@ public class RepositorioDeUsuarios {
                 this.comprobarSeguridadClave(claveNueva);
                 this.usuarioYClave.get(usuario).setClave(claveNueva);
         } else {
-            //Todo.
-            // Throw new exception datosErroneosException("Usuario o contraseña erroneos")
+            throw new DatosErroneosException("Usuario o contraseña erroneos");
         }
     }
 

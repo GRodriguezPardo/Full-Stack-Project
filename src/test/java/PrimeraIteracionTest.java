@@ -102,7 +102,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaDebil2() throws IOException {
-    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Usuario("blitz",this.duenio()))); //Esa es la ultima del txt
+    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Maria",new Usuario("blitz",this.duenio()))); //Esa es la ultima del txt
   }
 
   @Test
