@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import primeraIteracion.exceptions.EsContraseniaDebilException;
 import primeraIteracion.seguridad.ValidacionesDeSeguridad;
 
 import primeraIteracion.mascotas.*;
@@ -99,12 +100,12 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaDebil() throws IOException {
-    Assertions.assertFalse(validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
+    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
   }
 
   @Test
   public void noRebotarContraseniaFuerte() throws IOException {
-    Assertions.assertTrue(validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
+    Assertions.assertDoesNotThrow(() ->validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
   }
 
 }
