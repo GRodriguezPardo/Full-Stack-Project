@@ -73,5 +73,5 @@ public abstract class PersonaBuilder {
    *
    * @return retorna la persona creada.
    */
-  public abstract Persona creacionEspecifica();
+    protected abstract Persona creacionEspecifica();
 }

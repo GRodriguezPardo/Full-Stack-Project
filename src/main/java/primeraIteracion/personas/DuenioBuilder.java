@@ -34,7 +34,7 @@ public class DuenioBuilder extends PersonaBuilder {
    * @return Retorna el duenio creado con todos los parametros que se definieron.
    */
   @Override
-  public Duenio creacionEspecifica() {
+  protected Duenio creacionEspecifica() {
     return new Duenio(
         this.nombreYApellido,
         this.fechaNacimiento,

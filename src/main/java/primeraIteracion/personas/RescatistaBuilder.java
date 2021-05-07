@@ -45,7 +45,7 @@ public class RescatistaBuilder extends PersonaBuilder {
    * @return Retorna el duenio creado con todos los parametros que se definieron.
    */
   @Override
-  public Rescatista creacionEspecifica() {
+  protected Rescatista creacionEspecifica() {
 
     return new Rescatista(
         this.nombreYApellido,
