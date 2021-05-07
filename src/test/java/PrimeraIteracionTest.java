@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 
 import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.personas.*;
-import primeraIteracion.exceptions.EsContraseniaDebilException;
+import primeraIteracion.exceptions.*;
 import primeraIteracion.seguridad.ValidacionesDeSeguridad;
 
 import primeraIteracion.mascotas.*;
@@ -112,7 +112,17 @@ public class PrimeraIteracionTest {
 
   @Test
   public void noRebotarContraseniaFuerte2() throws IOException {
-    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa"))); //Esa es la ultima del txt
+    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa"))); //Esa es una que no esta en el txt
+  }
+
+  @Test
+  public void rebotarContraseniaCorta() {
+    Assertions.assertThrows(EsContraseniaCortaException.class ,() ->  validaciones.verificarQueEsContraseniaLarga("c_corta"));
+  }
+
+  @Test
+  public void noRebotarContraseniaLarga() {
+    Assertions.assertDoesNotThrow(() ->  validaciones.verificarQueEsContraseniaLarga("c_laaaaaaaaaaarga"));
   }
 
   @Test

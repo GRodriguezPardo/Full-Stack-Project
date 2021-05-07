@@ -6,7 +6,7 @@ singleton en ella.No importa que se pueden crear varias instancias.
 */
 
 
-import primeraIteracion.exceptions.EsContraseniaDebilException;
+import primeraIteracion.exceptions.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -32,6 +32,10 @@ public class ValidacionesDeSeguridad {
     }
   }
 
-
+  public void verificarQueEsContraseniaLarga(String contrasenia){
+    if(contrasenia.length() < 8){
+      throw  new EsContraseniaCortaException("La contrasenia debe tener al menos 8 caracteres");
+    }
+  }
 
 }
