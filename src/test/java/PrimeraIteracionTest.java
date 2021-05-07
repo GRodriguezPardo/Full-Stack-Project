@@ -3,12 +3,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import primeraIteracion.personas.*;
 import primeraIteracion.seguridad.ValidacionesDeSeguridad;
 
 import primeraIteracion.mascotas.*;
-import primeraIteracion.personas.Contacto;
-import primeraIteracion.personas.DuenioBuilder;
-import primeraIteracion.personas.RescatistaBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +37,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void puedoCrearUnaMascotaSinProblema() {
-    Assertions.assertNotNull(this.sergioRamos());
+    Assertions.assertNotNull(this.mascota());
   }
 
   @Test
@@ -49,7 +47,7 @@ public class PrimeraIteracionTest {
     duenioBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
     Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
     duenioBuilder.agregarContacto(metodoContacto);
-    duenioBuilder.agregarMascota(this.sergioRamos());
+    duenioBuilder.agregarMascota(this.mascota());
     Assertions.assertNotNull(duenioBuilder.crearPersona());
   }
 
@@ -60,15 +58,12 @@ public class PrimeraIteracionTest {
 
   @Test
   public void puedoCrearUnRescatistaSinProblema() {
-    RescatistaBuilder rescatistaBuilder = new RescatistaBuilder();
-    rescatistaBuilder.setNombreYApellido("Cristiano Ronaldo");
-    rescatistaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
-    Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
-    rescatistaBuilder.agregarContacto(metodoContacto);
-    rescatistaBuilder.setFecha(LocalDate.now());
-    MascotaPerdida unaMascota = this.mascotaPerdida();
-    rescatistaBuilder.setMascota(unaMascota);
-    Assertions.assertNotNull(rescatistaBuilder.crearPersona());
+    Assertions.assertNotNull(this.rescatista());
+  }
+
+  @Test
+  public void puedoAgregarUnRescateAlRepositorioDeRescatesYVerloEnLosUltimos10Dias() {
+    RepositorioDeRescates.getInstance().agregarRescate(this.rescatista());
   }
 
 
@@ -84,7 +79,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.rellenarParametroCaracteristica("Esta castrado", estado);
   }
 
-  public Mascota sergioRamos() {
+  public Mascota mascota() {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
     mascotaBuilder.setNombre("Sergio Ramos");
     mascotaBuilder.setEspecie(Especie.PERRO);
@@ -107,8 +102,20 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    MascotaPerdida unSergioRamosPerdido = new MascotaPerdida(descripcion, fotos, 12345,54321);
-    return unSergioRamosPerdido;
+    MascotaPerdida unaMascotaPerdida = new MascotaPerdida(descripcion, fotos, 12345,54321);
+    return unaMascotaPerdida;
+  }
+
+  public Rescatista rescatista() {
+    RescatistaBuilder rescatistaBuilder = new RescatistaBuilder();
+    rescatistaBuilder.setNombreYApellido("Cristiano Ronaldo");
+    rescatistaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
+    Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
+    rescatistaBuilder.agregarContacto(metodoContacto);
+    rescatistaBuilder.setFecha(LocalDate.now());
+    MascotaPerdida unaMascota = this.mascotaPerdida();
+    rescatistaBuilder.setMascota(unaMascota);
+    return rescatistaBuilder.crearPersona();
   }
 
 

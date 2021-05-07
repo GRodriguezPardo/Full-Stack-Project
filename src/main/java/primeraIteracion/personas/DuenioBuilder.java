@@ -9,7 +9,7 @@ import primeraIteracion.mascotas.Mascota;
  * Hereda de un builder abstracto de la clase persona ya que comparte comportamiento
  * con otros builder de clases que heredan de persona.
  */
-public class DuenioBuilder extends PersonaBuilder {
+public class DuenioBuilder extends PersonaBuilder<Duenio> {
   private List<Mascota> mascotas = new ArrayList<>();
 
   /**

@@ -11,7 +11,7 @@ import java.util.Objects;
  * Builder de la clase persona que aglomera los comportamientos de los builders
  * de clases que heredan de la clase persona.
  */
-public abstract class PersonaBuilder {
+public abstract class PersonaBuilder<T> {
   protected String nombreYApellido;
   protected LocalDate fechaNacimiento;
   protected List<Contacto> contactos = new ArrayList<>();
@@ -56,7 +56,7 @@ public abstract class PersonaBuilder {
    *
    * @return retorna la persona creada.
    */
-  public Persona crearPersona() {
+  public T crearPersona() {
     if(Objects.isNull(this.nombreYApellido)
        || Objects.isNull(this.fechaNacimiento)
        || this.contactos.isEmpty()){
@@ -73,5 +73,5 @@ public abstract class PersonaBuilder {
    *
    * @return retorna la persona creada.
    */
-    protected abstract Persona creacionEspecifica();
+    protected abstract T creacionEspecifica();
 }

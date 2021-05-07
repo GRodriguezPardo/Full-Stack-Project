@@ -9,7 +9,7 @@ import primeraIteracion.mascotas.MascotaPerdida;
  * Hereda de un builder abstracto de la clase persona ya que comparte comportamiento
  * con otros builder de clases que heredan de persona.
  */
-public class RescatistaBuilder extends PersonaBuilder {
+public class RescatistaBuilder extends PersonaBuilder<Rescatista> {
   private LocalDate fecha;
   private MascotaPerdida mascota;
 
@@ -54,5 +54,4 @@ public class RescatistaBuilder extends PersonaBuilder {
         this.fecha,
         this.mascota);
   }
-
 }
