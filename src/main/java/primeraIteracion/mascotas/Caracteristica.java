@@ -28,9 +28,9 @@ public class Caracteristica {
    *
    * @return Devuelve un clon de si mismo.
    */
-  public Caracteristica clone() {
+  public Caracteristica clonar() {
     HashMap<String,Parametro> copiaParametros = new HashMap<>();
-    parametros.forEach((nombre, parametro) -> copiaParametros.put(nombre,parametro.clone()));
+    parametros.forEach((nombre, parametro) -> copiaParametros.put(nombre,parametro.clonar()));
     return new Caracteristica(copiaParametros);
   }
 

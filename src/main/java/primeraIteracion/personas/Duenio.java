@@ -2,9 +2,7 @@ package primeraIteracion.personas;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.mascotas.Mascota;
 

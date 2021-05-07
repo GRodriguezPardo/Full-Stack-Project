@@ -47,6 +47,6 @@ public class PosiblesCaracteristicas {
    */
   public Caracteristica definirCaracteristica(String nombre) {
     Caracteristica caracteristica = caracteristicas.get(nombre);
-    return caracteristica.clone();
+    return caracteristica.clonar();
   }
 }

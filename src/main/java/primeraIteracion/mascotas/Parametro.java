@@ -41,7 +41,7 @@ public class Parametro<E> {
    *
    * @return retorna una nueva instancia de Parametro pero ya tipada.
    */
-  public Parametro clone() {
+  public Parametro clonar() {
     return new Parametro<E>();
   }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import primeraIteracion.mascotas.*;
 import primeraIteracion.personas.Contacto;
 import primeraIteracion.personas.DuenioBuilder;
+import primeraIteracion.personas.RescatistaBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,8 +50,22 @@ public class PrimeraIteracionTest {
 
   @Test
   public void puedoCrearUnaMascotaPerdidaSinProblema() {
-    Assertions.assertNotNull(this.sergioRamosPerdido());
+    Assertions.assertNotNull(this.mascotaPerdida());
   }
+
+  @Test
+  public void puedoCrearUnRescatistaSinProblema() {
+    RescatistaBuilder rescatistaBuilder = new RescatistaBuilder();
+    rescatistaBuilder.setNombreYApellido("Cristiano Ronaldo");
+    rescatistaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
+    Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
+    rescatistaBuilder.agregarContacto(metodoContacto);
+    rescatistaBuilder.setFecha(LocalDate.now());
+    MascotaPerdida unaMascota = this.mascotaPerdida();
+    rescatistaBuilder.setMascota(unaMascota);
+    Assertions.assertNotNull(rescatistaBuilder.crearPersona());
+  }
+
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, int red, int green, int blue) {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal");
@@ -75,7 +90,7 @@ public class PrimeraIteracionTest {
     return mascotaBuilder.finalizarMascota();
   }
 
-  public MascotaPerdida sergioRamosPerdido() {
+  public MascotaPerdida mascotaPerdida() {
     String descripcion = "Estaba intentando marcar a Messi";
     List<Image> fotos = new ArrayList<>();
 
