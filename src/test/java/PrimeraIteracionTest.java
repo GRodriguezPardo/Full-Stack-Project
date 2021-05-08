@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.personas.*;
 import primeraIteracion.exceptions.*;
-import primeraIteracion.seguridad.ValidacionesDeSeguridad;
+import primeraIteracion.seguridad.*;
 
 import primeraIteracion.mascotas.*;
 
@@ -35,7 +35,9 @@ public class PrimeraIteracionTest {
 
   }
 
-  ValidacionesDeSeguridad validaciones = new ValidacionesDeSeguridad();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionAlfamerica = new VerificarQueEsContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionLargo = new VerificarQueEsContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionFuerza = new VerificarQueEsContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @Test
   public void unaMascotaVaciaFalla() {
@@ -97,7 +99,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaDebil() throws IOException {
-    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validaciones.verificarQueEsContraseniaFuerte("blitz")); //Esa es la ultima del txt
+    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validacionFuerza.validar("blitz")); //Esa es la ultima del txt
   }
 
   @Test
@@ -107,7 +109,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void noRebotarContraseniaFuerte() throws IOException {
-    Assertions.assertDoesNotThrow(() ->validaciones.verificarQueEsContraseniaFuerte("2021/05/06_PNW")); //Esa es una que no esta en el txt
+    Assertions.assertDoesNotThrow(() ->validacionFuerza.validar("2021/05/06_PNW")); //Esa es una que no esta en el txt
   }
 
   @Test
@@ -117,31 +119,31 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaCorta() {
-    Assertions.assertThrows(EsContraseniaCortaException.class ,() ->  validaciones.verificarQueEsContraseniaLarga("c_corta"));
+    Assertions.assertThrows(EsContraseniaCortaException.class ,() ->  validacionLargo.validar("c_corta"));
   }
 
   @Test
   public void noRebotarContraseniaLarga() {
-    Assertions.assertDoesNotThrow(() ->  validaciones.verificarQueEsContraseniaLarga("c_laaaaaaaaaaarga"));
+    Assertions.assertDoesNotThrow(() ->  validacionLargo.validar("c_laaaaaaaaaaarga"));
   }
 
   @Test
   public void rebotarContraseniaNoAlfanumerica1() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("soloLetras"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("soloLetras"));
   }
 
   @Test
   public void rebotarContraseniaNoAlfanumerica2() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("soloNumeros"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("soloNumeros"));
   }
   @Test
   public void rebotarContraseniaNoAlfanumerica3() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validaciones.verificarQueEsContraseniaAlfanumerica("!$%&/()=?¿+*-_:;{}[]"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("!$%&/()=?¿+*-_:;{}[]"));
   }
 
   @Test
   public void noRebotarContraseniaAlfanumerica() {
-    Assertions.assertDoesNotThrow(() ->  validaciones.verificarQueEsContraseniaAlfanumerica("letras_y_numeros(148)"));
+    Assertions.assertDoesNotThrow(() ->  validacionAlfamerica.validar("letras_y_numeros(148)"));
   }
 
   @Test
