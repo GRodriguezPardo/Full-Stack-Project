@@ -1,10 +1,15 @@
 package primeraIteracion.personas;
 
 import primeraIteracion.exceptions.*;
+import primeraIteracion.seguridad.Validacion;
+import primeraIteracion.seguridad.VerificarQueEsContraseniaAlfanumerica;
+import primeraIteracion.seguridad.VerificarQueEsContraseniaFuerte;
+import primeraIteracion.seguridad.VerificarQueEsContraseniaLarga;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -18,11 +23,15 @@ import java.util.stream.Stream;
 public class RepositorioDeUsuarios {
     private final static RepositorioDeUsuarios INSTANCE = new RepositorioDeUsuarios();
     private HashMap<String, Perfil> usuarioYClave = new HashMap<>();
+    private List<Validacion> validaciones = new ArrayList<>();
 
     /**
      * Contructor privado al ser singleton.
      */
-    private RepositorioDeUsuarios() {
+    private RepositorioDeUsuarios() {  /*Agrege las validaciones a la lista para que salga un test donde se corren todas*/
+        validaciones.add(new VerificarQueEsContraseniaAlfanumerica());
+        validaciones.add(new VerificarQueEsContraseniaFuerte());
+        validaciones.add(new VerificarQueEsContraseniaLarga());
     }
 
     /**
@@ -107,27 +116,21 @@ public class RepositorioDeUsuarios {
         }
         return true;
     }
-     */
+     */                               /*El try catch esta solo xq el intelliJ no me obligaba a ponerlo , despues habria
+     que encontrar una forma de hacer la validacion sin usar cosas que tengan esa excepcion chequeada , SALVO que esto no moleste*/
     public void comprobarSeguridadClave(String contrasenia) throws IOException {
-    Stream<String> top = Files.lines(Paths.get("recursos\\xato-net-10-million-passwords-10000.txt"));
-    List<Boolean> temp= top.map(p -> p.contentEquals(contrasenia)).collect(Collectors.toList()) ;
-    if(temp.contains(true)) {
-     throw new EsContraseniaDebilException("Es una contrasenia debil , piense otra");
-    }
-  }
-
-
-    public void verificarQueEsContraseniaLarga(String contrasenia){
-        if(contrasenia.length() < 8){
-            throw  new EsContraseniaCortaException("La contraseña debe tener al menos 8 caracteres");
+    this.validaciones.forEach(v -> {
+        try {
+            v.validar(contrasenia);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-    /*Alfanumerica es que contiene numeros y letras (pudiendo tener ademas simbolos especiales) */
-    public void verificarQueEsContraseniaAlfanumerica(String contrasenia){
-        boolean tieneNumeros= contrasenia.matches(".*[0-9].*");
-        boolean tieneLetras= contrasenia.matches(".*[a-z].*")  || contrasenia.matches(".*[A-Z].*");
-
-        if(!tieneLetras || !tieneNumeros){ throw new NoEsContraseniaAlfanumericaException("La contrasenia debe ser alfanumerica");}
-    }
-
+    });
+  }
+  public void agregarValidacion(Validacion validacion){this.validaciones.add(validacion);}
+  public void quitarValidacion(Validacion validacion) {
+      if (this.validaciones.contains(validacion)) {
+          this.validaciones.remove(validacion);
+      }
+  }
 }

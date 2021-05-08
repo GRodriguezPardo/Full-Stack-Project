@@ -103,18 +103,8 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void rebotarContraseniaDebil2() throws IOException {
-    Assertions.assertThrows(EsContraseniaDebilException.class,() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Maria",new Usuario("blitz",this.duenio()))); //Esa es la ultima del txt
-  }
-
-  @Test
   public void noRebotarContraseniaFuerte() throws IOException {
     Assertions.assertDoesNotThrow(() ->validacionFuerza.validar("2021/05/06_PNW")); //Esa es una que no esta en el txt
-  }
-
-  @Test
-  public void noRebotarContraseniaFuerte2() throws IOException {
-    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa"))); //Esa es una que no esta en el txt
   }
 
   @Test
@@ -147,9 +137,13 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void noRebotarContraseniaFuerteLargaYalfanumerica() throws IOException {
+    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa_2021"))); //Esa es una que no esta en el txt
+  }
+  @Test
   public void cambioClaveCorrectamente() throws IOException {
-    RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa", "aguanteLaBolgnesa");
-    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose","aguanteLaBolgnesa"));
+    RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
+    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose","aguanteLaBolgnesa_2021"));
   }
 
   @Test
