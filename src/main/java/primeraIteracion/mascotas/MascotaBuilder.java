@@ -1,10 +1,8 @@
 package primeraIteracion.mascotas;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 import primeraIteracion.exceptions.FaltanDatosException;
 
@@ -21,9 +19,7 @@ public class MascotaBuilder {
   private Sexo sexo;
   private String descripcion;
   private List<Image> fotos = new ArrayList<>();
-  private HashMap<String, Caracteristica> caracteristicas = new HashMap<>();
-  private Caracteristica caracteristicaEnCreacion;
-  private String nombreCaracteristicaEnCreacion;
+  private Map<String, Caracteristica> caracteristicas = new HashMap<>();
 
   /**
    * Constructor vacio propio de un builder sin variables.
@@ -98,47 +94,24 @@ public class MascotaBuilder {
   }
 
   /**
-   * Empieza el proceso de agregado de una caracteristica obteniendo una plantilla
-   * de la misma del repositorio de PosiblesCaracteristicas, y guardandola en un
-   * atributo local.
+   * Agregauna caracteristica al hashMap de caracteristicas buscando la plantilla de
+   * PosiblesCaracteristicas, cuyo valor sera el pasado por parametro.
    *
-   * @param nombre es el nombre que referencia a la caracteristica en el repositorio.
-   */
-  public void agregarNuevaCaracteristica(String nombre) {
-    this.nombreCaracteristicaEnCreacion = nombre;
-    this.caracteristicaEnCreacion =
-        PosiblesCaracteristicas.getInstance()
-        .definirCaracteristica(nombre);
-  }
-
-  /**
-   * Instancia uno de los parametros de la caracteristica en creacion guardada en
-   * el atributo local, identificandolo por su nombre y asignandole un valor.
    *
-   * @param nombre es el nombre del parametro a instanciar.
-   * @param valor es el valor que tomara el parametro.
+   * @param nombre es el nombre de la caracteristica a agregar.
+   * @param valor es el valor que tendra la caracteristica.
    */
-  public void rellenarParametroCaracteristica(String nombre, Object valor) {
-    this.caracteristicaEnCreacion.modificarParametro(nombre,valor);
-  }
-
-  /**
-   * Finaliza la instanciacion de una nueva caracteristica que tendra la mascota,
-   * agregando la caracteristica al hash de caracteristicas luego de haber chequeado
-   * que se hayan instanciado todos sus parametros.
-   * Luego resetea en null a los atributos locales que contenian a la creacion en progreso
-   * de la caracteristica.
-   */
-  public void finalizarNuevaCaracteristica() {
-    if(Objects.isNull(this.caracteristicaEnCreacion)){
+  public void agregarNuevaCaracteristica(String nombre, Object valor) {
+    if(Objects.isNull(nombre) || Objects.isNull(valor)){
       throw new FaltanDatosException(
-              "Faltan caracteristicas"
+              "Debe proveer un nombre y un valor validos"
       );
     }
-    this.caracteristicas
-        .put(this.nombreCaracteristicaEnCreacion, this.caracteristicaEnCreacion);
-    this.nombreCaracteristicaEnCreacion = null;
-    this.caracteristicaEnCreacion = null;
+    Caracteristica caracteristicaEnCreacion =
+        PosiblesCaracteristicas.getInstance()
+        .definirCaracteristica(nombre);
+    caracteristicaEnCreacion.setValor(valor);
+    this.caracteristicas.put(nombre, caracteristicaEnCreacion);
   }
 
   /**

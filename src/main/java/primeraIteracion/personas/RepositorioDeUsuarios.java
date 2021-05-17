@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
  */
 public class RepositorioDeUsuarios {
     private final static RepositorioDeUsuarios INSTANCE = new RepositorioDeUsuarios();
-    private HashMap<String, Perfil> usuarioYClave = new HashMap<>();
+    private final List<Perfil> perfiles = new ArrayList<>();
     private List<Validacion> validaciones = new ArrayList<>();
 
     /**
@@ -47,15 +46,15 @@ public class RepositorioDeUsuarios {
     /**
      * Permite agregar un Usuario y clave a la lista del singleton
      */
-    public void agregarUsuario(String usuario, Perfil perfil) throws IOException {
-        if (Objects.isNull(usuario) || Objects.isNull(perfil) || Objects.isNull(perfil.getClave())) {
+    public void agregarPerfil(Perfil perfil) throws IOException {
+        if (Objects.isNull(perfil) || Objects.isNull(perfil.getUsuario()) || Objects.isNull(perfil.getClave())) {
             throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
         }
-        if (usuarioYClave.containsKey(usuario)) {
+        if (this.perfiles.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(perfil.getUsuario()))) {
             throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
         }
         this.comprobarSeguridadClave(perfil.getClave());
-        this.usuarioYClave.put(usuario, perfil);
+        this.perfiles.add(perfil);
     }
 
     /**
@@ -69,7 +68,10 @@ public class RepositorioDeUsuarios {
         if(Objects.isNull(clave)){
             return false;
         }
-        return this.usuarioYClave.get(usuario).getClave().equals(clave);
+        return this.perfiles.stream()
+            .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
+            .findFirst().get()
+            .getClave().equals(clave);
     }
 
     /**
@@ -83,7 +85,9 @@ public class RepositorioDeUsuarios {
     public void cambiarClave(String usuario, String claveVieja, String claveNueva) throws IOException {
         if (this.iniciarSesion(usuario, claveVieja)) {
                 this.comprobarSeguridadClave(claveNueva);
-                this.usuarioYClave.get(usuario).setClave(claveNueva);
+                this.perfiles.stream()
+            .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
+            .findFirst().get().setClave(claveNueva);
         } else {
             throw new DatosErroneosException("Usuario o contraseña erroneos");
         }

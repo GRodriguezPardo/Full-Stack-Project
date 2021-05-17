@@ -1,10 +1,8 @@
 package primeraIteracion.mascotas;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 
 import primeraIteracion.exceptions.FaltanDatosException;
@@ -20,7 +18,7 @@ public class Mascota {
   private final Sexo sexo;
   private String descripcion;
   private List<Image> fotos;
-  private HashMap<String,Caracteristica> caracteristicas;
+  private Map<String,Caracteristica> caracteristicas;
 
   /**
    * Constructor de una mascota.
@@ -42,7 +40,7 @@ public class Mascota {
                  Sexo _sexo,
                  String _descripcion,
                  List<Image> _fotos,
-                 HashMap<String,Caracteristica> _caracteristicas) {
+                 Map<String,Caracteristica> _caracteristicas) {
     if(Objects.isNull(_nombre)
        || Objects.isNull(_edad)
        || Objects.isNull(_sexo)
@@ -89,7 +87,7 @@ public class Mascota {
     return fotos;
   }
 
-  public HashMap<String, Caracteristica> getCaracteristicas() {
+  public Map<String, Caracteristica> getCaracteristicas() {
     return caracteristicas;
   }
 }

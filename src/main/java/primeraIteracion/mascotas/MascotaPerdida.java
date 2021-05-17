@@ -13,21 +13,21 @@ import primeraIteracion.exceptions.FaltanDatosException;
 public class MascotaPerdida {
   private String descripcionEstado;
   private List<Image> fotos;
-  private Integer posicionX;
-  private Integer posicionY;
+  private Integer latitud;
+  private Integer longitud;
 
   /**
    * Constructor de la clase.
    *
    * @param _fotos son las fotos de la mascota perdida, minimo se necesita una.
    * @param descripcionEstado es una descripcion del estado en que se encontro a la mascota.
-   * @param posicionX es la posicion en X de la localizacion de la mascota encontrada.
-   * @param posicionY es la posicion en Y de la localizacion de la mascota encontrada.
+   * @param latitud es la posicion en X de la localizacion de la mascota encontrada.
+   * @param longitud es la posicion en Y de la localizacion de la mascota encontrada.
    */
   public MascotaPerdida( String descripcionEstado,
                         List<Image> _fotos,
-                        Integer posicionX,
-                        Integer posicionY) {
+                        Integer latitud,
+                        Integer longitud) {
     this.descripcionEstado = descripcionEstado;
     if(Objects.isNull(_fotos)){
       throw new FaltanDatosException("Se necesita proveer minimo una foro");
@@ -36,8 +36,8 @@ public class MascotaPerdida {
       throw new FaltanDatosException("Se necesita proveer minimo una foro");
       }
     this.fotos = _fotos;
-    this.posicionX = posicionX;
-    this.posicionY = posicionY;
+    this.latitud = latitud;
+    this.longitud = longitud;
   }
 
   public String getDescripcionEstado() {
@@ -48,11 +48,11 @@ public class MascotaPerdida {
     return fotos;
   }
 
-  public Integer getPosicionX() {
-    return posicionX;
+  public Integer getLatitud() {
+    return latitud;
   }
 
-  public Integer getPosicionY() {
-    return posicionY;
+  public Integer getLongitud() {
+    return longitud;
   }
 }

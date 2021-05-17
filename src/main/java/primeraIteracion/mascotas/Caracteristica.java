@@ -1,68 +1,47 @@
 package primeraIteracion.mascotas;
 
-import java.util.HashMap;
-import java.util.Objects;
-
 /**
- * Clase que representa una caracteristica.
- * La clase Caracteristica conoce una hashMap que relaciona el nombre de un parametro
- * con un parametro que posee la caracteristica.
+ * Clase template utilizada para definir a una caracteristica.
+ * La clase posee un unico atributo cuyo tipo sera el pasado por parametro.
+ * Actua como una especie de wrapper que permite generar caracteristicas de cualquier tipo.
+ *
+ * @param <T> es el tipo de dato que se le dara al valor contenido en la clase.
  */
-public class Caracteristica {
-  HashMap<String,Parametro> parametros = new HashMap<>();
+public class Caracteristica<T> {
+  private T valor = null;
 
   /**
-   * Constructor de la clase.
-   * Pide un hashMap atributos que posee la Caracteristica.
-   *
-   * @param _parametros es un hashMap que relaciona un nombre de un parametro como
-   *                    key, a dicho parametro.
+   * Es el constructor de la clase.
+   * Como no se exige un valor inicial queda en null.
    */
-  public Caracteristica(HashMap<String,Parametro> _parametros) {
-    this.parametros = new HashMap<String,Parametro>(_parametros);
+  public Caracteristica() {
+
   }
 
   /**
-   * Crea una version clonada del hashMap Parametros y de los objetos que contiene.
-   * Luego crea un clon de si mismo con esa lista clonada.
+   * Modifica el valor asignado al atributo "valor".
    *
-   * @return Devuelve un clon de si mismo.
+   * @param _valor es el valor que se le asignara.
+   */
+  public void setValor(T _valor) {
+    this.valor = _valor;
+  }
+
+  /**
+   * Getter deñ atributo "valor"
+   *
+   * @return retorna el valor del atributo "valor"
+   */
+  public T getValor() {
+    return valor;
+  }
+
+  /**
+   * Implementacion de un metodo de clonacion de clase.
+   *
+   * @return retorna una nueva instancia de Parametro pero ya tipada.
    */
   public Caracteristica clonar() {
-    HashMap<String,Parametro> copiaParametros = new HashMap<>();
-    parametros.forEach((nombre, parametro) -> copiaParametros.put(nombre,parametro.clonar()));
-    return new Caracteristica(copiaParametros);
-  }
-
-  /**
-   * Cuenta la cantidad de Parametros que tiene le Caracteristica.
-   *
-   * @return retorna la cantidad de parametros.
-   */
-  public Integer cantidadDeParametros() {
-    return this.parametros.size();
-  }
-
-  /**
-   * Modifica el valor de un Parametro referenciado por su nombre,
-   * por el valor pasado por parametro.
-   *
-   * @param nombre es el nombre del parametro (su referencia o key).
-   * @param valor es el valor por el cual sera reemplazado.
-   */
-  public void modificarParametro(String nombre, Object valor){
-    this.parametros.get(nombre).setValor(valor);
-  }
-
-  /**
-   * Checkea que todos los valores de todos los Parametros hayan sido instanciados.
-   *
-   * @return retorna el valor de verdad de la comrpobacion.
-   */
-  public Boolean parametrosRellenados() {
-    return this.parametros
-        .values()
-        .stream()
-        .noneMatch(parametro -> Objects.isNull(parametro.getValor()));
+    return new Caracteristica<T>();
   }
 }

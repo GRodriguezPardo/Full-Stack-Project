@@ -1,28 +1,15 @@
 package primeraIteracion.personas;
 
-import primeraIteracion.mascotas.CaracteristicaBuilder;
-import primeraIteracion.mascotas.Parametro;
+import primeraIteracion.mascotas.Caracteristica;
 import primeraIteracion.mascotas.PosiblesCaracteristicas;
 
 public class Admin extends Perfil {
-
-  private CaracteristicaBuilder nuevaCaracteristica;
-
-  public Admin(String _clave) {
-    super(_clave);
+  public Admin(String usuario, String clave) {
+    super(usuario, clave);
   }
 
-  public void nuevaCaracteristica() {
-    this.nuevaCaracteristica = new CaracteristicaBuilder();
-  }
-
-  public void agregarParametro(String nombre, Parametro nuevoParametro) {
-    this.nuevaCaracteristica.agregarParametro(nombre, nuevoParametro);
-  }
-
-  public void finalizarCaracteristica(String nombre) {
+  public void nuevaCaracteristica(String nombre, Caracteristica nuevaCaracteristica) {
     PosiblesCaracteristicas.getInstance()
-        .agregarPosibleCaracteristica(nombre, this.nuevaCaracteristica.finalizarCaracteristica());
-    this.nuevaCaracteristica = null;
+      .agregarPosibleCaracteristica(nombre, nuevaCaracteristica);
   }
 }

@@ -3,6 +3,7 @@ package primeraIteracion.mascotas;
 import primeraIteracion.exceptions.FaltanDatosException;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Objects;
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
 public class PosiblesCaracteristicas {
-  private HashMap<String, Caracteristica> caracteristicas = new HashMap<>();
+  private Map<String, Caracteristica> caracteristicas = new HashMap<>();
   private static final PosiblesCaracteristicas INSTANCE = new PosiblesCaracteristicas();
 
 

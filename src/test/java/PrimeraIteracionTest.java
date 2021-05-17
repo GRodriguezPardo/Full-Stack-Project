@@ -21,18 +21,8 @@ public class PrimeraIteracionTest {
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    CaracteristicaBuilder caracteristicaBuilder1 = new CaracteristicaBuilder();
-    caracteristicaBuilder1.agregarParametro("Red", new Parametro<Integer>());
-    caracteristicaBuilder1.agregarParametro("Green", new Parametro<Integer>());
-    caracteristicaBuilder1.agregarParametro("Blue", new Parametro<Integer>());
-    Caracteristica color = caracteristicaBuilder1.finalizarCaracteristica();
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal",color);
-
-    CaracteristicaBuilder caracteristicaBuilder2 = new CaracteristicaBuilder();
-    caracteristicaBuilder2.agregarParametro("Esta castrado", new Parametro<Boolean>());
-    Caracteristica estaCastrado = caracteristicaBuilder2.finalizarCaracteristica();
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",estaCastrado);
-
+    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal",new Caracteristica<String>());
+    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",new Caracteristica<Boolean>());
   }
 
   Validacion validacionAlfamerica = new VerificarQueEsContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
@@ -77,9 +67,9 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void finalizarCarateristicaVaciaDaError() {
+  public void agregarCarateristicaVaciaDaError() {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
-    Assertions.assertThrows(FaltanDatosException.class, () -> mascotaBuilder.finalizarNuevaCaracteristica());
+    Assertions.assertThrows(FaltanDatosException.class, () -> mascotaBuilder.agregarNuevaCaracteristica(null,null));
   }
 
   @Test
@@ -94,7 +84,7 @@ public class PrimeraIteracionTest {
   }
 
   @Test void rebotarPerfilVacio() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarPerfil(null));
   }
 
   @Test
@@ -138,7 +128,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void noRebotarContraseniaFuerteLargaYalfanumerica() throws IOException {
-    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarUsuario("Jose",new Admin("viVaLaPaTrIa_2021"))); //Esa es una que no esta en el txt
+    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarPerfil(new Admin("Jose", "viVaLaPaTrIa_2021"))); //Esa es una que no esta en el txt
   }
   @Test
   public void cambioClaveCorrectamente() throws IOException {
@@ -151,17 +141,12 @@ public class PrimeraIteracionTest {
     Assertions.assertFalse(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose",null));
   }
 
-  public void settearColorPrincipal(MascotaBuilder mascotaBuilder, int red, int green, int blue) {
-    mascotaBuilder.agregarNuevaCaracteristica("Color principal");
-    mascotaBuilder.rellenarParametroCaracteristica("Red", red);
-    mascotaBuilder.rellenarParametroCaracteristica("Green", green);
-    mascotaBuilder.rellenarParametroCaracteristica("Blue", blue);
-    mascotaBuilder.finalizarNuevaCaracteristica();
+  public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
+    mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
   }
 
   public void settearCastrado(MascotaBuilder mascotaBuilder, Boolean estado) {
-    mascotaBuilder.agregarNuevaCaracteristica("Esta castrado");
-    mascotaBuilder.rellenarParametroCaracteristica("Esta castrado", estado);
+    mascotaBuilder.agregarNuevaCaracteristica("Esta castrado", estado);
   }
 
   public Mascota mascota() {
@@ -173,7 +158,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
-    this.settearColorPrincipal(mascotaBuilder,1000,1000,1000);
+    this.settearColorPrincipal(mascotaBuilder,"Blanco");
     return mascotaBuilder.finalizarMascota();
   }
 
@@ -189,8 +174,7 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    MascotaPerdida unaMascotaPerdida = new MascotaPerdida(descripcion, fotos, 12345,54321);
-    return unaMascotaPerdida;
+    return new MascotaPerdida(descripcion, fotos, 12345,54321);
   }
 
   public Rescatista rescatista() {

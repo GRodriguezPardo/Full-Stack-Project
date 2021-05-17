@@ -3,8 +3,8 @@ package primeraIteracion.personas;
 public class Usuario extends Perfil {
   private final Duenio duenio;
 
-  public Usuario(String _clave, Duenio _duenio) {
-    super(_clave);
+  public Usuario(String usuario, String clave, Duenio _duenio) {
+    super(usuario, clave);
     this.duenio = _duenio;
   }
 
