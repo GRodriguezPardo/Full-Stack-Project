@@ -12,38 +12,37 @@ import primeraIteracion.mascotas.MascotaPerdida;
  * Es una clase que representa una situacion de mascota perdida encontrada.
  * Posee informacion sobre la persona
  */
-public class Rescatista extends Persona {
+public class Rescatista {
+  private Persona persona;
   private MascotaPerdida mascota;
   private LocalDate fecha;
 
   /**
    * Constructor de la clase.
-   * Los primeros 4 parametros son heredeados.
+   * El primer parametro son los datos de la persona encapsulados en el objeto Persona.
    * El ultimo parametro es propio de la clase.
    *
-   * @param _nombreYApellido es el nombre y apellido de la persona.
-   * @param _fechaNacimiento es la fecha de nacimiento de la persona.
-   * @param _contacto es la lista de formas de contacto que tiene la persona.
+   * @param _persona son los datos de la persona.
    * @param _fecha es la fecha en la que reporto la mascota perdida.
    * @param _mascota es la mascota rescatada por el rescatista.
    */
-  public Rescatista (String _nombreYApellido,
-                 LocalDate _fechaNacimiento,
-                 List<Contacto> _contacto,
+  public Rescatista (Persona _persona,
                  LocalDate _fecha,
                  MascotaPerdida _mascota) {
-    super(_nombreYApellido, _fechaNacimiento, _contacto);
+     if(Objects.isNull(_persona)) {
+      throw new FaltanDatosException("Debe proveer datos de la persona");
+    }
+    this.persona = _persona;
     if(Objects.isNull(_mascota)
        || Objects.isNull(_fecha)){
       throw new FaltanDatosException(
               "Se debe proveer mascota y fecha"
       );
     }
-    this.mascota = _mascota;
     this.fecha = _fecha;
+    this.mascota = _mascota;
 
-    RepositorioDeRescates repositorio = RepositorioDeRescates.getInstance();
-    repositorio.agregarRescate(this);
+    RepositorioDeRescates.getInstance().agregarRescate(this);
   }
 
   /**
@@ -62,9 +61,7 @@ public class Rescatista extends Persona {
     return this.mascota;
   }
 
-  public void agregarAlRepositorio() {
-    RepositorioDeRescates a = RepositorioDeRescates.getInstance();
-    a.agregarRescate(this);
+  public Persona getPersona() {
+    return this.persona;
   }
-
 }

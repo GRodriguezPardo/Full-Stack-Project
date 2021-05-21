@@ -178,27 +178,22 @@ public class PrimeraIteracionTest {
   }
 
   public Rescatista rescatista() {
-    RescatistaBuilder rescatistaBuilder = new RescatistaBuilder();
-    rescatistaBuilder.setNombreYApellido("Cristiano Ronaldo");
-    rescatistaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
+    PersonaBuilder personaBuilder = new PersonaBuilder();
+    personaBuilder.setNombreYApellido("Cristiano Ronaldo");
+    personaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
     Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
-    rescatistaBuilder.agregarContacto(metodoContacto);
-    rescatistaBuilder.setFecha(LocalDate.now());
-    MascotaPerdida unaMascota = this.mascotaPerdida();
-    rescatistaBuilder.setMascota(unaMascota);
-    return rescatistaBuilder.crearPersona();
+    personaBuilder.agregarContacto(metodoContacto);
+    return new Rescatista(personaBuilder.crearPersona(),LocalDate.now(),this.mascotaPerdida());
   }
 
   public Duenio duenio() {
-    DuenioBuilder duenioBuilder = new DuenioBuilder();
-    duenioBuilder.setNombreYApellido("Lionel Andres Messi");
-    duenioBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
+    PersonaBuilder personaBuilder = new PersonaBuilder();
+    personaBuilder.setNombreYApellido("Lionel Andres Messi");
+    personaBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
     Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
-    duenioBuilder.agregarContacto(metodoContacto);
-    duenioBuilder.agregarMascota(this.mascota());
-    return duenioBuilder.crearPersona();
+    personaBuilder.agregarContacto(metodoContacto);
+    Duenio duenio = new Duenio(personaBuilder.crearPersona());
+    duenio.agregarMascota(this.mascota());
+    return duenio;
   }
-
-
-
 }

@@ -10,7 +10,7 @@ import primeraIteracion.exceptions.FaltanDatosException;
 /**
  * Clase abstracta que aglomera los comportamientos en comun de las personas.
  */
-public abstract class Persona {
+public class Persona {
   private String nombreYApellido;
   private LocalDate fechaNacimiento;
   private List<Contacto> contactos = new ArrayList<>();
@@ -57,5 +57,9 @@ public abstract class Persona {
 
   public LocalDate getFechaNacimiento() {
     return this.fechaNacimiento;
+  }
+
+  public List<Contacto> getContactos() {
+    return this.contactos;
   }
 }

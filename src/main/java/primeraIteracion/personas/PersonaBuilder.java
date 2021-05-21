@@ -1,17 +1,14 @@
 package primeraIteracion.personas;
 
-import primeraIteracion.exceptions.FaltanDatosException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Builder de la clase persona que aglomera los comportamientos de los builders
  * de clases que heredan de la clase persona.
  */
-public abstract class PersonaBuilder<T> {
+public class PersonaBuilder {
   protected String nombreYApellido;
   protected LocalDate fechaNacimiento;
   protected List<Contacto> contactos = new ArrayList<>();
@@ -56,22 +53,7 @@ public abstract class PersonaBuilder<T> {
    *
    * @return retorna la persona creada.
    */
-  public T crearPersona() {
-    if(Objects.isNull(this.nombreYApellido)
-       || Objects.isNull(this.fechaNacimiento)
-       || this.contactos.isEmpty()){
-      throw new FaltanDatosException(
-          "Se debe proveer un nombre, una fecha de nacimiento y un contacto"
-      );
-    }
-    return this.creacionEspecifica();
+  public Persona crearPersona() {
+    return new Persona(this.nombreYApellido, this.fechaNacimiento, this.contactos);
   }
-
-  /**
-   * Metodo abstracto que realiza los chequeos especificos de cada clase hijo,
-   * luego crea la clase hijo y la retorna.
-   *
-   * @return retorna la persona creada.
-   */
-    protected abstract T creacionEspecifica();
 }

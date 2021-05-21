@@ -4,36 +4,29 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import primeraIteracion.exceptions.FaltanDatosException;
 import primeraIteracion.mascotas.Mascota;
 
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.
  */
-public class Duenio extends Persona {
+public class Duenio {
+  private Persona persona;
   private List<Mascota> mascotas = new ArrayList<>();
 
   /**
    * Constructor de la clase.
-   * Los primeros 3 parametros son heredeados.
-   * El ultimo parametro es propio de la clase.
+   * El parametro son los datos de la persona encapsulados en el objeto Persona.
    *
-   * @param _nombreYApellido es el nombre y apellido de la persona.
-   * @param _fechaNacimiento es la fecha de nacimiento de la persona.
-   * @param _contacto        es la lista de formas de contacto que tiene la persona.
-   * @param _mascotas        es lista de mascotas que posee el dueño.
+   * @param _persona son los datos de la persona
    */
-  public Duenio(String _nombreYApellido,
-                LocalDate _fechaNacimiento,
-                List<Contacto> _contacto,
-                List<Mascota> _mascotas) {
-    super(_nombreYApellido, _fechaNacimiento, _contacto);
-      if (_mascotas.isEmpty()) {
-        throw new FaltanDatosException(
-            "Se debe proveer al menos una mascota"
-        );
-      }
-      this.mascotas.addAll(_mascotas);
+  public Duenio(Persona _persona) {
+    if(Objects.isNull(_persona)) {
+      throw new FaltanDatosException("Debe proveer datos de la persona");
+    }
+    this.persona = _persona;
     }
 
     /**
@@ -48,6 +41,9 @@ public class Duenio extends Persona {
     public void generarUsuario (String usuario, String clave) throws IOException {
       RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
       repositorio.agregarPerfil(new Usuario(usuario, clave, this));
+    }
+    public Persona getPersona() {
+      return this.persona;
     }
   }
 
