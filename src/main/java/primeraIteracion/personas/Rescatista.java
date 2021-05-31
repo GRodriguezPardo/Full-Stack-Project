@@ -1,11 +1,11 @@
 package primeraIteracion.personas;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 import primeraIteracion.exceptions.FaltanDatosException;
-import primeraIteracion.mascotas.Mascota;
 import primeraIteracion.mascotas.MascotaPerdida;
 
 /**
@@ -59,6 +59,10 @@ public class Rescatista {
    */
   public MascotaPerdida getMascota() {
     return this.mascota;
+  }
+
+  public List<Image> getFotos() {
+    return this.mascota.getFotos();
   }
 
   public Persona getPersona() {

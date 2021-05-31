@@ -30,10 +30,10 @@ public class MascotaPerdida {
                         Integer longitud) {
     this.descripcionEstado = descripcionEstado;
     if(Objects.isNull(_fotos)){
-      throw new FaltanDatosException("Se necesita proveer minimo una foro");
+      throw new FaltanDatosException("Se necesita proveer minimo una foto");
     }
     if (_fotos.isEmpty()){
-      throw new FaltanDatosException("Se necesita proveer minimo una foro");
+      throw new FaltanDatosException("Se necesita proveer minimo una foto");
       }
     this.fotos = _fotos;
     this.latitud = latitud;
