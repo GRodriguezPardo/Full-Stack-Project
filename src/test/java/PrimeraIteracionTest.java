@@ -3,12 +3,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import primeraIteracion.exceptions.FaltanDatosException;
-import primeraIteracion.personas.*;
-import primeraIteracion.exceptions.*;
-import primeraIteracion.seguridad.*;
-
-import primeraIteracion.mascotas.*;
+import exceptions.FaltanDatosException;
+import personas.*;
+import exceptions.*;
+import seguridad.*;
+import mascotas.*;
 
 import javax.swing.*;
 import java.awt.*;
