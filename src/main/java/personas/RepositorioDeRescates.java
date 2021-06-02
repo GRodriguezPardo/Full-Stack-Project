@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class RepositorioDeRescates {
   private final static RepositorioDeRescates INSTANCE = new RepositorioDeRescates();
-  private List<Rescatista> rescates = new ArrayList<>();
+  private final List<Rescatista> rescates = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -53,7 +53,7 @@ public class RepositorioDeRescates {
     return this.rescates
             .stream()
             .filter(unRescate -> unRescate.getFecha().compareTo(LocalDate.now()) < dias)
-            .map(unRescate -> unRescate.getMascota())
+            .map(Rescatista::getMascota)
             .collect(Collectors.toList());
   }
 }
