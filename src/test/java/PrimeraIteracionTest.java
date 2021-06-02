@@ -21,16 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrimeraIteracionTest {
+  EmailSender emailSender = mock(EmailSender.class);
+  SmsSender smsSender = mock(SmsSender.class);
+
+
+  Validacion validacionAlfamerica = new VerificarQueEsContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionLargo = new VerificarQueEsContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionFuerza = new VerificarQueEsContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal",new Caracteristica<String>());
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",new Caracteristica<Boolean>());
   }
-
-  Validacion validacionAlfamerica = new VerificarQueEsContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionLargo = new VerificarQueEsContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionFuerza = new VerificarQueEsContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @Test
   public void unaMascotaVaciaFalla() {
@@ -192,13 +195,12 @@ public class PrimeraIteracionTest {
     personaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
     Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
+    personaBuilder.agregarEmailSender(emailSender);
+    personaBuilder.agregarSmsSender(smsSender);
     return new Rescatista(personaBuilder.crearPersona(),LocalDate.now(),this.mascotaPerdida());
   }
 
   public Duenio duenio() {
-    EmailSender emailSender = mock(EmailSender.class);
-    SmsSender smsSender = mock(SmsSender.class);
-
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
     personaBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
