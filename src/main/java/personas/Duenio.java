@@ -42,8 +42,13 @@ public class Duenio {
       RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
       repositorio.agregarPerfil(new Usuario(usuario, clave, this));
     }
+
     public Persona getPersona() {
       return this.persona;
+    }
+
+    public Boolean duenioDe(Mascota unaMascota) {
+      return this.mascotas.contains(unaMascota);
     }
   }
 

@@ -2,12 +2,15 @@ package personas;
 
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
+import exceptions.MascotaNoAsignadaException;
+import mascotas.Mascota;
 import seguridad.Validaciones;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 /**
@@ -38,7 +41,7 @@ public class RepositorioDeUsuarios {
   /**
    * Permite agregar un Usuario y clave a la lista del singleton
    */
-  public void agregarPerfil(Perfil perfil) throws IOException {
+  public void agregarPerfil(Perfil perfil) {
     if (Objects.isNull(perfil) || Objects.isNull(perfil.getUsuario()) || Objects.isNull(perfil.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
@@ -85,5 +88,15 @@ public class RepositorioDeUsuarios {
 
   public void removerPerfil(Perfil perfil) {
     this.perfiles.remove(perfil);
+  }
+
+  public Duenio duenioDe(Mascota unaMascota) {
+    Optional<Perfil> usuarioDuenio = this.perfiles.stream()
+        .filter(unPerfil -> unPerfil.duenioDe(unaMascota))
+        .findFirst();
+    if (!usuarioDuenio.isPresent()) {
+      throw new MascotaNoAsignadaException("La mascota no pertenece a ningun duenio");
+    }
+    return ((Usuario) usuarioDuenio.get()).getDuenio();
   }
 }

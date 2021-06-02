@@ -1,5 +1,7 @@
 package personas;
 
+import mascotas.Mascota;
+
 public class Usuario extends Perfil {
   private final Duenio duenio;
 
@@ -10,5 +12,10 @@ public class Usuario extends Perfil {
 
   public Duenio getDuenio() {
     return this.duenio;
+  }
+
+  @Override
+  public Boolean duenioDe(Mascota unaMascota) {
+      return this.duenio.duenioDe(unaMascota);
   }
 }
