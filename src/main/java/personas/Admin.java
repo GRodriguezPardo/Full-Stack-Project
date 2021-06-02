@@ -9,8 +9,4 @@ public class Admin extends Perfil {
     super(usuario, clave);
   }
 
-  @Override
-  public Boolean duenioDe(Mascota unaMascota) {
-    return false;
-  }
 }

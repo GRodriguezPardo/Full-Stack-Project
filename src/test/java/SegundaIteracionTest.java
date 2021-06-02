@@ -2,7 +2,6 @@
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.*;
 
 import mascotas.*;
@@ -22,18 +21,6 @@ public class SegundaIteracionTest {
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",new Caracteristica<Boolean>());
   }
 
-  @Test
-  public void PuedoEncontrarAlDuenioDeUnaMascota() {
-    Mascota mascota = this.mascota();
-    Duenio duenio = this.duenio();
-    RepositorioDeUsuarios repoUsuarios = RepositorioDeUsuarios.getInstance();
-    duenio.agregarMascota(mascota);
-    Usuario usuario = new Usuario("Mirtha", "CARAJOMIERDA", duenio);
-    repoUsuarios.agregarPerfil(usuario);
-
-    assertEquals(duenio, repoUsuarios.duenioDe(mascota));
-    
-    repoUsuarios.removerPerfil(usuario);
   }
 
    public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {

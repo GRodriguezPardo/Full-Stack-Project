@@ -8,8 +8,5 @@ public class Voluntario extends Perfil{
     super(_usuario, _clave);
   }
 
-  @Override
-  public Boolean duenioDe(Mascota unaMascota) {
-    return false;
-  }
+
 }

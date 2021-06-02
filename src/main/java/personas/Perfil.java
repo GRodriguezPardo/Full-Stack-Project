@@ -26,7 +26,5 @@ public abstract class Perfil {
   public void setUsuario(String usuario) {
     this.usuario = usuario;
   }
-
-  public abstract Boolean duenioDe(Mascota unaMascota);
 }
 

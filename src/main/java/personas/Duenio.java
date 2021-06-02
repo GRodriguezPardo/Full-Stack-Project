@@ -47,8 +47,5 @@ public class Duenio {
       return this.persona;
     }
 
-    public Boolean duenioDe(Mascota unaMascota) {
-      return this.mascotas.contains(unaMascota);
-    }
   }
 

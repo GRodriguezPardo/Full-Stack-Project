@@ -89,14 +89,4 @@ public class RepositorioDeUsuarios {
   public void removerPerfil(Perfil perfil) {
     this.perfiles.remove(perfil);
   }
-
-  public Duenio duenioDe(Mascota unaMascota) {
-    Optional<Perfil> usuarioDuenio = this.perfiles.stream()
-        .filter(unPerfil -> unPerfil.duenioDe(unaMascota))
-        .findFirst();
-    if (!usuarioDuenio.isPresent()) {
-      throw new MascotaNoAsignadaException("La mascota no pertenece a ningun duenio");
-    }
-    return ((Usuario) usuarioDuenio.get()).getDuenio();
-  }
 }
