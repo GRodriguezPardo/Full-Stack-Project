@@ -13,4 +13,9 @@ public class Usuario extends Perfil {
   public Duenio getDuenio() {
     return this.duenio;
   }
+
+
+  public Boolean duenioDe(Mascota unaMascota) {
+      return this.duenio.duenioDe(unaMascota);
+  }
 }

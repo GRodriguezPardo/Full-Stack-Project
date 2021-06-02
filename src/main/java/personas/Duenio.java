@@ -38,7 +38,7 @@ public class Duenio {
       this.mascotas.add(mascota);
     }
 
-    public void generarUsuario (String usuario, String clave) throws IOException {
+    public void generarUsuario (String usuario, String clave) {
       RepositorioDeUsuarios repositorio = RepositorioDeUsuarios.getInstance();
       repositorio.agregarPerfil(new Usuario(usuario, clave, this));
     }
@@ -47,5 +47,8 @@ public class Duenio {
       return this.persona;
     }
 
+    public Boolean duenioDe(Mascota unaMascota) {
+      return mascotas.contains(unaMascota);
   }
+}
 

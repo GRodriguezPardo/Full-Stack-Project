@@ -1,7 +1,7 @@
 package personas;
 
+import mascotas.Mascota;
 import mascotas.MascotaPerdida;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +56,9 @@ public class RepositorioDeRescates {
             .map(Rescatista::getMascota)
             .collect(Collectors.toList());
   }
+
+  public boolean estaLaMascota(MascotaPerdida unaMascota){
+    return this.rescates.stream().map(Rescatista::getMascota).collect(Collectors.toList()).contains(unaMascota);
+  }
+
 }
