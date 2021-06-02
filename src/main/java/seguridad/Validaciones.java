@@ -9,9 +9,9 @@ public class Validaciones {
   public List<Validacion> validaciones = new ArrayList<>();
 
   public Validaciones() {
-    this.agregarValidacion(new VerificarQueEsContraseniaAlfanumerica());
-    this.agregarValidacion(new VerificarQueEsContraseniaFuerte());
-    this.agregarValidacion(new VerificarQueEsContraseniaLarga());
+    this.agregarValidacion(new ContraseniaAlfanumerica());
+    this.agregarValidacion(new ContraseniaFuerte());
+    this.agregarValidacion(new ContraseniaLarga());
   }
 
   public void agregarValidacion(Validacion validacion) {

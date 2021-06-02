@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class VerificarQueEsContraseniaFuerte implements Validacion {
+public class ContraseniaFuerte implements Validacion {
   public void validar(String contrasenia) throws IOException {
     Stream<String> top = Files.lines(Paths.get("recursos\\xato-net-10-million-passwords-10000.txt"));
     List<Boolean> temp = top.map(p -> p.contentEquals(contrasenia)).collect(Collectors.toList());

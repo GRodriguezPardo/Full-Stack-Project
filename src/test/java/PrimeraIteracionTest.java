@@ -25,9 +25,9 @@ public class PrimeraIteracionTest {
   SmsSender smsSender = mock(SmsSender.class);
 
 
-  Validacion validacionAlfamerica = new VerificarQueEsContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionLargo = new VerificarQueEsContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionFuerza = new VerificarQueEsContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionAlfamerica = new ContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionLargo = new ContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
+  Validacion validacionFuerza = new ContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
