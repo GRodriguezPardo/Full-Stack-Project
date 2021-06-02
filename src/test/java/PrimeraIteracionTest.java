@@ -131,6 +131,7 @@ public class PrimeraIteracionTest {
     Validaciones validaciones = new Validaciones();
     Assertions.assertDoesNotThrow(() -> validaciones.hacerValidaciones("viVaLaPaTrIa_2021")); //Esa es una que no esta en el txt
   }
+
   @Test
   public void cambioClaveCorrectamente() throws IOException {
     Perfil perfilPrueba = new Admin("Jose","viVaLaPaTrIa_2021");
@@ -141,7 +142,7 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void rebotarInicioDeSesionVacio() {
+  public void rebotarComprobacionClaveVacia() {
     Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose",null));
   }
 
