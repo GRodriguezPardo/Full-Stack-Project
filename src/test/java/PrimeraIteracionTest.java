@@ -1,7 +1,11 @@
 
+import apis.EmailSender;
+import apis.SmsSender;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import static org.mockito.Mockito.*;
 
 import exceptions.FaltanDatosException;
 import personas.*;
@@ -192,11 +196,16 @@ public class PrimeraIteracionTest {
   }
 
   public Duenio duenio() {
+    EmailSender emailSender = mock(EmailSender.class);
+    SmsSender smsSender = mock(SmsSender.class);
+
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
     personaBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
     Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
+    personaBuilder.agregarEmailSender(emailSender);
+    personaBuilder.agregarSmsSender(smsSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.agregarMascota(this.mascota());
     return duenio;

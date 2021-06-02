@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Objects;
+
+import apis.EmailSender;
+import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
 /**
@@ -14,6 +17,8 @@ public class Persona {
   private String nombreYApellido;
   private LocalDate fechaNacimiento;
   private List<Contacto> contactos = new ArrayList<>();
+  private EmailSender emailSender;
+  private SmsSender smsSender;
 
   /**
    * Constructor de la clase.
@@ -24,7 +29,9 @@ public class Persona {
    */
   public Persona(String _nombreYApellido,
                  LocalDate _fechaNacimiento,
-                 List<Contacto> _contacto) {
+                 List<Contacto> _contacto,
+                 EmailSender _emailSender,
+                 SmsSender _smsSender) {
     if (Objects.isNull(_nombreYApellido)
         || Objects.isNull(_fechaNacimiento)
         || Objects.isNull(_contacto)) {
@@ -37,9 +44,17 @@ public class Persona {
           "Se debe proveer minimo un contacto"
       );
     }
+    if (Objects.isNull(_emailSender)
+        || Objects.isNull(_smsSender)) {
+      throw new FaltanDatosException(
+          "Falta proveer senders de email y sms"
+      );
+    }
     this.nombreYApellido = _nombreYApellido;
     this.fechaNacimiento = _fechaNacimiento;
     this.contactos.addAll(_contacto);
+    this.emailSender = _emailSender;
+    this.smsSender = _smsSender;
   }
 
   /**
@@ -61,5 +76,13 @@ public class Persona {
 
   public List<Contacto> getContactos() {
     return this.contactos;
+  }
+
+  public void contactarSobreMascotaEncontrada(String message) {
+    this.contactos
+        .forEach(unContacto -> {
+          this.emailSender.sendEmail(unContacto.getEmail(), message);
+          this.smsSender.sendSMS(unContacto.getTelefono(), message);
+        });
   }
 }

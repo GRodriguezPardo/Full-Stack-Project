@@ -1,11 +1,13 @@
 
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import mascotas.*;
 import personas.*;
+import apis.*;
 
 import javax.swing.*;
 import java.awt.Image;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SegundaIteracionTest {
+  EmailSender emailSender = mock(EmailSender.class);
+  SmsSender smsSender = mock(SmsSender.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -21,9 +25,14 @@ public class SegundaIteracionTest {
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",new Caracteristica<Boolean>());
   }
 
+  @Test
+  public void puedoContactarAUnDuenio() {
+    this.duenio().getPersona().contactarSobreMascotaEncontrada("Encontre a tu mascota");
+    verify(emailSender).sendEmail("messi@messi.com","Encontre a tu mascota");
+    verify(smsSender).sendSMS(112222333,"Encontre a tu mascota");
   }
 
-   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
+  public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
   }
 
@@ -74,6 +83,8 @@ public class SegundaIteracionTest {
     personaBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
     Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
+    personaBuilder.agregarEmailSender(emailSender);
+    personaBuilder.agregarSmsSender(smsSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.agregarMascota(this.mascota());
     return duenio;
