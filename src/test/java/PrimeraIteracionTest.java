@@ -87,18 +87,18 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void rebotarContraseniaDebil() throws IOException {
+  public void rebotarContraseniaDebil() {
     Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validacionFuerza.validar("blitz")); //Esa es la ultima del txt
   }
 
   @Test
-  public void noRebotarContraseniaFuerte() throws IOException {
-    Assertions.assertDoesNotThrow(() ->validacionFuerza.validar("2021/05/06_PNW")); //Esa es una que no esta en el txt
+  public void noRebotarContraseniaFuerte() {
+    Assertions.assertDoesNotThrow(() -> validacionFuerza.validar("2021/05/06_PNW")); //Esa es una que no esta en el txt
   }
 
   @Test
   public void rebotarContraseniaCorta() {
-    Assertions.assertThrows(EsContraseniaCortaException.class ,() ->  validacionLargo.validar("c_corta"));
+    Assertions.assertThrows(EsContraseniaCortaException.class, () ->  validacionLargo.validar("c_corta"));
   }
 
   @Test
@@ -115,6 +115,7 @@ public class PrimeraIteracionTest {
   public void rebotarContraseniaNoAlfanumerica2() {
     Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("soloNumeros"));
   }
+
   @Test
   public void rebotarContraseniaNoAlfanumerica3() {
     Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("!$%&/()=?¿+*-_:;{}[]"));
@@ -126,18 +127,22 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void noRebotarContraseniaFuerteLargaYalfanumerica() throws IOException {
-    Assertions.assertDoesNotThrow(() -> RepositorioDeUsuarios.getInstance().agregarPerfil(new Admin("Jose", "viVaLaPaTrIa_2021"))); //Esa es una que no esta en el txt
+  public void noRebotarContraseniaFuerteLargaYalfanumerica() {
+    Validaciones validaciones = new Validaciones();
+    Assertions.assertDoesNotThrow(() -> validaciones.hacerValidaciones("viVaLaPaTrIa_2021")); //Esa es una que no esta en el txt
   }
   @Test
   public void cambioClaveCorrectamente() throws IOException {
+    Perfil perfilPrueba = new Admin("Jose","viVaLaPaTrIa_2021");
+    RepositorioDeUsuarios.getInstance().agregarPerfil(perfilPrueba);
     RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
-    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose","aguanteLaBolgnesa_2021"));
+    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose","aguanteLaBolgnesa_2021"));
+    RepositorioDeUsuarios.getInstance().removerPerfil(perfilPrueba);
   }
 
   @Test
   public void rebotarInicioDeSesionVacio() {
-    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().iniciarSesion("Jose",null));
+    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose",null));
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {

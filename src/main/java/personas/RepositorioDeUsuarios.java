@@ -45,7 +45,6 @@ public class RepositorioDeUsuarios {
     if (this.perfiles.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(perfil.getUsuario()))) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
     }
-    this.comprobarSeguridadClave(perfil.getClave());
     this.perfiles.add(perfil);
   }
 
@@ -56,7 +55,7 @@ public class RepositorioDeUsuarios {
    * @param clave   es la contraseña del Usuario.
    * @return es el resultado de la comprobacion.
    */
-  public Boolean iniciarSesion(String usuario, String clave) {
+  public Boolean comprobarClave(String usuario, String clave) {
     if (Objects.isNull(clave)) {
       return false;
     }
@@ -75,8 +74,7 @@ public class RepositorioDeUsuarios {
    * @param claveNueva es la nueva clave.
    */
   public void cambiarClave(String usuario, String claveVieja, String claveNueva) throws IOException {
-    if (this.iniciarSesion(usuario, claveVieja)) {
-      this.comprobarSeguridadClave(claveNueva);
+    if (this.comprobarClave(usuario, claveVieja)) {
       this.perfiles.stream()
               .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
               .findFirst().get().setClave(claveNueva);
@@ -85,7 +83,7 @@ public class RepositorioDeUsuarios {
     }
   }
 
-  public void comprobarSeguridadClave(String contrasenia) throws IOException {
-    this.validaciones.hacerValidaciones(contrasenia);
+  public void removerPerfil(Perfil perfil) {
+    this.perfiles.remove(perfil);
   }
 }
