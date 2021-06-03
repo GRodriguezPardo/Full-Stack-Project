@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import exceptions.FaltanDatosException;
 import mascotas.MascotaPerdida;
+import repositorios.RepositorioDeRescates;
 
 /**
  * Es una clase que representa una situacion de mascota perdida encontrada.

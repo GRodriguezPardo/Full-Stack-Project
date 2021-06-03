@@ -10,6 +10,8 @@ import static org.mockito.Mockito.*;
 import exceptions.FaltanDatosException;
 import personas.*;
 import exceptions.*;
+import repositorios.RepositorioDeRescates;
+import repositorios.RepositorioDeUsuarios;
 import seguridad.*;
 import mascotas.*;
 

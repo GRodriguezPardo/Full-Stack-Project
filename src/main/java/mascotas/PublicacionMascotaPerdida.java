@@ -1,17 +1,17 @@
 package mascotas;
 
-import personas.Persona;
 import personas.Rescatista;
 
-;import java.time.LocalDate;
+public class PublicacionMascotaPerdida {
+  private Rescatista rescatista;
+  private Boolean aprobado;
+  private Integer latitud;
+  private Integer longitud;
 
-public class PublicacionMascotaPerdida extends Rescatista {
-  Boolean aprobado;
-
-  public PublicacionMascotaPerdida(Persona _persona,
-                                   LocalDate _fecha,
-                                   MascotaPerdida _mascota) {
-    super(_persona,_fecha,_mascota);
+  public PublicacionMascotaPerdida(Rescatista _rescatista, Integer latitud, Integer longitud) {
+    this.rescatista = _rescatista;
+    this.latitud = latitud;
+    this.longitud = longitud;
     this.aprobado = false;
   }
 
@@ -21,5 +21,13 @@ public class PublicacionMascotaPerdida extends Rescatista {
 
   public Boolean aprobado() {
     return this.aprobado;
+  }
+
+  public Integer getLatitud() {
+    return latitud;
+  }
+
+  public Integer getLongitud() {
+    return longitud;
   }
 }

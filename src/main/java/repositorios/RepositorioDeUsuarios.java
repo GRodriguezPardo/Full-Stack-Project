@@ -1,16 +1,14 @@
-package personas;
+package repositorios;
 
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
-import exceptions.MascotaNoAsignadaException;
-import mascotas.Mascota;
+import personas.Perfil;
 import seguridad.Validaciones;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 /**

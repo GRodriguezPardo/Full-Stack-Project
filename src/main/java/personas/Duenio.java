@@ -1,6 +1,5 @@
 package personas;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Objects;
 
 import exceptions.FaltanDatosException;
 import mascotas.Mascota;
+import repositorios.RepositorioDeUsuarios;
 
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.

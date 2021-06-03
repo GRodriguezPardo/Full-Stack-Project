@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import mascotas.*;
 import personas.*;
 import apis.*;
+import repositorios.RepositorioDeAsociaciones;
 
 import javax.swing.*;
 import java.awt.Image;
@@ -30,6 +31,35 @@ public class SegundaIteracionTest {
     this.duenio().getPersona().contactarSobreMascotaEncontrada("Encontre a tu mascota");
     verify(emailSender).sendEmail("messi@messi.com","Encontre a tu mascota");
     verify(smsSender).sendSMS(112222333,"Encontre a tu mascota");
+  }
+
+  @Test
+  public void puedoAgregarAsociacionesAlRepo() {
+    Asociacion asociacion = new Asociacion(10,20);
+    RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
+    repo.agregarAsociacion(asociacion);
+
+    assertTrue(repo.getAsociaciones().contains(asociacion));
+
+    repo.removerAsociacion(asociacion);
+  }
+
+  @Test
+  public void lasPublicacionesSeAsignanCorrectamente() {
+    Asociacion asociacion1 = new Asociacion(10,10);
+    Asociacion asociacion2 = new Asociacion(20,20);
+    PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista(),0,0);
+    RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
+    repo.agregarAsociacion(asociacion1);
+    repo.agregarAsociacion(asociacion2);
+    repo.agregarPublicacion(publicacion);
+
+    assertTrue(asociacion1.publicacionesACargo().contains(publicacion));
+    assertFalse(asociacion2.publicacionesACargo().contains(publicacion));
+    assertTrue(repo.publicacionesMascotas().contains(publicacion));
+
+    repo.removerAsociacion(asociacion1);
+    repo.removerAsociacion(asociacion2);
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
@@ -74,6 +104,8 @@ public class SegundaIteracionTest {
     personaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
     Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
+    personaBuilder.agregarEmailSender(emailSender);
+    personaBuilder.agregarSmsSender(smsSender);
     return new Rescatista(personaBuilder.crearPersona(),LocalDate.now(),this.mascotaPerdida());
   }
 

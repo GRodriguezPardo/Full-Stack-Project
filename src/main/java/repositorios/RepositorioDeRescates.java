@@ -1,7 +1,8 @@
-package personas;
+package repositorios;
 
-import mascotas.Mascota;
 import mascotas.MascotaPerdida;
+import personas.Rescatista;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
