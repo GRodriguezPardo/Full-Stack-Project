@@ -1,4 +1,6 @@
 
+import exceptions.NoHayNingunaAsociasionException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +15,7 @@ import repositorios.RepositorioDeAsociaciones;
 import javax.swing.*;
 import java.awt.Image;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SegundaIteracionTest {
   EmailSender emailSender = mock(EmailSender.class);
@@ -60,6 +61,31 @@ public class SegundaIteracionTest {
 
     repo.removerAsociacion(asociacion1);
     repo.removerAsociacion(asociacion2);
+  }
+  @Test
+  public void dameLasPublicacionesAprobadas(){
+    PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
+    PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
+
+    Asociacion unaAsociacion = new Asociacion(10, 10);
+
+    RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
+    repo.agregarAsociacion(unaAsociacion);
+
+    repo.agregarPublicacion(publicacionDesaprobada1);
+    repo.agregarPublicacion(publicacionDesaprobada);
+
+    assertTrue(repo.publicacionesAprobadas().isEmpty());
+    repo.removerAsociacion(unaAsociacion);
+  }
+
+  @Test
+  public void tiraErrorSiNoHayAsociaciones(){
+    RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
+
+    PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(this.rescatista());
+
+    assertThrows(NoHayNingunaAsociasionException.class, () -> repo.agregarPublicacion(unaPublicacion));
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
