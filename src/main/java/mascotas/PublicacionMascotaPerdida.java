@@ -1,17 +1,17 @@
 package mascotas;
 
+import personas.Contacto;
 import personas.Rescatista;
+
+import java.awt.*;
+import java.util.List;
 
 public class PublicacionMascotaPerdida {
   private Rescatista rescatista;
   private Boolean aprobado;
-  private Integer latitud;
-  private Integer longitud;
 
-  public PublicacionMascotaPerdida(Rescatista _rescatista, Integer latitud, Integer longitud) {
+  public PublicacionMascotaPerdida(Rescatista _rescatista) {
     this.rescatista = _rescatista;
-    this.latitud = latitud;
-    this.longitud = longitud;
     this.aprobado = false;
   }
 
@@ -24,10 +24,18 @@ public class PublicacionMascotaPerdida {
   }
 
   public Integer getLatitud() {
-    return latitud;
+    return this.rescatista.getLatitud();
   }
 
   public Integer getLongitud() {
-    return longitud;
+    return rescatista.getLongitud();
+  }
+
+  public List<Contacto> getContactos() {
+    return this.rescatista.getContactos();
+  }
+
+  public List<Image> getFotos() {
+    return this.rescatista.getFotos();
   }
 }

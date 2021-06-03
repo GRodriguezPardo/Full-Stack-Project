@@ -48,7 +48,7 @@ public class SegundaIteracionTest {
   public void lasPublicacionesSeAsignanCorrectamente() {
     Asociacion asociacion1 = new Asociacion(10,10);
     Asociacion asociacion2 = new Asociacion(20,20);
-    PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista(),0,0);
+    PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista());
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
     repo.agregarAsociacion(asociacion2);
@@ -95,7 +95,7 @@ public class SegundaIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 12345,54321);
+    return new MascotaPerdida(descripcion, fotos, 0,0);
   }
 
   public Rescatista rescatista() {

@@ -26,6 +26,6 @@ public class Asociacion {
   public Integer distanciaA(Integer latitud, Integer longitud) {
     Integer resultadoLongitud = this.longitud - longitud;
     Integer resultadoLatitud = this.latitud - latitud;
-    return new Integer((int) Math.sqrt(Math.pow(resultadoLatitud,2) + Math.pow(resultadoLongitud,2)));
+    return (int) Math.sqrt(Math.pow(resultadoLatitud, 2) + Math.pow(resultadoLongitud, 2));
   }
 }

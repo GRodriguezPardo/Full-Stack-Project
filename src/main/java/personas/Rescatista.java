@@ -69,4 +69,14 @@ public class Rescatista {
   public Persona getPersona() {
     return this.persona;
   }
+
+  public List<Contacto> getContactos() {return this.persona.getContactos();}
+
+  public Integer getLatitud() {
+    return this.mascota.getLatitud();
+  }
+
+  public Integer getLongitud() {
+    return this.mascota.getLongitud();
+  }
 }
