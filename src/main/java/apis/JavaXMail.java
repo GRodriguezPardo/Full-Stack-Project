@@ -50,24 +50,18 @@ public class JavaXMail implements EmailSender {
       unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
       unMensaje.setSubject(subject);
       unMensaje.setText(message);
-    } catch (MessagingException e) {
-      throw new FalloServicioEmailException(e.getMessage());
+      sendRealMessage(session, unMensaje);
+    } catch (Exception e) {
+      throw new FalloServicioEmailException(e);
     }
-
+  }
+  // TODO : Hacer que el mock corra todos los metodos reales menos este.
+  private void sendRealMessage(Session session, MimeMessage unMensaje) throws MessagingException {
     Transport t = null;
-    try {
-      t = session.getTransport("smtp");
-    } catch (NoSuchProviderException e) {
-      throw new FalloServicioEmailException(e.getMessage());
-    }
-
-    try {
-      t.connect("smtp.gmail.com", remitente, clave);
-      t.sendMessage(unMensaje, unMensaje.getAllRecipients());
-      t.close();
-    } catch (MessagingException e) {
-      throw new FalloServicioEmailException(e.getMessage());
-    }
+    t = session.getTransport("smtp");
+    t.connect("smtp.gmail.com", remitente, clave);
+    t.sendMessage(unMensaje, unMensaje.getAllRecipients());
+    t.close();
   }
 
   public void setearNuevoRemitente(String remitente, String clave) {

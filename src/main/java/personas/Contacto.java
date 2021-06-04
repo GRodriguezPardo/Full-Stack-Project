@@ -8,6 +8,7 @@ public class Contacto {
   private final String nombreApellido;
   private final Integer telefono;
   private final String email;
+  //private final PreferenciaContacto metodo;
 
   /**
    * Constructor de la clase.

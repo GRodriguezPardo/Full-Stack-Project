@@ -60,14 +60,15 @@ public class RepositorioDeAsociaciones {
     return this.asociaciones;
   }
 
+  //TODO : Capaz devolver la asociacion mas cercana y asignar por consola.
+  //TODO : Encapsular latitud y longitud en una clase
   public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
     if (this.asociaciones.isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");
     }
 
-    Integer latitud = publicacion.getLatitud();
-    Integer longitud = publicacion.getLongitud();
-
-    this.asociaciones.stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(latitud, longitud))).get().agregarPublicacion(publicacion);
+    this.asociaciones.stream()
+        .min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getLatitud(), publicacion.getLongitud())))
+        .get().agregarPublicacion(publicacion);
   }
 }

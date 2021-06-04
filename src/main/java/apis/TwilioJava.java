@@ -23,6 +23,8 @@ public class TwilioJava implements SmsSender {
       Message.creator(new PhoneNumber(destinationNumber),
           new PhoneNumber(this.senderNumber),
           message).create();
+    } else {
+      // TODO : throw new smsException(); o pedirlos por constructor y validarlos.
     }
   }
 

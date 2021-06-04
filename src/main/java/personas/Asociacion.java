@@ -9,6 +9,7 @@ public class Asociacion {
   private final List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
   private final Integer latitud;
   private final Integer longitud;
+  // TODO : Posicion posicion;
 
   public Asociacion(Integer latitud, Integer longitud) {
     this.latitud = latitud;

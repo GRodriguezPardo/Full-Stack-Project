@@ -74,7 +74,7 @@ public class RepositorioDeUsuarios {
    *                   comprobar sus credenciales.
    * @param claveNueva es la nueva clave.
    */
-  public void cambiarClave(String usuario, String claveVieja, String claveNueva) throws IOException {
+  public void cambiarClave(String usuario, String claveVieja, String claveNueva) {
     if (this.comprobarClave(usuario, claveVieja)) {
       this.perfiles.stream()
               .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))

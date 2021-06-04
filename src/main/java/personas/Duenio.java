@@ -40,8 +40,8 @@ public class Duenio {
     return this.persona;
   }
 
-  public void contactarDuenio(String asunto, String mensaje) {
-    this.persona.contactarPersona(asunto, mensaje);
+  public void contactarDuenio(String mensaje) {
+    this.persona.contactarPorMascota(mensaje);
   }
 }
 

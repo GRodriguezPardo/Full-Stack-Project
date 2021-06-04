@@ -77,10 +77,11 @@ public class Persona {
     return this.contactos;
   }
 
-  public void contactarPersona(String subject, String message) {
+  //TODO : metodo preferido, hardcodear mensaje,
+  public void contactarPorMascota(String message) {
     this.contactos
             .forEach(unContacto -> {
-              this.emailSender.sendEmail(unContacto.getEmail(), subject, message);
+              this.emailSender.sendEmail(unContacto.getEmail(), "Notificacion Mascota Perdida", message);
               this.smsSender.sendSMS(unContacto.getTelefono().toString(), message);
             });
   }
