@@ -20,7 +20,7 @@ public class TwilioJava implements SmsSender {
   public void sendSMS(String destinationNumber, String message) {
     if (this.authToken != null && this.accountSid != null && this.senderNumber != null) {
       Twilio.init(this.accountSid, this.authToken);
-      Message sms = Message.creator(new PhoneNumber(destinationNumber),
+      Message.creator(new PhoneNumber(destinationNumber),
           new PhoneNumber(this.senderNumber),
           message).create();
     }
