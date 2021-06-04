@@ -61,8 +61,6 @@ public class RepositorioDeRescates {
             .collect(Collectors.toList());
   }
 
-  public boolean estaLaMascota(MascotaPerdida unaMascota) {
-    return this.rescates.stream().map(Rescatista::getMascota).collect(Collectors.toList()).contains(unaMascota);
-  }
+
 
 }

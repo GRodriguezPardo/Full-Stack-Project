@@ -52,7 +52,7 @@ public class JavaXMail implements EmailSender {
     t.close();
   }
 
-  public void setearNuevoRemitente(String remitente,String clave){
+  public void setearNuevoRemitente(String remitente, String clave) {
     this.remitente = remitente;
     this.clave = clave;
   }
