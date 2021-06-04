@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
+import repositorios.RepositorioDeUsuarios;
 
-import javax.mail.MessagingException;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
@@ -85,7 +85,7 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void siNoHayPublicacionesAprobadasDevuelveListaVacia() {
+  public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
     PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(this.rescatista());
     Asociacion unaAsociacion = new Asociacion(10, 10);
@@ -95,6 +95,8 @@ public class SegundaIteracionTest {
     repo.agregarPublicacion(publicacionDesaprobada2);
 
     assertTrue(repo.publicacionesAprobadas().isEmpty());
+    assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada1));
+    assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada2));
 
     repo.removerAsociacion(unaAsociacion);
   }
@@ -105,6 +107,42 @@ public class SegundaIteracionTest {
     PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(this.rescatista());
 
     assertThrows(NoHayNingunaAsociasionException.class, () -> repo.agregarPublicacion(unaPublicacion));
+  }
+
+  @Test
+  public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
+    PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
+    Asociacion unaAsociacion = new Asociacion(10, 10);
+    RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
+    repo.agregarAsociacion(unaAsociacion);
+    repo.agregarPublicacion(publicacionDesaprobada);
+    Voluntario voluntario = new Voluntario("Jose","AyudoMucho", unaAsociacion);
+
+    assertTrue(voluntario.publicacionesGestionables().contains(publicacionDesaprobada));
+
+    repo.removerAsociacion(unaAsociacion);
+  }
+
+  @Test
+  public void puedoAgregarTodosLosTiposDePerfilesAlRepo() {
+    RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
+    Usuario perfil1 = new Usuario("Luis I","Soy primero",this.duenio());
+    Admin perfil2 = new Admin("Luis II", "Soy segundo");
+    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(33,33));
+
+    repo.agregarPerfil(perfil1);
+    repo.agregarPerfil(perfil2);
+    repo.agregarPerfil(perfil3);
+
+    List<Perfil> perfiles = repo.perfiles();
+
+    assertTrue(perfiles.contains(perfil1));
+    assertTrue(perfiles.contains(perfil2));
+    assertTrue(perfiles.contains(perfil3));
+
+    repo.removerPerfil(perfil1);
+    repo.removerPerfil(perfil2);
+    repo.removerPerfil(perfil3);
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {

@@ -72,6 +72,12 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void duenioSeAsignaSinProblemaAUsuario() {
+    Duenio duenio = this.duenio();
+    Assertions.assertEquals(new Usuario("Jose", "sito", duenio).getDuenio(), duenio);
+  }
+
+  @Test
   public void puedoCrearUnaMascotaPerdidaSinProblema() {
     Assertions.assertNotNull(this.mascotaPerdida());
   }

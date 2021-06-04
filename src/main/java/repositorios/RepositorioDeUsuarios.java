@@ -87,4 +87,8 @@ public class RepositorioDeUsuarios {
   public void removerPerfil(Perfil perfil) {
     this.perfiles.remove(perfil);
   }
+
+  public List<Perfil> perfiles() {
+    return this.perfiles;
+  }
 }
