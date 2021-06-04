@@ -10,6 +10,8 @@ import apis.EmailSender;
 import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
+import javax.mail.MessagingException;
+
 /**
  * Clase abstracta que aglomera los comportamientos en comun de las personas.
  */
@@ -78,10 +80,14 @@ public class Persona {
     return this.contactos;
   }
 
-  public void contactarSobreMascotaEncontrada(String message) {
+  public void contactarSobreMascotaEncontrada(String subject,String message) {
     this.contactos
         .forEach(unContacto -> {
-          this.emailSender.sendEmail(unContacto.getEmail(), message);
+          try {
+            this.emailSender.sendEmail(unContacto.getEmail(),subject, message);
+          } catch (MessagingException e) {
+            e.printStackTrace();
+          }
           this.smsSender.sendSMS(unContacto.getTelefono(), message);
         });
   }

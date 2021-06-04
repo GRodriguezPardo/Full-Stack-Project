@@ -12,6 +12,7 @@ import personas.*;
 import apis.*;
 import repositorios.RepositorioDeAsociaciones;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 import java.awt.Image;
 import java.time.LocalDate;
@@ -28,10 +29,16 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void puedoContactarAUnDuenio() {
-    this.duenio().getPersona().contactarSobreMascotaEncontrada("Encontre a tu mascota");
-    verify(emailSender).sendEmail("messi@messi.com","Encontre a tu mascota");
+  public void puedoContactarAUnDuenio() throws MessagingException {
+    this.duenio().getPersona().contactarSobreMascotaEncontrada("messirve","Encontre a tu mascota");
+    verify(emailSender).sendEmail("messi@messi.com","messirve","Encontre a tu mascota");
     verify(smsSender).sendSMS(112222333,"Encontre a tu mascota");
+  }
+
+  @Test
+  public void enviarMailNoTiraError() {
+    EmailSender emailSender = new EmailSender();// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "hola", "un mensaje de prueba"));
   }
 
   @Test
