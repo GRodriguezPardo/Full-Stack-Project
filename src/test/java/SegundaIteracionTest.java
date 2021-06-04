@@ -100,9 +100,8 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void tiraErrorSiNoHayAsociaciones() {
+  public void seTiraExceptionSiNoHayAsociacionesAlAgregarPublicacion() {
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
-
     PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(this.rescatista());
 
     assertThrows(NoHayNingunaAsociasionException.class, () -> repo.agregarPublicacion(unaPublicacion));
@@ -110,10 +109,6 @@ public class SegundaIteracionTest {
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
-  }
-
-  public void settearCastrado(MascotaBuilder mascotaBuilder, Boolean estado) {
-    mascotaBuilder.agregarNuevaCaracteristica("Esta castrado", estado);
   }
 
   public Mascota mascota() {
