@@ -43,6 +43,14 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void losContactosSeCreanSinProblema() {
+    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
+    Assertions.assertEquals("Lionel Messi",metodoContacto.getNombreApellido());
+    Assertions.assertEquals(112222333,metodoContacto.getTelefono());
+    Assertions.assertEquals("messi@messi.com",metodoContacto.getEmail());
+  }
+
+  @Test
   public void puedoCrearUnaMascotaSinProblema() {
     Assertions.assertNotNull(this.mascota());
   }
@@ -174,6 +182,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.setSexo(Sexo.MACHO);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
+    this.settearCastrado(mascotaBuilder,false);
     return mascotaBuilder.finalizarMascota();
   }
 
