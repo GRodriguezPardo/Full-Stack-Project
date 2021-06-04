@@ -7,7 +7,6 @@ public class TokenDTO {
   private String bearer_token;
 
   public TokenDTO(){
-
   }
 
   public String getBearer_token() {
@@ -19,7 +18,7 @@ public class TokenDTO {
   }
 
   @Override
-  public String toString(){
+  public  String toString(){
     return "{" +
           "bearer_token:" + getBearer_token() +
           "'}'";
