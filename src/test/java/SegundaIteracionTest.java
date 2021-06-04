@@ -85,19 +85,17 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void dameLasPublicacionesAprobadas() {
-    PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
+  public void siNoHayPublicacionesAprobadasDevuelveListaVacia() {
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
-
+    PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(this.rescatista());
     Asociacion unaAsociacion = new Asociacion(10, 10);
-
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
-
     repo.agregarPublicacion(publicacionDesaprobada1);
-    repo.agregarPublicacion(publicacionDesaprobada);
+    repo.agregarPublicacion(publicacionDesaprobada2);
 
     assertTrue(repo.publicacionesAprobadas().isEmpty());
+
     repo.removerAsociacion(unaAsociacion);
   }
 
