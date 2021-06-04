@@ -77,7 +77,7 @@ public class Persona {
     return this.contactos;
   }
 
-  public void contactarSobreMascotaEncontrada(String subject, String message) {
+  public void contactarPersona(String subject, String message) {
     this.contactos
             .forEach(unContacto -> {
               this.emailSender.sendEmail(unContacto.getEmail(), subject, message);

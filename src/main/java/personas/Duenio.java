@@ -39,5 +39,9 @@ public class Duenio {
   public Persona getPersona() {
     return this.persona;
   }
+
+  public void contactarDuenio(String asunto, String mensaje) {
+    this.persona.contactarPersona(asunto, mensaje);
+  }
 }
 

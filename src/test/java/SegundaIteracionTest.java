@@ -33,7 +33,7 @@ public class SegundaIteracionTest {
 
   @Test
   public void puedoContactarAUnDuenio() throws MessagingException {
-    this.duenio().getPersona().contactarSobreMascotaEncontrada("messirve", "Encontre a tu mascota");
+    this.duenio().contactarDuenio("messirve", "Encontre a tu mascota");
     verify(emailSender).sendEmail("messi@messi.com", "messirve", "Encontre a tu mascota");
     verify(smsSender).sendSMS("112222333", "Encontre a tu mascota");
   }
