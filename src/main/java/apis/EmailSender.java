@@ -11,7 +11,7 @@ import java.util.Properties;
 public class EmailSender {
 
   private String remitente = "unemailejemplar";
-  private String clave = "HolaComoEstas"
+  private String clave = "HolaComoEstas";
 
   public void sendEmail(String destinatario, String subject, String message) throws MessagingException {
 
