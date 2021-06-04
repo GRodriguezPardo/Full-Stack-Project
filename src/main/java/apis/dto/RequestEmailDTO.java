@@ -19,5 +19,10 @@ public class RequestEmailDTO {
     this.email = email;
   }
 
+  @Override
+  public String toString(){
+    return "{" + '"'+ "email"+ '"'+':'+ '"'+ getEmail() + '"'+ '}';
+  }
+
 
 }

@@ -95,7 +95,7 @@ public class HogarDTO {
 
   @Override
   public String toString() {
-    return "{" +
+    return '{' +
             "id:" + getId() + '\'' +
             ", nombre:" + getNombre() + '\'' +
             ", ubicación:" + getUbicacion() + '\'' +
@@ -105,6 +105,6 @@ public class HogarDTO {
             ", lugares_disponibles:" + getLugares_disponibles() + '\'' +
             ", patio:" + getPatio() + '\'' +
             ", caracteristicas:" + getCaracteristica() + '\'' +
-            "'}'";
+            '}';
   }
 }

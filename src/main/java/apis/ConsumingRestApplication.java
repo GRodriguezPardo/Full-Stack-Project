@@ -32,25 +32,24 @@ public class ConsumingRestApplication {
   @Bean
   public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
     return args -> {
-      Map<String, String> var1 = new HashMap<String, String>(3);
-      Map<String, String> var2 = new HashMap<String, String>(3);
-
+      Map<String, String> requestHeader = new HashMap<String, String>(3);
+      requestHeader.put("Authorization", "Bearer tokentest");
+      requestHeader.put("Accept", "application/json");
       try {
-        var1.put("Authorization", "Bearer tokentest");
-
         // POST: Here we get the token
         TokenDTO tokenDTO = restTemplate.postForObject(
             "https://api.refugiosdds.com.ar/api/usuarios",
-            new RequestEmailDTO("entregadetp@gmail.com"), TokenDTO.class, var1);
-        log.info(tokenDTO.toString());
-        var2.put("Authorization", "Bearer " + tokenDTO.getBearer_token());
+            new RequestEmailDTO("entregadetp7@gmail.com"), TokenDTO.class, requestHeader);
+
+        log.info("Response Token:" + tokenDTO.toString());
+        requestHeader.replace("Authorization", "Bearer " + tokenDTO.getBearer_token());
 
         // GET: Here we get the list of "Hogares"
         HogaresDTO response = restTemplate.getForObject(
-            "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, var2);
-        log.info(response.toString());
+            "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, requestHeader);
+        log.info("Response Hogares: " + response.toString());
       } catch (Exception e){
-        log.info("Error: ", e.toString());
+        log.info("Error: " + e.toString());
       }
     };
   }
