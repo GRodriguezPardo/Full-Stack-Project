@@ -88,7 +88,7 @@ public class Persona {
           } catch (MessagingException e) {
             e.printStackTrace();
           }
-          this.smsSender.sendSMS(unContacto.getTelefono(), message);
+          this.smsSender.sendSMS(unContacto.getTelefono().toString(), message);
         });
   }
 }

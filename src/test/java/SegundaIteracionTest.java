@@ -32,7 +32,7 @@ public class SegundaIteracionTest {
   public void puedoContactarAUnDuenio() throws MessagingException {
     this.duenio().getPersona().contactarSobreMascotaEncontrada("messirve","Encontre a tu mascota");
     verify(emailSender).sendEmail("messi@messi.com","messirve","Encontre a tu mascota");
-    verify(smsSender).sendSMS(112222333,"Encontre a tu mascota");
+    verify(smsSender).sendSMS("112222333","Encontre a tu mascota");
   }
 
   @Test
@@ -41,6 +41,14 @@ public class SegundaIteracionTest {
     assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "hola", "un mensaje de prueba"));
   }
 
+  @Test
+  public void enviarSmsNoTiraError() {
+    SmsSender smsSender = new SmsSender();
+    smsSender.setAccountSidAndAuthToken(null , null);//LEER comentarios en smsSender para probar posta con tu telefono
+    smsSender.setSenderNumber(null);
+    assertDoesNotThrow(() -> smsSender.sendSMS("+541165919737", "Mensaje de prueba"));
+  }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
+  valido del numero) y te fijas que te llege el mensaje*/
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
     Asociacion asociacion = new Asociacion(10,20);
