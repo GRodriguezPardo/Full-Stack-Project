@@ -10,13 +10,12 @@ import java.util.Properties;
 
 public class EmailSender {
 
+  private String remitente = "unemailejemplar";
+  private String clave = "HolaComoEstas"
 
   public void sendEmail(String destinatario, String subject, String message) throws MessagingException {
 
     Properties props = new Properties();
-
-    String remitente = "unemailejemplar";
-    String clave = "HolaComoEstas123";
 
     // Nombre del host de correo, es smtp.gmail.com
     props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -51,4 +50,10 @@ public class EmailSender {
     t.sendMessage(unMensaje, unMensaje.getAllRecipients());
     t.close();
   }
+
+  public void setearNuevoRemitente(String remitente,String clave){
+    this.remitente = remitente;
+    this.clave = clave;
+  }
+
 }
