@@ -247,6 +247,7 @@ public class PrimeraIteracionTest {
     personaBuilder.agregarSmsSender(smsSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.agregarMascota(this.mascota());
+    duenio.getPersona().agregarContacto(new Contacto("Anto", 222, "Anto@Anto.com"));
     return duenio;
   }
 }
