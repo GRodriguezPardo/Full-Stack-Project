@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Asociacion {
-  private List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
-  private Integer latitud;
-  private Integer longitud;
+  private final List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
+  private final Integer latitud;
+  private final Integer longitud;
 
   public Asociacion(Integer latitud, Integer longitud) {
     this.latitud = latitud;

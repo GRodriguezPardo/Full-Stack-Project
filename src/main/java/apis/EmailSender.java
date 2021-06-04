@@ -1,7 +1,5 @@
 package apis;
 
-import repositorios.RepositorioDeAsociaciones;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -11,7 +9,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class EmailSender {
-
 
 
   public void sendEmail(String destinatario, String subject, String message) throws MessagingException {
@@ -28,7 +25,7 @@ public class EmailSender {
     props.setProperty("mail.smtp.starttls.enable", "true");
 
     // Puerto de gmail para envio de correos
-    props.setProperty("mail.smtp.port","587");
+    props.setProperty("mail.smtp.port", "587");
     props.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");
 
     // Nombre y clave del usuario
@@ -51,7 +48,7 @@ public class EmailSender {
 
     Transport t = session.getTransport("smtp");
     t.connect("smtp.gmail.com", remitente, clave);
-    t.sendMessage(unMensaje,unMensaje.getAllRecipients());
+    t.sendMessage(unMensaje, unMensaje.getAllRecipients());
     t.close();
   }
 }

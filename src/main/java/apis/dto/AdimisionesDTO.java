@@ -8,7 +8,7 @@ public class AdimisionesDTO {
   private boolean gato = false;
   private boolean perro = false;
 
-  AdimisionesDTO(){
+  AdimisionesDTO() {
   }
 
   public boolean getGato() {
@@ -29,10 +29,10 @@ public class AdimisionesDTO {
 
 
   @Override
-  public String toString(){
+  public String toString() {
     return "{" +
-        "gato:" + getGato() + '\'' +
-        ", perro:" + getPerro()+ '\'' +
-        "'}'";
+            "gato:" + getGato() + '\'' +
+            ", perro:" + getPerro() + '\'' +
+            "'}'";
   }
 }

@@ -18,7 +18,7 @@ public class HogarDTO {
   private CaracteristicaDTO caracteristica;
 
 
-  public HogarDTO(){
+  public HogarDTO() {
   }
 
   public UUID getId() {
@@ -94,17 +94,17 @@ public class HogarDTO {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "{" +
-        "id:" + getId() + '\'' +
-        ", nombre:" + getNombre()+ '\'' +
-        ", ubicación:" + getUbicacion() + '\'' +
-        ", teléfono:" + getTelefono()+ '\'' +
-        ", admisiones:" + getAdmisiones()+ '\'' +
-        ", capacidad:" + getCapcidad()+ '\'' +
-        ", lugares_disponibles:" + getLugares_disponibles()+ '\'' +
-        ", patio:" + getPatio()+ '\'' +
-        ", caracteristicas:" + getCaracteristica()+ '\'' +
-        "'}'";
+            "id:" + getId() + '\'' +
+            ", nombre:" + getNombre() + '\'' +
+            ", ubicación:" + getUbicacion() + '\'' +
+            ", teléfono:" + getTelefono() + '\'' +
+            ", admisiones:" + getAdmisiones() + '\'' +
+            ", capacidad:" + getCapcidad() + '\'' +
+            ", lugares_disponibles:" + getLugares_disponibles() + '\'' +
+            ", patio:" + getPatio() + '\'' +
+            ", caracteristicas:" + getCaracteristica() + '\'' +
+            "'}'";
   }
 }

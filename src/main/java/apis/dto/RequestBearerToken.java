@@ -6,6 +6,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class RequestBearerToken {
 
   private String bearer;
+  private int total;
+  private int offset;
+
+  public RequestBearerToken(String bearer, int total, int offset) {
+    this.bearer = bearer;
+    this.total = total;
+    this.offset = offset;
+  }
 
   public int getTotal() {
     return total;
@@ -23,15 +31,6 @@ public class RequestBearerToken {
     this.offset = offset;
   }
 
-  private int total;
-  private int offset;
-
-  public RequestBearerToken(String bearer,int total,int offset){
-    this.bearer=bearer;
-    this.total=total;
-    this.offset=offset;
-  }
-
   public String getBearer() {
     return bearer;
   }
@@ -41,11 +40,11 @@ public class RequestBearerToken {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "{" +
-        "total:" + getTotal() + '\'' +
-        ", offset:" + getOffset()+ '\'' +
-        "'}'";
+            "total:" + getTotal() + '\'' +
+            ", offset:" + getOffset() + '\'' +
+            "'}'";
   }
 
 }

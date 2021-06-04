@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class TokenDTO {
   private String bearer_token;
 
-  public TokenDTO(){
+  public TokenDTO() {
   }
 
   public String getBearer_token() {
@@ -18,10 +18,10 @@ public class TokenDTO {
   }
 
   @Override
-  public  String toString(){
+  public String toString() {
     return "{" +
-          "bearer_token:" + getBearer_token() +
-          "'}'";
+            "bearer_token:" + getBearer_token() +
+            "'}'";
   }
 
 }

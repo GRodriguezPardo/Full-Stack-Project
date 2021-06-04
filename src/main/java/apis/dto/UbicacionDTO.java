@@ -9,7 +9,7 @@ public class UbicacionDTO {
   private String lat;
   //private String long;
 
-  UbicacionDTO(){
+  UbicacionDTO() {
   }
 
   public String getDireccion() {
@@ -29,10 +29,10 @@ public class UbicacionDTO {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "{" +
-        "direccion:" + getDireccion() + '\'' +
-        ", lat:" + getLat()+ '\'' +
-        "'}'";
+            "direccion:" + getDireccion() + '\'' +
+            ", lat:" + getLat() + '\'' +
+            "'}'";
   }
 }

@@ -7,8 +7,8 @@ public class RequestEmailDTO {
 
   private String email;
 
-  public RequestEmailDTO(@JsonProperty("email") String email){
-    this.email=email;
+  public RequestEmailDTO(@JsonProperty("email") String email) {
+    this.email = email;
   }
 
   public String getEmail() {

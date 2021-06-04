@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.List;
 
 public class PublicacionMascotaPerdida {
-  private Rescatista rescatista;
+  private final Rescatista rescatista;
   private Boolean aprobado;
 
   public PublicacionMascotaPerdida(Rescatista _rescatista) {
@@ -15,7 +15,7 @@ public class PublicacionMascotaPerdida {
     this.aprobado = false;
   }
 
-  public void aprobar(){
+  public void aprobar() {
     this.aprobado = true;
   }
 

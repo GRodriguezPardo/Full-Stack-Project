@@ -6,8 +6,8 @@ import com.twilio.type.PhoneNumber;
 
 
 public class SmsSender {
-  public String accountSid ;
-  public String authToken ;
+  public String accountSid;
+  public String authToken;
   public String senderNumber;
   /*Se debe crear una cuenta en https://www.twilio.com y , en el dashboard , estan las credenciales a setear.
   La trial tiene mensajes limitados , por eso no pongo la que cree.La paga es ilimitada.
@@ -16,10 +16,10 @@ public class SmsSender {
 
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
   public void sendSMS(String destinationNumber, String message) {
-    if(this.authToken != null && this.accountSid != null && this.senderNumber != null) {
+    if (this.authToken != null && this.accountSid != null && this.senderNumber != null) {
       Twilio.init(this.accountSid, this.authToken);
       Message sms = Message.creator(new PhoneNumber(destinationNumber), new PhoneNumber(this.senderNumber), message).create();
-      }
+    }
   }
 
   /*Estos atributos deben setearse juntos porque van de a 2 porque corresponden a una cuenta creada en la plataforma*/

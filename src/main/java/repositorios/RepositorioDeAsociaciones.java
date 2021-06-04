@@ -21,9 +21,12 @@ public class RepositorioDeAsociaciones {
 
   /**
    * Metodo estatico para obtener al singleton.
+   *
    * @return retorna al singleton.
    */
-  public static RepositorioDeAsociaciones getInstance() { return INSTANCE; }
+  public static RepositorioDeAsociaciones getInstance() {
+    return INSTANCE;
+  }
 
   public void agregarAsociacion(Asociacion asociacion) {
     this.asociaciones.add(asociacion);
@@ -35,8 +38,8 @@ public class RepositorioDeAsociaciones {
 
   public List<PublicacionMascotaPerdida> publicacionesMascotas() {
     return this.asociaciones.stream()
-        .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
-        .collect(Collectors.toList());
+            .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
+            .collect(Collectors.toList());
   }
 
   public List<PublicacionMascotaPerdida> publicacionesAprobadas() {
@@ -49,8 +52,8 @@ public class RepositorioDeAsociaciones {
 
   private List<PublicacionMascotaPerdida> publicacionesSegun(Boolean valor) {
     return this.publicacionesMascotas()
-        .stream().filter(unaPublicacion -> unaPublicacion.aprobado().booleanValue() == valor)
-        .collect(Collectors.toList());
+            .stream().filter(unaPublicacion -> unaPublicacion.aprobado().booleanValue() == valor)
+            .collect(Collectors.toList());
   }
 
   public List<Asociacion> getAsociaciones() {
@@ -68,7 +71,7 @@ public class RepositorioDeAsociaciones {
     Comparator<Asociacion> masCercano = new Comparator<Asociacion>() {
       @Override
       public int compare(Asociacion o1, Asociacion o2) {
-        return  o1.distanciaA(latitud,longitud) - o2.distanciaA(latitud,longitud);
+        return o1.distanciaA(latitud, longitud) - o2.distanciaA(latitud, longitud);
       }
     };
 

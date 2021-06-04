@@ -1,7 +1,5 @@
 package personas;
 
-import mascotas.Mascota;
-
 public abstract class Perfil {
   private String usuario;
   private String clave;

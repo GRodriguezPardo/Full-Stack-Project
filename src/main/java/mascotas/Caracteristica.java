@@ -19,21 +19,21 @@ public class Caracteristica<T> {
   }
 
   /**
-   * Modifica el valor asignado al atributo "valor".
-   *
-   * @param _valor es el valor que se le asignara.
-   */
-  public void setValor(T _valor) {
-    this.valor = _valor;
-  }
-
-  /**
    * Getter deñ atributo "valor"
    *
    * @return retorna el valor del atributo "valor"
    */
   public T getValor() {
     return valor;
+  }
+
+  /**
+   * Modifica el valor asignado al atributo "valor".
+   *
+   * @param _valor es el valor que se le asignara.
+   */
+  public void setValor(T _valor) {
+    this.valor = _valor;
   }
 
   /**

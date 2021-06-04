@@ -33,20 +33,20 @@ public class ConsumingRestApplication {
   public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
     return args -> {
       Map<String, String> var1 = new HashMap<String, String>(3);
-      var1.put("Authorization","Bearer tokentest");
+      var1.put("Authorization", "Bearer tokentest");
 
       // POST: Here we get the token
       TokenDTO tokenDTO = restTemplate.postForObject(
-          "https://api.refugiosdds.com.ar/api/usuarios",
-          new RequestEmailDTO("entregadetp@gmail.com"), TokenDTO.class,var1);
+              "https://api.refugiosdds.com.ar/api/usuarios",
+              new RequestEmailDTO("entregadetp@gmail.com"), TokenDTO.class, var1);
       log.info(tokenDTO.toString());
 
       Map<String, String> var2 = new HashMap<String, String>(3);
-      var2.put("Authorization","Bearer " + tokenDTO.getBearer_token());
+      var2.put("Authorization", "Bearer " + tokenDTO.getBearer_token());
 
       // GET: Here we get the list of "Hogares"
       HogaresDTO response = restTemplate.getForObject(
-          "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, var2);
+              "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, var2);
       log.info(response.toString());
 
     };

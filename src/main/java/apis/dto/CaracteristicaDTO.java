@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CaracteristicaDTO {
 
-  public CaracteristicaDTO(){
+  public CaracteristicaDTO() {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "Manso";
   }
 }
