@@ -1,9 +1,13 @@
 import apis.EmailSender;
+import apis.JavaXMail;
 import apis.SmsSender;
+import apis.TwilioJava;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.data.redis.AutoConfigureDataRedis;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 
@@ -19,8 +23,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SegundaIteracionTest {
-  EmailSender emailSender = mock(EmailSender.class);
-  SmsSender smsSender = mock(SmsSender.class);
+  EmailSender emailSender = mock(JavaXMail.class);
+  SmsSender smsSender = mock(TwilioJava.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -36,15 +40,18 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void enviarMailNoTiraError() {
-    EmailSender emailSender = new EmailSender();// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+  @Disabled
+  public void enviarMailNoTiraErrorTESTMANUAL() {
+    EmailSender emailSender = new JavaXMail();// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
     assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "hola", "un mensaje de prueba"));
   }
 
   @Test
-  public void enviarSmsNoTiraError() {
-    smsSender.setAccountSidAndAuthToken(null, null);//LEER comentarios en smsSender para probar posta con tu telefono
-    smsSender.setSenderNumber(null);
+  @Disabled
+  public void enviarSmsNoTiraErrorTESTMANUAL() {
+    TwilioJava twilio = new TwilioJava();
+    twilio.setAccountSidAndAuthToken(null, null);//LEER comentarios en smsSender para probar posta con tu telefono
+    twilio.setSenderNumber(null);
     assertDoesNotThrow(() -> smsSender.sendSMS("+541165919737", "Mensaje de prueba"));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
