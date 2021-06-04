@@ -67,6 +67,25 @@ public class PrimeraIteracionTest {
   }
 
   @Test
+  public void personaSinNombreTiraException() {
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null,null,null, null, null));
+  }
+
+  @Test
+  public void personaSinContactosTiraException() {
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(),new ArrayList<Contacto>(), null, null));
+  }
+
+  @Test
+  public void personaSinDependenciasTiraException() {
+    List<Contacto> contactos = new ArrayList<Contacto>();
+    contactos.add(new Contacto("jose", 222, "jose"));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",
+        LocalDate.now(), contactos,
+        null, null));
+  }
+
+  @Test
   public void puedoCrearUnDuenioSinProblemas() {
     Assertions.assertNotNull(this.duenio());
   }
