@@ -1,9 +1,8 @@
 package apis;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import exceptions.FalloServicioEmailException;
+
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -14,7 +13,7 @@ public class JavaXMail implements EmailSender {
   private String remitente = "unemailejemplar";
   private String clave = "HolaComoEstas";
 
-  public void sendEmail(String destinatario, String subject, String message) throws MessagingException {
+  public void sendEmail(String destinatario, String subject, String message) {
 
     Properties props = new Properties();
 
@@ -40,16 +39,29 @@ public class JavaXMail implements EmailSender {
 
     MimeMessage unMensaje = new MimeMessage(session);
 
-    unMensaje.setFrom(new InternetAddress(remitente));
+    try {
+      unMensaje.setFrom(new InternetAddress(remitente));
+      unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+      unMensaje.setSubject(subject);
+      unMensaje.setText(message);
+    } catch (MessagingException e) {
+      throw new FalloServicioEmailException(e.getMessage());
+    }
 
-    unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-    unMensaje.setSubject(subject);
-    unMensaje.setText(message);
+    Transport t = null;
+    try {
+      t = session.getTransport("smtp");
+    } catch (NoSuchProviderException e) {
+      throw new FalloServicioEmailException(e.getMessage());
+    }
 
-    Transport t = session.getTransport("smtp");
-    t.connect("smtp.gmail.com", remitente, clave);
-    t.sendMessage(unMensaje, unMensaje.getAllRecipients());
-    t.close();
+    try {
+      t.connect("smtp.gmail.com", remitente, clave);
+      t.sendMessage(unMensaje, unMensaje.getAllRecipients());
+      t.close();
+    } catch (MessagingException e) {
+      throw new FalloServicioEmailException(e.getMessage());
+    }
   }
 
   public void setearNuevoRemitente(String remitente, String clave) {

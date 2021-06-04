@@ -4,7 +4,6 @@ import apis.EmailSender;
 import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
-import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +80,7 @@ public class Persona {
   public void contactarSobreMascotaEncontrada(String subject, String message) {
     this.contactos
             .forEach(unContacto -> {
-              try {
-                this.emailSender.sendEmail(unContacto.getEmail(), subject, message);
-              } catch (MessagingException e) {
-                e.printStackTrace();
-              }
+              this.emailSender.sendEmail(unContacto.getEmail(), subject, message);
               this.smsSender.sendSMS(unContacto.getTelefono().toString(), message);
             });
   }
