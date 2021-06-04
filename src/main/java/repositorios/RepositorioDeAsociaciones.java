@@ -68,13 +68,6 @@ public class RepositorioDeAsociaciones {
     Integer latitud = publicacion.getLatitud();
     Integer longitud = publicacion.getLongitud();
 
-    Comparator<Asociacion> masCercano = new Comparator<Asociacion>() {
-      @Override
-      public int compare(Asociacion o1, Asociacion o2) {
-        return o1.distanciaA(latitud, longitud) - o2.distanciaA(latitud, longitud);
-      }
-    };
-
-    this.asociaciones.stream().min(masCercano).get().agregarPublicacion(publicacion);
+    this.asociaciones.stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(latitud, longitud))).get().agregarPublicacion(publicacion);
   }
 }
