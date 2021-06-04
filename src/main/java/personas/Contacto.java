@@ -13,8 +13,8 @@ public class Contacto {
    * Constructor de la clase.
    *
    * @param _nombreApellido es el nombre y apellido de quien es contactado.
-   * @param _telefono es el telefono de contacto.
-   * @param _email es el email de contacto.
+   * @param _telefono       es el telefono de contacto.
+   * @param _email          es el email de contacto.
    */
   public Contacto(String _nombreApellido,
                   Integer _telefono,

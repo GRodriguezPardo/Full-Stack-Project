@@ -23,9 +23,12 @@ public class RepositorioDeRescates {
 
   /**
    * Metodo estatico para obtener al singleton.
+   *
    * @return retorna al singleton.
    */
-  public static RepositorioDeRescates getInstance() { return INSTANCE; }
+  public static RepositorioDeRescates getInstance() {
+    return INSTANCE;
+  }
 
 
   /**
@@ -58,7 +61,7 @@ public class RepositorioDeRescates {
             .collect(Collectors.toList());
   }
 
-  public boolean estaLaMascota(MascotaPerdida unaMascota){
+  public boolean estaLaMascota(MascotaPerdida unaMascota) {
     return this.rescates.stream().map(Rescatista::getMascota).collect(Collectors.toList()).contains(unaMascota);
   }
 

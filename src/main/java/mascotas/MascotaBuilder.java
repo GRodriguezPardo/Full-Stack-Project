@@ -1,12 +1,11 @@
 package mascotas;
 
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-
 import exceptions.FaltanDatosException;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+import java.util.*;
 
 /**
  * Builder de la clase Mascota.
@@ -18,8 +17,8 @@ public class MascotaBuilder {
   private Short edad;
   private Sexo sexo;
   private String descripcion;
-  private List<Image> fotos = new ArrayList<>();
-  private Map<String, Caracteristica> caracteristicas = new HashMap<>();
+  private final List<Image> fotos = new ArrayList<>();
+  private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
 
   /**
    * Constructor vacio propio de un builder sin variables.
@@ -87,7 +86,7 @@ public class MascotaBuilder {
    *
    * @param url es el url de la foto.
    */
-  public void agregarImagen(String url){
+  public void agregarImagen(String url) {
     ImageIcon _foto = new ImageIcon(url);
     Image foto = _foto.getImage();
     fotos.add(foto);
@@ -97,19 +96,18 @@ public class MascotaBuilder {
    * Agregauna caracteristica al hashMap de caracteristicas buscando la plantilla de
    * PosiblesCaracteristicas, cuyo valor sera el pasado por parametro.
    *
-   *
    * @param nombre es el nombre de la caracteristica a agregar.
-   * @param valor es el valor que tendra la caracteristica.
+   * @param valor  es el valor que tendra la caracteristica.
    */
   public void agregarNuevaCaracteristica(String nombre, Object valor) {
-    if(Objects.isNull(nombre) || Objects.isNull(valor)){
+    if (Objects.isNull(nombre) || Objects.isNull(valor)) {
       throw new FaltanDatosException(
               "Debe proveer un nombre y un valor validos"
       );
     }
     Caracteristica caracteristicaEnCreacion =
-        PosiblesCaracteristicas.getInstance()
-        .definirCaracteristica(nombre);
+            PosiblesCaracteristicas.getInstance()
+                    .definirCaracteristica(nombre);
     caracteristicaEnCreacion.setValor(valor);
     this.caracteristicas.put(nombre, caracteristicaEnCreacion);
   }
@@ -121,13 +119,13 @@ public class MascotaBuilder {
    */
   public Mascota finalizarMascota() {
     return new Mascota(
-         this.especie,
-         this.nombre,
-         this.apodo,
-         this.edad,
-         this.sexo,
-         this.descripcion,
-         this.fotos,
-         this.caracteristicas);
+            this.especie,
+            this.nombre,
+            this.apodo,
+            this.edad,
+            this.sexo,
+            this.descripcion,
+            this.fotos,
+            this.caracteristicas);
   }
 }

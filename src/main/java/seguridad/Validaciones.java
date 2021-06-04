@@ -21,6 +21,7 @@ public class Validaciones {
   public void quitarValidacion(Validacion validacion) {
     this.validaciones.remove(validacion);
   }
+
   /*El try catch esta solo xq el intelliJ no me obligaba a ponerlo , despues habria
        que encontrar una forma de hacer la validacion sin usar cosas que tengan esa excepcion chequeada , SALVO que esto no moleste*/
   public void hacerValidaciones(String contrasenia) {

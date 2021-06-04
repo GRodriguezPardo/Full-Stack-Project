@@ -1,6 +1,5 @@
 package apis.dto;
 
-import apis.dto.HogarDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class HogaresDTO {
   private int offset;
   private List<HogarDTO> hogarList;
 
-  public HogaresDTO(){
+  public HogaresDTO() {
   }
 
   public int getTotal() {
@@ -40,11 +39,11 @@ public class HogaresDTO {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "{" +
-        "total:" + getTotal() + '\'' +
-        ", offset:" + getOffset()+ '\'' +
-        ", hogares:" + getHogarList() +
-        "'}'";
+            "total:" + getTotal() + '\'' +
+            ", offset:" + getOffset() + '\'' +
+            ", hogares:" + getHogarList() +
+            "'}'";
   }
 }

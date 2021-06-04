@@ -11,8 +11,8 @@ import java.util.Objects;
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
 public class PosiblesCaracteristicas {
-  private Map<String, Caracteristica> caracteristicas = new HashMap<>();
   private static final PosiblesCaracteristicas INSTANCE = new PosiblesCaracteristicas();
+  private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
 
 
   /**
@@ -35,11 +35,11 @@ public class PosiblesCaracteristicas {
    * Agrega una nueva posible Caracteristica al hashMap de caracteristicas
    * bajo el nombre pasado porparametro.
    *
-   * @param nombre nombre que referenciara a la nueva Caracteristica.
+   * @param nombre              nombre que referenciara a la nueva Caracteristica.
    * @param nuevaCaracteristica nueva psoible Caracteristica.
    */
   public void agregarPosibleCaracteristica(String nombre, Caracteristica nuevaCaracteristica) {
-    if(Objects.isNull(nuevaCaracteristica)) {
+    if (Objects.isNull(nuevaCaracteristica)) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
     this.caracteristicas.put(nombre, nuevaCaracteristica);

@@ -1,20 +1,18 @@
 package personas;
 
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Objects;
-
 import exceptions.FaltanDatosException;
 import mascotas.Mascota;
-import repositorios.RepositorioDeUsuarios;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.
  */
 public class Duenio {
-  private Persona persona;
-  private List<Mascota> mascotas = new ArrayList<>();
+  private final Persona persona;
+  private final List<Mascota> mascotas = new ArrayList<>();
 
   /**
    * Constructor de la clase.
@@ -23,23 +21,23 @@ public class Duenio {
    * @param _persona son los datos de la persona
    */
   public Duenio(Persona _persona) {
-    if(Objects.isNull(_persona)) {
+    if (Objects.isNull(_persona)) {
       throw new FaltanDatosException("Debe proveer datos de la persona");
     }
     this.persona = _persona;
-    }
+  }
 
-    /**
-     * Agrega una mascota a la lista de mascotas de la clase
-     *
-     * @param mascota es la mascota a ser agregada
-     */
-    public void agregarMascota (Mascota mascota){
-      this.mascotas.add(mascota);
-    }
+  /**
+   * Agrega una mascota a la lista de mascotas de la clase
+   *
+   * @param mascota es la mascota a ser agregada
+   */
+  public void agregarMascota(Mascota mascota) {
+    this.mascotas.add(mascota);
+  }
 
-    public Persona getPersona() {
-      return this.persona;
-    }
+  public Persona getPersona() {
+    return this.persona;
+  }
 }
 

@@ -17,6 +17,7 @@ public class PersonaBuilder {
   protected List<Contacto> contactos = new ArrayList<>();
   private EmailSender emailSender;
   private SmsSender smsSender;
+
   /**
    * Constructor vacio propio de un builder sin variables.
    */
@@ -50,20 +51,20 @@ public class PersonaBuilder {
     this.contactos.add(_contacto);
   }
 
-   /**
-    * Agrega la dependencia de emailSender que se inyectara
-    *
-    * @param _emailSender
-    */
+  /**
+   * Agrega la dependencia de emailSender que se inyectara
+   *
+   * @param _emailSender
+   */
   public void agregarEmailSender(EmailSender _emailSender) {
     this.emailSender = _emailSender;
   }
 
   /**
-    * Agrega la dependencia de smsSender que se inyectara
-    *
-    * @param _smsSender
-    */
+   * Agrega la dependencia de smsSender que se inyectara
+   *
+   * @param _smsSender
+   */
   public void agregarSmsSender(SmsSender _smsSender) {
     this.smsSender = _smsSender;
   }

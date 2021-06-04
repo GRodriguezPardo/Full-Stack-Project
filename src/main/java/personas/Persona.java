@@ -1,33 +1,31 @@
 package personas;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Objects;
-
 import apis.EmailSender;
 import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
 import javax.mail.MessagingException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Clase abstracta que aglomera los comportamientos en comun de las personas.
  */
 public class Persona {
-  private String nombreYApellido;
-  private LocalDate fechaNacimiento;
-  private List<Contacto> contactos = new ArrayList<>();
-  private EmailSender emailSender;
-  private SmsSender smsSender;
+  private final String nombreYApellido;
+  private final LocalDate fechaNacimiento;
+  private final List<Contacto> contactos = new ArrayList<>();
+  private final EmailSender emailSender;
+  private final SmsSender smsSender;
 
   /**
    * Constructor de la clase.
    *
    * @param _nombreYApellido es el nombre y apellido de la persona.
    * @param _fechaNacimiento es la fecha de nacimiento de la persona.
-   * @param _contacto es la lista de formas de contacto de la persona.
+   * @param _contacto        es la lista de formas de contacto de la persona.
    */
   public Persona(String _nombreYApellido,
                  LocalDate _fechaNacimiento,
@@ -35,21 +33,21 @@ public class Persona {
                  EmailSender _emailSender,
                  SmsSender _smsSender) {
     if (Objects.isNull(_nombreYApellido)
-        || Objects.isNull(_fechaNacimiento)
-        || Objects.isNull(_contacto)) {
+            || Objects.isNull(_fechaNacimiento)
+            || Objects.isNull(_contacto)) {
       throw new FaltanDatosException(
-          "Se debe proveer un nombre, una fecha de nacimiento y un contacto"
+              "Se debe proveer un nombre, una fecha de nacimiento y un contacto"
       );
     }
     if (_contacto.isEmpty()) {
       throw new FaltanDatosException(
-          "Se debe proveer minimo un contacto"
+              "Se debe proveer minimo un contacto"
       );
     }
     if (Objects.isNull(_emailSender)
-        || Objects.isNull(_smsSender)) {
+            || Objects.isNull(_smsSender)) {
       throw new FaltanDatosException(
-          "Falta proveer senders de email y sms"
+              "Falta proveer senders de email y sms"
       );
     }
     this.nombreYApellido = _nombreYApellido;
@@ -80,15 +78,15 @@ public class Persona {
     return this.contactos;
   }
 
-  public void contactarSobreMascotaEncontrada(String subject,String message) {
+  public void contactarSobreMascotaEncontrada(String subject, String message) {
     this.contactos
-        .forEach(unContacto -> {
-          try {
-            this.emailSender.sendEmail(unContacto.getEmail(),subject, message);
-          } catch (MessagingException e) {
-            e.printStackTrace();
-          }
-          this.smsSender.sendSMS(unContacto.getTelefono(), message);
-        });
+            .forEach(unContacto -> {
+              try {
+                this.emailSender.sendEmail(unContacto.getEmail(), subject, message);
+              } catch (MessagingException e) {
+                e.printStackTrace();
+              }
+              this.smsSender.sendSMS(unContacto.getTelefono().toString(), message);
+            });
   }
 }

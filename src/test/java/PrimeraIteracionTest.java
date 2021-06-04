@@ -1,19 +1,17 @@
-
 import apis.EmailSender;
 import apis.SmsSender;
+import exceptions.EsContraseniaCortaException;
+import exceptions.EsContraseniaDebilException;
+import exceptions.FaltanDatosException;
+import exceptions.NoEsContraseniaAlfanumericaException;
+import mascotas.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
-import static org.mockito.Mockito.*;
-
-import exceptions.FaltanDatosException;
 import personas.*;
-import exceptions.*;
 import repositorios.RepositorioDeRescates;
 import repositorios.RepositorioDeUsuarios;
 import seguridad.*;
-import mascotas.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +19,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 public class PrimeraIteracionTest {
   EmailSender emailSender = mock(EmailSender.class);
@@ -33,13 +33,13 @@ public class PrimeraIteracionTest {
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal",new Caracteristica<String>());
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado",new Caracteristica<Boolean>());
+    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
 
   @Test
   public void unaMascotaVaciaFalla() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null,null,null,null, null, null, null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null, null, null, null, null, null, null, null));
   }
 
   @Test
@@ -48,14 +48,14 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void losDatosDeUnaMascotaSeAsignanCorrectamente(){
+  public void losDatosDeUnaMascotaSeAsignanCorrectamente() {
     Mascota mascota = this.mascota();
-    Assertions.assertEquals("Sergio Ramos",mascota.getNombre());
-    Assertions.assertEquals("Noventa y ramos",mascota.getApodo());
-    Assertions.assertEquals(Especie.PERRO,mascota.getEspecie());
-    Assertions.assertEquals("Un jugador de futbol del real madrid",mascota.getDescripcion());
-    Assertions.assertEquals((short) 35,mascota.getEdad());
-    Assertions.assertEquals(Sexo.MACHO,mascota.getSexo());
+    Assertions.assertEquals("Sergio Ramos", mascota.getNombre());
+    Assertions.assertEquals("Noventa y ramos", mascota.getApodo());
+    Assertions.assertEquals(Especie.PERRO, mascota.getEspecie());
+    Assertions.assertEquals("Un jugador de futbol del real madrid", mascota.getDescripcion());
+    Assertions.assertEquals((short) 35, mascota.getEdad());
+    Assertions.assertEquals(Sexo.MACHO, mascota.getSexo());
   }
 
   @Test
@@ -71,13 +71,13 @@ public class PrimeraIteracionTest {
   @Test
   public void laDescripcionDeUnaMascotaPerdidaSeAsignaCorrectamente() {
     MascotaPerdida mascotaPerdida = this.mascotaPerdida();
-    Assertions.assertEquals("Estaba intentando marcar a Messi",mascotaPerdida.getDescripcionEstado());
+    Assertions.assertEquals("Estaba intentando marcar a Messi", mascotaPerdida.getDescripcionEstado());
   }
 
   @Test
   public void agregarCarateristicaVaciaDaError() {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
-    Assertions.assertThrows(FaltanDatosException.class, () -> mascotaBuilder.agregarNuevaCaracteristica(null,null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> mascotaBuilder.agregarNuevaCaracteristica(null, null));
   }
 
   @Test
@@ -91,13 +91,14 @@ public class PrimeraIteracionTest {
     Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
   }
 
-  @Test void rebotarPerfilVacio() {
+  @Test
+  void rebotarPerfilVacio() {
     Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarPerfil(null));
   }
 
   @Test
   public void rebotarContraseniaDebil() {
-    Assertions.assertThrows(EsContraseniaDebilException.class ,() ->  validacionFuerza.validar("blitz")); //Esa es la ultima del txt
+    Assertions.assertThrows(EsContraseniaDebilException.class, () -> validacionFuerza.validar("blitz")); //Esa es la ultima del txt
   }
 
   @Test
@@ -107,32 +108,32 @@ public class PrimeraIteracionTest {
 
   @Test
   public void rebotarContraseniaCorta() {
-    Assertions.assertThrows(EsContraseniaCortaException.class, () ->  validacionLargo.validar("c_corta"));
+    Assertions.assertThrows(EsContraseniaCortaException.class, () -> validacionLargo.validar("c_corta"));
   }
 
   @Test
   public void noRebotarContraseniaLarga() {
-    Assertions.assertDoesNotThrow(() ->  validacionLargo.validar("c_laaaaaaaaaaarga"));
+    Assertions.assertDoesNotThrow(() -> validacionLargo.validar("c_laaaaaaaaaaarga"));
   }
 
   @Test
   public void rebotarContraseniaNoAlfanumerica1() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("soloLetras"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("soloLetras"));
   }
 
   @Test
   public void rebotarContraseniaNoAlfanumerica2() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("soloNumeros"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("soloNumeros"));
   }
 
   @Test
   public void rebotarContraseniaNoAlfanumerica3() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class ,() ->  validacionAlfamerica.validar("!$%&/()=?¿+*-_:;{}[]"));
+    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("!$%&/()=?¿+*-_:;{}[]"));
   }
 
   @Test
   public void noRebotarContraseniaAlfanumerica() {
-    Assertions.assertDoesNotThrow(() ->  validacionAlfamerica.validar("letras_y_numeros(148)"));
+    Assertions.assertDoesNotThrow(() -> validacionAlfamerica.validar("letras_y_numeros(148)"));
   }
 
   @Test
@@ -143,16 +144,16 @@ public class PrimeraIteracionTest {
 
   @Test
   public void cambioClaveCorrectamente() throws IOException {
-    Perfil perfilPrueba = new Admin("Jose","viVaLaPaTrIa_2021");
+    Perfil perfilPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
     RepositorioDeUsuarios.getInstance().agregarPerfil(perfilPrueba);
-    RepositorioDeUsuarios.getInstance().cambiarClave("Jose","viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
-    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose","aguanteLaBolgnesa_2021"));
+    RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
+    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
     RepositorioDeUsuarios.getInstance().removerPerfil(perfilPrueba);
   }
 
   @Test
   public void rebotarComprobacionClaveVacia() {
-    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose",null));
+    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", null));
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
@@ -172,7 +173,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
-    this.settearColorPrincipal(mascotaBuilder,"Blanco");
+    this.settearColorPrincipal(mascotaBuilder, "Blanco");
     return mascotaBuilder.finalizarMascota();
   }
 
@@ -188,25 +189,25 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 12345,54321);
+    return new MascotaPerdida(descripcion, fotos, 12345, 54321);
   }
 
   public Rescatista rescatista() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Cristiano Ronaldo");
-    personaBuilder.setFechaNacimiento(LocalDate.of(1985,2,5));
-    Contacto metodoContacto = new Contacto("CR7", 1211113333,"cristiano@ronaldo.com");
+    personaBuilder.setFechaNacimiento(LocalDate.of(1985, 2, 5));
+    Contacto metodoContacto = new Contacto("CR7", 1211113333, "cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
     personaBuilder.agregarEmailSender(emailSender);
     personaBuilder.agregarSmsSender(smsSender);
-    return new Rescatista(personaBuilder.crearPersona(),LocalDate.now(),this.mascotaPerdida());
+    return new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
   }
 
   public Duenio duenio() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
-    personaBuilder.setFechaNacimiento(LocalDate.of(1987,6,24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333,"messi@messi.com");
+    personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
+    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
     personaBuilder.agregarEmailSender(emailSender);
     personaBuilder.agregarSmsSender(smsSender);
