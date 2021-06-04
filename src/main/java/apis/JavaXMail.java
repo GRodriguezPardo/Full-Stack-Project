@@ -10,8 +10,14 @@ import java.util.Properties;
 
 public class JavaXMail implements EmailSender {
 
-  private String remitente = "unemailejemplar";
-  private String clave = "HolaComoEstas";
+  private String remitente;
+  private String clave;
+
+  public JavaXMail(String remitente, String clave) {
+    this.remitente = remitente; //"unemailejemplar"
+    this.clave = clave; //"HolaComoEstas"
+  }
+
 
   public void sendEmail(String destinatario, String subject, String message) {
 
