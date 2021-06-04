@@ -43,7 +43,6 @@ public class SegundaIteracionTest {
 
   @Test
   public void enviarSmsNoTiraError() {
-    SmsSender smsSender = new SmsSender();
     smsSender.setAccountSidAndAuthToken(null, null);//LEER comentarios en smsSender para probar posta con tu telefono
     smsSender.setSenderNumber(null);
     assertDoesNotThrow(() -> smsSender.sendSMS("+541165919737", "Mensaje de prueba"));
