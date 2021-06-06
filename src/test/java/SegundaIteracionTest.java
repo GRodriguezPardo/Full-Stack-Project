@@ -34,8 +34,8 @@ public class SegundaIteracionTest {
   @Test
   public void puedoContactarAUnDuenio() {
     this.duenio().contactarDuenio("Encontre a tu mascota");
-    verify(emailSender).sendEmail("messi@messi.com", "messirve", "Encontre a tu mascota");
-    verify(smsSender).sendSMS("112222333", "Encontre a tu mascota");
+    verify(emailSender).sendEmail("messi@messi.com", "Notificacion Mascota Perdida", "Encontre a tu mascota");
+    verify(smsSender).sendSms("112222333", "Encontre a tu mascota");
   }
 
   @Test
@@ -48,10 +48,8 @@ public class SegundaIteracionTest {
   @Test
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
-    TwilioJava twilio = new TwilioJava();
-    twilio.setAccountSidAndAuthToken(null, null);//LEER comentarios en smsSender para probar posta con tu telefono
-    twilio.setSenderNumber(null);
-    assertDoesNotThrow(() -> smsSender.sendSMS("+541165919737", "Mensaje de prueba"));
+    TwilioJava twilio = new TwilioJava(null , null , null);//LEER comentarios en smsSender para probar posta con tu telefono
+    assertDoesNotThrow(() -> smsSender.sendSms("+541165919737", "Mensaje de prueba"));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
 

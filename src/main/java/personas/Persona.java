@@ -82,7 +82,7 @@ public class Persona {
     this.contactos
             .forEach(unContacto -> {
               this.emailSender.sendEmail(unContacto.getEmail(), "Notificacion Mascota Perdida", message);
-              this.smsSender.sendSMS(unContacto.getTelefono().toString(), message);
+              this.smsSender.sendSms(unContacto.getTelefono().toString(), message);
             });
   }
 }

@@ -2,6 +2,6 @@ package apis;
 
 public interface SmsSender {
 
-  void sendSMS(String destinationNumber, String message);
+  void sendSms(String destinationNumber, String message);
 
 }
