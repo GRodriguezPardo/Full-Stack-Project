@@ -76,11 +76,6 @@ public class Rescatista {
     return this.persona.getContactos();
   }
 
-  public Integer getLatitud() {
-    return this.mascota.getLatitud();
-  }
-
-  public Integer getLongitud() {
-    return this.mascota.getLongitud();
+  public Posicion getPosicion() { return mascota.getPosicion();
   }
 }

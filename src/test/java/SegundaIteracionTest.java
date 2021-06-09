@@ -55,7 +55,7 @@ public class SegundaIteracionTest {
 
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
-    Asociacion asociacion = new Asociacion(10, 20);
+    Asociacion asociacion = new Asociacion(new Posicion(10,20));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion);
 
@@ -66,8 +66,8 @@ public class SegundaIteracionTest {
 
   @Test
   public void lasPublicacionesSeAsignanCorrectamente() {
-    Asociacion asociacion1 = new Asociacion(10, 10);
-    Asociacion asociacion2 = new Asociacion(20, 20);
+    Asociacion asociacion1 = new Asociacion(new Posicion(10,10));
+    Asociacion asociacion2 = new Asociacion(new Posicion(20,20));
     PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista());
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
@@ -86,7 +86,7 @@ public class SegundaIteracionTest {
   public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
     PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(10, 10);
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     repo.agregarPublicacion(publicacionDesaprobada1);
@@ -110,7 +110,7 @@ public class SegundaIteracionTest {
   @Test
   public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
     PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(10, 10);
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     repo.agregarPublicacion(publicacionDesaprobada);
@@ -126,7 +126,7 @@ public class SegundaIteracionTest {
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
     Usuario perfil1 = new Usuario("Luis I","Soy primero",this.duenio());
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
-    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(33,33));
+    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33,33)));
 
     repo.agregarPerfil(perfil1);
     repo.agregarPerfil(perfil2);
@@ -172,7 +172,7 @@ public class SegundaIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 0, 0);
+    return new MascotaPerdida(descripcion, fotos, new Posicion(0,0));
   }
 
   public Rescatista rescatista() {

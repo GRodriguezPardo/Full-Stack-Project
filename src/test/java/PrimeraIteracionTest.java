@@ -73,12 +73,12 @@ public class PrimeraIteracionTest {
 
   @Test
   public void personaSinContactosTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(),new ArrayList<Contacto>(), null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(), new ArrayList<>(), null, null));
   }
 
   @Test
   public void personaSinDependenciasTiraException() {
-    List<Contacto> contactos = new ArrayList<Contacto>();
+    List<Contacto> contactos = new ArrayList<>();
     contactos.add(new Contacto("jose", 222, "jose"));
     Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",
         LocalDate.now(), contactos,
@@ -176,7 +176,7 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void cambioClaveCorrectamente() throws IOException {
+  public void cambioClaveCorrectamente() {
     Perfil perfilPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
     RepositorioDeUsuarios.getInstance().agregarPerfil(perfilPrueba);
     RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
@@ -223,7 +223,7 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 12345, 54321);
+    return new MascotaPerdida(descripcion, fotos, new Posicion(12345,54321));
   }
 
   public Rescatista rescatista() {

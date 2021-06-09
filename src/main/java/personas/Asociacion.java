@@ -7,13 +7,11 @@ import java.util.List;
 
 public class Asociacion {
   private final List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
-  private final Integer latitud;
-  private final Integer longitud;
+  private Posicion posicion;
   // TODO : Posicion posicion;
 
-  public Asociacion(Integer latitud, Integer longitud) {
-    this.latitud = latitud;
-    this.longitud = longitud;
+  public Asociacion(Posicion posicion) {
+    this.posicion = posicion;
   }
 
   public List<PublicacionMascotaPerdida> publicacionesACargo() {
@@ -24,9 +22,7 @@ public class Asociacion {
     this.publicacionesACargo.add(publicacion);
   }
 
-  public Integer distanciaA(Integer latitud, Integer longitud) {
-    Integer resultadoLongitud = this.longitud - longitud;
-    Integer resultadoLatitud = this.latitud - latitud;
-    return (int) Math.sqrt(Math.pow(resultadoLatitud, 2) + Math.pow(resultadoLongitud, 2));
+  public Integer distanciaA(Posicion unaPos) {
+    return unaPos.distanciaA(this.posicion);
   }
 }

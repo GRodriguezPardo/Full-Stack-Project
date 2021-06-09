@@ -68,7 +68,7 @@ public class RepositorioDeAsociaciones {
     }
 
     this.asociaciones.stream()
-        .min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getLatitud(), publicacion.getLongitud())))
+        .min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion())))
         .get().agregarPublicacion(publicacion);
   }
 }
