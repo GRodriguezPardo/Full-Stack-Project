@@ -8,7 +8,7 @@ import java.util.List;
 public class Asociacion {
   private final List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
   private Posicion posicion;
-  // TODO : Posicion posicion;
+  // TODO : HECHO Posicion posicion;
 
   public Asociacion(Posicion posicion) {
     this.posicion = posicion;

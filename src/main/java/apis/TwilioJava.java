@@ -26,11 +26,11 @@ public class TwilioJava implements SmsSender {
   }
 
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
-  public void sendSms(String destinationNumber, String message) {
+  public void sendSms(String destinationNumber) {
     Twilio.init(this.accountSid, this.authToken);
     Message.creator(new PhoneNumber(destinationNumber),
             new PhoneNumber(this.senderNumber),
-            message).create();
+            "Se encontro a su mascota").create();
   }
 
 }

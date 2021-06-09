@@ -19,7 +19,7 @@ public class JavaXMail implements EmailSender {
   }
 
 
-  public void sendEmail(String destinatario, String subject, String message) {
+  public void sendEmail(String destinatario) {
 
     Properties props = new Properties();
 
@@ -48,8 +48,8 @@ public class JavaXMail implements EmailSender {
     try {
       unMensaje.setFrom(new InternetAddress(remitente));
       unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-      unMensaje.setSubject(subject);
-      unMensaje.setText(message);
+      unMensaje.setSubject("sistema de Rescates");
+      unMensaje.setText("hemos encontrado a su mascota");
       sendRealMessage(session, unMensaje);
     } catch (Exception e) {
       throw new FalloServicioEmailException(e);
@@ -57,7 +57,7 @@ public class JavaXMail implements EmailSender {
   }
   // TODO : Hacer que el mock corra todos los metodos reales menos este.
   private void sendRealMessage(Session session, MimeMessage unMensaje) throws MessagingException {
-    Transport t = null;
+    Transport t;
     t = session.getTransport("smtp");
     t.connect("smtp.gmail.com", remitente, clave);
     t.sendMessage(unMensaje, unMensaje.getAllRecipients());

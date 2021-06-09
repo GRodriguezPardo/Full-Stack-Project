@@ -78,11 +78,11 @@ public class Persona {
   }
 
   //TODO : metodo preferido, hardcodear mensaje,
-  public void contactarPorMascota(String message) {
+  public void contactarPorMascota() {
     this.contactos
             .forEach(unContacto -> {
-              this.emailSender.sendEmail(unContacto.getEmail(), "Notificacion Mascota Perdida", message);
-              this.smsSender.sendSms(unContacto.getTelefono().toString(), message);
+              this.emailSender.sendEmail(unContacto.getEmail());
+              this.smsSender.sendSms(unContacto.getTelefono().toString());
             });
   }
 }
