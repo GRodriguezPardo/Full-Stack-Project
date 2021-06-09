@@ -1,8 +1,6 @@
 package personas;
 
-import apis.EmailSender;
 import apis.MedioNotificacion;
-import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
 import java.time.LocalDate;

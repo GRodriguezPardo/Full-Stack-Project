@@ -7,7 +7,7 @@ import exceptions.FaltanDatosException;
 import personas.Contacto;
 
 
-public class TwilioJava implements SmsSender, MedioNotificacion {
+public class TwilioJava implements MedioNotificacion {
   public String accountSid;
   public String authToken;
   public String senderNumber;

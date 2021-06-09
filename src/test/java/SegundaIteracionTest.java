@@ -39,7 +39,7 @@ public class SegundaIteracionTest {
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
-    EmailSender emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    JavaXMail emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
     assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com"));
   }
 

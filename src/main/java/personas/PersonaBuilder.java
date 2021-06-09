@@ -1,8 +1,6 @@
 package personas;
 
-import apis.EmailSender;
 import apis.MedioNotificacion;
-import apis.SmsSender;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
