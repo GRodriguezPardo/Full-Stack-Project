@@ -61,7 +61,7 @@ public class RepositorioDeAsociaciones {
   }
 
   //TODO : Capaz devolver la asociacion mas cercana y asignar por consola.
-  //TODO : Encapsular latitud y longitud en una clase
+  //TODO : HECHO Encapsular latitud y longitud en una clase
   public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
     if (this.asociaciones.isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");
