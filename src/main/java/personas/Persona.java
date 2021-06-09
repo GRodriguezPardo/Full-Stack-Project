@@ -77,7 +77,7 @@ public class Persona {
     return this.contactos;
   }
 
-  //TODO : metodo preferido, hardcodear mensaje,
+  //TODO : HECHO metodo preferido, hardcodear mensaje,
   public void contactarPorMascota() {
     this.contactos
             .forEach(unContacto -> {
