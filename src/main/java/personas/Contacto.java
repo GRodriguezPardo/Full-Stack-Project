@@ -6,7 +6,7 @@ package personas;
  */
 public class Contacto {
   private final String nombreApellido;
-  private final Integer telefono;
+  private final String telefono;
   private final String email;
   //private final PreferenciaContacto metodo;
 
@@ -18,7 +18,7 @@ public class Contacto {
    * @param _email          es el email de contacto.
    */
   public Contacto(String _nombreApellido,
-                  Integer _telefono,
+                  String _telefono,
                   String _email) {
     this.nombreApellido = _nombreApellido;
     this.telefono = _telefono;
@@ -39,7 +39,7 @@ public class Contacto {
    *
    * @return retorna el telefono.
    */
-  public Integer getTelefono() {
+  public String getTelefono() {
     return telefono;
   }
 

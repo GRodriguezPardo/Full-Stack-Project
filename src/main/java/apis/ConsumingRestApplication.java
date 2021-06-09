@@ -38,17 +38,17 @@ public class ConsumingRestApplication {
       try {
         // POST: Here we get the token
         TokenDTO tokenDTO = restTemplate.postForObject(
-            "https://api.refugiosdds.com.ar/api/usuarios",
-            new RequestEmailDTO("entregadetp7@gmail.com"), TokenDTO.class, requestHeader);
+                "https://api.refugiosdds.com.ar/api/usuarios",
+                new RequestEmailDTO("entregadetp7@gmail.com"), TokenDTO.class, requestHeader);
 
         log.info("Response Token:" + tokenDTO.toString());
         requestHeader.replace("Authorization", "Bearer " + tokenDTO.getBearer_token());
 
         // GET: Here we get the list of "Hogares"
         HogaresDTO response = restTemplate.getForObject(
-            "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, requestHeader);
+                "https://api.refugiosdds.com.ar/api/hogares", HogaresDTO.class, requestHeader);
         log.info("Response Hogares: " + response.toString());
-      } catch (Exception e){
+      } catch (Exception e) {
         log.info("Error: " + e.toString());
       }
     };

@@ -20,8 +20,8 @@ public class RequestEmailDTO {
   }
 
   @Override
-  public String toString(){
-    return "{" + '"'+ "email"+ '"'+':'+ '"'+ getEmail() + '"'+ '}';
+  public String toString() {
+    return "{" + '"' + "email" + '"' + ':' + '"' + getEmail() + '"' + '}';
   }
 
 

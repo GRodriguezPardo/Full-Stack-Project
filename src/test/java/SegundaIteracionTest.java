@@ -1,7 +1,4 @@
-import apis.EmailSender;
-import apis.JavaXMail;
-import apis.SmsSender;
-import apis.TwilioJava;
+import apis.*;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,8 +19,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SegundaIteracionTest {
-  EmailSender emailSender = mock(JavaXMail.class);
-  SmsSender smsSender = mock(TwilioJava.class);
+  MedioNotificacion emailSender = mock(JavaXMail.class);
+  MedioNotificacion smsSender = mock(TwilioJava.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -33,9 +30,10 @@ public class SegundaIteracionTest {
 
   @Test
   public void puedoContactarAUnDuenio() {
-    this.duenio().contactarDuenio();
-    verify(emailSender).sendEmail("messi@messi.com");
-    verify(smsSender).sendSms("112222333");
+    Duenio duenio = this.duenio();
+    duenio.contactarDuenio();
+    verify(emailSender).notificar(duenio.getPersona().getContactos().get(0));
+    verify(smsSender).notificar(duenio.getPersona().getContactos().get(0));
   }
 
   @Test
@@ -49,7 +47,8 @@ public class SegundaIteracionTest {
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
     TwilioJava twilio = new TwilioJava(null , null , null);//LEER comentarios en smsSender para probar posta con tu telefono
-    assertDoesNotThrow(() -> smsSender.sendSms("+541165919737"));
+    Contacto contacto = new Contacto("Anonimo" ,"+541165919737" ,"messi@messi.com");
+    assertDoesNotThrow(() -> twilio.notificar(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
 
@@ -179,22 +178,23 @@ public class SegundaIteracionTest {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Cristiano Ronaldo");
     personaBuilder.setFechaNacimiento(LocalDate.of(1985, 2, 5));
-    Contacto metodoContacto = new Contacto("CR7", 1211113333, "cristiano@ronaldo.com");
+    Contacto metodoContacto = new Contacto("CR7", "1211113333", "cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
-    return new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    personaBuilder.agregarMedioNotificacion(emailSender);
+    Rescatista rescatista = new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    rescatista.getPersona().agregarMedioNotificacion(smsSender);
+    return rescatista;
   }
 
   public Duenio duenio() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
     personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
+    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
+    personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
+    duenio.getPersona().agregarMedioNotificacion(smsSender);
     duenio.agregarMascota(this.mascota());
     return duenio;
   }

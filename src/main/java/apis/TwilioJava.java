@@ -4,9 +4,10 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import exceptions.FaltanDatosException;
+import personas.Contacto;
 
 
-public class TwilioJava implements SmsSender {
+public class TwilioJava implements SmsSender, MedioNotificacion {
   public String accountSid;
   public String authToken;
   public String senderNumber;
@@ -33,4 +34,7 @@ public class TwilioJava implements SmsSender {
             "Se encontro a su mascota").create();
   }
 
+  public void notificar(Contacto contacto) {
+    this.sendSms(contacto.getTelefono());
+  }
 }

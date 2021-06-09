@@ -1,6 +1,7 @@
 package personas;
 
 import apis.EmailSender;
+import apis.MedioNotificacion;
 import apis.SmsSender;
 import exceptions.FaltanDatosException;
 
@@ -16,8 +17,7 @@ public class Persona {
   private final String nombreYApellido;
   private final LocalDate fechaNacimiento;
   private final List<Contacto> contactos = new ArrayList<>();
-  private final EmailSender emailSender;
-  private final SmsSender smsSender;
+  private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**
    * Constructor de la clase.
@@ -29,8 +29,7 @@ public class Persona {
   public Persona(String _nombreYApellido,
                  LocalDate _fechaNacimiento,
                  List<Contacto> _contacto,
-                 EmailSender _emailSender,
-                 SmsSender _smsSender) {
+                 MedioNotificacion _medioNotificacion) {
     if (Objects.isNull(_nombreYApellido)
             || Objects.isNull(_fechaNacimiento)
             || Objects.isNull(_contacto)) {
@@ -43,17 +42,15 @@ public class Persona {
               "Se debe proveer minimo un contacto"
       );
     }
-    if (Objects.isNull(_emailSender)
-            || Objects.isNull(_smsSender)) {
+    if (Objects.isNull(_medioNotificacion)) {
       throw new FaltanDatosException(
-              "Falta proveer senders de email y sms"
+              "Se debe proveer minimo un medio de notificacion"
       );
     }
     this.nombreYApellido = _nombreYApellido;
     this.fechaNacimiento = _fechaNacimiento;
     this.contactos.addAll(_contacto);
-    this.emailSender = _emailSender;
-    this.smsSender = _smsSender;
+    this.agregarMedioNotificacion(_medioNotificacion);
   }
 
   /**
@@ -81,8 +78,15 @@ public class Persona {
   public void contactarPorMascota() {
     this.contactos
             .forEach(unContacto -> {
-              this.emailSender.sendEmail(unContacto.getEmail());
-              this.smsSender.sendSms(unContacto.getTelefono().toString());
+              this.mediosNotificacion.forEach(m -> m.notificar(unContacto));
             });
+  }
+
+  public void agregarMedioNotificacion(MedioNotificacion medioNotificacion) {
+    this.mediosNotificacion.add(medioNotificacion);
+  }
+
+  public void removerMedioNotificacion(MedioNotificacion medioNotificacion) {
+    this.mediosNotificacion.remove(medioNotificacion);
   }
 }

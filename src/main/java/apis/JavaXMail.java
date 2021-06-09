@@ -1,14 +1,18 @@
 package apis;
 
 import exceptions.FalloServicioEmailException;
+import personas.Contacto;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 
-public class JavaXMail implements EmailSender {
+public class JavaXMail implements EmailSender, MedioNotificacion {
 
   private String remitente;
   private String clave;
@@ -18,6 +22,9 @@ public class JavaXMail implements EmailSender {
     this.clave = clave; //"HolaComoEstas"
   }
 
+  public void notificar(Contacto contacto) {
+    this.sendEmail(contacto.getEmail());
+  }
 
   public void sendEmail(String destinatario) {
 
@@ -55,6 +62,7 @@ public class JavaXMail implements EmailSender {
       throw new FalloServicioEmailException(e);
     }
   }
+
   // TODO : Hacer que el mock corra todos los metodos reales menos este.
   private void sendRealMessage(Session session, MimeMessage unMensaje) throws MessagingException {
     Transport t;
