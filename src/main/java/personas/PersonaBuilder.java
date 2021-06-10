@@ -1,7 +1,6 @@
 package personas;
 
-import apis.EmailSender;
-import apis.SmsSender;
+import apis.MedioNotificacion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,8 +14,7 @@ public class PersonaBuilder {
   protected String nombreYApellido;
   protected LocalDate fechaNacimiento;
   protected List<Contacto> contactos = new ArrayList<>();
-  private EmailSender emailSender;
-  private SmsSender smsSender;
+  private MedioNotificacion medioNotificacion;
 
   /**
    * Constructor vacio propio de un builder sin variables.
@@ -52,21 +50,12 @@ public class PersonaBuilder {
   }
 
   /**
-   * Agrega la dependencia de emailSender que se inyectara
+   * Agrega la dependencia de MedioNotificacion que se inyectara
    *
-   * @param _emailSender
+   * @param _medioNotificacion
    */
-  public void agregarEmailSender(EmailSender _emailSender) {
-    this.emailSender = _emailSender;
-  }
-
-  /**
-   * Agrega la dependencia de smsSender que se inyectara
-   *
-   * @param _smsSender
-   */
-  public void agregarSmsSender(SmsSender _smsSender) {
-    this.smsSender = _smsSender;
+  public void agregarMedioNotificacion(MedioNotificacion _medioNotificacion) {
+    this.medioNotificacion = _medioNotificacion;
   }
 
   /**
@@ -77,6 +66,6 @@ public class PersonaBuilder {
    * @return retorna la persona creada.
    */
   public Persona crearPersona() {
-    return new Persona(this.nombreYApellido, this.fechaNacimiento, this.contactos, this.emailSender, this.smsSender);
+    return new Persona(this.nombreYApellido, this.fechaNacimiento, this.contactos, this.medioNotificacion);
   }
 }

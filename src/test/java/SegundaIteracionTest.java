@@ -1,7 +1,4 @@
-import apis.EmailSender;
-import apis.JavaXMail;
-import apis.SmsSender;
-import apis.TwilioJava;
+import apis.*;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,8 +19,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SegundaIteracionTest {
-  EmailSender emailSender = mock(JavaXMail.class);
-  SmsSender smsSender = mock(TwilioJava.class);
+  MedioNotificacion emailSender = mock(JavaXMail.class);
+  MedioNotificacion smsSender = mock(TwilioJava.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -33,31 +30,31 @@ public class SegundaIteracionTest {
 
   @Test
   public void puedoContactarAUnDuenio() {
-    this.duenio().contactarDuenio("Encontre a tu mascota");
-    verify(emailSender).sendEmail("messi@messi.com", "messirve", "Encontre a tu mascota");
-    verify(smsSender).sendSMS("112222333", "Encontre a tu mascota");
+    Duenio duenio = this.duenio();
+    duenio.contactarDuenio();
+    verify(emailSender).notificar(duenio.getPersona().getContactos().get(0));
+    verify(smsSender).notificar(duenio.getPersona().getContactos().get(0));
   }
 
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
-    EmailSender emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
-    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "hola", "un mensaje de prueba"));
+    JavaXMail emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com"));
   }
 
   @Test
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
-    TwilioJava twilio = new TwilioJava();
-    twilio.setAccountSidAndAuthToken(null, null);//LEER comentarios en smsSender para probar posta con tu telefono
-    twilio.setSenderNumber(null);
-    assertDoesNotThrow(() -> smsSender.sendSMS("+541165919737", "Mensaje de prueba"));
+    TwilioJava twilio = new TwilioJava(null , null , null);//LEER comentarios en smsSender para probar posta con tu telefono
+    Contacto contacto = new Contacto("Anonimo" ,"+541165919737" ,"messi@messi.com");
+    assertDoesNotThrow(() -> twilio.notificar(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
 
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
-    Asociacion asociacion = new Asociacion(10, 20);
+    Asociacion asociacion = new Asociacion(new Posicion(10,20));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion);
 
@@ -68,8 +65,8 @@ public class SegundaIteracionTest {
 
   @Test
   public void lasPublicacionesSeAsignanCorrectamente() {
-    Asociacion asociacion1 = new Asociacion(10, 10);
-    Asociacion asociacion2 = new Asociacion(20, 20);
+    Asociacion asociacion1 = new Asociacion(new Posicion(10,10));
+    Asociacion asociacion2 = new Asociacion(new Posicion(20,20));
     PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista());
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
@@ -88,7 +85,7 @@ public class SegundaIteracionTest {
   public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
     PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(10, 10);
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     repo.agregarPublicacion(publicacionDesaprobada1);
@@ -112,7 +109,7 @@ public class SegundaIteracionTest {
   @Test
   public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
     PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(10, 10);
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     repo.agregarPublicacion(publicacionDesaprobada);
@@ -128,7 +125,7 @@ public class SegundaIteracionTest {
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
     Usuario perfil1 = new Usuario("Luis I","Soy primero",this.duenio());
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
-    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(33,33));
+    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33,33)));
 
     repo.agregarPerfil(perfil1);
     repo.agregarPerfil(perfil2);
@@ -174,29 +171,30 @@ public class SegundaIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 0, 0);
+    return new MascotaPerdida(descripcion, fotos, new Posicion(0,0));
   }
 
   public Rescatista rescatista() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Cristiano Ronaldo");
     personaBuilder.setFechaNacimiento(LocalDate.of(1985, 2, 5));
-    Contacto metodoContacto = new Contacto("CR7", 1211113333, "cristiano@ronaldo.com");
+    Contacto metodoContacto = new Contacto("CR7", "1211113333", "cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
-    return new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    personaBuilder.agregarMedioNotificacion(emailSender);
+    Rescatista rescatista = new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    rescatista.getPersona().agregarMedioNotificacion(smsSender);
+    return rescatista;
   }
 
   public Duenio duenio() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
     personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
+    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
+    personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
+    duenio.getPersona().agregarMedioNotificacion(smsSender);
     duenio.agregarMascota(this.mascota());
     return duenio;
   }

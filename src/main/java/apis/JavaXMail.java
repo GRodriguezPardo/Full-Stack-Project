@@ -1,14 +1,18 @@
 package apis;
 
 import exceptions.FalloServicioEmailException;
+import personas.Contacto;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 
-public class JavaXMail implements EmailSender {
+public class JavaXMail implements MedioNotificacion {
 
   private String remitente;
   private String clave;
@@ -18,8 +22,11 @@ public class JavaXMail implements EmailSender {
     this.clave = clave; //"HolaComoEstas"
   }
 
+  public void notificar(Contacto contacto) {
+    this.sendEmail(contacto.getEmail());
+  }
 
-  public void sendEmail(String destinatario, String subject, String message) {
+  public void sendEmail(String destinatario) {
 
     Properties props = new Properties();
 
@@ -48,16 +55,17 @@ public class JavaXMail implements EmailSender {
     try {
       unMensaje.setFrom(new InternetAddress(remitente));
       unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-      unMensaje.setSubject(subject);
-      unMensaje.setText(message);
+      unMensaje.setSubject("sistema de Rescates");
+      unMensaje.setText("hemos encontrado a su mascota");
       sendRealMessage(session, unMensaje);
     } catch (Exception e) {
       throw new FalloServicioEmailException(e);
     }
   }
+
   // TODO : Hacer que el mock corra todos los metodos reales menos este.
   private void sendRealMessage(Session session, MimeMessage unMensaje) throws MessagingException {
-    Transport t = null;
+    Transport t;
     t = session.getTransport("smtp");
     t.connect("smtp.gmail.com", remitente, clave);
     t.sendMessage(unMensaje, unMensaje.getAllRecipients());

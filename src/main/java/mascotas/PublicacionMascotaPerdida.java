@@ -1,6 +1,7 @@
 package mascotas;
 
 import personas.Contacto;
+import personas.Posicion;
 import personas.Rescatista;
 
 import java.awt.*;
@@ -23,19 +24,14 @@ public class PublicacionMascotaPerdida {
     return this.aprobado;
   }
 
-  public Integer getLatitud() {
-    return this.rescatista.getLatitud();
-  }
-
-  public Integer getLongitud() {
-    return rescatista.getLongitud();
-  }
-
   public List<Contacto> getContactos() {
     return this.rescatista.getContactos();
   }
 
   public List<Image> getFotos() {
     return this.rescatista.getFotos();
+  }
+
+  public Posicion getPosicion() { return rescatista.getPosicion();
   }
 }

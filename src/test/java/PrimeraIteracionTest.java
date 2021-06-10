@@ -1,5 +1,4 @@
-import apis.EmailSender;
-import apis.SmsSender;
+import apis.*;
 import exceptions.EsContraseniaCortaException;
 import exceptions.EsContraseniaDebilException;
 import exceptions.FaltanDatosException;
@@ -23,8 +22,8 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 
 public class PrimeraIteracionTest {
-  EmailSender emailSender = mock(EmailSender.class);
-  SmsSender smsSender = mock(SmsSender.class);
+  MedioNotificacion emailSender = mock(JavaXMail.class);
+  MedioNotificacion smsSender = mock(TwilioJava.class);
 
 
   Validacion validacionAlfamerica = new ContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
@@ -44,9 +43,9 @@ public class PrimeraIteracionTest {
 
   @Test
   public void losContactosSeCreanSinProblema() {
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
+    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
     Assertions.assertEquals("Lionel Messi",metodoContacto.getNombreApellido());
-    Assertions.assertEquals(112222333,metodoContacto.getTelefono());
+    Assertions.assertEquals("112222333",metodoContacto.getTelefono());
     Assertions.assertEquals("messi@messi.com",metodoContacto.getEmail());
   }
 
@@ -68,21 +67,21 @@ public class PrimeraIteracionTest {
 
   @Test
   public void personaSinNombreTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null,null,null, null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null,null,null, null));
   }
 
   @Test
   public void personaSinContactosTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(),new ArrayList<Contacto>(), null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(), new ArrayList<>(), null));
   }
 
   @Test
   public void personaSinDependenciasTiraException() {
-    List<Contacto> contactos = new ArrayList<Contacto>();
-    contactos.add(new Contacto("jose", 222, "jose"));
+    List<Contacto> contactos = new ArrayList<>();
+    contactos.add(new Contacto("jose", "222", "jose"));
     Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",
         LocalDate.now(), contactos,
-        null, null));
+        null));
   }
 
   @Test
@@ -176,7 +175,7 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void cambioClaveCorrectamente() throws IOException {
+  public void cambioClaveCorrectamente() {
     Perfil perfilPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
     RepositorioDeUsuarios.getInstance().agregarPerfil(perfilPrueba);
     RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
@@ -223,31 +222,32 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, 12345, 54321);
+    return new MascotaPerdida(descripcion, fotos, new Posicion(12345,54321));
   }
 
   public Rescatista rescatista() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Cristiano Ronaldo");
     personaBuilder.setFechaNacimiento(LocalDate.of(1985, 2, 5));
-    Contacto metodoContacto = new Contacto("CR7", 1211113333, "cristiano@ronaldo.com");
+    Contacto metodoContacto = new Contacto("CR7", "1211113333", "cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
-    return new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    personaBuilder.agregarMedioNotificacion(emailSender);
+    Rescatista rescatista = new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida());
+    rescatista.getPersona().agregarMedioNotificacion(smsSender);
+    return rescatista;
   }
 
   public Duenio duenio() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Lionel Andres Messi");
     personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", 112222333, "messi@messi.com");
+    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarEmailSender(emailSender);
-    personaBuilder.agregarSmsSender(smsSender);
+    personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
+    duenio.getPersona().agregarMedioNotificacion(smsSender);
     duenio.agregarMascota(this.mascota());
-    duenio.getPersona().agregarContacto(new Contacto("Anto", 222, "Anto@Anto.com"));
+    duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "Anto@Anto.com"));
     return duenio;
   }
 }

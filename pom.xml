@@ -47,6 +47,12 @@
           <artifactId>mail</artifactId>
           <version>1.4.7</version>
       </dependency>
+    <!-- https://mvnrepository.com/artifact/com.github.dejv78.commons.jfx/jfx-geometry -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>15.0.1</version>
+    </dependency>
     <dependency>
       <groupId>com.twilio.sdk</groupId>
       <artifactId>twilio</artifactId>
