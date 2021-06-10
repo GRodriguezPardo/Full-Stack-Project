@@ -1,17 +1,24 @@
 package apis.dto;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder(value={"hogares", "id"})
 public class HogaresDTO {
 
   private int total;
-  private int offset;
+  private String offset;
   private List<HogarDTO> hogarList;
 
-  public HogaresDTO() {
+
+  public HogaresDTO(){
+    hogarList = new ArrayList<>();
   }
 
   public int getTotal() {
@@ -22,14 +29,15 @@ public class HogaresDTO {
     this.total = total;
   }
 
-  public int getOffset() {
+  public String getOffset() {
     return offset;
   }
 
-  public void setOffset(int offset) {
+  public void setOffset(String offset) {
     this.offset = offset;
   }
 
+  @JsonGetter("hogares")
   public List<HogarDTO> getHogarList() {
     return hogarList;
   }
@@ -40,10 +48,9 @@ public class HogaresDTO {
 
   @Override
   public String toString() {
-    return "{" +
-            "total:" + getTotal() + '\'' +
-            ", offset:" + getOffset() + '\'' +
-            ", hogares:" + getHogarList() +
-            "'}'";
+    return ("{" + '"' + "total"  + '"' + ':' + getTotal() + ',' +
+            '"' + "offset"  + '"' + ':' + getOffset() + ',' +
+            '"' + "hogares" + '"' + ':' + getHogarList() +
+            '}');
   }
 }

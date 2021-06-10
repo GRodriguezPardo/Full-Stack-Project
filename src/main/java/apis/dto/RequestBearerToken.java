@@ -7,9 +7,9 @@ public class RequestBearerToken {
 
   private String bearer;
   private int total;
-  private int offset;
+  private String offset;
 
-  public RequestBearerToken(String bearer, int total, int offset) {
+  public RequestBearerToken(String bearer, int total, String offset) {
     this.bearer = bearer;
     this.total = total;
     this.offset = offset;
@@ -23,11 +23,11 @@ public class RequestBearerToken {
     this.total = total;
   }
 
-  public int getOffset() {
+  public String getOffset() {
     return offset;
   }
 
-  public void setOffset(int offset) {
+  public void setOffset(String offset) {
     this.offset = offset;
   }
 

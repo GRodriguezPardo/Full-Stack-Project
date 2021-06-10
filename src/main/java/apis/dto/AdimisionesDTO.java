@@ -30,9 +30,9 @@ public class AdimisionesDTO {
 
   @Override
   public String toString() {
-    return "{" +
-            "gato:" + getGato() + '\'' +
-            ", perro:" + getPerro() + '\'' +
-            "'}'";
+    return  "{"
+        + '"' + "perros"  + '"' + ": " + getPerro() + ','
+        + '"' + "gatos"  + '"' + ": " + getGato()
+        + "}";
   }
 }

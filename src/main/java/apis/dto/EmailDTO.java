@@ -3,11 +3,11 @@ package apis.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RequestEmailDTO {
+public class EmailDTO {
 
   private String email;
 
-  public RequestEmailDTO(@JsonProperty("email") String email) {
+  public EmailDTO(@JsonProperty("email") String email) {
     this.email = email;
   }
 
