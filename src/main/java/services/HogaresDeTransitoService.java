@@ -1,17 +1,21 @@
 package services;
 
 import apis.HogaresDeTransitoAPI;
-import apis.dto.HogarDTO;
-import apis.dto.HogaresDTO;
-import apis.dto.EmailDTO;
-import apis.dto.TokenDTO;
+import apis.dto.*;
 import exceptions.HogaresException;
+import mascotas.Especie;
+import mascotas.Mascota;
+import mascotas.Tamanio;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
+import personas.Posicion;
+
+import java.nio.file.attribute.PosixFileAttributes;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HogaresDeTransitoService implements HogaresDeTransitoAPI {
 
@@ -44,6 +48,34 @@ public class HogaresDeTransitoService implements HogaresDeTransitoAPI {
   public TokenDTO getToken (String email, String bearerToken) {
     headers.setBearerAuth(bearerToken);
     return restTemplate.postForObject(url_usuarios, new EmailDTO(email), TokenDTO.class, headers);
+  }
+
+  private boolean validate(Mascota mascota,Posicion ubicacion,int distanciaMaxima, HogarDTO hogar){
+
+    //valido por disponibilidad
+    if (hogar.getLugares_disponibles() == 0)
+      return false;
+
+    //valido por especie
+    if (((hogar.getAdmisiones().getGato() && (mascota.getEspecie() != Especie.GATO)))
+    || ((hogar.getAdmisiones().getPerro() && (mascota.getEspecie() != Especie.PERRO)))) return false;
+
+    //valido por tamaño
+    if ((mascota.getTamanio()== Tamanio.MEDIANO || mascota.getTamanio()== Tamanio.GRANDE)
+      && !hogar.getPatio()) return false;
+
+    //valido por ubicacion
+    Posicion posicionHogar = new Posicion(hogar.getUbicacion().getLong(),hogar.getUbicacion().getLat());
+    if ((posicionHogar.distanciaA(ubicacion)) > distanciaMaxima)
+      return false;
+
+    return true;
+  }
+
+  public List<HogarDTO> getHogarMascota (Mascota mascota, Posicion ubicacion,int distanciaMaxima){
+    return this.getHogarList(1).stream().
+        filter(x->validate(mascota,ubicacion,distanciaMaxima,x))
+        .collect(Collectors.toList());
   }
 
 }

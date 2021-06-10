@@ -38,7 +38,7 @@ public class PrimeraIteracionTest {
 
   @Test
   public void unaMascotaVaciaFalla() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null, null, null, null, null, null, null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null, null, null, null, null, null, null, null,null));
   }
 
   @Test

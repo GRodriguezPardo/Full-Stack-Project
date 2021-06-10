@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class UbicacionDTO {
 
   private String direccion;
-  private String lat;
-  private String Long;
+  private double lat;
+  private double Long;
 
   UbicacionDTO() {
   }
 
-  public String getLong() {
+  public double getLong() {
     return Long;
   }
 
-  public void setLong(String aLong) {
+  public void setLong(double aLong) {
     Long = aLong;
   }
 
@@ -28,11 +28,11 @@ public class UbicacionDTO {
     this.direccion = direccion;
   }
 
-  public String getLat() {
+  public double getLat() {
     return lat;
   }
 
-  public void setLat(String lat) {
+  public void setLat(double lat) {
     this.lat = lat;
   }
 

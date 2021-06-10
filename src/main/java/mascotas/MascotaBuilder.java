@@ -19,6 +19,7 @@ public class MascotaBuilder {
   private String descripcion;
   private final List<Image> fotos = new ArrayList<>();
   private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
+  private Tamanio tamanio;
 
   /**
    * Constructor vacio propio de un builder sin variables.
@@ -126,6 +127,8 @@ public class MascotaBuilder {
             this.sexo,
             this.descripcion,
             this.fotos,
-            this.caracteristicas);
+            this.caracteristicas,
+            this.tamanio
+        );
   }
 }

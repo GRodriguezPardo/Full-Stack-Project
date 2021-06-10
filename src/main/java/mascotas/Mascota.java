@@ -19,6 +19,12 @@ public class Mascota {
   private final List<Image> fotos;
   private final Map<String, Caracteristica> caracteristicas;
 
+  public Tamanio getTamanio() {
+    return tamanio;
+  }
+
+  private final Tamanio tamanio;
+
   /**
    * Constructor de una mascota.
    * Realiza los checkeos de los datos minimos que se debe saber de la misma.
@@ -39,7 +45,8 @@ public class Mascota {
                  Sexo _sexo,
                  String _descripcion,
                  List<Image> _fotos,
-                 Map<String, Caracteristica> _caracteristicas) {
+                 Map<String, Caracteristica> _caracteristicas,
+                 Tamanio tamanio) {
     if (Objects.isNull(_nombre)
             || Objects.isNull(_edad)
             || Objects.isNull(_sexo)
@@ -56,6 +63,7 @@ public class Mascota {
     this.descripcion = _descripcion;
     this.fotos = new ArrayList<>(_fotos);
     this.caracteristicas = new HashMap<>(_caracteristicas);
+    this.tamanio=tamanio;
   }
 
   public Especie getEspecie() {
