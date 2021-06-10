@@ -1,4 +1,5 @@
 import apis.*;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -71,11 +72,9 @@ public class SegundaIteracionTest {
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
     repo.agregarAsociacion(asociacion2);
-    repo.agregarPublicacion(publicacion);
 
-    assertTrue(asociacion1.publicacionesACargo().contains(publicacion));
-    assertFalse(asociacion2.publicacionesACargo().contains(publicacion));
-    assertTrue(repo.publicacionesMascotas().contains(publicacion));
+
+    assertEquals(repo.asociacionMasCercana(publicacion),asociacion1);
 
     repo.removerAsociacion(asociacion1);
     repo.removerAsociacion(asociacion2);
@@ -88,8 +87,8 @@ public class SegundaIteracionTest {
     Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
-    repo.agregarPublicacion(publicacionDesaprobada1);
-    repo.agregarPublicacion(publicacionDesaprobada2);
+    unaAsociacion.agregarPublicacion(publicacionDesaprobada1);
+    unaAsociacion.agregarPublicacion(publicacionDesaprobada2);
 
     assertTrue(repo.publicacionesAprobadas().isEmpty());
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada1));
@@ -103,7 +102,7 @@ public class SegundaIteracionTest {
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(this.rescatista());
 
-    assertThrows(NoHayNingunaAsociasionException.class, () -> repo.agregarPublicacion(unaPublicacion));
+    assertThrows(NoHayNingunaAsociasionException.class, () -> repo.asociacionMasCercana(unaPublicacion));
   }
 
   @Test
@@ -112,7 +111,7 @@ public class SegundaIteracionTest {
     Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
-    repo.agregarPublicacion(publicacionDesaprobada);
+    unaAsociacion.agregarPublicacion(publicacionDesaprobada);
     Voluntario voluntario = new Voluntario("Jose","AyudoMucho", unaAsociacion);
 
     assertTrue(voluntario.publicacionesGestionables().contains(publicacionDesaprobada));

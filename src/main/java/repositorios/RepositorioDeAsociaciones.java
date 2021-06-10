@@ -7,6 +7,7 @@ import personas.Asociacion;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RepositorioDeAsociaciones {
@@ -60,15 +61,13 @@ public class RepositorioDeAsociaciones {
     return this.asociaciones;
   }
 
-  //TODO : Capaz devolver la asociacion mas cercana y asignar por consola.
+  //TODO : HECHO Capaz devolver la asociacion mas cercana y asignar por consola.
   //TODO : HECHO Encapsular latitud y longitud en una clase
-  public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
+
+  public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion){
     if (this.asociaciones.isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");
     }
-
-    this.asociaciones.stream()
-        .min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion())))
-        .get().agregarPublicacion(publicacion);
+    return this.asociaciones.stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion()))).get();
   }
 }
