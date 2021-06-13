@@ -1,7 +1,6 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-import javafx.geometry.Pos;
 import personas.Posicion;
 
 import java.awt.*;

@@ -1,7 +1,14 @@
 package apis.dto;
 
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import mascotas.Especie;
+import mascotas.Mascota;
+import mascotas.Tamanio;
+import personas.Posicion;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HogarDTO {
@@ -10,15 +17,37 @@ public class HogarDTO {
   private String nombre;
   private UbicacionDTO ubicacion;
   private String telefono;
-  private AdimisionesDTO admisiones;
+  private AdmisionesDTO admisiones;
   private int capacidad;
   private int lugares_disponibles;
   private boolean patio = false;
-  private CaracteristicaDTO caracteristica;
-
-
+  private List<String> caracteristicas;
 
   public HogarDTO() {
+  }
+
+  public List<String> getCaracteristicas() {
+    return caracteristicas;
+  }
+  @JsonAnySetter
+  public void setCaracteristicas(List<String> caracteristicas) {
+    this.caracteristicas = caracteristicas;
+  }
+
+  public boolean validarAdmision(Mascota mascota){
+    //valido por disponibilidad
+    if (getLugares_disponibles() == 0) return false;
+    //valido por tamaño
+    if ((mascota.getTamanio() == Tamanio.MEDIANO) && (!getPatio())) return false;
+    if ((mascota.getTamanio() == Tamanio.GRANDE) && (!getPatio())) return false;
+    //valido por especie
+    if (((getAdmisiones().getGatos() && (mascota.getEspecie() != Especie.GATO)))
+        || ((getAdmisiones().getPerros() && (mascota.getEspecie() != Especie.PERRO)))) return false;
+    return true;
+  }
+
+  public Posicion getPoscion(){
+    return new Posicion(ubicacion.getLong(), ubicacion.getLat());
   }
 
   @JsonGetter("id")
@@ -57,11 +86,11 @@ public class HogarDTO {
     this.telefono = telefono;
   }
 
-  public AdimisionesDTO getAdmisiones() {
+  public AdmisionesDTO getAdmisiones() {
     return admisiones;
   }
 
-  public void setAdmisiones(AdimisionesDTO adimisiones) {
+  public void setAdmisiones(AdmisionesDTO adimisiones) {
     this.admisiones = adimisiones;
   }
 
@@ -89,15 +118,6 @@ public class HogarDTO {
     this.patio = patio;
   }
 
-  @JsonGetter("caracteristica")
-  public CaracteristicaDTO getCaracteristica() {
-    return caracteristica;
-  }
-
-  public void setCaracteristica(CaracteristicaDTO caracteristica) {
-    this.caracteristica = caracteristica;
-  }
-
   @Override
   public String toString() {
     return  "{"
@@ -109,7 +129,7 @@ public class HogarDTO {
         + '"' + "capacidad"  + '"' + ": " + getCapacidad() + ','
         + '"' + "lugares_disponibles"  + '"' + ": " + getLugares_disponibles() + ','
         + '"' + "patio"  + '"' + ": " + getPatio() + ','
-        + '"' + "caracteristicas"  + '"' + ": " + getCaracteristica()
+        + '"' + "caracteristicas"  + '"' + ": " + getCaracteristicas()
         + "}";
   }
 }

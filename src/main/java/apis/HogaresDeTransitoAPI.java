@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface HogaresDeTransitoAPI {
 
-  public HogaresDTO getHogares(int offset);
-  public List<HogarDTO> getHogarList(int offset);
+  public HogaresDTO getHogares(String offset);
+  public List<HogarDTO> getHogarList(String offset);
   public TokenDTO getToken(String email, String bearerToken);
 
 }

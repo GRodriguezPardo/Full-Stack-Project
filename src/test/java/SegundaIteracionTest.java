@@ -1,13 +1,16 @@
 import apis.*;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import apis.dto.AdmisionesDTO;
+import apis.dto.HogarDTO;
+import apis.dto.HogaresDTO;
+import apis.dto.UbicacionDTO;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeUsuarios;
+import services.HogaresService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+
 public class SegundaIteracionTest {
   MedioNotificacion emailSender = mock(JavaXMail.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
+  HogaresService hogaresService = mock(HogaresService.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -141,6 +146,17 @@ public class SegundaIteracionTest {
     repo.removerPerfil(perfil3);
   }
 
+  @Test
+  public void obtenerHogaresDeTransito(){
+
+    HogaresService service = new HogaresService();
+
+    Posicion posicionHogar = new Posicion(1,1);
+    Posicion posicionRescatista = new Posicion(0,0);
+    Assertions.assertTrue(posicionRescatista.distanciaA(posicionHogar) <= 10);
+
+  }
+
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
   }
@@ -153,6 +169,7 @@ public class SegundaIteracionTest {
     mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
+    mascotaBuilder.setTamanio(Tamanio.CHICO);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
     return mascotaBuilder.finalizarMascota();
@@ -196,5 +213,29 @@ public class SegundaIteracionTest {
     duenio.getPersona().agregarMedioNotificacion(smsSender);
     duenio.agregarMascota(this.mascota());
     return duenio;
+  }
+
+  public HogarDTO getHogarDTO(){
+    HogarDTO hogarDTO = new HogarDTO();
+    AdmisionesDTO admisionesDTO = new AdmisionesDTO();
+    UbicacionDTO ubicacionDTO = new UbicacionDTO();
+    ubicacionDTO.setLat(1.00);
+    ubicacionDTO.setLong(1.00);
+    admisionesDTO.setPerros(true);
+    hogarDTO.setAdmisiones(admisionesDTO);
+    hogarDTO.setUbicacion(ubicacionDTO);
+    hogarDTO.setPatio(true);
+    hogarDTO.setLugares_disponibles(1);
+    return hogarDTO;
+  }
+
+  public HogaresDTO getHogaresDTO(){
+    HogaresDTO hogaresDTO = new HogaresDTO();
+    hogaresDTO.setOffset("1");
+    hogaresDTO.setTotal(1);
+    ArrayList<HogarDTO> listHogarDTO = new ArrayList<>();
+    listHogarDTO.add(getHogarDTO());
+    hogaresDTO.setHogares(listHogarDTO);
+    return hogaresDTO;
   }
 }

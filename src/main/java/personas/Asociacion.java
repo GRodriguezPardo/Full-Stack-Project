@@ -1,7 +1,6 @@
 package personas;
 
 import mascotas.PublicacionMascotaPerdida;
-
 import java.util.ArrayList;
 import java.util.List;
 

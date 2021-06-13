@@ -31,28 +31,35 @@
           <version>3.10.0</version>
           <scope>test</scope>
       </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <version>2.4.5</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>2.4.5</version>
-      <scope>test</scope>
-    </dependency>
       <dependency>
           <groupId>javax.mail</groupId>
           <artifactId>mail</artifactId>
           <version>1.4.7</version>
       </dependency>
-    <!-- https://mvnrepository.com/artifact/com.github.dejv78.commons.jfx/jfx-geometry -->
+    <!-- Jackson dependencies -->
     <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>15.0.1</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.12.3</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.12.3</version>
+    </dependency>
+
+    <!-- Jersey dependencies -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-json</artifactId>
+      <version>1.17.1</version>
+    </dependency>
+    <!-- End Jersey dependencies     -->
     <dependency>
       <groupId>com.twilio.sdk</groupId>
       <artifactId>twilio</artifactId>

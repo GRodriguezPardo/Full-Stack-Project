@@ -9,7 +9,7 @@ public class UbicacionDTO {
   private double lat;
   private double Long;
 
-  UbicacionDTO() {
+  public UbicacionDTO() {
   }
 
   public double getLong() {

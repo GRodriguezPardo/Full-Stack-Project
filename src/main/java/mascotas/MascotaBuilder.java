@@ -113,6 +113,11 @@ public class MascotaBuilder {
     this.caracteristicas.put(nombre, caracteristicaEnCreacion);
   }
 
+  public void setTamanio(Tamanio tamanio) {
+    this.tamanio = tamanio;
+  }
+
+
   /**
    * Finaliza la creacion de la mascota.
    *
