@@ -11,17 +11,15 @@ import mascotas.Mascota;
 import personas.Posicion;
 import java.util.List;
 import java.util.stream.Collectors;
-
 // Jersey Library
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-
 // Javax Libary
 import javax.ws.rs.core.MediaType;
 
 public class HogaresService implements HogaresDeTransitoAPI {
   private final Client client;
-  private static final String TOKEN = "eIlG30oTf8P7rBOtgWetcQH59wXUjcy4ZZGRSAf4Ba3t6xhh1Q2UmU6yXTPS";
+  private static final String TOKEN = "KyaEViQxhE4UuBMO9KjkZCg4haTLDwte7woNGlp0mlcIALTZnyfp4eOhBVXY";
   private static final String API_HOGARES = "https://api.refugiosdds.com.ar/api/";
   private static final String PATH_HOGARES = "hogares";
   private static final String PATH_USUARIOS = "usuarios";
@@ -32,6 +30,7 @@ public class HogaresService implements HogaresDeTransitoAPI {
     this.client = Client.create(clientConfig);
   }
 
+  @Override
   public HogaresDTO getHogares(String offset) throws HogaresException {
     return client
         .resource(API_HOGARES)
@@ -56,7 +55,7 @@ public class HogaresService implements HogaresDeTransitoAPI {
   }
 
   public List<HogarDTO> getHogarMascota (Mascota mascota, Posicion ubicacion,int distanciaMaxima){
-    //TODO: Debemos recorrer todos los offset
+    //TODO: Debemos recorrer todos los offset, deje por default el primero
     return this.getHogarList("1")
         .stream()
         .filter(hogarDTO -> (hogarDTO.validarAdmision(mascota)

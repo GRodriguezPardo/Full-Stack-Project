@@ -18,11 +18,6 @@ public class Mascota {
   private final String descripcion;
   private final List<Image> fotos;
   private final Map<String, Caracteristica> caracteristicas;
-
-  public Tamanio getTamanio() {
-    return tamanio;
-  }
-
   private final Tamanio tamanio;
 
   /**
@@ -64,6 +59,10 @@ public class Mascota {
     this.fotos = new ArrayList<>(_fotos);
     this.caracteristicas = new HashMap<>(_caracteristicas);
     this.tamanio=tamanio;
+  }
+
+  public Tamanio getTamanio() {
+    return tamanio;
   }
 
   public Especie getEspecie() {

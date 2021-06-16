@@ -29,7 +29,7 @@ public class HogarDTO {
   public List<String> getCaracteristicas() {
     return caracteristicas;
   }
-  @JsonAnySetter
+
   public void setCaracteristicas(List<String> caracteristicas) {
     this.caracteristicas = caracteristicas;
   }

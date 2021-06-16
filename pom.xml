@@ -25,17 +25,17 @@
       <version>5.7.0</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-          <version>3.10.0</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>javax.mail</groupId>
-          <artifactId>mail</artifactId>
-          <version>1.4.7</version>
-      </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.10.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
     <!-- Jackson dependencies -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -47,17 +47,16 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.12.3</version>
     </dependency>
-
     <!-- Jersey dependencies -->
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
-      <version>1.8</version>
+      <version>1.19.4</version>
     </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-json</artifactId>
-      <version>1.17.1</version>
+      <version>1.19.4</version>
     </dependency>
     <!-- End Jersey dependencies     -->
     <dependency>

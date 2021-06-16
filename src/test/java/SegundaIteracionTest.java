@@ -1,8 +1,5 @@
 import apis.*;
-import apis.dto.AdmisionesDTO;
 import apis.dto.HogarDTO;
-import apis.dto.HogaresDTO;
-import apis.dto.UbicacionDTO;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
 import org.junit.jupiter.api.*;
@@ -26,7 +23,6 @@ import static org.mockito.Mockito.verify;
 public class SegundaIteracionTest {
   MedioNotificacion emailSender = mock(JavaXMail.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
-  HogaresService hogaresService = mock(HogaresService.class);
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -155,6 +151,77 @@ public class SegundaIteracionTest {
     Posicion posicionRescatista = new Posicion(0,0);
     Assertions.assertTrue(posicionRescatista.distanciaA(posicionHogar) <= 10);
 
+    Assertions.assertFalse(
+        service.getHogarMascota(mascota(),posicionRescatista,100).isEmpty()
+    );
+  }
+
+  @Test
+  public void obtenerHogaresAyudacan(){
+
+    HogaresService service = new HogaresService();
+    Posicion posicionRescatista = new Posicion(0,0);
+    HogarDTO hogarAyudacan =
+    service.getHogarMascota(mascota(),posicionRescatista,100)
+        .stream()
+        .filter(x->(x.getNombre().equals("Ayudacan")))
+        .findFirst()
+        .get();
+
+    Assertions.assertEquals(hogarAyudacan.getNombre(),"Ayudacan");
+    Assertions.assertEquals(hogarAyudacan.getTelefono(),"+541134586100");
+    Assertions.assertTrue(hogarAyudacan.getAdmisiones().getPerros());
+    Assertions.assertFalse(hogarAyudacan.getAdmisiones().getGatos());
+    Assertions.assertEquals(hogarAyudacan.getCapacidad(),150);
+    Assertions.assertEquals(hogarAyudacan.getLugares_disponibles(),49);
+    Assertions.assertTrue(hogarAyudacan.getPatio());
+    Assertions.assertTrue(hogarAyudacan.getCaracteristicas().isEmpty());
+  }
+
+  @Test
+  public void obtenerHogaresMascotaGrandeYHogarSinPatio(){
+    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.GRANDE);
+    HogaresService service = new HogaresService();
+    //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
+    Assertions.assertEquals(
+        service.getHogarMascota(mascota,new Posicion(0,0),100)
+            .stream().filter(hogar -> !hogar.getPatio())
+            .count(),0
+    );
+  }
+
+  @Test
+  public void obtenerHogaresMascotaGrandeYHogarConPatio(){
+    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.GRANDE);
+    HogaresService service = new HogaresService();
+    //Mascota GRANDE y Hogar con Patio, por regla de admisión no debiera haber:
+    Assertions.assertTrue(
+        service.getHogarMascota(mascota,new Posicion(0,0),100)
+            .stream()
+            .anyMatch(hogar -> hogar.getPatio())
+    );
+  }
+
+  @Test
+  public void obtenerHogaresMascotaChicaYHogarSinPatio(){
+    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.CHICO);
+    HogaresService service = new HogaresService();
+    //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
+    Assertions.assertFalse(
+        service.getHogarMascota(mascota,new Posicion(0,0),100)
+            .stream().anyMatch(hogar -> !hogar.getPatio())
+    );
+  }
+
+  @Test
+  public void obtenerHogaresMascotaChicaYHogarConPatio(){
+    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.CHICO);
+    HogaresService service = new HogaresService();
+    //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
+    Assertions.assertFalse(
+        service.getHogarMascota(mascota,new Posicion(0,0),100)
+            .stream().anyMatch(hogar -> !hogar.getPatio())
+    );
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
@@ -169,7 +236,21 @@ public class SegundaIteracionTest {
     mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
-    mascotaBuilder.setTamanio(Tamanio.CHICO);
+    mascotaBuilder.setTamanio(Tamanio.GRANDE);
+    mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
+    this.settearColorPrincipal(mascotaBuilder, "Blanco");
+    return mascotaBuilder.finalizarMascota();
+  }
+
+  public Mascota mascotaBuilder(Especie especie, Tamanio tamanio) {
+    MascotaBuilder mascotaBuilder = new MascotaBuilder();
+    mascotaBuilder.setNombre("Sergio Ramos");
+    mascotaBuilder.setApodo("Noventa y ramos");
+    mascotaBuilder.setEspecie(especie);
+    mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
+    mascotaBuilder.setEdad((short) 35);
+    mascotaBuilder.setSexo(Sexo.MACHO);
+    mascotaBuilder.setTamanio(tamanio);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
     return mascotaBuilder.finalizarMascota();
@@ -215,27 +296,4 @@ public class SegundaIteracionTest {
     return duenio;
   }
 
-  public HogarDTO getHogarDTO(){
-    HogarDTO hogarDTO = new HogarDTO();
-    AdmisionesDTO admisionesDTO = new AdmisionesDTO();
-    UbicacionDTO ubicacionDTO = new UbicacionDTO();
-    ubicacionDTO.setLat(1.00);
-    ubicacionDTO.setLong(1.00);
-    admisionesDTO.setPerros(true);
-    hogarDTO.setAdmisiones(admisionesDTO);
-    hogarDTO.setUbicacion(ubicacionDTO);
-    hogarDTO.setPatio(true);
-    hogarDTO.setLugares_disponibles(1);
-    return hogarDTO;
-  }
-
-  public HogaresDTO getHogaresDTO(){
-    HogaresDTO hogaresDTO = new HogaresDTO();
-    hogaresDTO.setOffset("1");
-    hogaresDTO.setTotal(1);
-    ArrayList<HogarDTO> listHogarDTO = new ArrayList<>();
-    listHogarDTO.add(getHogarDTO());
-    hogaresDTO.setHogares(listHogarDTO);
-    return hogaresDTO;
-  }
 }
