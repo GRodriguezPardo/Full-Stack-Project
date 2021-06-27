@@ -88,8 +88,8 @@ public class SegundaIteracionTest {
     Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
-    unaAsociacion.agregarPublicacion(publicacionDesaprobada1);
-    unaAsociacion.agregarPublicacion(publicacionDesaprobada2);
+    unaAsociacion.agregarPublicacionMascotaPerdida(publicacionDesaprobada1);
+    unaAsociacion.agregarPublicacionMascotaPerdida(publicacionDesaprobada2);
 
     assertTrue(repo.publicacionesAprobadas().isEmpty());
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada1));
@@ -112,7 +112,7 @@ public class SegundaIteracionTest {
     Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
-    unaAsociacion.agregarPublicacion(publicacionDesaprobada);
+    unaAsociacion.agregarPublicacionMascotaPerdida(publicacionDesaprobada);
     Voluntario voluntario = new Voluntario("Jose","AyudoMucho", unaAsociacion);
 
     assertTrue(voluntario.publicacionesGestionables().contains(publicacionDesaprobada));
@@ -198,7 +198,7 @@ public class SegundaIteracionTest {
     Assertions.assertTrue(
         service.getHogarMascota(mascota,new Posicion(0,0),100)
             .stream()
-            .anyMatch(hogar -> hogar.getPatio())
+            .anyMatch(HogarDTO::getPatio)
     );
   }
 

@@ -1,5 +1,6 @@
 package personas;
 
+import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 
 import java.util.ArrayList;
@@ -7,7 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Asociacion {
-  private final List<PublicacionMascotaPerdida> publicacionesACargo = new ArrayList<>();
+  private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas = new ArrayList<>();
+  private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion = new ArrayList<>();
   private final List<Pregunta> preguntas = new ArrayList<>();
   private final Posicion posicion;
   // TODO : HECHO Posicion posicion;
@@ -17,11 +19,15 @@ public class Asociacion {
   }
 
   public List<PublicacionMascotaPerdida> publicacionesACargo() {
-    return this.publicacionesACargo;
+    return this.publicacionesDeMascotasPerdidas;
   }
 
-  public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
-    this.publicacionesACargo.add(publicacion);
+  public void agregarPublicacionMascotaPerdida(PublicacionMascotaPerdida publicacion) {
+    this.publicacionesDeMascotasPerdidas.add(publicacion);
+  }
+
+  public void agregarPublicacionMascotaEnAdopcion(PublicacionMascotaEnAdopcion publicacion) {
+    this.publicacionesDeMascotasEnAdopcion.add(publicacion);
   }
 
   public Integer distanciaA(Posicion unaPos) {
