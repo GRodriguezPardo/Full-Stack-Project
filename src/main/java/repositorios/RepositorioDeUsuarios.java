@@ -2,13 +2,16 @@ package repositorios;
 
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
+import exceptions.NoExisteDuenioDeMascotaException;
+import mascotas.Mascota;
 import personas.Perfil;
 import seguridad.Validaciones;
+import sun.misc.Perf;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -90,5 +93,15 @@ public class RepositorioDeUsuarios {
 
   public List<Perfil> perfiles() {
     return this.perfiles;
+  }
+
+  public Perfil duenioDe(Mascota mascota) {
+   List<Perfil> usuariosDuenio =  perfiles.stream().filter(perfil -> perfil.duenioDe(mascota)).collect(Collectors.toList());
+
+
+    if (!usuariosDuenio.isEmpty()) {
+      return usuariosDuenio.stream().findFirst().get();
+    } else
+      throw new NoExisteDuenioDeMascotaException("La mascota no tiene duenio.");
   }
 }

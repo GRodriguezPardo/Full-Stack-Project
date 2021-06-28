@@ -1,5 +1,6 @@
 package personas;
 
+import mascotas.Mascota;
 import mascotas.PublicacionMascotaPerdida;
 
 import java.util.List;
@@ -15,4 +16,14 @@ public class Voluntario extends Perfil {
   public List<PublicacionMascotaPerdida> publicacionesGestionables() {
     return this.asociacion.publicacionesACargo();
   }
+
+  public Boolean duenioDe(Mascota mascota){
+    return false;
+  }
+
+  @Override
+  public Duenio getDuenio() {
+    return null;
+  }
+
 }

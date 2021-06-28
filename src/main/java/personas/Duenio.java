@@ -43,5 +43,9 @@ public class Duenio {
   public void contactarDuenio() {
     this.persona.contactarPorMascota();
   }
+
+  public Boolean tieneMascota(Mascota mascota) {
+    return mascotas.contains(mascota);
+  }
 }
 
