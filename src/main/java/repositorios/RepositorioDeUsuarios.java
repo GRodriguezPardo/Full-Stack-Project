@@ -4,6 +4,7 @@ import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import exceptions.NoExisteDuenioDeMascotaException;
 import mascotas.Mascota;
+import personas.Duenio;
 import personas.Perfil;
 import seguridad.Validaciones;
 import sun.misc.Perf;
@@ -95,12 +96,12 @@ public class RepositorioDeUsuarios {
     return this.perfiles;
   }
 
-  public Perfil duenioDe(Mascota mascota) {
+  public Duenio usuarioDuenioDe(Mascota mascota) {
    List<Perfil> usuariosDuenio =  perfiles.stream().filter(perfil -> perfil.duenioDe(mascota)).collect(Collectors.toList());
 
 
     if (!usuariosDuenio.isEmpty()) {
-      return usuariosDuenio.stream().findFirst().get();
+      return usuariosDuenio.stream().findFirst().get().getDuenio();
     } else
       throw new NoExisteDuenioDeMascotaException("La mascota no tiene duenio.");
   }

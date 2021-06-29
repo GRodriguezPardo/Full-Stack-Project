@@ -28,7 +28,7 @@ public class TerceraIteracionTest {
       RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
       repo.agregarPerfil(usuario);
 
-      Assertions.assertEquals( RepositorioDeUsuarios.getInstance().duenioDe(mascota()).getDuenio() , duenio());
+      Assertions.assertEquals( repo.usuarioDuenioDe(mascota()) , duenio());
 
       repo.removerPerfil(usuario);
     }

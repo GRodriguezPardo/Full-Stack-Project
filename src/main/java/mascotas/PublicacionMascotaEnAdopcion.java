@@ -1,6 +1,7 @@
 package mascotas;
 
 
+import personas.Duenio;
 import personas.Perfil;
 import repositorios.RepositorioDeUsuarios;
 
@@ -13,8 +14,8 @@ public class PublicacionMascotaEnAdopcion {
         this.mascota = mascota;
     }
 
-    public Perfil duenioDePublicacion(){
-        return RepositorioDeUsuarios.getInstance().duenioDe(this.mascota);
+    public Duenio duenioDePublicacion(){
+        return RepositorioDeUsuarios.getInstance().usuarioDuenioDe(this.mascota);
     }
 
 }
