@@ -20,7 +20,7 @@ public class PublicacionInteresadoEnAdopcion {
         preferencias -> mascota.esCompatible(preferencias)
     );
   }
-  
+
   public void agregarPreferencias(Caracteristica caracteristica){
     this.preferencias.add(caracteristica);
   }
@@ -29,7 +29,7 @@ public class PublicacionInteresadoEnAdopcion {
     this.preferencias.remove(caracteristica);
   }
 
-  public void notificacionSemanan(){
+  public void notificacionSemanal(){
     interesado.contactarDuenioPorSugerencia();
   }
 

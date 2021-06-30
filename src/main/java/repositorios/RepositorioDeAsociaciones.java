@@ -1,13 +1,13 @@
 package repositorios;
 
 import exceptions.NoHayNingunaAsociasionException;
+import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 import personas.Asociacion;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RepositorioDeAsociaciones {
@@ -70,4 +70,11 @@ public class RepositorioDeAsociaciones {
     }
     return this.asociaciones.stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion()))).get();
   }
+
+  public List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion() {
+    return this.asociaciones.stream()
+        .flatMap(asociacion -> asociacion.getPublicacionesEnAdopcion().stream())
+        .collect(Collectors.toList());
+  }
+
 }

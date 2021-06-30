@@ -7,6 +7,10 @@ import repositorios.RepositorioDeUsuarios;
 
 public class PublicacionMascotaEnAdopcion {
 
+    public Mascota getMascota() {
+        return mascota;
+    }
+
     private Mascota mascota;
 
     public PublicacionMascotaEnAdopcion(Mascota mascota) {

@@ -57,5 +57,9 @@ public class Asociacion {
     return this.preguntas.stream().filter(p -> p.getCuerpo().contains(cadena)).collect(Collectors.toList());
   }
 
+  public List<PublicacionMascotaEnAdopcion> getPublicacionesEnAdopcion(){
+    return this.publicacionesDeMascotasEnAdopcion;
+  }
+
 
 }
