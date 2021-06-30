@@ -12,7 +12,6 @@ public class Asociacion {
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion = new ArrayList<>();
   private final List<Pregunta> preguntas = new ArrayList<>();
   private final Posicion posicion;
-  // TODO : HECHO Posicion posicion;
 
   public Asociacion(Posicion posicion) {
     this.posicion = posicion;

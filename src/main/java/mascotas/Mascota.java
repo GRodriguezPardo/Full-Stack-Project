@@ -61,6 +61,11 @@ public class Mascota {
     this.tamanio=tamanio;
   }
 
+  //TODO: Implementar logica de negocio para evaluar compatibilidad
+  public boolean esCompatible(Caracteristica caracteristica){
+    return true;
+  }
+
   public Tamanio getTamanio() {
     return tamanio;
   }

@@ -27,14 +27,23 @@ public class TwilioJava implements MedioNotificacion {
   }
 
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
-  public void sendSms(String destinationNumber) {
+  public void sendSms(String destinationNumber, String mensaje) {
     Twilio.init(this.accountSid, this.authToken);
     Message.creator(new PhoneNumber(destinationNumber),
-            new PhoneNumber(this.senderNumber),
-            "Se encontro a su mascota").create();
+            new PhoneNumber(this.senderNumber),mensaje).create();
   }
 
-  public void notificar(Contacto contacto) {
-    this.sendSms(contacto.getTelefono());
+  public void notificarMascotaPerdida(Contacto contacto) {
+    this.sendSms(contacto.getTelefono(),"Encontrasmos a tu mascota perdida");
+  }
+
+  @Override
+  public void notificarInteresEnAdopcion(Contacto contacto) {
+    this.sendSms(contacto.getTelefono(),"Hay interesados en adoptar a tu mascota");
+  }
+
+  @Override
+  public void notificarSugerenciaSemanal(Contacto contacto) {
+    this.sendSms(contacto.getTelefono(),"Tenemos sugerencias para vos");
   }
 }

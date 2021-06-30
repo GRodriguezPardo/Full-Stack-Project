@@ -1,7 +1,6 @@
 package mascotas;
 
 
-import personas.Contacto;
 import personas.Duenio;
 import repositorios.RepositorioDeUsuarios;
 
@@ -14,8 +13,9 @@ public class PublicacionMascotaEnAdopcion {
         this.mascota = mascota;
     }
 
-    public void notificarADueno(){
-        this.duenioDePublicacion().contactarDuenio();
+
+    public void notificarADuenoPorInteresado(){
+        this.duenioDePublicacion().contactarDuenioPorInteresado();
     }
 
     public Duenio duenioDePublicacion(){

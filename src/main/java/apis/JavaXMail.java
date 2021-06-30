@@ -22,11 +22,22 @@ public class JavaXMail implements MedioNotificacion {
     this.clave = clave; //"HolaComoEstas"
   }
 
-  public void notificar(Contacto contacto) {
-    this.sendEmail(contacto.getEmail());
+  public void notificarMascotaPerdida(Contacto contacto) {
+    this.sendEmail(contacto.getEmail(),"Sistemas de Rescates", "Encontramos a tu mascota perdida");
   }
 
-  public void sendEmail(String destinatario) {
+  @Override
+  public void notificarInteresEnAdopcion(Contacto contacto) {
+    this.sendEmail(contacto.getEmail(),"Hay interesado en tu mascota!!", "Encontramos interesados en tu mascota");
+  }
+
+  @Override
+  public void notificarSugerenciaSemanal(Contacto contacto) {
+    this.sendEmail(contacto.getEmail(),"Sugerencias Semanales", "Tenemos sugerecias de tu interes");
+
+  }
+
+  public void sendEmail(String destinatario, String asunto, String mensaje) {
 
     Properties props = new Properties();
 
@@ -55,8 +66,8 @@ public class JavaXMail implements MedioNotificacion {
     try {
       unMensaje.setFrom(new InternetAddress(remitente));
       unMensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-      unMensaje.setSubject("sistema de Rescates");
-      unMensaje.setText("hemos encontrado a su mascota");
+      unMensaje.setSubject(asunto);
+      unMensaje.setText(mensaje);
       sendRealMessage(session, unMensaje);
     } catch (Exception e) {
       throw new FalloServicioEmailException(e);

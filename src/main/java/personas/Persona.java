@@ -76,8 +76,23 @@ public class Persona {
   public void contactarPorMascota() {
     this.contactos
             .forEach(unContacto -> {
-              this.mediosNotificacion.forEach(m -> m.notificar(unContacto));
+              this.mediosNotificacion.forEach(m -> m.notificarMascotaPerdida(unContacto));
             });
+  }
+
+  public void contactarPorInteresado() {
+    this.contactos
+        .forEach(unContacto -> {
+          this.mediosNotificacion.forEach(m -> m.notificarInteresEnAdopcion(unContacto));
+        });
+  }
+
+
+  public void contactarPorSugerenciaSemanal() {
+    this.contactos
+        .forEach(unContacto -> {
+          this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto));
+        });
   }
 
   public void agregarMedioNotificacion(MedioNotificacion medioNotificacion) {

@@ -3,5 +3,8 @@ package apis;
 import personas.Contacto;
 
 public interface MedioNotificacion {
-  void notificar(Contacto contacto);
+  void notificarMascotaPerdida(Contacto contacto);
+  void notificarInteresEnAdopcion(Contacto contacto);
+  void notificarSugerenciaSemanal(Contacto contacto);
+
 }

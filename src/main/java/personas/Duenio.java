@@ -40,8 +40,12 @@ public class Duenio {
     return this.persona;
   }
 
-  public void contactarDuenio() {
+  public void contactarDuenioPorMascota() {
     this.persona.contactarPorMascota();
+  }
+
+  public void contactarDuenioPorInteresado() {
+    this.persona.contactarPorInteresado();
   }
 
   public Boolean tieneMascota(Mascota mascota) {

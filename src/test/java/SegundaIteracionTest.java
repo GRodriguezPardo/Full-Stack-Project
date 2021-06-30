@@ -33,16 +33,16 @@ public class SegundaIteracionTest {
   @Test
   public void puedoContactarAUnDuenio() {
     Duenio duenio = this.duenio();
-    duenio.contactarDuenio();
-    verify(emailSender).notificar(duenio.getPersona().getContactos().get(0));
-    verify(smsSender).notificar(duenio.getPersona().getContactos().get(0));
+    duenio.contactarDuenioPorMascota();
+    verify(emailSender).notificarMascotaPerdida(duenio.getPersona().getContactos().get(0));
+    verify(smsSender).notificarMascotaPerdida(duenio.getPersona().getContactos().get(0));
   }
 
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
     JavaXMail emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
-    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com"));
+    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com","Encontramos a tu mascota", "Ejemplo"));
   }
 
   @Test
@@ -50,7 +50,7 @@ public class SegundaIteracionTest {
   public void enviarSmsNoTiraErrorTESTMANUAL() {
     TwilioJava twilio = new TwilioJava(null , null , null);//LEER comentarios en smsSender para probar posta con tu telefono
     Contacto contacto = new Contacto("Anonimo" ,"+541165919737" ,"messi@messi.com");
-    assertDoesNotThrow(() -> twilio.notificar(contacto));
+    assertDoesNotThrow(() -> twilio.notificarMascotaPerdida(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
 
