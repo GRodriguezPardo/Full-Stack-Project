@@ -3,12 +3,10 @@ import apis.MedioNotificacion;
 import apis.TwilioJava;
 import mascotas.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import personas.*;
 import repositorios.RepositorioDeUsuarios;
-import sun.misc.Perf;
 
 import java.time.LocalDate;
 
@@ -26,11 +24,11 @@ public class TerceraIteracionTest {
   public void sePuedeEncontrarElDuenioDeUnaMascota(){
       Usuario usuario = new Usuario("unusario ", "hola 123", duenio());
       RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-      repo.agregarPerfil(usuario);
+      repo.agregarUsuario(usuario);
 
       Assertions.assertEquals( repo.usuarioDuenioDe(mascota()) , duenio());
 
-      repo.removerPerfil(usuario);
+      repo.removerUsuario(usuario);
     }
 
 

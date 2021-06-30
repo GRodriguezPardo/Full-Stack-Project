@@ -17,13 +17,4 @@ public class Voluntario extends Perfil {
     return this.asociacion.publicacionesACargo();
   }
 
-  public Boolean duenioDe(Mascota mascota){
-    return false;
-  }
-
-  @Override
-  public Duenio getDuenio() {
-    return null;
-  }
-
 }

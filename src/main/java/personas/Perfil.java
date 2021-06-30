@@ -27,9 +27,6 @@ public abstract class Perfil {
     this.usuario = usuario;
   }
 
-  public abstract Boolean duenioDe(Mascota mascota);
-
-  public abstract Duenio getDuenio();
 }
 
 

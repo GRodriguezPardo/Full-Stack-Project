@@ -1,6 +1,5 @@
 package personas;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import mascotas.Mascota;
 
 public class Usuario extends Perfil {
@@ -11,7 +10,6 @@ public class Usuario extends Perfil {
     this.duenio = _duenio;
   }
 
-  @Override
   public Boolean duenioDe(Mascota mascota){
       return duenio.tieneMascota(mascota);
   }

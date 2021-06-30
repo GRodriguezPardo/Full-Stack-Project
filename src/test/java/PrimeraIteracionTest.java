@@ -125,7 +125,7 @@ public class PrimeraIteracionTest {
 
   @Test
   void rebotarPerfilVacio() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarPerfil(null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario(null));
   }
 
   @Test
@@ -176,11 +176,11 @@ public class PrimeraIteracionTest {
 
   @Test
   public void cambioClaveCorrectamente() {
-    Perfil perfilPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
-    RepositorioDeUsuarios.getInstance().agregarPerfil(perfilPrueba);
+    Admin adminPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
+    RepositorioDeUsuarios.getInstance().agregarAdmin(adminPrueba);
     RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
     Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
-    RepositorioDeUsuarios.getInstance().removerPerfil(perfilPrueba);
+    RepositorioDeUsuarios.getInstance().removerAdmin(adminPrueba);
   }
 
   @Test

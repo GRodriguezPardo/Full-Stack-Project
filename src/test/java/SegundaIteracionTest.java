@@ -127,19 +127,17 @@ public class SegundaIteracionTest {
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
     Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33,33)));
 
-    repo.agregarPerfil(perfil1);
-    repo.agregarPerfil(perfil2);
-    repo.agregarPerfil(perfil3);
+    repo.agregarUsuario(perfil1);
+    repo.agregarAdmin(perfil2);
+    repo.agregarVoluntario(perfil3);
 
-    List<Perfil> perfiles = repo.perfiles();
+    assertTrue(repo.usuarios().contains(perfil1));
+    assertTrue(repo.administradores().contains(perfil2));
+    assertTrue(repo.voluntarios().contains(perfil3));
 
-    assertTrue(perfiles.contains(perfil1));
-    assertTrue(perfiles.contains(perfil2));
-    assertTrue(perfiles.contains(perfil3));
-
-    repo.removerPerfil(perfil1);
-    repo.removerPerfil(perfil2);
-    repo.removerPerfil(perfil3);
+    repo.removerUsuario(perfil1);
+    repo.removerAdmin(perfil2);
+    repo.removerVoluntario(perfil3);
   }
 
   @Test

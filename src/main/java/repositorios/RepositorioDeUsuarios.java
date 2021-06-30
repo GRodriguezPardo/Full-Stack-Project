@@ -4,12 +4,12 @@ import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import exceptions.NoExisteDuenioDeMascotaException;
 import mascotas.Mascota;
-import personas.Duenio;
-import personas.Perfil;
+import personas.*;
 import seguridad.Validaciones;
-import sun.misc.Perf;
+
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -20,14 +20,13 @@ import java.util.stream.Collectors;
  */
 public class RepositorioDeUsuarios {
   private final static RepositorioDeUsuarios INSTANCE = new RepositorioDeUsuarios();
-  private final List<Perfil> perfiles = new ArrayList<>();
-  private final Validaciones validaciones;
-
+  private final List<Admin> administradores = new ArrayList<>();
+  private final List<Usuario> usuarios = new ArrayList<>();
+  private final List<Voluntario> voluntarios = new ArrayList<>();
   /**
    * Contructor privado al ser singleton.
    */
-  private RepositorioDeUsuarios() {  /*Agrege las validaciones a la lista para que salga un test donde se corren todas*/
-    validaciones = new Validaciones();
+  private RepositorioDeUsuarios() {
   }
 
   /**
@@ -43,15 +42,43 @@ public class RepositorioDeUsuarios {
   /**
    * Permite agregar un Usuario y clave a la lista del singleton
    */
-  public void agregarPerfil(Perfil perfil) {
-    if (Objects.isNull(perfil) || Objects.isNull(perfil.getUsuario()) || Objects.isNull(perfil.getClave())) {
+  public void agregarAdmin(Admin admin) {
+    if (Objects.isNull(admin) || Objects.isNull(admin.getUsuario()) || Objects.isNull(admin.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    if (this.perfiles.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(perfil.getUsuario()))) {
+    if (this.administradores.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(admin.getUsuario()))) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
     }
-    this.perfiles.add(perfil);
+    this.administradores.add(admin);
   }
+
+  /**
+   * Permite agregar un Usuario y clave a la lista del singleton
+   */
+  public void agregarVoluntario(Voluntario voluntario) {
+    if (Objects.isNull(voluntario) || Objects.isNull(voluntario.getUsuario()) || Objects.isNull(voluntario.getClave())) {
+      throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
+    }
+    if (this.voluntarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(voluntario.getUsuario()))) {
+      throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
+    }
+    this.voluntarios.add(voluntario);
+  }
+
+  /**
+   * Permite agregar un Usuario y clave a la lista del singleton
+   */
+  public void agregarUsuario(Usuario usuario) {
+    if (Objects.isNull(usuario) || Objects.isNull(usuario.getUsuario()) || Objects.isNull(usuario.getClave())) {
+      throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
+    }
+    if (this.usuarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(usuario.getUsuario()))) {
+      throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
+    }
+    this.usuarios.add(usuario);
+  }
+
+
 
   /**
    * Permite a comprobar las credenciales de un Usuario.
@@ -64,7 +91,7 @@ public class RepositorioDeUsuarios {
     if (Objects.isNull(clave)) {
       return false;
     }
-    return this.perfiles.stream()
+    return this.administradores.stream()
             .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
             .findFirst().get()
             .getClave().equals(clave);
@@ -80,7 +107,7 @@ public class RepositorioDeUsuarios {
    */
   public void cambiarClave(String usuario, String claveVieja, String claveNueva) {
     if (this.comprobarClave(usuario, claveVieja)) {
-      this.perfiles.stream()
+      this.administradores.stream()
               .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
               .findFirst().get().setClave(claveNueva);
     } else {
@@ -88,16 +115,31 @@ public class RepositorioDeUsuarios {
     }
   }
 
-  public void removerPerfil(Perfil perfil) {
-    this.perfiles.remove(perfil);
+  public void removerAdmin(Admin perfil) {
+    this.administradores.remove(perfil);
   }
 
-  public List<Perfil> perfiles() {
-    return this.perfiles;
+  public void removerUsuario(Usuario perfil) {
+    this.usuarios.remove(perfil);
+  }
+  public void removerVoluntario(Voluntario perfil) {
+    this.voluntarios.remove(perfil);
+  }
+
+
+  public List<Admin> administradores() {
+    return this.administradores;
+  }
+
+  public List<Usuario> usuarios() {
+    return this.usuarios;
+  }
+  public List<Voluntario> voluntarios() {
+    return this.voluntarios;
   }
 
   public Duenio usuarioDuenioDe(Mascota mascota) {
-   List<Perfil> usuariosDuenio =  perfiles.stream().filter(perfil -> perfil.duenioDe(mascota)).collect(Collectors.toList());
+   List<Usuario> usuariosDuenio =  usuarios.stream().filter(usuario -> usuario.duenioDe(mascota)).collect(Collectors.toList());
 
 
     if (!usuariosDuenio.isEmpty()) {
