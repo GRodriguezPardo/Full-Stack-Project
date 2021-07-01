@@ -2,7 +2,7 @@ package personas;
 
 public class Interesado {
 
-  private Persona persona;
+  private final Persona persona;
 
   public Interesado(Persona persona) {
     this.persona = persona;

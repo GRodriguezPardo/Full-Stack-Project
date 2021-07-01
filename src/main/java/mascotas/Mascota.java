@@ -1,7 +1,6 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;

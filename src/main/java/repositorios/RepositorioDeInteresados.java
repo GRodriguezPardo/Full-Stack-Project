@@ -1,14 +1,9 @@
 package repositorios;
 
-import mascotas.MascotaPerdida;
 import mascotas.PublicacionInteresadoEnAdopcion;
-import personas.Interesado;
-import personas.Rescatista;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Clase singleton cuyo objetivo es guardar los avisos de rescate que se reportan.

@@ -5,11 +5,9 @@ import exceptions.FaltanDatosException;
 import exceptions.NoExisteDuenioDeMascotaException;
 import mascotas.Mascota;
 import personas.*;
-import seguridad.Validaciones;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

@@ -1,8 +1,8 @@
 package personas;
 
 public class Posicion {
-  private Double longitud;
-  private Double latitud;
+  private final Double longitud;
+  private final Double latitud;
 
   public Posicion(double longitud, double latitud) {
     this.longitud = longitud;

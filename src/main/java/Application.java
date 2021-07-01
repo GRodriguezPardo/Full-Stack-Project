@@ -3,7 +3,6 @@ import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import personas.Asociacion;
 import repositorios.RepositorioDeAsociaciones;
-import repositorios.RepositorioDeInteresados;
 import services.HogaresService;
 
 public class Application {

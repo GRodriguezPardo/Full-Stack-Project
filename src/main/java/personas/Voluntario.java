@@ -1,6 +1,5 @@
 package personas;
 
-import mascotas.Mascota;
 import mascotas.PublicacionMascotaPerdida;
 
 import java.util.List;

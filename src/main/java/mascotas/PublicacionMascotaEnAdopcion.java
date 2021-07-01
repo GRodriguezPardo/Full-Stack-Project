@@ -2,7 +2,6 @@ package mascotas;
 
 
 import personas.Duenio;
-import personas.Pregunta;
 import personas.Respuesta;
 import repositorios.RepositorioDeUsuarios;
 
@@ -11,7 +10,7 @@ import java.util.List;
 
 
 public class PublicacionMascotaEnAdopcion {
-    private Mascota mascota;
+    private final Mascota mascota;
 
 
     private final List<Respuesta> respuestas = new ArrayList<>();
