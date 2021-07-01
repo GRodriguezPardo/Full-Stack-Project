@@ -10,7 +10,7 @@ public class Application {
 
   public static void main(String[] args) {
     try {
-      HogaresService api = new HogaresService();
+      new HogaresService();
     } catch (Exception e) {
       System.out.println(e);
     }
@@ -28,8 +28,10 @@ public class Application {
           publicacionAdopcion -> listaPublicacionesInteresados.stream().filter(
               publicacionInteresado -> publicacionAdopcion.getRespuestas().stream().allMatch(
                   publicacionInteresado::coincideRespuesta))
-          .forEach(PublicacionInteresadoEnAdopcion::notificacionSemanal)
+          .forEach(PublicacionInteresadoEnAdopcion::agregarRecomendacion)
       );
+
+      listaPublicacionesInteresados.forEach(PublicacionInteresadoEnAdopcion::notificacionSemanal);
     });
   }
 

@@ -7,5 +7,5 @@ public interface MedioNotificacion {
 
   void notificarInteresEnAdopcion(Contacto contacto);
 
-  void notificarSugerenciaSemanal(Contacto contacto);
+  void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad);
 }

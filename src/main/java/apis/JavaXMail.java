@@ -33,10 +33,20 @@ public class JavaXMail implements MedioNotificacion {
   }
 
   @Override
-  public void notificarSugerenciaSemanal(Contacto contacto) {
+  public void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad) {
+    String cuerpo;
+
+    if(cantidad > 0) {
+      cuerpo = "Tenemos " + cantidad + " sugerecias de tu interes";
+    } else {
+      cuerpo = "Esta semana no tenemos sugerencias para vos!\n"
+          + "Te recomendamos que entres igual a ver las mascotas que estan "
+          + "esperando a un nuevo dueño!";
+    }
+
     this.sendEmail(contacto.getEmail(),
         "Sugerencias Semanales",
-        "Tenemos sugerecias de tu interes");
+        cuerpo);
 
   }
 

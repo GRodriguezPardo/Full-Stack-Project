@@ -3,7 +3,7 @@ package personas;
 public class Pregunta {
   private final String cuerpoDuenio;
   private final String cuerpoInteresado;
-  boolean visible = true;
+  private boolean visible = true;
 
   public Pregunta(String cuerpoDuenio, String cuerpoInteresado) {
     this.cuerpoDuenio = cuerpoDuenio;
@@ -24,5 +24,9 @@ public class Pregunta {
 
   public void mostrar() {
     this.visible = true;
+  }
+
+  public boolean isVisible() {
+    return this.visible;
   }
 }

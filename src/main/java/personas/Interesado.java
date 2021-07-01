@@ -8,8 +8,8 @@ public class Interesado {
     this.persona = persona;
   }
 
-  public void contactarDuenioPorSugerencia() {
-    this.persona.contactarPorSugerenciaSemanal();
+  public void contactarDuenioPorSugerencia(Integer cantidad) {
+    this.persona.contactarPorSugerenciaSemanal(cantidad);
   }
 
 }

@@ -87,10 +87,10 @@ public class Persona {
   }
 
 
-  public void contactarPorSugerenciaSemanal() {
+  public void contactarPorSugerenciaSemanal(Integer cantidad) {
     this.contactos
         .forEach(unContacto -> {
-          this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto));
+          this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto, cantidad));
         });
   }
 

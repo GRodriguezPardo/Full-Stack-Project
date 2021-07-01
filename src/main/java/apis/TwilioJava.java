@@ -43,7 +43,16 @@ public class TwilioJava implements MedioNotificacion {
   }
 
   @Override
-  public void notificarSugerenciaSemanal(Contacto contacto) {
-    this.sendSms(contacto.getTelefono(),"Tenemos sugerencias para vos");
+  public void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad) {
+    String cuerpo;
+
+    if(cantidad > 0) {
+      cuerpo = "Tenemos " + cantidad + " sugerecias de tu interes";
+    } else {
+      cuerpo = "Esta semana no tenemos sugerencias para vos!\n"
+          + "Te recomendamos que entres igual a ver las mascotas que estan "
+          + "esperando a un nuevo dueño!";
+    }
+    this.sendSms(contacto.getTelefono(),cuerpo);
   }
 }

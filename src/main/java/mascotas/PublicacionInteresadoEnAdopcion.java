@@ -12,13 +12,19 @@ public class PublicacionInteresadoEnAdopcion {
 
   private final List<Respuesta> respuestas = new ArrayList<>();
   private final Interesado interesado;
+  private Integer acumuladorRecomendaciones = 0;
 
   public PublicacionInteresadoEnAdopcion(Interesado interesado) {
     this.interesado = interesado;
   }
 
   public void notificacionSemanal() {
-    interesado.contactarDuenioPorSugerencia();
+    this.interesado.contactarDuenioPorSugerencia(acumuladorRecomendaciones);
+    this.acumuladorRecomendaciones = 0;
+  }
+
+  public void agregarRecomendacion() {
+    this.acumuladorRecomendaciones++;
   }
 
   public void agregarRespuesta(Respuesta respuesta) {
