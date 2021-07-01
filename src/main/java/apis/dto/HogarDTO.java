@@ -2,12 +2,11 @@ package apis.dto;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import mascotas.Especie;
 import mascotas.Mascota;
 import mascotas.Tamanio;
 import personas.Posicion;
-
-import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HogarDTO {
@@ -33,19 +32,27 @@ public class HogarDTO {
     this.caracteristicas = caracteristicas;
   }
 
-  public boolean validarAdmision(Mascota mascota){
+  public Boolean validarAdmision(Mascota mascota) {
     //valido por disponibilidad
-    if (getLugares_disponibles() == 0) return false;
+    if (getLugares_disponibles() == 0) {
+      return false;
+    }
     //valido por tamaño
-    if ((mascota.getTamanio() == Tamanio.MEDIANO) && (!getPatio())) return false;
-    if ((mascota.getTamanio() == Tamanio.GRANDE) && (!getPatio())) return false;
+    if ((mascota.getTamanio() == Tamanio.MEDIANO) && (!getPatio())) {
+      return false;
+    }
+    if ((mascota.getTamanio() == Tamanio.GRANDE) && (!getPatio())) {
+      return false;
+    }
     //valido por especie
     if (((getAdmisiones().getGatos() && (mascota.getEspecie() != Especie.GATO)))
-        || ((getAdmisiones().getPerros() && (mascota.getEspecie() != Especie.PERRO)))) return false;
+        || ((getAdmisiones().getPerros() && (mascota.getEspecie() != Especie.PERRO)))) {
+      return false;
+    }
     return true;
   }
 
-  public Posicion getPoscion(){
+  public Posicion getPoscion() {
     return new Posicion(ubicacion.getLong(), ubicacion.getLat());
   }
 

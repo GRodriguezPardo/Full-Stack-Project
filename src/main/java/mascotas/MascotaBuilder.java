@@ -1,11 +1,13 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import javax.swing.ImageIcon;
 
 /**
  * Builder de la clase Mascota.

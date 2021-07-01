@@ -2,10 +2,18 @@ package personas;
 
 public class Respuesta {
   public Pregunta pregunta ;
-  public boolean value ;
+  public boolean respuesta ;
 
   Respuesta(boolean valor , Pregunta pregunta){
-    this.value = valor;
+    this.respuesta = valor;
     this.pregunta = pregunta;
+  }
+
+  public Pregunta getPregunta() {
+    return this.pregunta;
+  }
+
+  public boolean getRespuesta() {
+    return this.respuesta;
   }
 }

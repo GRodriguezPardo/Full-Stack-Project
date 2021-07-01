@@ -8,7 +8,6 @@ import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeUsuarios;
 import services.HogaresService;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;

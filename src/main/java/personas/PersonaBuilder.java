@@ -1,7 +1,6 @@
 package personas;
 
 import apis.MedioNotificacion;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +49,9 @@ public class PersonaBuilder {
   }
 
   /**
-   * Agrega la dependencia de MedioNotificacion que se inyectara
+   * Agrega la dependencia de MedioNotificacion que se inyectara.
    *
-   * @param _medioNotificacion
+   * @param _medioNotificacion es el medio de notificacion agregado.
    */
   public void agregarMedioNotificacion(MedioNotificacion _medioNotificacion) {
     this.medioNotificacion = _medioNotificacion;
@@ -66,6 +65,9 @@ public class PersonaBuilder {
    * @return retorna la persona creada.
    */
   public Persona crearPersona() {
-    return new Persona(this.nombreYApellido, this.fechaNacimiento, this.contactos, this.medioNotificacion);
+    return new Persona(this.nombreYApellido,
+        this.fechaNacimiento,
+        this.contactos,
+        this.medioNotificacion);
   }
 }

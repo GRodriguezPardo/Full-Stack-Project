@@ -1,35 +1,20 @@
 package mascotas;
 
+import exceptions.NoHayRespuestaException;
 import personas.Interesado;
 import personas.Respuesta;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class PublicacionInteresadoEnAdopcion {
 
   private final List<Respuesta> respuestas = new ArrayList<>();
   private final Interesado interesado;
-  private final List<Caracteristica> preferencias;
-
 
   public PublicacionInteresadoEnAdopcion(Interesado interesado) {
     this.interesado = interesado;
-    this.preferencias = new ArrayList<>();
-  }
-
-  public boolean compatibleCon(Mascota mascota) {
-    return this.preferencias.stream().allMatch(
-            preferencias -> mascota.esCompatible(preferencias)
-    );
-  }
-
-  public void agregarPreferencias(Caracteristica caracteristica) {
-    this.preferencias.add(caracteristica);
-  }
-
-  public void quitarPreferencias(Caracteristica caracteristica) {
-    this.preferencias.remove(caracteristica);
   }
 
   public void notificacionSemanal() {
@@ -38,5 +23,16 @@ public class PublicacionInteresadoEnAdopcion {
 
   public void agregarRespuesta(Respuesta respuesta) {
     this.respuestas.add(respuesta);
+  }
+
+  public Boolean coincideRespuesta(Respuesta respuesta) {
+    Optional<Respuesta> respuestaPropia = this.respuestas.stream().filter(
+        unaRespuesta -> Objects.equals(unaRespuesta.getPregunta(), respuesta.getPregunta()))
+        .findFirst();
+    if(respuestaPropia.isPresent()) {
+      return respuestaPropia.get().getRespuesta() == respuesta.getRespuesta();
+    } else {
+      throw new NoHayRespuestaException("El usuario no respondio la pregunta");
+    }
   }
 }

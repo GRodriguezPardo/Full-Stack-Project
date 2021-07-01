@@ -1,33 +1,36 @@
+import java.util.List;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
+import personas.Asociacion;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeInteresados;
 import services.HogaresService;
-
-import java.util.List;
 
 public class Application {
 
   public static void main(String[] args) {
     try {
       HogaresService api = new HogaresService();
-    } catch ( Exception e){
-      System.out.println(e.toString());
+    } catch (Exception e) {
+      System.out.println(e);
     }
 
-    List<PublicacionMascotaEnAdopcion> listaPublicacionesMascotasEnAdopcion=
-    RepositorioDeAsociaciones.getInstance().publicacionesDeMascotasEnAdopcion();
+    List<Asociacion> asociasiones = RepositorioDeAsociaciones.getInstance().getAsociaciones();
 
+    asociasiones.forEach(unaAsociacion -> {
+      List<PublicacionMascotaEnAdopcion> listaPublicacionesMascotasEnAdopcion =
+          unaAsociacion.getPublicacionesEnAdopcion();
 
-    List<PublicacionInteresadoEnAdopcion> listaPublicacionesInteresados=
-        RepositorioDeInteresados.getInstance().getPublicacionesDeInteresados();
+      List<PublicacionInteresadoEnAdopcion> listaPublicacionesInteresados =
+          unaAsociacion.getPublicacionInteresadoEnAdopcion();
 
-    listaPublicacionesMascotasEnAdopcion.forEach(
-        publicacion -> listaPublicacionesInteresados.stream().filter(
-            intesados -> intesados.compatibleCon(publicacion.getMascota())
-        ).forEach(interado -> interado.notificacionSemanal())
-    );
-
+      listaPublicacionesMascotasEnAdopcion.forEach(
+          publicacionAdopcion -> listaPublicacionesInteresados.stream().filter(
+              publicacionInteresado -> publicacionAdopcion.getRespuestas().stream().allMatch(
+                  publicacionInteresado::coincideRespuesta))
+          .forEach(PublicacionInteresadoEnAdopcion::notificacionSemanal)
+      );
+    });
   }
 
 }

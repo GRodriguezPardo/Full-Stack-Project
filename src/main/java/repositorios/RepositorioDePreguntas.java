@@ -38,6 +38,6 @@ public class RepositorioDePreguntas {
   que esta pensando o tiene mejores o si no. */
 
   public List<Pregunta> verPreguntasQueIncluyanCadena(String cadena) {
-    return this.preguntas.stream().filter(p -> p.getCuerpo().contains(cadena)).collect(Collectors.toList());
+    return this.preguntas.stream().filter(p -> p.getCuerpoDuenio().contains(cadena)).collect(Collectors.toList());
   }
 }

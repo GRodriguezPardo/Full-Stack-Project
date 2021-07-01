@@ -1,7 +1,6 @@
 package apis.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class HogaresDTO {
   private String offset;
   private List<HogarDTO> hogares;
 
-  public HogaresDTO(){
+  public HogaresDTO() {
     hogares = new ArrayList<>();
   }
 
@@ -41,9 +40,9 @@ public class HogaresDTO {
 
   @Override
   public String toString() {
-    return ("{" + '"' +"total" + '"' + ':' + getTotal() + ',' +
-            '"' + "offset"  + '"' + ':' + getOffset() + ',' +
-            '"' + "hogares" + '"' + ':' + getHogares() +
-            '}');
+    return ("{" + '"' + "total" + '"' + ':' + getTotal() + ','
+        + '"' + "offset"  + '"' + ':' + getOffset() + ','
+        + '"' + "hogares" + '"' + ':' + getHogares()
+        + '}');
   }
 }

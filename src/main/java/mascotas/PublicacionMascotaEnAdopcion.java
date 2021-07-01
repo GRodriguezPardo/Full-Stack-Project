@@ -11,12 +11,8 @@ import java.util.List;
 
 
 public class PublicacionMascotaEnAdopcion {
-
-    public Mascota getMascota() {
-        return mascota;
-    }
-
     private Mascota mascota;
+
 
     private final List<Respuesta> respuestas = new ArrayList<>();
 
@@ -24,6 +20,9 @@ public class PublicacionMascotaEnAdopcion {
         this.mascota = mascota;
     }
 
+    public Mascota getMascota() {
+        return mascota;
+    }
 
     public void notificarADuenoPorInteresado(){
         this.duenioDePublicacion().contactarDuenioPorInteresado();
@@ -33,8 +32,11 @@ public class PublicacionMascotaEnAdopcion {
         return RepositorioDeUsuarios.getInstance().usuarioDuenioDe(this.mascota);
     }
 
-
     public void agregarRespuesta(Respuesta respuesta) {
-                 this.respuestas.add(respuesta);
-        }
+        this.respuestas.add(respuesta);
+    }
+
+    public List<Respuesta> getRespuestas() {
+        return this.respuestas;
+    }
 }

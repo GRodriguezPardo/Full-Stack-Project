@@ -1,17 +1,21 @@
 package personas;
 
-import repositorios.RepositorioDePreguntas;
-
 public class Pregunta {
-  String cuerpo;
+  private final String cuerpoDuenio;
+  private final String cuerpoInteresado;
   boolean visible = true;
 
-  public Pregunta(String pregunta) {
-    this.cuerpo = pregunta;
+  public Pregunta(String cuerpoDuenio, String cuerpoInteresado) {
+    this.cuerpoDuenio = cuerpoDuenio;
+    this.cuerpoInteresado = cuerpoInteresado;
   }
 
-  public String getCuerpo() {
-    return this.cuerpo;
+  public String getCuerpoDuenio() {
+    return cuerpoDuenio;
+  }
+
+  public String getCuerpoInteresado() {
+    return cuerpoInteresado;
   }
 
   public void ocultar() {

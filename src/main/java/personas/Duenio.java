@@ -1,11 +1,10 @@
 package personas;
 
 import exceptions.FaltanDatosException;
-import mascotas.Mascota;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import mascotas.Mascota;
 
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.
@@ -28,9 +27,9 @@ public class Duenio {
   }
 
   /**
-   * Agrega una mascota a la lista de mascotas de la clase
+   * Agrega una mascota a la lista de mascotas de la clase.
    *
-   * @param mascota es la mascota a ser agregada
+   * @param mascota es la mascota a ser agregada.
    */
   public void agregarMascota(Mascota mascota) {
     this.mascotas.add(mascota);

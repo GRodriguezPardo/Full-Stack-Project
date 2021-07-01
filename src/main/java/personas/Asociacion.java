@@ -1,20 +1,25 @@
 package personas;
 
-import mascotas.PublicacionMascotaEnAdopcion;
-import mascotas.PublicacionMascotaPerdida;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import mascotas.PublicacionInteresadoEnAdopcion;
+import mascotas.PublicacionMascotaEnAdopcion;
+import mascotas.PublicacionMascotaPerdida;
+
 public class Asociacion {
-  private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas = new ArrayList<>();
-  private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion = new ArrayList<>();
+  private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
+  private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
+  private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
   private final List<Pregunta> preguntas = new ArrayList<>();
   private final Posicion posicion;
 
   public Asociacion(Posicion posicion) {
     this.posicion = posicion;
+    this.publicacionesDeMascotasPerdidas = new ArrayList<>();
+    this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
+    this.publicacionInteresadoEnAdopcion = new ArrayList<>();
   }
 
   public List<PublicacionMascotaPerdida> publicacionesACargo() {
@@ -54,12 +59,20 @@ public class Asociacion {
   que esta pensando o tiene mejores o si no.*/
 
   public List<Pregunta> verPreguntasQueIncluyanCadena(String cadena) {
-    return this.preguntas.stream().filter(p -> p.getCuerpo().contains(cadena)).collect(Collectors.toList());
+    return this.preguntas.stream()
+        .filter(p -> p.getCuerpoDuenio().contains(cadena))
+        .collect(Collectors.toList());
   }
 
-  public List<PublicacionMascotaEnAdopcion> getPublicacionesEnAdopcion(){
+  public List<PublicacionMascotaEnAdopcion> getPublicacionesEnAdopcion() {
     return this.publicacionesDeMascotasEnAdopcion;
   }
 
+  public List<PublicacionInteresadoEnAdopcion> getPublicacionInteresadoEnAdopcion() {
+    return this.publicacionInteresadoEnAdopcion;
+  }
 
+  public void agregarPublicacionInteresadoEnAdopcion(PublicacionInteresadoEnAdopcion publicacion) {
+    this.publicacionInteresadoEnAdopcion.add(publicacion);
+  }
 }

@@ -2,7 +2,6 @@ package personas;
 
 import apis.MedioNotificacion;
 import exceptions.FaltanDatosException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

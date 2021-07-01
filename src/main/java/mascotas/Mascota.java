@@ -2,9 +2,12 @@ package mascotas;
 
 import exceptions.FaltanDatosException;
 
-import java.awt.*;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Clase que representa una mascota que posee un dueño.
@@ -58,11 +61,11 @@ public class Mascota {
     this.descripcion = _descripcion;
     this.fotos = new ArrayList<>(_fotos);
     this.caracteristicas = new HashMap<>(_caracteristicas);
-    this.tamanio=tamanio;
+    this.tamanio = tamanio;
   }
 
   //TODO: Implementar logica de negocio para evaluar compatibilidad
-  public boolean esCompatible(Caracteristica caracteristica){
+  public boolean esCompatible(Caracteristica caracteristica) {
     return true;
   }
 
