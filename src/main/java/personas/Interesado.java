@@ -12,4 +12,7 @@ public class Interesado {
     this.persona.contactarPorSugerenciaSemanal(cantidad);
   }
 
+  public void contactarPorMailBaja() {
+    this.persona.contactarPorMailBaja();
+  }
 }

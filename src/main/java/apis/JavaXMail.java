@@ -50,6 +50,12 @@ public class JavaXMail implements MedioNotificacion {
 
   }
 
+  @Override
+  public void notificarMailDeBaja(Contacto unContacto) {
+    this.sendEmail(unContacto.getEmail(),
+        "Baja del Sistema", "https:\\\\patitas.com\\darseDeBaja");
+  }
+
   public void sendEmail(String destinatario, String asunto, String mensaje) {
 
     Properties props = new Properties();

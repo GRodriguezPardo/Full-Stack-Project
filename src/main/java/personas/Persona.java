@@ -101,4 +101,11 @@ public class Persona {
   public void removerMedioNotificacion(MedioNotificacion medioNotificacion) {
     this.mediosNotificacion.remove(medioNotificacion);
   }
+
+  public void contactarPorMailBaja() {
+    this.contactos
+        .forEach(unContacto -> {
+          this.mediosNotificacion.forEach(m -> m.notificarMailDeBaja(unContacto));
+        });
+  }
 }

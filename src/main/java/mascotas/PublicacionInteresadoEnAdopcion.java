@@ -18,6 +18,10 @@ public class PublicacionInteresadoEnAdopcion {
     this.interesado = interesado;
   }
 
+  public void NotificarMailDeBaja(){
+    this.interesado.contactarPorMailBaja();
+  }
+
   public void notificacionSemanal() {
     this.interesado.contactarDuenioPorSugerencia(acumuladorRecomendaciones);
     this.acumuladorRecomendaciones = 0;
