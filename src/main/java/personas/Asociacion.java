@@ -79,4 +79,8 @@ public class Asociacion {
   public void removerPublicacionInteresadoEnAdopcion(PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion) {
     this.publicacionInteresadoEnAdopcion.remove(publicacionInteresadoEnAdopcion);
   }
+
+  public void removerPublicacionMascotaEnAdopcion(PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion) {
+    this.publicacionesDeMascotasEnAdopcion.remove(publicacionMascotaEnAdopcion);
+  }
 }

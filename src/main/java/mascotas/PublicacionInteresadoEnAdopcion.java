@@ -19,7 +19,7 @@ public class PublicacionInteresadoEnAdopcion {
     this.interesado = interesado;
   }
 
-  public void NotificarMailDeBaja(){
+  public void notificarMailDeBaja(){
     this.interesado.contactarPorMailBaja();
   }
 
@@ -29,7 +29,7 @@ public class PublicacionInteresadoEnAdopcion {
   }
 
   public void agregarRecomendacion() {
-    this.acumuladorRecomendaciones++;
+    this.acumuladorRecomendaciones += 1;
   }
 
   public void agregarRespuesta(Respuesta respuesta) {

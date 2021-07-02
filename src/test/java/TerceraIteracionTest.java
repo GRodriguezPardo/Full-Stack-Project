@@ -14,7 +14,9 @@ import repositorios.RepositorioDeUsuarios;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class TerceraIteracionTest {
 
@@ -52,6 +54,17 @@ public class TerceraIteracionTest {
   }
 
   @Test
+  public void sePuedeGenerarUnaPublicacionDeMascotaEnAdopcion() {
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = this.publicacionMascotaEnAdopcion();
+    asociacion.agregarPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
+
+    assertEquals(Arrays.asList(publicacionMascotaEnAdopcion), asociacion.getPublicacionesEnAdopcion());
+
+    asociacion.removerPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
+  }
+
+
+  @Test
   public void sePuedeGenerarUnaPublicacionDeInteresDeAdopcion() {
     PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = this.publicacionInteresadoEnAdopcion(asociacion);
     asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
@@ -61,6 +74,20 @@ public class TerceraIteracionTest {
     asociacion.removerPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
   }
 
+  @Test
+  public void seMandanLasRecomendacionesSemanales() {
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = this.publicacionMascotaEnAdopcion();
+    asociacion.agregarPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
+    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = this.publicacionInteresadoEnAdopcion(asociacion);
+    asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
+    Application.main(null);
+
+    verify(emailSender).notificarSugerenciaSemanal(any(),eq(1));
+    verify(smsSender).notificarSugerenciaSemanal(any(),eq(1));
+
+    asociacion.removerPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
+    asociacion.removerPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
+  }
 
   public Duenio duenio() {
     PersonaBuilder personaBuilder = new PersonaBuilder();
@@ -123,9 +150,11 @@ public class TerceraIteracionTest {
     Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
     personaBuilder.agregarContacto(metodoContacto);
     personaBuilder.agregarMedioNotificacion(emailSender);
+    Persona persona = personaBuilder.crearPersona();
+    persona.agregarMedioNotificacion(smsSender);
 
     PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
-        new PublicacionInteresadoEnAdopcion(new Interesado(personaBuilder.crearPersona()));
+        new PublicacionInteresadoEnAdopcion(new Interesado(persona));
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
         pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
