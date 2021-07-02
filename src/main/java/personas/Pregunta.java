@@ -10,6 +10,8 @@ public class Pregunta {
     this.cuerpoInteresado = cuerpoInteresado;
   }
 
+  //TODO las respuestas cerradas no solo son booleanos
+
   public String getCuerpoDuenio() {
     return cuerpoDuenio;
   }

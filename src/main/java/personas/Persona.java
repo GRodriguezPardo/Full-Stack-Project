@@ -72,7 +72,8 @@ public class Persona {
     return this.contactos;
   }
 
-  //TODO : HECHO metodo preferido, hardcodear mensaje,
+//TODO  hacer el notificar para no repetir codigo en las distintas notificaciones
+
   public void contactarPorMascota() {
     this.contactos
             .forEach(unContacto -> {

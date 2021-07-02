@@ -58,6 +58,7 @@ public class TwilioJava implements MedioNotificacion {
 
   @Override
   public void notificarMailDeBaja(Contacto contacto) {
+
     String cuerpo;
 
     cuerpo = "Baja del Sistema!\n"

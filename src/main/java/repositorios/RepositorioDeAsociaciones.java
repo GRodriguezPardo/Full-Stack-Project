@@ -61,9 +61,6 @@ public class RepositorioDeAsociaciones {
     return this.asociaciones;
   }
 
-  //TODO : HECHO Capaz devolver la asociacion mas cercana y asignar por consola.
-  //TODO : HECHO Encapsular latitud y longitud en una clase
-
   public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion) {
     if (this.asociaciones.isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");

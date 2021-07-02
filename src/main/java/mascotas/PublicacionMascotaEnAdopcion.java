@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class PublicacionMascotaEnAdopcion {
+
   private final Mascota mascota;
 
 

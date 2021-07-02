@@ -13,6 +13,8 @@ public class PublicacionInteresadoEnAdopcion {
 
   private final List<Respuesta> respuestas = new ArrayList<>();
   private final Interesado interesado;
+  //TODO borrar interesado y mandar persona directamente
+
   private Integer acumuladorRecomendaciones = 0;
 
   public PublicacionInteresadoEnAdopcion(Interesado interesado) {
@@ -36,12 +38,16 @@ public class PublicacionInteresadoEnAdopcion {
     this.respuestas.add(respuesta);
   }
 
+
+  //el TODO de las respuestas cerradas en vez de booleanas
+  // TODO : DETALLE pasar la  comparacion a la clase Respuesta, delegar.
+
   public Boolean coincideRespuesta(Respuesta respuesta) {
     Optional<Respuesta> respuestaPropia = this.respuestas.stream().filter(
             unaRespuesta -> Objects.equals(unaRespuesta.getPregunta(), respuesta.getPregunta()))
             .findFirst();
     if (respuestaPropia.isPresent()) {
-      return respuestaPropia.get().getRespuesta() == respuesta.getRespuesta();
+      return Objects.equals(respuestaPropia.get().getRespuesta(), respuesta.getRespuesta());
     } else {
       throw new NoHayRespuestaException("El usuario no respondio la pregunta");
     }

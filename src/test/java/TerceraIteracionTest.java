@@ -3,9 +3,8 @@ import apis.MedioNotificacion;
 import apis.TwilioJava;
 import mascotas.*;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.*;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDePreguntas;
@@ -37,6 +36,15 @@ public class TerceraIteracionTest {
     repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?"));
     repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?"));
   }
+
+
+  @BeforeEach
+  public void init(){
+    // agregar asociacion
+  }
+
+  @AfterEach
+  //remover cosas de los repositorios
 
 
   @Test
@@ -98,7 +106,7 @@ public class TerceraIteracionTest {
     personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.getPersona().agregarMedioNotificacion(smsSender);
-    duenio.agregarMascota(this.mascota());
+    duenio.agregarMascota(mascota());
     return duenio;
   }
 
@@ -155,6 +163,8 @@ public class TerceraIteracionTest {
 
     PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
         new PublicacionInteresadoEnAdopcion(new Interesado(persona));
+
+    //TODO concatenar lista y hacer el forEach sobre todo ; NO OBLIGATORIO
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
         pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
