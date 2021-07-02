@@ -1,6 +1,7 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

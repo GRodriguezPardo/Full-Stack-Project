@@ -1,14 +1,15 @@
 package apis;
 
 import exceptions.FalloServicioEmailException;
-import java.util.Properties;
+import personas.Contacto;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import personas.Contacto;
+import java.util.Properties;
 
 
 public class JavaXMail implements MedioNotificacion {
@@ -28,25 +29,25 @@ public class JavaXMail implements MedioNotificacion {
   @Override
   public void notificarInteresEnAdopcion(Contacto contacto) {
     this.sendEmail(contacto.getEmail(),
-        "Hay interesado en tu mascota!!",
-        "Encontramos interesados en tu mascota");
+            "Hay interesado en tu mascota!!",
+            "Encontramos interesados en tu mascota");
   }
 
   @Override
   public void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad) {
     String cuerpo;
 
-    if(cantidad > 0) {
+    if (cantidad > 0) {
       cuerpo = "Tenemos " + cantidad + " sugerecias de tu interes";
     } else {
       cuerpo = "Esta semana no tenemos sugerencias para vos!\n"
-          + "Te recomendamos que entres igual a ver las mascotas que estan "
-          + "esperando a un nuevo dueño!";
+              + "Te recomendamos que entres igual a ver las mascotas que estan "
+              + "esperando a un nuevo dueño!";
     }
 
     this.sendEmail(contacto.getEmail(),
-        "Sugerencias Semanales",
-        cuerpo);
+            "Sugerencias Semanales",
+            cuerpo);
 
   }
 

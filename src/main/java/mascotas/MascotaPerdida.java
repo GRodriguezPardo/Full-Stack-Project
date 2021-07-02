@@ -1,10 +1,11 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-import java.awt.Image;
+import personas.Posicion;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Objects;
-import personas.Posicion;
 
 /**
  * Clase que representa una mascota perdida.
@@ -19,8 +20,8 @@ public class MascotaPerdida {
    *
    * @param _fotos            son las fotos de la mascota perdida, minimo se necesita una.
    * @param descripcionEstado es una descripcion del estado en que se encontro a la mascota.
-   * @param posicion es la posicion en latitud y longitud de la localizacion de la mascota
-   *                 encontrada.
+   * @param posicion          es la posicion en latitud y longitud de la localizacion de la mascota
+   *                          encontrada.
    */
   public MascotaPerdida(String descripcionEstado,
                         List<Image> _fotos,

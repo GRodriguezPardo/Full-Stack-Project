@@ -1,6 +1,7 @@
 package personas;
 
 import apis.MedioNotificacion;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,8 @@ public class PersonaBuilder {
    */
   public Persona crearPersona() {
     return new Persona(this.nombreYApellido,
-        this.fechaNacimiento,
-        this.contactos,
-        this.medioNotificacion);
+            this.fechaNacimiento,
+            this.contactos,
+            this.medioNotificacion);
   }
 }

@@ -1,26 +1,24 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import javax.swing.ImageIcon;
+import java.util.*;
 
 /**
  * Builder de la clase Mascota.
  */
 public class MascotaBuilder {
+  private final List<Image> fotos = new ArrayList<>();
+  private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
   private Especie especie;
   private String nombre;
   private String apodo;
   private Short edad;
   private Sexo sexo;
   private String descripcion;
-  private final List<Image> fotos = new ArrayList<>();
-  private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
   private Tamanio tamanio;
 
   /**
@@ -136,6 +134,6 @@ public class MascotaBuilder {
             this.fotos,
             this.caracteristicas,
             this.tamanio
-        );
+    );
   }
 }

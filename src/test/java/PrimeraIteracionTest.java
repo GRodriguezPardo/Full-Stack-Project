@@ -1,4 +1,6 @@
-import apis.*;
+import apis.JavaXMail;
+import apis.MedioNotificacion;
+import apis.TwilioJava;
 import exceptions.EsContraseniaCortaException;
 import exceptions.EsContraseniaDebilException;
 import exceptions.FaltanDatosException;
@@ -37,15 +39,15 @@ public class PrimeraIteracionTest {
 
   @Test
   public void unaMascotaVaciaFalla() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null, null, null, null, null, null, null, null,null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Mascota(null, null, null, null, null, null, null, null, null));
   }
 
   @Test
   public void losContactosSeCreanSinProblema() {
     Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
-    Assertions.assertEquals("Lionel Messi",metodoContacto.getNombreApellido());
-    Assertions.assertEquals("112222333",metodoContacto.getTelefono());
-    Assertions.assertEquals("messi@messi.com",metodoContacto.getEmail());
+    Assertions.assertEquals("Lionel Messi", metodoContacto.getNombreApellido());
+    Assertions.assertEquals("112222333", metodoContacto.getTelefono());
+    Assertions.assertEquals("messi@messi.com", metodoContacto.getEmail());
   }
 
   @Test
@@ -66,12 +68,12 @@ public class PrimeraIteracionTest {
 
   @Test
   public void personaSinNombreTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null,null,null, null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null, null, null, null));
   }
 
   @Test
   public void personaSinContactosTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",LocalDate.now(), new ArrayList<>(), null));
+    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose", LocalDate.now(), new ArrayList<>(), null));
   }
 
   @Test
@@ -79,8 +81,8 @@ public class PrimeraIteracionTest {
     List<Contacto> contactos = new ArrayList<>();
     contactos.add(new Contacto("jose", "222", "jose"));
     Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",
-        LocalDate.now(), contactos,
-        null));
+            LocalDate.now(), contactos,
+            null));
   }
 
   @Test
@@ -205,7 +207,7 @@ public class PrimeraIteracionTest {
     mascotaBuilder.setSexo(Sexo.MACHO);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
-    this.settearCastrado(mascotaBuilder,false);
+    this.settearCastrado(mascotaBuilder, false);
     return mascotaBuilder.finalizarMascota();
   }
 
@@ -221,7 +223,7 @@ public class PrimeraIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, new Posicion(12345,54321));
+    return new MascotaPerdida(descripcion, fotos, new Posicion(12345, 54321));
   }
 
   public Rescatista rescatista() {

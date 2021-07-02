@@ -38,10 +38,10 @@ public class UbicacionDTO {
 
   @Override
   public String toString() {
-    return  "{"
-        + '"' + "dirección"  + '"' + ": " + getDireccion() + ','
-        + '"' + "lat"  + '"' + ": " + getLat() + ','
-        + '"' + "long" + '"' + ": " + getLong()
-        + "}";
+    return "{"
+            + '"' + "dirección" + '"' + ": " + getDireccion() + ','
+            + '"' + "lat" + '"' + ": " + getLat() + ','
+            + '"' + "long" + '"' + ": " + getLong()
+            + "}";
   }
 }

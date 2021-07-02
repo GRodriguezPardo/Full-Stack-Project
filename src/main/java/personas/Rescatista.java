@@ -76,6 +76,7 @@ public class Rescatista {
     return this.persona.getContactos();
   }
 
-  public Posicion getPosicion() { return mascota.getPosicion();
+  public Posicion getPosicion() {
+    return mascota.getPosicion();
   }
 }

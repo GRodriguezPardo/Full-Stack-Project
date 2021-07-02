@@ -1,12 +1,10 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.awt.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Clase que representa una mascota que posee un dueño.

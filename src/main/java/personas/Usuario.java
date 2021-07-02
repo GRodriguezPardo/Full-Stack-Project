@@ -10,8 +10,8 @@ public class Usuario extends Perfil {
     this.duenio = _duenio;
   }
 
-  public Boolean duenioDe(Mascota mascota){
-      return duenio.tieneMascota(mascota);
+  public Boolean duenioDe(Mascota mascota) {
+    return duenio.tieneMascota(mascota);
   }
 
 

@@ -2,11 +2,12 @@ package apis.dto;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.List;
 import mascotas.Especie;
 import mascotas.Mascota;
 import mascotas.Tamanio;
 import personas.Posicion;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HogarDTO {
@@ -45,11 +46,8 @@ public class HogarDTO {
       return false;
     }
     //valido por especie
-    if (((getAdmisiones().getGatos() && (mascota.getEspecie() != Especie.GATO)))
-        || ((getAdmisiones().getPerros() && (mascota.getEspecie() != Especie.PERRO)))) {
-      return false;
-    }
-    return true;
+    return ((!getAdmisiones().getGatos() || (mascota.getEspecie() == Especie.GATO)))
+            && ((!getAdmisiones().getPerros() || (mascota.getEspecie() == Especie.PERRO)));
   }
 
   public Posicion getPoscion() {
@@ -126,16 +124,16 @@ public class HogarDTO {
 
   @Override
   public String toString() {
-    return  "{"
-        + '"' + "id"  + '"' + ": " + getId() + ','
-        + '"' + "nombre"  + '"' + ": " + getNombre() + ','
-        + '"' + "ubicacion" + '"' + ": " + getUbicacion() + ','
-        + '"' + "telefono"  + '"' + ": " + getTelefono() + ','
-        + '"' + "admisiones"  + '"' + ": " + getAdmisiones() + ','
-        + '"' + "capacidad"  + '"' + ": " + getCapacidad() + ','
-        + '"' + "lugares_disponibles"  + '"' + ": " + getLugares_disponibles() + ','
-        + '"' + "patio"  + '"' + ": " + getPatio() + ','
-        + '"' + "caracteristicas"  + '"' + ": " + getCaracteristicas()
-        + "}";
+    return "{"
+            + '"' + "id" + '"' + ": " + getId() + ','
+            + '"' + "nombre" + '"' + ": " + getNombre() + ','
+            + '"' + "ubicacion" + '"' + ": " + getUbicacion() + ','
+            + '"' + "telefono" + '"' + ": " + getTelefono() + ','
+            + '"' + "admisiones" + '"' + ": " + getAdmisiones() + ','
+            + '"' + "capacidad" + '"' + ": " + getCapacidad() + ','
+            + '"' + "lugares_disponibles" + '"' + ": " + getLugares_disponibles() + ','
+            + '"' + "patio" + '"' + ": " + getPatio() + ','
+            + '"' + "caracteristicas" + '"' + ": " + getCaracteristicas()
+            + "}";
   }
 }

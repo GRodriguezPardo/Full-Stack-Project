@@ -1,13 +1,18 @@
-import apis.*;
+import apis.JavaXMail;
+import apis.MedioNotificacion;
+import apis.TwilioJava;
 import apis.dto.HogarDTO;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.*;
-import org.junit.jupiter.api.*;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeUsuarios;
 import services.HogaresService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
@@ -40,22 +45,22 @@ public class SegundaIteracionTest {
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
-    JavaXMail emailSender = new JavaXMail("unemailejemplar","HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
-    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com","Encontramos a tu mascota", "Ejemplo"));
+    JavaXMail emailSender = new JavaXMail("unemailejemplar", "HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "Encontramos a tu mascota", "Ejemplo"));
   }
 
   @Test
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
-    TwilioJava twilio = new TwilioJava(null , null , null);//LEER comentarios en smsSender para probar posta con tu telefono
-    Contacto contacto = new Contacto("Anonimo" ,"+541165919737" ,"messi@messi.com");
+    TwilioJava twilio = new TwilioJava(null, null, null);//LEER comentarios en smsSender para probar posta con tu telefono
+    Contacto contacto = new Contacto("Anonimo", "+541165919737", "messi@messi.com");
     assertDoesNotThrow(() -> twilio.notificarMascotaPerdida(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
   valido del numero) y te fijas que te llege el mensaje*/
 
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
-    Asociacion asociacion = new Asociacion(new Posicion(10,20));
+    Asociacion asociacion = new Asociacion(new Posicion(10, 20));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion);
 
@@ -66,15 +71,15 @@ public class SegundaIteracionTest {
 
   @Test
   public void lasPublicacionesSeAsignanCorrectamente() {
-    Asociacion asociacion1 = new Asociacion(new Posicion(10,10));
-    Asociacion asociacion2 = new Asociacion(new Posicion(20,20));
+    Asociacion asociacion1 = new Asociacion(new Posicion(10, 10));
+    Asociacion asociacion2 = new Asociacion(new Posicion(20, 20));
     PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(this.rescatista());
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
     repo.agregarAsociacion(asociacion2);
 
 
-    assertEquals(repo.asociacionMasCercana(publicacion),asociacion1);
+    assertEquals(repo.asociacionMasCercana(publicacion), asociacion1);
 
     repo.removerAsociacion(asociacion1);
     repo.removerAsociacion(asociacion2);
@@ -84,7 +89,7 @@ public class SegundaIteracionTest {
   public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(this.rescatista());
     PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     unaAsociacion.agregarPublicacionMascotaPerdida(publicacionDesaprobada1);
@@ -108,11 +113,11 @@ public class SegundaIteracionTest {
   @Test
   public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
     PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(this.rescatista());
-    Asociacion unaAsociacion = new Asociacion(new Posicion(10,10));
+    Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
     unaAsociacion.agregarPublicacionMascotaPerdida(publicacionDesaprobada);
-    Voluntario voluntario = new Voluntario("Jose","AyudoMucho", unaAsociacion);
+    Voluntario voluntario = new Voluntario("Jose", "AyudoMucho", unaAsociacion);
 
     assertTrue(voluntario.publicacionesGestionables().contains(publicacionDesaprobada));
 
@@ -122,9 +127,9 @@ public class SegundaIteracionTest {
   @Test
   public void puedoAgregarTodosLosTiposDePerfilesAlRepo() {
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-    Usuario perfil1 = new Usuario("Luis I","Soy primero",this.duenio());
+    Usuario perfil1 = new Usuario("Luis I", "Soy primero", this.duenio());
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
-    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33,33)));
+    Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33, 33)));
 
     repo.agregarUsuario(perfil1);
     repo.agregarAdmin(perfil2);
@@ -140,84 +145,84 @@ public class SegundaIteracionTest {
   }
 
   @Test
-  public void obtenerHogaresDeTransito(){
+  public void obtenerHogaresDeTransito() {
 
     HogaresService service = new HogaresService();
 
-    Posicion posicionHogar = new Posicion(1,1);
-    Posicion posicionRescatista = new Posicion(0,0);
+    Posicion posicionHogar = new Posicion(1, 1);
+    Posicion posicionRescatista = new Posicion(0, 0);
     Assertions.assertTrue(posicionRescatista.distanciaA(posicionHogar) <= 10);
 
     Assertions.assertFalse(
-        service.getHogarMascota(mascota(),posicionRescatista,100).isEmpty()
+            service.getHogarMascota(mascota(), posicionRescatista, 100).isEmpty()
     );
   }
 
   @Test
-  public void obtenerHogaresAyudacan(){
+  public void obtenerHogaresAyudacan() {
 
     HogaresService service = new HogaresService();
-    Posicion posicionRescatista = new Posicion(0,0);
+    Posicion posicionRescatista = new Posicion(0, 0);
     HogarDTO hogarAyudacan =
-    service.getHogarMascota(mascota(),posicionRescatista,100)
-        .stream()
-        .filter(x->(x.getNombre().equals("Ayudacan")))
-        .findFirst()
-        .get();
+            service.getHogarMascota(mascota(), posicionRescatista, 100)
+                    .stream()
+                    .filter(x -> (x.getNombre().equals("Ayudacan")))
+                    .findFirst()
+                    .get();
 
-    Assertions.assertEquals(hogarAyudacan.getNombre(),"Ayudacan");
-    Assertions.assertEquals(hogarAyudacan.getTelefono(),"+541134586100");
+    Assertions.assertEquals(hogarAyudacan.getNombre(), "Ayudacan");
+    Assertions.assertEquals(hogarAyudacan.getTelefono(), "+541134586100");
     Assertions.assertTrue(hogarAyudacan.getAdmisiones().getPerros());
     Assertions.assertFalse(hogarAyudacan.getAdmisiones().getGatos());
-    Assertions.assertEquals(hogarAyudacan.getCapacidad(),150);
-    Assertions.assertEquals(hogarAyudacan.getLugares_disponibles(),49);
+    Assertions.assertEquals(hogarAyudacan.getCapacidad(), 150);
+    Assertions.assertEquals(hogarAyudacan.getLugares_disponibles(), 49);
     Assertions.assertTrue(hogarAyudacan.getPatio());
     Assertions.assertTrue(hogarAyudacan.getCaracteristicas().isEmpty());
   }
 
   @Test
-  public void obtenerHogaresMascotaGrandeYHogarSinPatio(){
-    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.GRANDE);
+  public void obtenerHogaresMascotaGrandeYHogarSinPatio() {
+    Mascota mascota = mascotaBuilder(Especie.GATO, Tamanio.GRANDE);
     HogaresService service = new HogaresService();
     //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
     Assertions.assertEquals(
-        service.getHogarMascota(mascota,new Posicion(0,0),100)
-            .stream().filter(hogar -> !hogar.getPatio())
-            .count(),0
+            service.getHogarMascota(mascota, new Posicion(0, 0), 100)
+                    .stream().filter(hogar -> !hogar.getPatio())
+                    .count(), 0
     );
   }
 
   @Test
-  public void obtenerHogaresMascotaGrandeYHogarConPatio(){
-    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.GRANDE);
+  public void obtenerHogaresMascotaGrandeYHogarConPatio() {
+    Mascota mascota = mascotaBuilder(Especie.GATO, Tamanio.GRANDE);
     HogaresService service = new HogaresService();
     //Mascota GRANDE y Hogar con Patio, por regla de admisión no debiera haber:
     Assertions.assertTrue(
-        service.getHogarMascota(mascota,new Posicion(0,0),100)
-            .stream()
-            .anyMatch(HogarDTO::getPatio)
+            service.getHogarMascota(mascota, new Posicion(0, 0), 100)
+                    .stream()
+                    .anyMatch(HogarDTO::getPatio)
     );
   }
 
   @Test
-  public void obtenerHogaresMascotaChicaYHogarSinPatio(){
-    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.CHICO);
+  public void obtenerHogaresMascotaChicaYHogarSinPatio() {
+    Mascota mascota = mascotaBuilder(Especie.GATO, Tamanio.CHICO);
     HogaresService service = new HogaresService();
     //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
     Assertions.assertFalse(
-        service.getHogarMascota(mascota,new Posicion(0,0),100)
-            .stream().anyMatch(hogar -> !hogar.getPatio())
+            service.getHogarMascota(mascota, new Posicion(0, 0), 100)
+                    .stream().anyMatch(hogar -> !hogar.getPatio())
     );
   }
 
   @Test
-  public void obtenerHogaresMascotaChicaYHogarConPatio(){
-    Mascota mascota = mascotaBuilder(Especie.GATO,Tamanio.CHICO);
+  public void obtenerHogaresMascotaChicaYHogarConPatio() {
+    Mascota mascota = mascotaBuilder(Especie.GATO, Tamanio.CHICO);
     HogaresService service = new HogaresService();
     //mascot GRANDE y Hogar sin Patio, por regla de admisión no debiera haber:
     Assertions.assertFalse(
-        service.getHogarMascota(mascota,new Posicion(0,0),100)
-            .stream().anyMatch(hogar -> !hogar.getPatio())
+            service.getHogarMascota(mascota, new Posicion(0, 0), 100)
+                    .stream().anyMatch(hogar -> !hogar.getPatio())
     );
   }
 
@@ -265,7 +270,7 @@ public class SegundaIteracionTest {
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
 
-    return new MascotaPerdida(descripcion, fotos, new Posicion(0,0));
+    return new MascotaPerdida(descripcion, fotos, new Posicion(0, 0));
   }
 
   public Rescatista rescatista() {

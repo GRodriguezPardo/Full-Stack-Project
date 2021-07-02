@@ -10,32 +10,32 @@ import java.util.List;
 
 
 public class PublicacionMascotaEnAdopcion {
-    private final Mascota mascota;
+  private final Mascota mascota;
 
 
-    private final List<Respuesta> respuestas = new ArrayList<>();
+  private final List<Respuesta> respuestas = new ArrayList<>();
 
-    public PublicacionMascotaEnAdopcion(Mascota mascota) {
-        this.mascota = mascota;
-    }
+  public PublicacionMascotaEnAdopcion(Mascota mascota) {
+    this.mascota = mascota;
+  }
 
-    public Mascota getMascota() {
-        return mascota;
-    }
+  public Mascota getMascota() {
+    return mascota;
+  }
 
-    public void notificarADuenoPorInteresado(){
-        this.duenioDePublicacion().contactarDuenioPorInteresado();
-    }
+  public void notificarADuenoPorInteresado() {
+    this.duenioDePublicacion().contactarDuenioPorInteresado();
+  }
 
-    public Duenio duenioDePublicacion(){
-        return RepositorioDeUsuarios.getInstance().usuarioDuenioDe(this.mascota);
-    }
+  public Duenio duenioDePublicacion() {
+    return RepositorioDeUsuarios.getInstance().usuarioDuenioDe(this.mascota);
+  }
 
-    public void agregarRespuesta(Respuesta respuesta) {
-        this.respuestas.add(respuesta);
-    }
+  public void agregarRespuesta(Respuesta respuesta) {
+    this.respuestas.add(respuesta);
+  }
 
-    public List<Respuesta> getRespuestas() {
-        return this.respuestas;
-    }
+  public List<Respuesta> getRespuestas() {
+    return this.respuestas;
+  }
 }

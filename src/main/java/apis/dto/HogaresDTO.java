@@ -1,6 +1,7 @@
 package apis.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class HogaresDTO {
   @Override
   public String toString() {
     return ("{" + '"' + "total" + '"' + ':' + getTotal() + ','
-        + '"' + "offset"  + '"' + ':' + getOffset() + ','
-        + '"' + "hogares" + '"' + ':' + getHogares()
-        + '}');
+            + '"' + "offset" + '"' + ':' + getOffset() + ','
+            + '"' + "hogares" + '"' + ':' + getHogares()
+            + '}');
   }
 }

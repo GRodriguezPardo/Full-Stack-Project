@@ -3,6 +3,7 @@ package mascotas;
 import exceptions.NoHayRespuestaException;
 import personas.Interesado;
 import personas.Respuesta;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,9 +34,9 @@ public class PublicacionInteresadoEnAdopcion {
 
   public Boolean coincideRespuesta(Respuesta respuesta) {
     Optional<Respuesta> respuestaPropia = this.respuestas.stream().filter(
-        unaRespuesta -> Objects.equals(unaRespuesta.getPregunta(), respuesta.getPregunta()))
-        .findFirst();
-    if(respuestaPropia.isPresent()) {
+            unaRespuesta -> Objects.equals(unaRespuesta.getPregunta(), respuesta.getPregunta()))
+            .findFirst();
+    if (respuestaPropia.isPresent()) {
       return respuestaPropia.get().getRespuesta() == respuesta.getRespuesta();
     } else {
       throw new NoHayRespuestaException("El usuario no respondio la pregunta");

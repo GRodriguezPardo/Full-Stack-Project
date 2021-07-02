@@ -1,9 +1,10 @@
-import java.util.List;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import personas.Asociacion;
 import repositorios.RepositorioDeAsociaciones;
 import services.HogaresService;
+
+import java.util.List;
 
 public class Application {
 
@@ -18,16 +19,16 @@ public class Application {
 
     asociasiones.forEach(unaAsociacion -> {
       List<PublicacionMascotaEnAdopcion> listaPublicacionesMascotasEnAdopcion =
-          unaAsociacion.getPublicacionesEnAdopcion();
+              unaAsociacion.getPublicacionesEnAdopcion();
 
       List<PublicacionInteresadoEnAdopcion> listaPublicacionesInteresados =
-          unaAsociacion.getPublicacionInteresadoEnAdopcion();
+              unaAsociacion.getPublicacionInteresadoEnAdopcion();
 
       listaPublicacionesMascotasEnAdopcion.forEach(
-          publicacionAdopcion -> listaPublicacionesInteresados.stream().filter(
-              publicacionInteresado -> publicacionAdopcion.getRespuestas().stream().allMatch(
-                  publicacionInteresado::coincideRespuesta))
-          .forEach(PublicacionInteresadoEnAdopcion::agregarRecomendacion)
+              publicacionAdopcion -> listaPublicacionesInteresados.stream().filter(
+                      publicacionInteresado -> publicacionAdopcion.getRespuestas().stream().allMatch(
+                              publicacionInteresado::coincideRespuesta))
+                      .forEach(PublicacionInteresadoEnAdopcion::agregarRecomendacion)
       );
 
       listaPublicacionesInteresados.forEach(PublicacionInteresadoEnAdopcion::notificacionSemanal);
