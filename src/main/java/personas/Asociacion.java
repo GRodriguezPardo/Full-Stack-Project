@@ -75,4 +75,8 @@ public class Asociacion {
   public void agregarPublicacionInteresadoEnAdopcion(PublicacionInteresadoEnAdopcion publicacion) {
     this.publicacionInteresadoEnAdopcion.add(publicacion);
   }
+
+  public void removerPublicacionInteresadoEnAdopcion(PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion) {
+    this.publicacionInteresadoEnAdopcion.remove(publicacionInteresadoEnAdopcion);
+  }
 }

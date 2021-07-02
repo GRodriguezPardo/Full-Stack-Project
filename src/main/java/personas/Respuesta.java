@@ -4,7 +4,7 @@ public class Respuesta {
   public Pregunta pregunta;
   public boolean respuesta;
 
-  Respuesta(boolean valor, Pregunta pregunta) {
+  public Respuesta(boolean valor, Pregunta pregunta) {
     this.respuesta = valor;
     this.pregunta = pregunta;
   }

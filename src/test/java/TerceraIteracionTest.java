@@ -2,16 +2,17 @@ import apis.JavaXMail;
 import apis.MedioNotificacion;
 import apis.TwilioJava;
 import mascotas.*;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import personas.Contacto;
-import personas.Duenio;
-import personas.PersonaBuilder;
-import personas.Usuario;
+import personas.*;
+import repositorios.RepositorioDeAsociaciones;
+import repositorios.RepositorioDePreguntas;
 import repositorios.RepositorioDeUsuarios;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.mockito.Mockito.mock;
 
@@ -19,18 +20,45 @@ public class TerceraIteracionTest {
 
   MedioNotificacion emailSender = mock(JavaXMail.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
+  static Asociacion asociacion;
+
+
+  @BeforeAll
+  public static void initRepositorios() {
+    asociacion = new Asociacion(new Posicion(0,0));
+    RepositorioDeAsociaciones repoAsociaciones = RepositorioDeAsociaciones.getInstance();
+    asociacion.agregarPregunta(new Pregunta("¿Necesita patio?", "¿Tenes patio?"));
+    asociacion.agregarPregunta(new Pregunta("¿Necesita jaula?", "¿Tenes jaula?"));
+    repoAsociaciones.agregarAsociacion(asociacion);
+
+    RepositorioDePreguntas repoPreguntas = RepositorioDePreguntas.getInstance();
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?"));
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?"));
+  }
 
 
   @Test
-  @Disabled // no funciona aun
   public void sePuedeEncontrarElDuenioDeUnaMascota() {
-    Usuario usuario = new Usuario("unusario ", "hola 123", duenio());
+    Duenio duenio = duenio();
+    Mascota mascota = mascota();
+    Usuario usuario = new Usuario("unusario ", "hola 123", duenio);
+    duenio.agregarMascota(mascota);
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
     repo.agregarUsuario(usuario);
 
-    Assertions.assertEquals(repo.usuarioDuenioDe(mascota()), duenio());
+    assertEquals(repo.usuarioDuenioDe(mascota), duenio);
 
     repo.removerUsuario(usuario);
+  }
+
+  @Test
+  public void sePuedeGenerarUnaPublicacionDeInteresDeAdopcion() {
+    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = this.publicacionInteresadoEnAdopcion(asociacion);
+    asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
+
+    assertEquals(Arrays.asList(publicacionInteresadoEnAdopcion), asociacion.getPublicacionInteresadoEnAdopcion());
+
+    asociacion.removerPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
   }
 
 
@@ -75,5 +103,37 @@ public class TerceraIteracionTest {
     return mascotaBuilder.finalizarMascota();
   }
 
+  public PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion() {
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota());
 
+    RepositorioDePreguntas.getInstance().getPreguntas().forEach(
+        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
+    );
+
+    asociacion.getPreguntas().forEach(
+        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta)));
+
+    return publicacionMascotaEnAdopcion;
+  }
+
+  public PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion(Asociacion asociacion) {
+    PersonaBuilder personaBuilder = new PersonaBuilder();
+    personaBuilder.setNombreYApellido("Lionel Andres Messi");
+    personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
+    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
+    personaBuilder.agregarContacto(metodoContacto);
+    personaBuilder.agregarMedioNotificacion(emailSender);
+
+    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
+        new PublicacionInteresadoEnAdopcion(new Interesado(personaBuilder.crearPersona()));
+
+    RepositorioDePreguntas.getInstance().getPreguntas().forEach(
+        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
+    );
+
+    asociacion.getPreguntas().forEach(
+        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta)));
+
+    return publicacionInteresadoEnAdopcion;
+  }
 }
