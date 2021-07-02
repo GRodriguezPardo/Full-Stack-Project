@@ -5,7 +5,10 @@ import mascotas.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import personas.*;
+import personas.Contacto;
+import personas.Duenio;
+import personas.PersonaBuilder;
+import personas.Usuario;
 import repositorios.RepositorioDeUsuarios;
 
 import java.time.LocalDate;
@@ -18,28 +21,17 @@ public class TerceraIteracionTest {
   MedioNotificacion smsSender = mock(TwilioJava.class);
 
 
-
   @Test
   @Disabled // no funciona aun
-  public void sePuedeEncontrarElDuenioDeUnaMascota(){
-      Usuario usuario = new Usuario("unusario ", "hola 123", duenio());
-      RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-      repo.agregarUsuario(usuario);
+  public void sePuedeEncontrarElDuenioDeUnaMascota() {
+    Usuario usuario = new Usuario("unusario ", "hola 123", duenio());
+    RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
+    repo.agregarUsuario(usuario);
 
-      Assertions.assertEquals( repo.usuarioDuenioDe(mascota()) , duenio());
+    Assertions.assertEquals(repo.usuarioDuenioDe(mascota()), duenio());
 
-      repo.removerUsuario(usuario);
-    }
-
-
-
-
-
-
-
-
-
-
+    repo.removerUsuario(usuario);
+  }
 
 
   public Duenio duenio() {
@@ -54,8 +46,6 @@ public class TerceraIteracionTest {
     duenio.agregarMascota(this.mascota());
     return duenio;
   }
-
-
 
 
   public Mascota mascota() {

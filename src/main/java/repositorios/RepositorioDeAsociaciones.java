@@ -64,7 +64,7 @@ public class RepositorioDeAsociaciones {
   //TODO : HECHO Capaz devolver la asociacion mas cercana y asignar por consola.
   //TODO : HECHO Encapsular latitud y longitud en una clase
 
-  public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion){
+  public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion) {
     if (this.asociaciones.isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");
     }
@@ -73,8 +73,8 @@ public class RepositorioDeAsociaciones {
 
   public List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion() {
     return this.asociaciones.stream()
-        .flatMap(asociacion -> asociacion.getPublicacionesEnAdopcion().stream())
-        .collect(Collectors.toList());
+            .flatMap(asociacion -> asociacion.getPublicacionesEnAdopcion().stream())
+            .collect(Collectors.toList());
   }
 
 }

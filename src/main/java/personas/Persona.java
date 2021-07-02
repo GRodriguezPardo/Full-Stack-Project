@@ -2,6 +2,7 @@ package personas;
 
 import apis.MedioNotificacion;
 import exceptions.FaltanDatosException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,17 +82,17 @@ public class Persona {
 
   public void contactarPorInteresado() {
     this.contactos
-        .forEach(unContacto -> {
-          this.mediosNotificacion.forEach(m -> m.notificarInteresEnAdopcion(unContacto));
-        });
+            .forEach(unContacto -> {
+              this.mediosNotificacion.forEach(m -> m.notificarInteresEnAdopcion(unContacto));
+            });
   }
 
 
   public void contactarPorSugerenciaSemanal(Integer cantidad) {
     this.contactos
-        .forEach(unContacto -> {
-          this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto, cantidad));
-        });
+            .forEach(unContacto -> {
+              this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto, cantidad));
+            });
   }
 
   public void agregarMedioNotificacion(MedioNotificacion medioNotificacion) {

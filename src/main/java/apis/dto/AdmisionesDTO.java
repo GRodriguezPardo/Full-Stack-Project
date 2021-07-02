@@ -30,9 +30,9 @@ public class AdmisionesDTO {
 
   @Override
   public String toString() {
-    return  "{"
-        + '"' + "perros"  + '"' + ": " + getPerros() + ','
-        + '"' + "gatos"  + '"' + ": " + getGatos()
-        + "}";
+    return "{"
+            + '"' + "perros" + '"' + ": " + getPerros() + ','
+            + '"' + "gatos" + '"' + ": " + getGatos()
+            + "}";
   }
 }

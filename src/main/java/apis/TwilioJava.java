@@ -30,30 +30,30 @@ public class TwilioJava implements MedioNotificacion {
   public void sendSms(String destinationNumber, String mensaje) {
     Twilio.init(this.accountSid, this.authToken);
     Message.creator(new PhoneNumber(destinationNumber),
-            new PhoneNumber(this.senderNumber),mensaje).create();
+            new PhoneNumber(this.senderNumber), mensaje).create();
   }
 
   public void notificarMascotaPerdida(Contacto contacto) {
-    this.sendSms(contacto.getTelefono(),"Encontrasmos a tu mascota perdida");
+    this.sendSms(contacto.getTelefono(), "Encontrasmos a tu mascota perdida");
   }
 
   @Override
   public void notificarInteresEnAdopcion(Contacto contacto) {
-    this.sendSms(contacto.getTelefono(),"Hay interesados en adoptar a tu mascota");
+    this.sendSms(contacto.getTelefono(), "Hay interesados en adoptar a tu mascota");
   }
 
   @Override
   public void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad) {
     String cuerpo;
 
-    if(cantidad > 0) {
+    if (cantidad > 0) {
       cuerpo = "Tenemos " + cantidad + " sugerecias de tu interes";
     } else {
       cuerpo = "Esta semana no tenemos sugerencias para vos!\n"
-          + "Te recomendamos que entres igual a ver las mascotas que estan "
-          + "esperando a un nuevo dueño!";
+              + "Te recomendamos que entres igual a ver las mascotas que estan "
+              + "esperando a un nuevo dueño!";
     }
-    this.sendSms(contacto.getTelefono(),cuerpo);
+    this.sendSms(contacto.getTelefono(), cuerpo);
   }
 
   @Override

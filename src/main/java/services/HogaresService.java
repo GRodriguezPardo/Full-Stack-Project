@@ -1,34 +1,31 @@
 package services;
 
 // Domain
+
 import apis.HogaresDeTransitoAPI;
 import apis.dto.HogarDTO;
 import apis.dto.HogaresDTO;
 import apis.dto.TokenDTO;
-// Jersey Library
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-//
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
-//
 import exceptions.HogaresException;
-import java.util.List;
-import java.util.stream.Collectors;
-// Javax Libary
-import javax.ws.rs.core.MediaType;
-//
 import mascotas.Mascota;
 import personas.Posicion;
 
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HogaresService implements HogaresDeTransitoAPI {
-  private final Client client;
   private static final String TOKEN =
-      "KyaEViQxhE4UuBMO9KjkZCg4haTLDwte7woNGlp0mlcIALTZnyfp4eOhBVXY";
+          "KyaEViQxhE4UuBMO9KjkZCg4haTLDwte7woNGlp0mlcIALTZnyfp4eOhBVXY";
   private static final String API_HOGARES = "https://api.refugiosdds.com.ar/api/";
   private static final String PATH_HOGARES = "hogares";
   private static final String PATH_USUARIOS = "usuarios";
+  private final Client client;
 
   public HogaresService() {
     ClientConfig clientConfig = new DefaultClientConfig();
@@ -39,12 +36,12 @@ public class HogaresService implements HogaresDeTransitoAPI {
   @Override
   public HogaresDTO getHogares(String offset) throws HogaresException {
     return client
-        .resource(API_HOGARES)
-        .path(PATH_HOGARES)
-        .queryParam("offset", offset)
-        .header("Authorization", "Bearer " + TOKEN)
-        .accept(MediaType.APPLICATION_JSON)
-        .get(HogaresDTO.class);
+            .resource(API_HOGARES)
+            .path(PATH_HOGARES)
+            .queryParam("offset", offset)
+            .header("Authorization", "Bearer " + TOKEN)
+            .accept(MediaType.APPLICATION_JSON)
+            .get(HogaresDTO.class);
   }
 
   @Override
@@ -63,10 +60,10 @@ public class HogaresService implements HogaresDeTransitoAPI {
   public List<HogarDTO> getHogarMascota(Mascota mascota, Posicion ubicacion, int distanciaMaxima) {
     //TODO: Debemos recorrer todos los offset, deje por default el primero
     return this.getHogarList("1")
-        .stream()
-        .filter(hogarDTO -> (hogarDTO.validarAdmision(mascota)
-            && hogarDTO.getPoscion().distanciaA(ubicacion) <= distanciaMaxima))
-        .collect(Collectors.toList());
+            .stream()
+            .filter(hogarDTO -> (hogarDTO.validarAdmision(mascota)
+                    && hogarDTO.getPoscion().distanciaA(ubicacion) <= distanciaMaxima))
+            .collect(Collectors.toList());
   }
 
 }

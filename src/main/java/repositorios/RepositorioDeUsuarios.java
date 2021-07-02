@@ -4,8 +4,10 @@ import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import exceptions.NoExisteDuenioDeMascotaException;
 import mascotas.Mascota;
-import personas.*;
-
+import personas.Admin;
+import personas.Duenio;
+import personas.Usuario;
+import personas.Voluntario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class RepositorioDeUsuarios {
   private final List<Admin> administradores = new ArrayList<>();
   private final List<Usuario> usuarios = new ArrayList<>();
   private final List<Voluntario> voluntarios = new ArrayList<>();
+
   /**
    * Contructor privado al ser singleton.
    */
@@ -77,7 +80,6 @@ public class RepositorioDeUsuarios {
   }
 
 
-
   /**
    * Permite a comprobar las credenciales de un Usuario.
    *
@@ -120,6 +122,7 @@ public class RepositorioDeUsuarios {
   public void removerUsuario(Usuario perfil) {
     this.usuarios.remove(perfil);
   }
+
   public void removerVoluntario(Voluntario perfil) {
     this.voluntarios.remove(perfil);
   }
@@ -132,12 +135,13 @@ public class RepositorioDeUsuarios {
   public List<Usuario> usuarios() {
     return this.usuarios;
   }
+
   public List<Voluntario> voluntarios() {
     return this.voluntarios;
   }
 
   public Duenio usuarioDuenioDe(Mascota mascota) {
-   List<Usuario> usuariosDuenio =  usuarios.stream().filter(usuario -> usuario.duenioDe(mascota)).collect(Collectors.toList());
+    List<Usuario> usuariosDuenio = usuarios.stream().filter(usuario -> usuario.duenioDe(mascota)).collect(Collectors.toList());
 
 
     if (!usuariosDuenio.isEmpty()) {

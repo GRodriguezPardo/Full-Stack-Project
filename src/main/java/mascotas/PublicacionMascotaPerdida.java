@@ -32,6 +32,7 @@ public class PublicacionMascotaPerdida {
     return this.rescatista.getFotos();
   }
 
-  public Posicion getPosicion() { return rescatista.getPosicion();
+  public Posicion getPosicion() {
+    return rescatista.getPosicion();
   }
 }

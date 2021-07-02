@@ -1,5 +1,5 @@
 package mascotas;
 
 public enum Tamanio {
-  MEDIANO,GRANDE,CHICO
+  MEDIANO, GRANDE, CHICO
 }

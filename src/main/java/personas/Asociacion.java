@@ -1,11 +1,12 @@
 package personas;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Asociacion {
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
@@ -59,8 +60,8 @@ public class Asociacion {
 
   public List<Pregunta> verPreguntasQueIncluyanCadena(String cadena) {
     return this.preguntas.stream()
-        .filter(p -> p.getCuerpoDuenio().contains(cadena))
-        .collect(Collectors.toList());
+            .filter(p -> p.getCuerpoDuenio().contains(cadena))
+            .collect(Collectors.toList());
   }
 
   public List<PublicacionMascotaEnAdopcion> getPublicacionesEnAdopcion() {
