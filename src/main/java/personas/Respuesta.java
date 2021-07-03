@@ -2,18 +2,18 @@ package personas;
 
 public class Respuesta {
   public Pregunta pregunta;
-  public boolean respuesta;
+  public String respuesta;
 
-  public Respuesta(boolean valor, Pregunta pregunta) {
-    this.respuesta = valor;
+  public Respuesta(String respuesta, Pregunta pregunta) {
     this.pregunta = pregunta;
+    this.respuesta = respuesta;
   }
 
   public Pregunta getPregunta() {
     return this.pregunta;
   }
 
-  public boolean getRespuesta() {
+  public String getRespuesta() {
     return this.respuesta;
   }
 }

@@ -1,16 +1,22 @@
 package personas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pregunta {
   private final String cuerpoDuenio;
   private final String cuerpoInteresado;
+  private final List<String> opciones;
   private boolean visible = true;
 
-  public Pregunta(String cuerpoDuenio, String cuerpoInteresado) {
+  public Pregunta(String cuerpoDuenio, String cuerpoInteresado , List<String> opciones) {
     this.cuerpoDuenio = cuerpoDuenio;
     this.cuerpoInteresado = cuerpoInteresado;
+    this.opciones = opciones;
+
   }
 
-  //TODO las respuestas cerradas no solo son booleanos
+  //TODO :  HECHO   ,las respuestas cerradas no solo son booleanos
 
   public String getCuerpoDuenio() {
     return cuerpoDuenio;
@@ -30,5 +36,9 @@ public class Pregunta {
 
   public boolean isVisible() {
     return this.visible;
+  }
+
+  public List<String>getOpciones(){
+    return this.opciones;
   }
 }

@@ -11,7 +11,9 @@ import repositorios.RepositorioDePreguntas;
 import repositorios.RepositorioDeUsuarios;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
@@ -26,15 +28,18 @@ public class TerceraIteracionTest {
 
   @BeforeAll
   public static void initRepositorios() {
+    List<String> opciones= new ArrayList<String>();
+    opciones.add("Si");
+    opciones.add("No");
     asociacion = new Asociacion(new Posicion(0,0));
     RepositorioDeAsociaciones repoAsociaciones = RepositorioDeAsociaciones.getInstance();
-    asociacion.agregarPregunta(new Pregunta("¿Necesita patio?", "¿Tenes patio?"));
-    asociacion.agregarPregunta(new Pregunta("¿Necesita jaula?", "¿Tenes jaula?"));
+    asociacion.agregarPregunta(new Pregunta("¿Necesita patio?", "¿Tenes patio?", opciones));
+    asociacion.agregarPregunta(new Pregunta("¿Necesita jaula?", "¿Tenes jaula?",opciones));
     repoAsociaciones.agregarAsociacion(asociacion);
 
     RepositorioDePreguntas repoPreguntas = RepositorioDePreguntas.getInstance();
-    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?"));
-    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?"));
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?",opciones));
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?",opciones));
   }
 
 
@@ -142,11 +147,11 @@ public class TerceraIteracionTest {
     PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota());
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
-        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
+        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))
     );
 
     asociacion.getPreguntas().forEach(
-        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta)));
+        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta)));
 
     return publicacionMascotaEnAdopcion;
   }
@@ -167,11 +172,11 @@ public class TerceraIteracionTest {
     //TODO concatenar lista y hacer el forEach sobre todo ; NO OBLIGATORIO
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
-        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta))
+        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))
     );
 
     asociacion.getPreguntas().forEach(
-        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta(true, pregunta)));
+        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta)));
 
     return publicacionInteresadoEnAdopcion;
   }
