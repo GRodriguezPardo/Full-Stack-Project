@@ -38,8 +38,6 @@ public class PublicacionInteresadoEnAdopcion {
     this.respuestas.add(respuesta);
   }
 
-
-  //el TODO de las respuestas cerradas en vez de booleanas
   // TODO : DETALLE pasar la  comparacion a la clase Respuesta, delegar.
 
   public Boolean coincideRespuesta(Respuesta respuesta) {
