@@ -1,18 +1,13 @@
 import apis.JavaXMail;
 import apis.MedioNotificacion;
 import apis.TwilioJava;
-import exceptions.EsContraseniaCortaException;
-import exceptions.EsContraseniaDebilException;
 import exceptions.FaltanDatosException;
-import exceptions.NoEsContraseniaAlfanumericaException;
 import mascotas.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import personas.*;
 import repositorios.RepositorioDeRescates;
-import repositorios.RepositorioDeUsuarios;
-import seguridad.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +17,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
-public class PrimeraIteracionTest {
+public class MascotasDueniosYrescatistasTest {
   MedioNotificacion emailSender = mock(JavaXMail.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
 
@@ -39,14 +34,6 @@ public class PrimeraIteracionTest {
   }
 
   @Test
-  public void losContactosSeCreanSinProblema() {
-    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
-    Assertions.assertEquals("Lionel Messi", metodoContacto.getNombreApellido());
-    Assertions.assertEquals("112222333", metodoContacto.getTelefono());
-    Assertions.assertEquals("messi@messi.com", metodoContacto.getEmail());
-  }
-
-  @Test
   public void puedoCrearUnaMascotaSinProblema() {
     Assertions.assertNotNull(this.mascota());
   }
@@ -60,25 +47,6 @@ public class PrimeraIteracionTest {
     Assertions.assertEquals("Un jugador de futbol del real madrid", mascota.getDescripcion());
     Assertions.assertEquals((short) 35, mascota.getEdad());
     Assertions.assertEquals(Sexo.MACHO, mascota.getSexo());
-  }
-
-  @Test
-  public void personaSinNombreTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null, null, null, null));
-  }
-
-  @Test
-  public void personaSinContactosTiraException() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose", LocalDate.now(), new ArrayList<>(), null));
-  }
-
-  @Test
-  public void personaSinDependenciasTiraException() {
-    List<Contacto> contactos = new ArrayList<>();
-    contactos.add(new Contacto("jose", "222", "jose"));
-    Assertions.assertThrows(FaltanDatosException.class, () -> new Persona("jose",
-            LocalDate.now(), contactos,
-            null));
   }
 
   @Test
@@ -118,25 +86,6 @@ public class PrimeraIteracionTest {
   public void puedoAgregarUnRescateAlRepositorioDeRescatesYVerloEnLosUltimos10Dias() {
     RepositorioDeRescates.getInstance().agregarRescate(this.rescatista());
     Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
-  }
-
-  @Test
-  void rebotarPerfilVacio() {
-    Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario(null));
-  }
-
-  @Test
-  public void cambioClaveCorrectamente() {
-    Admin adminPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
-    RepositorioDeUsuarios.getInstance().agregarAdmin(adminPrueba);
-    RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
-    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
-    RepositorioDeUsuarios.getInstance().removerAdmin(adminPrueba);
-  }
-
-  @Test
-  public void rebotarComprobacionClaveVacia() {
-    Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", null));
   }
 
   public void settearColorPrincipal(MascotaBuilder mascotaBuilder, String color) {
