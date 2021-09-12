@@ -13,21 +13,15 @@ import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeUsuarios;
 import services.HogaresService;
 
-import javax.swing.*;
-import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 
 public class SegundaIteracionTest {
   Fixture fixture = new Fixture();
 
-  MedioNotificacion emailSender = fixture.getEmailSenderMock() ; //mock(JavaXMail.class);
+  MedioNotificacion emailSender = fixture.getEmailSenderMock(); //mock(JavaXMail.class);
   MedioNotificacion smsSender = fixture.getSmsSenderMock();  // mock(TwilioJava.class);
 
   @BeforeAll
@@ -67,7 +61,7 @@ public class SegundaIteracionTest {
   public void lasPublicacionesSeAsignanCorrectamente() {
     Asociacion asociacion1 = new Asociacion(new Posicion(10, 10));
     Asociacion asociacion2 = new Asociacion(new Posicion(20, 20));
-    PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(fixture.rescatista(0,0));
+    PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion1);
     repo.agregarAsociacion(asociacion2);
@@ -81,8 +75,8 @@ public class SegundaIteracionTest {
 
   @Test
   public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
-    PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(fixture.rescatista(0,0));
-    PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(fixture.rescatista(0,0));
+    PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
+    PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);
@@ -99,14 +93,14 @@ public class SegundaIteracionTest {
   @Test
   public void seTiraExceptionSiNoHayAsociacionesAlAgregarPublicacion() {
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
-    PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(fixture.rescatista(0,0));
+    PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
 
     assertThrows(NoHayNingunaAsociasionException.class, () -> repo.asociacionMasCercana(unaPublicacion));
   }
 
   @Test
   public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
-    PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(fixture.rescatista(0,0));
+    PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(unaAsociacion);

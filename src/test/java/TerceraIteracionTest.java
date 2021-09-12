@@ -1,10 +1,9 @@
-import apis.JavaXMail;
 import apis.MedioNotificacion;
-import apis.TwilioJava;
 import mascotas.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDePreguntas;
@@ -15,37 +14,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 public class TerceraIteracionTest {
-  Fixture fixture = new Fixture();
-
-  MedioNotificacion emailSender = fixture.getEmailSenderMock() ;
-  MedioNotificacion smsSender = fixture.getSmsSenderMock();
   static Asociacion asociacion;
-
+  Fixture fixture = new Fixture();
+  MedioNotificacion emailSender = fixture.getEmailSenderMock();
+  MedioNotificacion smsSender = fixture.getSmsSenderMock();
 
   @BeforeAll
   public static void initRepositorios() {
-    List<String> opciones= new ArrayList<String>();
+    List<String> opciones = new ArrayList<String>();
     opciones.add("Si");
     opciones.add("No");
-    asociacion = new Asociacion(new Posicion(0,0));
+    asociacion = new Asociacion(new Posicion(0, 0));
     RepositorioDeAsociaciones repoAsociaciones = RepositorioDeAsociaciones.getInstance();
     asociacion.agregarPregunta(new Pregunta("¿Necesita patio?", "¿Tenes patio?", opciones));
-    asociacion.agregarPregunta(new Pregunta("¿Necesita jaula?", "¿Tenes jaula?",opciones));
+    asociacion.agregarPregunta(new Pregunta("¿Necesita jaula?", "¿Tenes jaula?", opciones));
     repoAsociaciones.agregarAsociacion(asociacion);
 
     RepositorioDePreguntas repoPreguntas = RepositorioDePreguntas.getInstance();
-    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?",opciones));
-    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?",opciones));
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita mucho espacio?", "¿Tenes mucho espacio?", opciones));
+    repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?", opciones));
   }
 
 
   @BeforeEach
-  public void init(){
+  public void init() {
     // agregar asociacion
   }
 
@@ -96,8 +94,8 @@ public class TerceraIteracionTest {
     asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
     Application.main(null);
 
-    verify(emailSender).notificarSugerenciaSemanal(any(),eq(1));
-    verify(smsSender).notificarSugerenciaSemanal(any(),eq(1));
+    verify(emailSender).notificarSugerenciaSemanal(any(), eq(1));
+    verify(smsSender).notificarSugerenciaSemanal(any(), eq(1));
 
     asociacion.removerPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
     asociacion.removerPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);

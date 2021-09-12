@@ -17,7 +17,6 @@ public class PersonasContactosYperfilesTest {
   }
 
 
-
   @Test
   public void losContactosSeCreanSinProblema() {
     Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
@@ -25,6 +24,7 @@ public class PersonasContactosYperfilesTest {
     Assertions.assertEquals("112222333", metodoContacto.getTelefono());
     Assertions.assertEquals("messi@messi.com", metodoContacto.getEmail());
   }
+
   @Test
   public void personaSinNombreTiraException() {
     Assertions.assertThrows(FaltanDatosException.class, () -> new Persona(null, null, null, null));

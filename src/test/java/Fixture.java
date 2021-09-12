@@ -17,10 +17,11 @@ public class Fixture {
   MedioNotificacion emailSender = mock(JavaXMail.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
 
-  MedioNotificacion getEmailSenderMock(){
+  MedioNotificacion getEmailSenderMock() {
     return this.emailSender;
   }
-  MedioNotificacion getSmsSenderMock(){
+
+  MedioNotificacion getSmsSenderMock() {
     return this.smsSender;
   }
 
@@ -61,8 +62,7 @@ public class Fixture {
   }
 
 
-
-  public MascotaPerdida mascotaPerdida(double longitud , double latitud) {
+  public MascotaPerdida mascotaPerdida(double longitud, double latitud) {
     String descripcion = "Estaba intentando marcar a Messi";
     List<Image> fotos = new ArrayList<>();
 
@@ -73,18 +73,18 @@ public class Fixture {
     ImageIcon _foto2 = new ImageIcon("https://www.diez.hn/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=GCN_RhtV099DtwjsK8LR3c$daE2N3K4ZzOUsqbU5sYuLAvgewimt_YtK9twCcBxuWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&CONTENTTYPE=image/jpeg");
     Image foto2 = _foto2.getImage();
     fotos.add(foto2);
-                                             // new Posicion(12345, 54321)
+    // new Posicion(12345, 54321)
     return new MascotaPerdida(descripcion, fotos, new Posicion(longitud, latitud));
   }
 
-  public Rescatista rescatista(double longitud , double latitud) {
+  public Rescatista rescatista(double longitud, double latitud) {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido("Cristiano Ronaldo");
     personaBuilder.setFechaNacimiento(LocalDate.of(1985, 2, 5));
     Contacto metodoContacto = new Contacto("CR7", "1211113333", "cristiano@ronaldo.com");
     personaBuilder.agregarContacto(metodoContacto);
     personaBuilder.agregarMedioNotificacion(emailSender);
-    Rescatista rescatista = new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida(longitud , latitud));
+    Rescatista rescatista = new Rescatista(personaBuilder.crearPersona(), LocalDate.now(), this.mascotaPerdida(longitud, latitud));
     rescatista.getPersona().agregarMedioNotificacion(smsSender);
     return rescatista;
   }
@@ -102,6 +102,7 @@ public class Fixture {
     duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "Anto@Anto.com"));
     return duenio;
   }
+
   public PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion(Asociacion asociacion) {
     PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota());
 
@@ -138,7 +139,6 @@ public class Fixture {
 
     return publicacionInteresadoEnAdopcion;
   }
-
 
 
 }

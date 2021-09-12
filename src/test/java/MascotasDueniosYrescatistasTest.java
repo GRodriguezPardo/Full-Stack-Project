@@ -1,12 +1,11 @@
-import apis.JavaXMail;
 import apis.MedioNotificacion;
-import apis.TwilioJava;
 import exceptions.FaltanDatosException;
 import mascotas.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import personas.*;
+import personas.Duenio;
+import personas.Usuario;
 import repositorios.RepositorioDeRescates;
 
 import static org.mockito.Mockito.verify;
@@ -14,7 +13,7 @@ import static org.mockito.Mockito.verify;
 public class MascotasDueniosYrescatistasTest {
   Fixture fixture = new Fixture();
 
-  MedioNotificacion emailSender = fixture.getEmailSenderMock() ;
+  MedioNotificacion emailSender = fixture.getEmailSenderMock();
   MedioNotificacion smsSender = fixture.getSmsSenderMock();
 
 
@@ -65,15 +64,14 @@ public class MascotasDueniosYrescatistasTest {
   }
 
 
-
   @Test
   public void puedoCrearUnaMascotaPerdidaSinProblema() {
-    Assertions.assertNotNull(fixture.mascotaPerdida(12345 , 54321));
+    Assertions.assertNotNull(fixture.mascotaPerdida(12345, 54321));
   }
 
   @Test
   public void laDescripcionDeUnaMascotaPerdidaSeAsignaCorrectamente() {
-    MascotaPerdida mascotaPerdida = fixture.mascotaPerdida(12345 , 54321);
+    MascotaPerdida mascotaPerdida = fixture.mascotaPerdida(12345, 54321);
     Assertions.assertEquals("Estaba intentando marcar a Messi", mascotaPerdida.getDescripcionEstado());
   }
 
@@ -85,12 +83,12 @@ public class MascotasDueniosYrescatistasTest {
 
   @Test
   public void puedoCrearUnRescatistaSinProblema() {
-    Assertions.assertNotNull(fixture.rescatista(12345 , 54321));
+    Assertions.assertNotNull(fixture.rescatista(12345, 54321));
   }
 
   @Test
   public void puedoAgregarUnRescateAlRepositorioDeRescatesYVerloEnLosUltimos10Dias() {
-    RepositorioDeRescates.getInstance().agregarRescate(fixture.rescatista(12345 , 54321));
+    RepositorioDeRescates.getInstance().agregarRescate(fixture.rescatista(12345, 54321));
     Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
   }
 }
