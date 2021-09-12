@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import personas.Duenio;
 import personas.Usuario;
 import repositorios.RepositorioDeRescates;
+import repositorios.RepositorioDeUsuarios;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 public class MascotasDueniosYrescatistasTest {
@@ -63,6 +65,19 @@ public class MascotasDueniosYrescatistasTest {
     verify(smsSender).notificarMascotaPerdida(duenio.getPersona().getContactos().get(0));
   }
 
+  @Test
+  public void sePuedeEncontrarElDuenioDeUnaMascota() {
+    Duenio duenio = fixture.duenio();
+    Mascota mascota = fixture.mascota(false);
+    Usuario usuario = new Usuario("unusario ", "hola 123", duenio);
+    duenio.agregarMascota(mascota);
+    RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
+    repo.agregarUsuario(usuario);
+
+    assertEquals(repo.usuarioDuenioDe(mascota), duenio);
+
+    repo.removerUsuario(usuario);
+  }
 
   @Test
   public void puedoCrearUnaMascotaPerdidaSinProblema() {

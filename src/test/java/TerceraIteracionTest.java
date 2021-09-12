@@ -1,15 +1,16 @@
 import apis.MedioNotificacion;
-import mascotas.*;
+import mascotas.PublicacionInteresadoEnAdopcion;
+import mascotas.PublicacionMascotaEnAdopcion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import personas.*;
+import personas.Asociacion;
+import personas.Posicion;
+import personas.Pregunta;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDePreguntas;
-import repositorios.RepositorioDeUsuarios;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,20 +51,6 @@ public class TerceraIteracionTest {
   @AfterEach
   //remover cosas de los repositorios
 
-
-  @Test
-  public void sePuedeEncontrarElDuenioDeUnaMascota() {
-    Duenio duenio = fixture.duenio();
-    Mascota mascota = fixture.mascota(false);
-    Usuario usuario = new Usuario("unusario ", "hola 123", duenio);
-    duenio.agregarMascota(mascota);
-    RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-    repo.agregarUsuario(usuario);
-
-    assertEquals(repo.usuarioDuenioDe(mascota), duenio);
-
-    repo.removerUsuario(usuario);
-  }
 
   @Test
   public void sePuedeGenerarUnaPublicacionDeMascotaEnAdopcion() {

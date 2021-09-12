@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonasContactosYperfilesTest {
+  Fixture fixture = new Fixture();
 
   @Test
   void rebotarPerfilVacio() {
@@ -43,6 +44,4 @@ public class PersonasContactosYperfilesTest {
             LocalDate.now(), contactos,
             null));
   }
-
-
 }
