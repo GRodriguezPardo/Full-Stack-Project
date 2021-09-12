@@ -38,11 +38,9 @@ public class PublicacionInteresadoEnAdopcion {
     this.respuestas.add(respuesta);
   }
 
-  // TODO : DETALLE pasar la  comparacion a la clase Respuesta, delegar.
-
   public Boolean coincideRespuesta(Respuesta respuesta) {
     Optional<Respuesta> respuestaPropia = this.respuestas.stream().filter(
-            unaRespuesta -> Objects.equals(unaRespuesta.getPregunta(), respuesta.getPregunta()))
+            unaRespuesta -> unaRespuesta.coincide(respuesta))
             .findFirst();
     if (respuestaPropia.isPresent()) {
       return Objects.equals(respuestaPropia.get().getRespuesta(), respuesta.getRespuesta());

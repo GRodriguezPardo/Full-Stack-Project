@@ -1,5 +1,7 @@
 package personas;
 
+import java.util.Objects;
+
 public class Respuesta {
   public Pregunta pregunta;
   public String respuesta;
@@ -15,5 +17,9 @@ public class Respuesta {
 
   public String getRespuesta() {
     return this.respuesta;
+  }
+
+  public boolean coincide(Respuesta respuesta){
+    return Objects.equals(this.getPregunta(), respuesta.getPregunta());
   }
 }
