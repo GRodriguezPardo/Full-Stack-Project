@@ -20,9 +20,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TerceraIteracionTest {
+  Fixture fixture = new Fixture();
 
-  MedioNotificacion emailSender = mock(JavaXMail.class);
-  MedioNotificacion smsSender = mock(TwilioJava.class);
+  MedioNotificacion emailSender = fixture.getEmailSenderMock() ;
+  MedioNotificacion smsSender = fixture.getSmsSenderMock();
   static Asociacion asociacion;
 
 
@@ -68,7 +69,7 @@ public class TerceraIteracionTest {
 
   @Test
   public void sePuedeGenerarUnaPublicacionDeMascotaEnAdopcion() {
-    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = this.publicacionMascotaEnAdopcion();
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = fixture.publicacionMascotaEnAdopcion(asociacion);
     asociacion.agregarPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
 
     assertEquals(Arrays.asList(publicacionMascotaEnAdopcion), asociacion.getPublicacionesEnAdopcion());
@@ -79,7 +80,7 @@ public class TerceraIteracionTest {
 
   @Test
   public void sePuedeGenerarUnaPublicacionDeInteresDeAdopcion() {
-    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = this.publicacionInteresadoEnAdopcion(asociacion);
+    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = fixture.publicacionInteresadoEnAdopcion(asociacion);
     asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
 
     assertEquals(Arrays.asList(publicacionInteresadoEnAdopcion), asociacion.getPublicacionInteresadoEnAdopcion());
@@ -89,9 +90,9 @@ public class TerceraIteracionTest {
 
   @Test
   public void seMandanLasRecomendacionesSemanales() {
-    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = this.publicacionMascotaEnAdopcion();
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = fixture.publicacionMascotaEnAdopcion(asociacion);
     asociacion.agregarPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
-    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = this.publicacionInteresadoEnAdopcion(asociacion);
+    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion = fixture.publicacionInteresadoEnAdopcion(asociacion);
     asociacion.agregarPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
     Application.main(null);
 
@@ -128,55 +129,5 @@ public class TerceraIteracionTest {
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
 
     return mascotaBuilder.finalizarMascota();
-  }
-
-  public Mascota mascotaBuilder(Especie especie, Tamanio tamanio) {
-    MascotaBuilder mascotaBuilder = new MascotaBuilder();
-    mascotaBuilder.setNombre("Sergio Ramos");
-    mascotaBuilder.setApodo("Noventa y ramos");
-    mascotaBuilder.setEspecie(especie);
-    mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
-    mascotaBuilder.setEdad((short) 35);
-    mascotaBuilder.setSexo(Sexo.MACHO);
-    mascotaBuilder.setTamanio(tamanio);
-    mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
-    return mascotaBuilder.finalizarMascota();
-  }
-
-  public PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion() {
-    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota());
-
-    RepositorioDePreguntas.getInstance().getPreguntas().forEach(
-        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))
-    );
-
-    asociacion.getPreguntas().forEach(
-        pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta)));
-
-    return publicacionMascotaEnAdopcion;
-  }
-
-  public PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion(Asociacion asociacion) {
-    PersonaBuilder personaBuilder = new PersonaBuilder();
-    personaBuilder.setNombreYApellido("Lionel Andres Messi");
-    personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
-    personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarMedioNotificacion(emailSender);
-    Persona persona = personaBuilder.crearPersona();
-    persona.agregarMedioNotificacion(smsSender);
-
-    PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
-        new PublicacionInteresadoEnAdopcion(new Interesado(persona));
-
-            List<Pregunta> preguntas = new ArrayList<>();
-            preguntas.addAll(RepositorioDePreguntas.getInstance().getPreguntas());
-            preguntas.addAll(asociacion.getPreguntas());
-
-            preguntas.forEach(
-        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))
-    );
-
-    return publicacionInteresadoEnAdopcion;
   }
 }

@@ -15,6 +15,9 @@ public class PersonasContactosYperfilesTest {
   void rebotarPerfilVacio() {
     Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario(null));
   }
+
+
+
   @Test
   public void losContactosSeCreanSinProblema() {
     Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
