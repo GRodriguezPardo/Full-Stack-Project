@@ -169,14 +169,13 @@ public class TerceraIteracionTest {
     PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
         new PublicacionInteresadoEnAdopcion(new Interesado(persona));
 
-    //TODO concatenar lista y hacer el forEach sobre todo ; NO OBLIGATORIO
+            List<Pregunta> preguntas = new ArrayList<>();
+            preguntas.addAll(RepositorioDePreguntas.getInstance().getPreguntas());
+            preguntas.addAll(asociacion.getPreguntas());
 
-    RepositorioDePreguntas.getInstance().getPreguntas().forEach(
+            preguntas.forEach(
         pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))
     );
-
-    asociacion.getPreguntas().forEach(
-        pregunta -> publicacionInteresadoEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta)));
 
     return publicacionInteresadoEnAdopcion;
   }
