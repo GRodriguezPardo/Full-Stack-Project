@@ -33,7 +33,7 @@ public class Fixture {
     mascotaBuilder.agregarNuevaCaracteristica("Esta castrado", estado);
   }
 
-  public Mascota mascota() {
+  public Mascota mascota(boolean castrada) {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
     mascotaBuilder.setNombre("Sergio Ramos");
     mascotaBuilder.setApodo("Noventa y ramos");
@@ -41,9 +41,10 @@ public class Fixture {
     mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
     mascotaBuilder.setEdad((short) 35);
     mascotaBuilder.setSexo(Sexo.MACHO);
+    mascotaBuilder.setTamanio(Tamanio.GRANDE);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
-    this.settearCastrado(mascotaBuilder, false);
+    this.settearCastrado(mascotaBuilder, castrada);
     return mascotaBuilder.finalizarMascota();
   }
 
@@ -98,13 +99,13 @@ public class Fixture {
     personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.getPersona().agregarMedioNotificacion(smsSender);
-    duenio.agregarMascota(this.mascota());
+    duenio.agregarMascota(this.mascota(false));
     duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "Anto@Anto.com"));
     return duenio;
   }
 
   public PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion(Asociacion asociacion) {
-    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota());
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota(false));
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
             pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))

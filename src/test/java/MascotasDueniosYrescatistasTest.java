@@ -30,12 +30,12 @@ public class MascotasDueniosYrescatistasTest {
 
   @Test
   public void puedoCrearUnaMascotaSinProblema() {
-    Assertions.assertNotNull(fixture.mascota());
+    Assertions.assertNotNull(fixture.mascota(false));
   }
 
   @Test
   public void losDatosDeUnaMascotaSeAsignanCorrectamente() {
-    Mascota mascota = fixture.mascota();
+    Mascota mascota = fixture.mascota(false);
     Assertions.assertEquals("Sergio Ramos", mascota.getNombre());
     Assertions.assertEquals("Noventa y ramos", mascota.getApodo());
     Assertions.assertEquals(Especie.PERRO, mascota.getEspecie());

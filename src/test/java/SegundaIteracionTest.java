@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SegundaIteracionTest {
   Fixture fixture = new Fixture();
 
-  MedioNotificacion emailSender = fixture.getEmailSenderMock(); //mock(JavaXMail.class);
-  MedioNotificacion smsSender = fixture.getSmsSenderMock();  // mock(TwilioJava.class);
+  MedioNotificacion emailSender = fixture.getEmailSenderMock();
+  MedioNotificacion smsSender = fixture.getSmsSenderMock();
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
@@ -115,7 +115,7 @@ public class SegundaIteracionTest {
   @Test
   public void puedoAgregarTodosLosTiposDePerfilesAlRepo() {
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-    Usuario perfil1 = new Usuario("Luis I", "Soy primero", this.duenio());
+    Usuario perfil1 = new Usuario("Luis I", "Soy primero", fixture.duenio());
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
     Voluntario perfil3 = new Voluntario("Luis III", "Soy tercero", new Asociacion(new Posicion(33, 33)));
 
@@ -142,7 +142,7 @@ public class SegundaIteracionTest {
     Assertions.assertTrue(posicionRescatista.distanciaA(posicionHogar) <= 10);
 
     Assertions.assertFalse(
-            service.getHogarMascota(mascota(), posicionRescatista, 100).isEmpty()
+            service.getHogarMascota(fixture.mascota(false), posicionRescatista, 100).isEmpty()
     );
   }
 
@@ -152,7 +152,7 @@ public class SegundaIteracionTest {
     HogaresService service = new HogaresService();
     Posicion posicionRescatista = new Posicion(0, 0);
     HogarDTO hogarAyudacan =
-            service.getHogarMascota(mascota(), posicionRescatista, 100)
+            service.getHogarMascota(fixture.mascota(false), posicionRescatista, 100)
                     .stream()
                     .filter(x -> (x.getNombre().equals("Ayudacan")))
                     .findFirst()
@@ -214,30 +214,4 @@ public class SegundaIteracionTest {
     );
   }
 
-  public Mascota mascota() {
-    MascotaBuilder mascotaBuilder = new MascotaBuilder();
-    mascotaBuilder.setNombre("Sergio Ramos");
-    mascotaBuilder.setApodo("Noventa y ramos");
-    mascotaBuilder.setEspecie(Especie.PERRO);
-    mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
-    mascotaBuilder.setEdad((short) 35);
-    mascotaBuilder.setSexo(Sexo.MACHO);
-    mascotaBuilder.setTamanio(Tamanio.GRANDE);
-    mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
-    fixture.settearColorPrincipal(mascotaBuilder, "Blanco");
-    return mascotaBuilder.finalizarMascota();
-  }
-
-  public Duenio duenio() {
-    PersonaBuilder personaBuilder = new PersonaBuilder();
-    personaBuilder.setNombreYApellido("Lionel Andres Messi");
-    personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
-    personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarMedioNotificacion(emailSender);
-    Duenio duenio = new Duenio(personaBuilder.crearPersona());
-    duenio.getPersona().agregarMedioNotificacion(smsSender);
-    duenio.agregarMascota(this.mascota());
-    return duenio;
-  }
 }

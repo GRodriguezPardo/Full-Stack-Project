@@ -53,8 +53,8 @@ public class TerceraIteracionTest {
 
   @Test
   public void sePuedeEncontrarElDuenioDeUnaMascota() {
-    Duenio duenio = duenio();
-    Mascota mascota = mascota();
+    Duenio duenio = fixture.duenio();
+    Mascota mascota = fixture.mascota(false);
     Usuario usuario = new Usuario("unusario ", "hola 123", duenio);
     duenio.agregarMascota(mascota);
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
@@ -101,31 +101,4 @@ public class TerceraIteracionTest {
     asociacion.removerPublicacionInteresadoEnAdopcion(publicacionInteresadoEnAdopcion);
   }
 
-  public Duenio duenio() {
-    PersonaBuilder personaBuilder = new PersonaBuilder();
-    personaBuilder.setNombreYApellido("Lionel Andres Messi");
-    personaBuilder.setFechaNacimiento(LocalDate.of(1987, 6, 24));
-    Contacto metodoContacto = new Contacto("Lionel Messi", "112222333", "messi@messi.com");
-    personaBuilder.agregarContacto(metodoContacto);
-    personaBuilder.agregarMedioNotificacion(emailSender);
-    Duenio duenio = new Duenio(personaBuilder.crearPersona());
-    duenio.getPersona().agregarMedioNotificacion(smsSender);
-    duenio.agregarMascota(mascota());
-    return duenio;
-  }
-
-
-  public Mascota mascota() {
-    MascotaBuilder mascotaBuilder = new MascotaBuilder();
-    mascotaBuilder.setNombre("Sergio Ramos");
-    mascotaBuilder.setApodo("Noventa y ramos");
-    mascotaBuilder.setEspecie(Especie.PERRO);
-    mascotaBuilder.setDescripcion("Un jugador de futbol del real madrid");
-    mascotaBuilder.setEdad((short) 35);
-    mascotaBuilder.setSexo(Sexo.MACHO);
-    mascotaBuilder.setTamanio(Tamanio.GRANDE);
-    mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
-
-    return mascotaBuilder.finalizarMascota();
-  }
 }
