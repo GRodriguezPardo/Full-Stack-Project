@@ -27,10 +27,6 @@ public class PrimeraIteracionTest {
   MedioNotificacion smsSender = mock(TwilioJava.class);
 
 
-  Validacion validacionAlfamerica = new ContraseniaAlfanumerica();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionLargo = new ContraseniaLarga();//lo puse afuera del BeforeAll xq no me agarra la variable
-  Validacion validacionFuerza = new ContraseniaFuerte();//lo puse afuera del BeforeAll xq no me agarra la variable
-
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
@@ -127,52 +123,6 @@ public class PrimeraIteracionTest {
   @Test
   void rebotarPerfilVacio() {
     Assertions.assertThrows(FaltanDatosException.class, () -> RepositorioDeUsuarios.getInstance().agregarUsuario(null));
-  }
-
-  @Test
-  public void rebotarContraseniaDebil() {
-    Assertions.assertThrows(EsContraseniaDebilException.class, () -> validacionFuerza.validar("blitz")); //Esa es la ultima del txt
-  }
-
-  @Test
-  public void noRebotarContraseniaFuerte() {
-    Assertions.assertDoesNotThrow(() -> validacionFuerza.validar("2021/05/06_PNW")); //Esa es una que no esta en el txt
-  }
-
-  @Test
-  public void rebotarContraseniaCorta() {
-    Assertions.assertThrows(EsContraseniaCortaException.class, () -> validacionLargo.validar("c_corta"));
-  }
-
-  @Test
-  public void noRebotarContraseniaLarga() {
-    Assertions.assertDoesNotThrow(() -> validacionLargo.validar("c_laaaaaaaaaaarga"));
-  }
-
-  @Test
-  public void rebotarContraseniaNoAlfanumerica1() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("soloLetras"));
-  }
-
-  @Test
-  public void rebotarContraseniaNoAlfanumerica2() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("soloNumeros"));
-  }
-
-  @Test
-  public void rebotarContraseniaNoAlfanumerica3() {
-    Assertions.assertThrows(NoEsContraseniaAlfanumericaException.class, () -> validacionAlfamerica.validar("!$%&/()=?¿+*-_:;{}[]"));
-  }
-
-  @Test
-  public void noRebotarContraseniaAlfanumerica() {
-    Assertions.assertDoesNotThrow(() -> validacionAlfamerica.validar("letras_y_numeros(148)"));
-  }
-
-  @Test
-  public void noRebotarContraseniaFuerteLargaYalfanumerica() {
-    Validaciones validaciones = new Validaciones();
-    Assertions.assertDoesNotThrow(() -> validaciones.hacerValidaciones("viVaLaPaTrIa_2021")); //Esa es una que no esta en el txt
   }
 
   @Test
