@@ -8,38 +8,32 @@ import personas.Contacto;
 
 
 public class TwilioJava implements MedioNotificacion {
-  public String accountSid;
-  public String authToken;
-  public String senderNumber;
+
+  public Smser smser;
   /*Se debe crear una cuenta en https://www.twilio.com y , en el dashboard , estan las credenciales a setear.
   La trial tiene mensajes limitados , por eso no pongo la que cree.La paga es ilimitada.
   Al acabarse los mensajes se debe setear otra cuenta trial con otros datos de registro o pagar la full.
   El senderNumber se obtiene en le dashboard , con el boton rojo que genera un numero para enviar mensajes ,
    el del registro no sirve.*/
 
-  public TwilioJava(String id, String token, String number) {
-    this.accountSid = id;
-    this.authToken = token;
-    this.senderNumber = number;
-    if (this.authToken == null || this.accountSid == null || this.senderNumber == null) {
-      throw new FaltanDatosException("Falta indicar algun dato de los 3 pedidos");
-    }
+  public TwilioJava(Smser smser){
+    this.smser = smser;
   }
 
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
-  public void sendSms(String destinationNumber, String mensaje) {
+  /*public void sendSms(String destinationNumber, String mensaje) {
     Twilio.init(this.accountSid, this.authToken);
     Message.creator(new PhoneNumber(destinationNumber),
             new PhoneNumber(this.senderNumber), mensaje).create();
-  }
+  }*/
 
   public void notificarMascotaPerdida(Contacto contacto) {
-    this.sendSms(contacto.getTelefono(), "Encontrasmos a tu mascota perdida");
+    this.smser.sendSms(contacto.getTelefono(), "Encontrasmos a tu mascota perdida");
   }
 
   @Override
   public void notificarInteresEnAdopcion(Contacto contacto) {
-    this.sendSms(contacto.getTelefono(), "Hay interesados en adoptar a tu mascota");
+    this.smser.sendSms(contacto.getTelefono(), "Hay interesados en adoptar a tu mascota");
   }
 
   @Override
@@ -53,7 +47,7 @@ public class TwilioJava implements MedioNotificacion {
               + "Te recomendamos que entres igual a ver las mascotas que estan "
               + "esperando a un nuevo dueño!";
     }
-    this.sendSms(contacto.getTelefono(), cuerpo);
+    this.smser.sendSms(contacto.getTelefono(), cuerpo);
   }
 
   @Override
@@ -65,7 +59,7 @@ public class TwilioJava implements MedioNotificacion {
           + "A continuación, encontraras el link para darte de baja del sistema "
           + "htpps:\\\\patitas.com\\darseDeBaja";
 
-    this.sendSms(contacto.getTelefono(),cuerpo);
+    this.smser.sendSms(contacto.getTelefono(),cuerpo);
 
   }
 }

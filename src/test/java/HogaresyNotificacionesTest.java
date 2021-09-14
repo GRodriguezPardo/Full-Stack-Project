@@ -1,6 +1,8 @@
 import apis.JavaXMail;
+import apis.Smser;
 import apis.TwilioJava;
 import apis.dto.HogarDTO;
+import apis.Mailer;
 import mascotas.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,14 +26,14 @@ public class HogaresyNotificacionesTest {
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
-    JavaXMail emailSender = new JavaXMail("unemailejemplar", "HolaComoEstas");// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
-    assertDoesNotThrow(() -> emailSender.sendEmail("unEjemplo@gmail.com", "Encontramos a tu mascota", "Ejemplo"));
+    JavaXMail emailSender = new JavaXMail(new Mailer("unemailejemplar", "HolaComoEstas"));// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    assertDoesNotThrow(() -> emailSender.getMailer().sendEmail("unEjemplo@gmail.com", "Encontramos a tu mascota", "Ejemplo"));
   }
 
   @Test
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
-    TwilioJava twilio = new TwilioJava(null, null, null);//LEER comentarios en smsSender para probar posta con tu telefono
+    TwilioJava twilio = new TwilioJava(new Smser(null, null, null));//LEER comentarios en smsSender para probar posta con tu telefono
     Contacto contacto = new Contacto("Anonimo", "+541165919737", "messi@messi.com");
     assertDoesNotThrow(() -> twilio.notificarMascotaPerdida(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato
