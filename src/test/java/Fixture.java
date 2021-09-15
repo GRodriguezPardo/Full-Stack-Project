@@ -128,7 +128,7 @@ public class Fixture {
     persona.agregarMedioNotificacion(smsSender);
 
     PublicacionInteresadoEnAdopcion publicacionInteresadoEnAdopcion =
-            new PublicacionInteresadoEnAdopcion(new Interesado(persona));
+            new PublicacionInteresadoEnAdopcion(persona);
 
     List<Pregunta> preguntas = new ArrayList<>();
     preguntas.addAll(RepositorioDePreguntas.getInstance().getPreguntas());

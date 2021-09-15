@@ -1,7 +1,7 @@
 package mascotas;
 
 import exceptions.NoHayRespuestaException;
-import personas.Interesado;
+import personas.Persona;
 import personas.Respuesta;
 
 import java.util.ArrayList;
@@ -12,21 +12,20 @@ import java.util.Optional;
 public class PublicacionInteresadoEnAdopcion {
 
   private final List<Respuesta> respuestas = new ArrayList<>();
-  private final Interesado interesado;
-  //TODO borrar interesado y mandar persona directamente
+  Persona persona;
 
   private Integer acumuladorRecomendaciones = 0;
 
-  public PublicacionInteresadoEnAdopcion(Interesado interesado) {
-    this.interesado = interesado;
+  public PublicacionInteresadoEnAdopcion(Persona persona) {
+    this.persona = persona;
   }
 
   public void notificarMailDeBaja(){
-    this.interesado.contactarPorMailBaja();
+    this.persona.contactarPorMailBaja();
   }
 
   public void notificacionSemanal() {
-    this.interesado.contactarDuenioPorSugerencia(acumuladorRecomendaciones);
+    this.persona.contactarPorSugerenciaSemanal(acumuladorRecomendaciones);
     this.acumuladorRecomendaciones = 0;
   }
 
