@@ -52,14 +52,6 @@ public class TwilioJava implements MedioNotificacion {
 
   @Override
   public void notificarMailDeBaja(Contacto contacto) {
-
-    String cuerpo;
-
-    cuerpo = "Baja del Sistema!\n"
-          + "A continuación, encontraras el link para darte de baja del sistema "
-          + "htpps:\\\\patitas.com\\darseDeBaja";
-
-    this.smser.sendSms(contacto.getTelefono(),cuerpo);
-
+    ;
   }
 }
