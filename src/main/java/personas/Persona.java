@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Clase abstracta que aglomera los comportamientos en comun de las personas.
@@ -72,28 +73,32 @@ public class Persona {
     return this.contactos;
   }
 
-//TODO  hacer el notificar para no repetir codigo en las distintas notificaciones
+  protected void contactar(Consumer<MedioNotificacion> action) {
+    this.mediosNotificacion.forEach(action);
+  }
 
   public void contactarPorMascota() {
-    this.contactos
-            .forEach(unContacto -> {
-              this.mediosNotificacion.forEach(m -> m.notificarMascotaPerdida(unContacto));
-            });
+    this.contactar(medio ->
+        this.contactos.forEach(unContacto -> medio.notificarMascotaPerdida(unContacto))
+    );
   }
 
   public void contactarPorInteresado() {
-    this.contactos
-            .forEach(unContacto -> {
-              this.mediosNotificacion.forEach(m -> m.notificarInteresEnAdopcion(unContacto));
-            });
+    this.contactar(medio ->
+        this.contactos.forEach(unContacto -> medio.notificarInteresEnAdopcion(unContacto))
+    );
   }
 
-
   public void contactarPorSugerenciaSemanal(Integer cantidad) {
-    this.contactos
-            .forEach(unContacto -> {
-              this.mediosNotificacion.forEach(m -> m.notificarSugerenciaSemanal(unContacto, cantidad));
-            });
+    this.contactar(medio ->
+        this.contactos.forEach(unContacto -> medio.notificarSugerenciaSemanal(unContacto,cantidad))
+    );
+  }
+
+  public void contactarPorMailBaja() {
+    this.contactar(medio ->
+        this.contactos.forEach(unContacto -> medio.notificarMailDeBaja(unContacto))
+    );
   }
 
   public void agregarMedioNotificacion(MedioNotificacion medioNotificacion) {
@@ -102,12 +107,5 @@ public class Persona {
 
   public void removerMedioNotificacion(MedioNotificacion medioNotificacion) {
     this.mediosNotificacion.remove(medioNotificacion);
-  }
-
-  public void contactarPorMailBaja() {
-    this.contactos
-        .forEach(unContacto -> {
-          this.mediosNotificacion.forEach(m -> m.notificarMailDeBaja(unContacto));
-        });
   }
 }
