@@ -14,8 +14,6 @@ public class PublicacionInteresadoEnAdopcion {
   private final List<Respuesta> respuestas = new ArrayList<>();
   Persona persona;
 
-  private Integer acumuladorRecomendaciones = 0;
-
   public PublicacionInteresadoEnAdopcion(Persona persona) {
     this.persona = persona;
   }
@@ -24,13 +22,8 @@ public class PublicacionInteresadoEnAdopcion {
     this.persona.contactarPorMailBaja();
   }
 
-  public void notificacionSemanal() {
-    this.persona.contactarPorSugerenciaSemanal(acumuladorRecomendaciones);
-    this.acumuladorRecomendaciones = 0;
-  }
-
-  public void agregarRecomendacion() {
-    this.acumuladorRecomendaciones += 1;
+  public void notificacionSemanal(long cantidad) {
+    this.persona.contactarPorSugerenciaSemanal((int) cantidad);
   }
 
   public void agregarRespuesta(Respuesta respuesta) {

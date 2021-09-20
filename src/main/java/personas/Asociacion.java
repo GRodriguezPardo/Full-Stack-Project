@@ -83,4 +83,14 @@ public class Asociacion {
   public void removerPublicacionMascotaEnAdopcion(PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion) {
     this.publicacionesDeMascotasEnAdopcion.remove(publicacionMascotaEnAdopcion);
   }
+
+  public void realizarRecomendacionesSemanales() {
+    getPublicacionInteresadoEnAdopcion().forEach(
+          publicacionInteresado -> publicacionInteresado.notificacionSemanal(
+              getPublicacionesEnAdopcion().stream().filter(
+              publicacionAdopcion -> publicacionAdopcion.getRespuestas().stream().allMatch(
+                  publicacionInteresado::coincideRespuesta)
+          ).count())
+      );
+  }
 }
