@@ -1,11 +1,17 @@
 package personas;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Pregunta {
   private final String cuerpoDuenio;
   private final String cuerpoInteresado;
+
+
   private final List<String> opciones;
   private boolean visible = true;
 

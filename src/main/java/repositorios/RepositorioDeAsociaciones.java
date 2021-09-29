@@ -5,10 +5,12 @@ import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 import personas.Asociacion;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class RepositorioDeAsociaciones {
   private final static RepositorioDeAsociaciones INSTANCE = new RepositorioDeAsociaciones();

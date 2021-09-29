@@ -1,13 +1,17 @@
 package mascotas;
 
+import persistence.PersistenceId;
 import personas.Contacto;
 import personas.Posicion;
 import personas.Rescatista;
 
+import javax.persistence.Entity;
 import java.awt.*;
 import java.util.List;
 
-public class PublicacionMascotaPerdida {
+@Entity
+public class PublicacionMascotaPerdida extends PersistenceId {
+
   private final Rescatista rescatista;
   private Boolean aprobado;
 

@@ -3,16 +3,29 @@ package personas;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
+import persistence.PersistenceId;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Asociacion {
+@Entity
+public class Asociacion extends PersistenceId {
+
+  @OneToMany
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
+
+  @OneToMany
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
+
+  @OneToMany
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
+
+  @Embedded
   private final List<Pregunta> preguntas = new ArrayList<>();
+
+  @Embedded
   private final Posicion posicion;
 
   public Asociacion(Posicion posicion) {
