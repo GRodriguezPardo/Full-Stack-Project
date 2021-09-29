@@ -1,10 +1,15 @@
 package personas;
 
+import persistence.PersistenceId;
+
+import javax.persistence.Entity;
+
 /**
  * Clase que representa una forma de contacto.
  * Toda forma de contacto debe poseer un nombre y apellido, telefono e email.
  */
-public class Contacto {
+@Entity
+public class Contacto extends PersistenceId {
   private final String nombreApellido;
   private final String telefono;
   private final String email;

@@ -6,12 +6,14 @@ import personas.Posicion;
 import personas.Rescatista;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.awt.*;
 import java.util.List;
 
 @Entity
 public class PublicacionMascotaPerdida extends PersistenceId {
 
+  @Transient
   private final Rescatista rescatista;
   private Boolean aprobado;
 

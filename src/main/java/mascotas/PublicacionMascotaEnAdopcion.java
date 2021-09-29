@@ -1,19 +1,22 @@
 package mascotas;
 
 
+import persistence.PersistenceId;
 import personas.Duenio;
 import personas.Respuesta;
 import repositorios.RepositorioDeUsuarios;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+public class PublicacionMascotaEnAdopcion extends PersistenceId{
 
-public class PublicacionMascotaEnAdopcion {
-
+  @Transient
   private final Mascota mascota;
-
-
+  @Transient
   private final List<Respuesta> respuestas = new ArrayList<>();
 
   public PublicacionMascotaEnAdopcion(Mascota mascota) {

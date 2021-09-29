@@ -16,15 +16,17 @@ public class Asociacion extends PersistenceId {
   @OneToMany
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
 
-  @OneToMany
+  @OneToMany(targetEntity = PublicacionMascotaEnAdopcion.class)
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
 
-  @OneToMany
+  @OneToMany(targetEntity = PublicacionInteresadoEnAdopcion.class)
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
+  @Transient
   @Embedded
   private final List<Pregunta> preguntas = new ArrayList<>();
 
+  @Transient
   @Embedded
   private final Posicion posicion;
 

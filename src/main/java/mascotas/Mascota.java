@@ -1,6 +1,7 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
+import persistence.PersistenceId;
 
 import java.awt.*;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.*;
 /**
  * Clase que representa una mascota que posee un dueño.
  */
-public class Mascota {
+public class Mascota extends PersistenceId {
   private final Especie especie;
   private final String nombre;
   private final String apodo;

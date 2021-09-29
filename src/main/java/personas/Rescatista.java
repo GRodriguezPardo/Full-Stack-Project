@@ -2,8 +2,11 @@ package personas;
 
 import exceptions.FaltanDatosException;
 import mascotas.MascotaPerdida;
+import persistence.PersistenceId;
 import repositorios.RepositorioDeRescates;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,8 +16,14 @@ import java.util.Objects;
  * Es una clase que representa una situacion de mascota perdida encontrada.
  * Posee informacion sobre la persona
  */
-public class Rescatista {
+
+@Entity
+public class Rescatista extends PersistenceId {
+
+  @Transient
   private final Persona persona;
+
+  @Transient
   private final MascotaPerdida mascota;
   private final LocalDate fecha;
 

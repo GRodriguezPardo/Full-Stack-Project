@@ -1,13 +1,14 @@
 package persistence;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PersistenceId {
 
   @Id
-  @GeneratedValue
-  private long id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  protected Long id;
 
   public long getId() {
     return id;

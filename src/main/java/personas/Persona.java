@@ -2,7 +2,10 @@ package personas;
 
 import apis.MedioNotificacion;
 import exceptions.FaltanDatosException;
+import persistence.PersistenceId;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,15 @@ import java.util.function.Consumer;
 /**
  * Clase abstracta que aglomera los comportamientos en comun de las personas.
  */
-public class Persona {
+
+@Entity
+public class Persona extends PersistenceId {
   private final String nombreYApellido;
   private final LocalDate fechaNacimiento;
+
+  @Transient
   private final List<Contacto> contactos = new ArrayList<>();
+  @Transient
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**

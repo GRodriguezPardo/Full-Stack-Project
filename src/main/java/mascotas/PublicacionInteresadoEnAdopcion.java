@@ -1,18 +1,25 @@
 package mascotas;
 
 import exceptions.NoHayRespuestaException;
+import persistence.PersistenceId;
 import personas.Persona;
 import personas.Respuesta;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class PublicacionInteresadoEnAdopcion {
+@Entity
+public class PublicacionInteresadoEnAdopcion extends PersistenceId {
 
+  @Transient
   private final List<Respuesta> respuestas = new ArrayList<>();
-  Persona persona;
+
+  @Transient
+  public Persona persona;
 
   public PublicacionInteresadoEnAdopcion(Persona persona) {
     this.persona = persona;
