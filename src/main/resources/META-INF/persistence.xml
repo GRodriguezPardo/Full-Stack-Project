@@ -8,6 +8,10 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>personas.Asociacion</class>
+        <class>personas.Pregunta</class>
+        <class>personas.Posicion</class>
+        <class>personas.Contacto</class>
+        <class>personas.Persona</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

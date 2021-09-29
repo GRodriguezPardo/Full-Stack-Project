@@ -22,11 +22,9 @@ public class Asociacion extends PersistenceId {
   @OneToMany(targetEntity = PublicacionInteresadoEnAdopcion.class)
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
-  @Transient
   @Embedded
   private final List<Pregunta> preguntas = new ArrayList<>();
 
-  @Transient
   @Embedded
   private final Posicion posicion;
 

@@ -1,5 +1,8 @@
 package personas;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Posicion {
   private final Double longitud;
   private final Double latitud;
