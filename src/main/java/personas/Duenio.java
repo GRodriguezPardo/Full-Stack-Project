@@ -2,7 +2,11 @@ package personas;
 
 import exceptions.FaltanDatosException;
 import mascotas.Mascota;
+import persistence.PersistenceId;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,8 +14,11 @@ import java.util.Objects;
 /**
  * Es una clase de tipo de persona pero capaz de poseer una o mas mascotas.
  */
-public class Duenio {
+@Entity
+public class Duenio extends PersistenceId {
+  @OneToOne
   private final Persona persona;
+  @Transient
   private final List<Mascota> mascotas = new ArrayList<>();
 
   /**

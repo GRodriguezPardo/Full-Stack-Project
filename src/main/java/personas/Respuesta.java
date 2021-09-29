@@ -1,8 +1,11 @@
 package personas;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import java.util.Objects;
-
+@Embeddable
 public class Respuesta {
+  @Embedded
   public Pregunta pregunta;
   public String respuesta;
 

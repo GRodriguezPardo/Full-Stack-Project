@@ -12,6 +12,8 @@
         <class>personas.Posicion</class>
         <class>personas.Contacto</class>
         <class>personas.Persona</class>
+        <class>personas.Respuesta</class>
+        <class>personas.Duenio</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
