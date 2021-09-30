@@ -43,4 +43,9 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
     Asociacion asociacion = new Asociacion(new Posicion(0,0));
     entityManager().persist(fixture.publicacionInteresadoEnAdopcion(asociacion));
   }
+
+  @Test
+  public void puedePersistirUnRescatista() {
+    entityManager().persist(fixture.rescatista(0,0));
+  }
 }
