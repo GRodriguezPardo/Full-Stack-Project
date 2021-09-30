@@ -1,8 +1,13 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
+import persistence.PersistenceId;
 import personas.Posicion;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
@@ -10,9 +15,12 @@ import java.util.Objects;
 /**
  * Clase que representa una mascota perdida.
  */
-public class MascotaPerdida {
+@Entity
+public class MascotaPerdida extends PersistenceId {
   private final String descripcionEstado;
+  @Transient
   private final List<Image> fotos;
+  @Embedded
   private final Posicion posicion;
 
   /**

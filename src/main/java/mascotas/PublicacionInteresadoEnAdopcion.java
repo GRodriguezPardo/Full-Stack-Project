@@ -1,11 +1,14 @@
 package mascotas;
 
 import exceptions.NoHayRespuestaException;
+import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
 import personas.Persona;
 import personas.Respuesta;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +17,9 @@ import java.util.Optional;
 
 @Entity
 public class PublicacionInteresadoEnAdopcion extends PersistenceId {
-
   @Transient
   private final List<Respuesta> respuestas = new ArrayList<>();
-
-  @Transient
+  @ManyToOne
   public Persona persona;
 
   public PublicacionInteresadoEnAdopcion(Persona persona) {

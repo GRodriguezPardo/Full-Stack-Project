@@ -1,15 +1,15 @@
 package personas;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
 import java.util.List;
 
- @Embeddable
+@Embeddable
 public class Pregunta {
   private final String cuerpoDuenio;
   private final String cuerpoInteresado;
 
- @ElementCollection
+  @ElementCollection
   private final List<String> opciones;
   private boolean visible = true;
 

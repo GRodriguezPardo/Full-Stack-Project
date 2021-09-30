@@ -1,5 +1,10 @@
 package mascotas;
 
+import org.hibernate.annotations.Type;
+import persistence.PersistenceId;
+
+import javax.persistence.Embeddable;
+
 /**
  * Clase template utilizada para definir a una caracteristica.
  * La clase posee un unico atributo cuyo tipo sera el pasado por parametro.
@@ -7,7 +12,9 @@ package mascotas;
  *
  * @param <T> es el tipo de dato que se le dara al valor contenido en la clase.
  */
+@Embeddable
 public class Caracteristica<T> {
+  @Type(type = "java.lang.Object")
   private T valor = null;
 
   /**

@@ -3,6 +3,7 @@ package mascotas;
 import exceptions.FaltanDatosException;
 import persistence.PersistenceId;
 
+import javax.persistence.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
@@ -10,15 +11,26 @@ import java.util.*;
 /**
  * Clase que representa una mascota que posee un dueño.
  */
+@Entity
 public class Mascota extends PersistenceId {
+  @Enumerated
   private final Especie especie;
   private final String nombre;
   private final String apodo;
+  @Enumerated
   private final Sexo sexo;
   private final Short edad;
   private final String descripcion;
+  @Transient
   private final List<Image> fotos;
+  /*@ElementCollection
+  @CollectionTable(name = "caracteristicas_mapping",
+      joinColumns = {@JoinColumn(name = "mascota_id", referencedColumnName = "id")})
+  @MapKeyColumn(name = "nombre_caracteristica")
+   */
+  @Transient
   private final Map<String, Caracteristica> caracteristicas;
+  @Enumerated
   private final Tamanio tamanio;
 
   /**

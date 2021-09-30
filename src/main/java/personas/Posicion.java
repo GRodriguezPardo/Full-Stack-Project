@@ -11,6 +11,10 @@ public class Posicion {
     this.longitud = longitud;
     this.latitud = latitud;
   }
+  protected Posicion() {
+    this.longitud = new Double(0);
+    this.latitud = new Double(0);
+  }
 
   public Integer distanciaA(Posicion posicion) {
     double resultadoLongitud = this.longitud - posicion.longitud;

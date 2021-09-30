@@ -1,7 +1,9 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
+import persistence.PersistenceId;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -10,8 +12,14 @@ import java.util.Objects;
  * Clase singleton que guarda todas las posible caracteristicas que puede
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
-public class PosiblesCaracteristicas {
+@Entity
+public class PosiblesCaracteristicas extends PersistenceId {
   private static final PosiblesCaracteristicas INSTANCE = new PosiblesCaracteristicas();
+  /*@ElementCollection
+  @MapKeyColumn(name = "nombre_caracteristica")
+  @Column(name = "caracteristica")
+   */
+  @Transient
   private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
 
 
