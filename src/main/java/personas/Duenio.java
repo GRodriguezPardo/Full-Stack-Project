@@ -5,6 +5,7 @@ import mascotas.Mascota;
 import persistence.PersistenceId;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class Duenio extends PersistenceId {
   @OneToOne
   private final Persona persona;
-  @Transient
+  @OneToMany
   private final List<Mascota> mascotas = new ArrayList<>();
 
   /**
