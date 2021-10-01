@@ -4,10 +4,7 @@ import apis.MedioNotificacion;
 import exceptions.FaltanDatosException;
 import persistence.PersistenceId;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,11 @@ import java.util.function.Consumer;
 
 @Entity
 public class Persona extends PersistenceId {
+
+  @Column
   private final String nombreYApellido;
+
+  @Column
   private final LocalDate fechaNacimiento;
 
   @Embedded

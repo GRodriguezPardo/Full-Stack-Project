@@ -2,9 +2,13 @@ package personas;
 
 import mascotas.PublicacionMascotaPerdida;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("voluntario")
 public class Voluntario extends Perfil {
+  @OneToOne
   private final Asociacion asociacion;
 
   public Voluntario(String _usuario, String _clave, Asociacion asociacion) {
