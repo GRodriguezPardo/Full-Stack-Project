@@ -20,19 +20,12 @@ public class RepositorioDePreguntas implements WithGlobalEntityManager {
   }
 
   public void agregarPregunta(Pregunta pregunta) {
-    if (Objects.isNull(entityManager().find(Pregunta.class, pregunta.getId()))) {
-      this.persisirPregunta(pregunta);
-    }
-  }
-
-  private void persisirPregunta(Pregunta pregunta) {
     entityManager().persist(pregunta);
   }
 
   public void eliminarPregunta(Pregunta pregunta) {
-    //this.preguntas.remove(pregunta);
-    Pregunta preguntaBorrar = entityManager().find(Pregunta.class, pregunta.getId());
-    entityManager().remove(preguntaBorrar);
+    //this.preguntas.remove(pregunta)
+    entityManager().remove(pregunta);
   }
 
   public void borrarPreguntas() {

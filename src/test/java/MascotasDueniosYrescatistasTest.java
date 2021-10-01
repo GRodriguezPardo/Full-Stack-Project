@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import personas.Duenio;
+import personas.Rescatista;
 import personas.Usuario;
 import repositorios.RepositorioDeRescates;
 import repositorios.RepositorioDeUsuarios;
@@ -108,7 +109,11 @@ public class MascotasDueniosYrescatistasTest extends AbstractPersistenceTest imp
 
   @Test
   public void puedoAgregarUnRescateAlRepositorioDeRescatesYVerloEnLosUltimos10Dias() {
-    RepositorioDeRescates.getInstance().agregarRescate(fixture.rescatista(12345, 54321));
-    Assertions.assertFalse(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).isEmpty());
+    this.beginTransaction();
+    Rescatista rescate = fixture.rescatista(12345, 54321);
+    RepositorioDeRescates.getInstance().agregarRescate(rescate);
+    Assertions.assertTrue(RepositorioDeRescates.getInstance().mascotasEncontradaEnLosDias(10).stream().findFirst().get().getId() == rescate.getId());
+    this.rollbackTransaction();
   }
+  //TODO: Que no nos muestre mascotas viejas (crear test nuevo)
 }

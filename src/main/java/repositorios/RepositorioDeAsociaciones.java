@@ -6,11 +6,11 @@ import mascotas.PublicacionMascotaPerdida;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Asociacion;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//TODO: Reutilizar la logica de la persistencia en los repos
 
 public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
   private final static RepositorioDeAsociaciones INSTANCE = new RepositorioDeAsociaciones();
@@ -38,8 +38,7 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
 
   public void removerAsociacion(Asociacion asociacion) {
     //this.asociaciones.remove(asociacion);
-    Asociacion asociacionABorrar = entityManager().find(Asociacion.class, asociacion.getId());
-    entityManager().remove(asociacionABorrar);
+    entityManager().remove(asociacion);
   }
 
   @SuppressWarnings("unchecked")

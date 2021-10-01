@@ -30,21 +30,31 @@ public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest impl
     PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
 
+  @BeforeEach
+  public void begin() {
+    this.beginTransaction();
+  }
+
+  @AfterEach
+  public void end() {
+    this.rollbackTransaction();
+  }
+
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
-    this.beginTransaction();
+
 
     Asociacion asociacion = new Asociacion(new Posicion(10, 20));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion);
     assertTrue(repo.getAsociaciones().stream().anyMatch(unaAsociacion -> unaAsociacion.getId() == asociacion.getId()));
 
-    this.rollbackTransaction();
+
   }
 
   @Test
   public void lasPublicacionesSeAsignanCorrectamente() {
-    this.beginTransaction();
+
 
     Asociacion asociacion1 = new Asociacion(new Posicion(10, 10));
     Asociacion asociacion2 = new Asociacion(new Posicion(20, 20));
@@ -55,12 +65,12 @@ public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest impl
 
     assertEquals(repo.asociacionMasCercana(publicacion), asociacion1);
 
-    this.rollbackTransaction();
+
   }
 
   @Test
   public void lasPublicacionesSeObtienenCorrectamenteSegunCriterio() {
-    this.beginTransaction();
+
     PublicacionMascotaPerdida publicacionDesaprobada1 = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     PublicacionMascotaPerdida publicacionDesaprobada2 = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
@@ -73,22 +83,22 @@ public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest impl
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada1));
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada2));
 
-    this.rollbackTransaction();
+
   }
 
   @Test
   public void seTiraExceptionSiNoHayAsociacionesAlAgregarPublicacion() {
-    this.beginTransaction();
+
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     PublicacionMascotaPerdida unaPublicacion = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
 
     assertThrows(NoHayNingunaAsociasionException.class, () -> repo.asociacionMasCercana(unaPublicacion));
-    this.rollbackTransaction();
+
   }
 
   @Test
   public void puedoObtenerLasPublicacionesManejablesDeVoluntario() {
-    this.beginTransaction();
+
     PublicacionMascotaPerdida publicacionDesaprobada = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
     Asociacion unaAsociacion = new Asociacion(new Posicion(10, 10));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
@@ -98,12 +108,12 @@ public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest impl
 
     assertTrue(voluntario.publicacionesGestionables().contains(publicacionDesaprobada));
 
-    this.rollbackTransaction();
+
   }
 
   @Test
   public void puedoAgregarTodosLosTiposDePerfilesAlRepo() {
-    this.beginTransaction();
+
     RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
     Usuario perfil1 = new Usuario("Luis I", "Soy primero", fixture.duenio());
     Admin perfil2 = new Admin("Luis II", "Soy segundo");
@@ -117,7 +127,7 @@ public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest impl
     assertTrue(Objects.nonNull(entityManager().find(Admin.class, perfil2.getId())));
     assertTrue(Objects.nonNull(entityManager().find(Voluntario.class, perfil3.getId())));
 
-    this.rollbackTransaction();
+
   }
 
 }
