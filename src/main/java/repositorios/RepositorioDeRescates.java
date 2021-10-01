@@ -55,6 +55,7 @@ public class RepositorioDeRescates implements WithGlobalEntityManager {
    * reportado en una cantidad de dias menor a la pasada por parametro desde el
    * momento en que se llama al metodo.
    */
+  @SuppressWarnings("unchecked")
   public List<MascotaPerdida> mascotasEncontradaEnLosDias(Integer dias) {
     /*return this.rescates
             .stream()

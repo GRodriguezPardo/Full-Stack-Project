@@ -31,8 +31,8 @@ public class RepositorioDePreguntas implements WithGlobalEntityManager {
 
   public void eliminarPregunta(Pregunta pregunta) {
     //this.preguntas.remove(pregunta);
-    Pregunta preguntaABorrar = entityManager().find(Pregunta.class, pregunta.getId());
-    entityManager().remove(preguntaABorrar);
+    Pregunta preguntaBorrar = entityManager().find(Pregunta.class, pregunta.getId());
+    entityManager().remove(preguntaBorrar);
   }
 
   public void borrarPreguntas() {
@@ -40,6 +40,7 @@ public class RepositorioDePreguntas implements WithGlobalEntityManager {
     this.getPreguntas().forEach(unaPregunta -> this.eliminarPregunta(unaPregunta));
   }
 
+  @SuppressWarnings("unchecked")
   public List<Pregunta> getPreguntas() {
     //return this.preguntas;
     return entityManager()
