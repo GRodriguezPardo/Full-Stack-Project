@@ -9,7 +9,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Embeddable
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class MedioNotificacion extends PersistenceId {
   public abstract void notificarMascotaPerdida(Contacto contacto);
