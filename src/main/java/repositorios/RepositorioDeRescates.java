@@ -1,6 +1,7 @@
 package repositorios;
 
 import mascotas.MascotaPerdida;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Rescatista;
 
 import java.time.LocalDate;
@@ -11,9 +12,9 @@ import java.util.stream.Collectors;
 /**
  * Clase singleton cuyo objetivo es guardar los avisos de rescate que se reportan.
  */
-public class RepositorioDeRescates {
+public class RepositorioDeRescates implements WithGlobalEntityManager {
   private final static RepositorioDeRescates INSTANCE = new RepositorioDeRescates();
-  private final List<Rescatista> rescates = new ArrayList<>();
+  //private final List<Rescatista> rescates = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -38,7 +39,8 @@ public class RepositorioDeRescates {
    * @param nuevoRescate es el rescate a ser agregado.
    */
   public void agregarRescate(Rescatista nuevoRescate) {
-    this.rescates.add(nuevoRescate);
+    //this.rescates.add(nuevoRescate);
+    entityManager().persist(nuevoRescate);
   }
 
   /**
@@ -54,11 +56,19 @@ public class RepositorioDeRescates {
    * momento en que se llama al metodo.
    */
   public List<MascotaPerdida> mascotasEncontradaEnLosDias(Integer dias) {
-    return this.rescates
+    /*return this.rescates
             .stream()
             .filter(unRescate -> unRescate.getFecha().compareTo(LocalDate.now()) < dias)
             .map(Rescatista::getMascota)
             .collect(Collectors.toList());
+     */
+    List<Rescatista> rescatistas = entityManager()
+				.createQuery("from Rescatista where fecha >= :haceXDias")
+				.setParameter("haceXDias", LocalDate.now().minusDays((long) dias))
+				.getResultList();
+    return rescatistas.stream()
+        .map(Rescatista::getMascota)
+        .collect(Collectors.toList());
   }
 
 
