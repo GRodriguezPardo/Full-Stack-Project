@@ -4,10 +4,7 @@ import exceptions.FaltanDatosException;
 import mascotas.Mascota;
 import persistence.PersistenceId;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +14,7 @@ import java.util.Objects;
  */
 @Entity
 public class Duenio extends PersistenceId {
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private final Persona persona;
   @OneToMany
   private final List<Mascota> mascotas = new ArrayList<>();

@@ -1,12 +1,13 @@
 package personas;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import mascotas.Mascota;
 
 @Entity
 public class Usuario extends Perfil {
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private final Duenio duenio;
 
   public Usuario(String usuario, String clave, Duenio _duenio) {

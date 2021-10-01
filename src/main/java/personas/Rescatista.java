@@ -19,10 +19,10 @@ import java.util.Objects;
 @Entity
 public class Rescatista extends PersistenceId {
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private final Persona persona;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private final MascotaPerdida mascota;
   private final LocalDate fecha;
 

@@ -48,8 +48,8 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
     if (Objects.isNull(admin) || Objects.isNull(admin.getUsuario()) || Objects.isNull(admin.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    boolean condition = entityManager()
-				.createQuery("from Admin where usuario = :nuevoUsuario")
+    boolean condition = !entityManager()
+				.createQuery("select a from Admin a where usuario = :nuevoUsuario")
 				.setParameter("nuevoUsuario", admin.getUsuario())
 				.getResultList().isEmpty();
     //this.administradores.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(admin.getUsuario()))
@@ -67,8 +67,8 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
     if (Objects.isNull(voluntario) || Objects.isNull(voluntario.getUsuario()) || Objects.isNull(voluntario.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    boolean condition = entityManager()
-				.createQuery("from Voluntario where usuario = :nuevoUsuario")
+    boolean condition = !entityManager()
+				.createQuery("select a from Voluntario a where usuario = :nuevoUsuario")
 				.setParameter("nuevoUsuario", voluntario.getUsuario())
 				.getResultList().isEmpty();
     //this.voluntarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(voluntario.getUsuario()))
@@ -86,8 +86,8 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
     if (Objects.isNull(usuario) || Objects.isNull(usuario.getUsuario()) || Objects.isNull(usuario.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    boolean condition = entityManager()
-				.createQuery("from Usuario where usuario = :nuevoUsuario")
+    boolean condition = !entityManager()
+				.createQuery("select a from Usuario a where usuario = :nuevoUsuario")
 				.setParameter("nuevoUsuario", usuario.getUsuario())
 				.getResultList().isEmpty();
     //this.usuarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(usuario.getUsuario()))
@@ -111,7 +111,7 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       return false;
     }
     return !entityManager()
-				.createQuery("from Admin where usuario = :usuario and clave =:clave")
+				.createQuery("select a from Admin a where usuario = :usuario and clave =:clave")
 				.setParameter("usuario", usuario)
         .setParameter("clave", clave)
 				.getResultList().isEmpty();

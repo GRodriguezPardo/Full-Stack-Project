@@ -73,7 +73,7 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
   public List<Asociacion> getAsociaciones() {
     //return this.asociaciones;
     return entityManager()
-        .createQuery("from Asociacion").getResultList();
+        .createQuery("select a from Asociacion a", Asociacion.class).getResultList();
   }
 
   public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion) {
