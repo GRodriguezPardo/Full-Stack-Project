@@ -1,14 +1,10 @@
 package personas;
 
-import mascotas.Mascota;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import mascotas.Mascota;
 
 @Entity
-@DiscriminatorValue("usuario")
 public class Usuario extends Perfil {
   @OneToOne
   private final Duenio duenio;

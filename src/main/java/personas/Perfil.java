@@ -1,12 +1,22 @@
 package personas;
 
-import persistence.PersistenceId;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Perfil extends PersistenceId{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Perfil {
+
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  protected long id;
+
   @Column
   private String usuario;
 
@@ -18,6 +28,9 @@ public abstract class Perfil extends PersistenceId{
     this.clave = _clave;
   }
 
+  public long getId() {
+    return id;
+  }
   public String getClave() {
     return clave;
   }

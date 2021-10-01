@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("voluntario")
 public class Voluntario extends Perfil {
 
   @ManyToOne

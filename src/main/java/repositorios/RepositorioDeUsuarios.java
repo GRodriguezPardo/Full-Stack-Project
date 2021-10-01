@@ -4,6 +4,7 @@ import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import exceptions.NoExisteDuenioDeMascotaException;
 import mascotas.Mascota;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Admin;
 import personas.Duenio;
 import personas.Usuario;
@@ -18,12 +19,12 @@ import java.util.stream.Collectors;
 /**
  * Clase singleton cuyo objetivo es guardar los usuarios que se registran.
  */
-public class RepositorioDeUsuarios {
+public class RepositorioDeUsuarios implements WithGlobalEntityManager {
   private final static RepositorioDeUsuarios INSTANCE = new RepositorioDeUsuarios();
-  private final List<Admin> administradores = new ArrayList<>();
+  /*private final List<Admin> administradores = new ArrayList<>();
   private final List<Usuario> usuarios = new ArrayList<>();
   private final List<Voluntario> voluntarios = new ArrayList<>();
-
+ */
   /**
    * Contructor privado al ser singleton.
    */
@@ -47,10 +48,16 @@ public class RepositorioDeUsuarios {
     if (Objects.isNull(admin) || Objects.isNull(admin.getUsuario()) || Objects.isNull(admin.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    if (this.administradores.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(admin.getUsuario()))) {
+    boolean condition = entityManager()
+				.createQuery("from Admin where usuario = :nuevoUsuario")
+				.setParameter("nuevoUsuario", admin.getUsuario())
+				.getResultList().isEmpty();
+    //this.administradores.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(admin.getUsuario()))
+    if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
     }
-    this.administradores.add(admin);
+    //this.administradores.add(admin);
+    entityManager().persist(admin);
   }
 
   /**
@@ -60,10 +67,16 @@ public class RepositorioDeUsuarios {
     if (Objects.isNull(voluntario) || Objects.isNull(voluntario.getUsuario()) || Objects.isNull(voluntario.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    if (this.voluntarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(voluntario.getUsuario()))) {
+    boolean condition = entityManager()
+				.createQuery("from Voluntario where usuario = :nuevoUsuario")
+				.setParameter("nuevoUsuario", voluntario.getUsuario())
+				.getResultList().isEmpty();
+    //this.voluntarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(voluntario.getUsuario()))
+    if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
     }
-    this.voluntarios.add(voluntario);
+    //this.voluntarios.add(voluntario);
+    entityManager().persist(voluntario);
   }
 
   /**
@@ -73,10 +86,16 @@ public class RepositorioDeUsuarios {
     if (Objects.isNull(usuario) || Objects.isNull(usuario.getUsuario()) || Objects.isNull(usuario.getClave())) {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
-    if (this.usuarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(usuario.getUsuario()))) {
+    boolean condition = entityManager()
+				.createQuery("from Usuario where usuario = :nuevoUsuario")
+				.setParameter("nuevoUsuario", usuario.getUsuario())
+				.getResultList().isEmpty();
+    //this.usuarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(usuario.getUsuario()))
+    if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
     }
-    this.usuarios.add(usuario);
+    //this.usuarios.add(usuario);
+    entityManager().persist(usuario);
   }
 
 
@@ -91,20 +110,22 @@ public class RepositorioDeUsuarios {
     if (Objects.isNull(clave)) {
       return false;
     }
-    return this.administradores.stream()
-            .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
-            .findFirst().get()
-            .getClave().equals(clave);
+    return !entityManager()
+				.createQuery("from Admin where usuario = :usuario and clave =:clave")
+				.setParameter("usuario", usuario)
+        .setParameter("clave", clave)
+				.getResultList().isEmpty();
   }
-
-  /**
-   * Permite a un Usuario cambiar su contraseña.
-   *
-   * @param usuario    es el Usuario cuya contraseña cambiara.
-   * @param claveVieja es la anterior clave del Usuario, necesaria para
-   *                   comprobar sus credenciales.
-   * @param claveNueva es la nueva clave.
-   */
+  /*
+    /**
+     * Permite a un Usuario cambiar su contraseña.
+     *
+     * @param usuario    es el Usuario cuya contraseña cambiara.
+     * @param claveVieja es la anterior clave del Usuario, necesaria para
+     *                   comprobar sus credenciales.
+     * @param claveNueva es la nueva clave.
+     */
+  /*
   public void cambiarClave(String usuario, String claveVieja, String claveNueva) {
     if (this.comprobarClave(usuario, claveVieja)) {
       this.administradores.stream()
@@ -114,35 +135,47 @@ public class RepositorioDeUsuarios {
       throw new DatosErroneosException("Usuario o contraseña erroneos");
     }
   }
-
+*/
   public void removerAdmin(Admin perfil) {
-    this.administradores.remove(perfil);
+    //this.administradores.remove(perfil);
+    Admin perfilBorrar = entityManager().find(Admin.class, perfil.getId());
+    entityManager().remove(perfilBorrar);
   }
 
   public void removerUsuario(Usuario perfil) {
-    this.usuarios.remove(perfil);
+    //this.usuarios.remove(perfil);
+    Usuario perfilBorrar = entityManager().find(Usuario.class, perfil.getId());
+    entityManager().remove(perfilBorrar);
   }
 
   public void removerVoluntario(Voluntario perfil) {
-    this.voluntarios.remove(perfil);
+    //this.voluntarios.remove(perfil);
+    Voluntario perfilBorrar = entityManager().find(Voluntario.class, perfil.getId());
+    entityManager().remove(perfilBorrar);
   }
 
 
   public List<Admin> administradores() {
-    return this.administradores;
+    //return this.administradores;
+    return entityManager()
+        .createQuery("from Admin").getResultList();
   }
 
   public List<Usuario> usuarios() {
-    return this.usuarios;
+    //return this.usuarios;
+    return entityManager()
+        .createQuery("from Usuario").getResultList();
   }
 
   public List<Voluntario> voluntarios() {
-    return this.voluntarios;
+    //return this.voluntarios;
+    return entityManager()
+        .createQuery("from Admin").getResultList();
   }
 
   public Duenio usuarioDuenioDe(Mascota mascota) {
-    List<Usuario> usuariosDuenio = usuarios.stream().filter(usuario -> usuario.duenioDe(mascota)).collect(Collectors.toList());
-
+    Mascota sessionMascota = entityManager().find(Mascota.class, mascota.getId());
+    List<Usuario> usuariosDuenio = usuarios().stream().filter(usuario -> usuario.duenioDe(sessionMascota)).collect(Collectors.toList());
 
     if (!usuariosDuenio.isEmpty()) {
       return usuariosDuenio.stream().findFirst().get().getDuenio();

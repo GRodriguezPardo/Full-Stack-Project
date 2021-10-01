@@ -60,7 +60,7 @@ public class ContraseniasTest {
     Validaciones validaciones = new Validaciones();
     Assertions.assertDoesNotThrow(() -> validaciones.hacerValidaciones("viVaLaPaTrIa_2021")); //Esa es una que no esta en el txt
   }
-
+/*
   @Test
   public void cambioClaveCorrectamente() {
     Admin adminPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
@@ -69,7 +69,7 @@ public class ContraseniasTest {
     Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
     RepositorioDeUsuarios.getInstance().removerAdmin(adminPrueba);
   }
-
+*/
   @Test
   public void rebotarComprobacionClaveVacia() {
     Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", null));
