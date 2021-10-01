@@ -23,8 +23,6 @@ public class HogaresServiceTest {
     Mockito.doReturn(Arrays.asList()).when(service).getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
         posicionRescatista, 100);
 
-    Mockito.doReturn(Arrays.asList()).when(service).getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE),
-        posicionRescatista, 100);
   }
 
   @Test
@@ -33,33 +31,10 @@ public class HogaresServiceTest {
     when(service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
         posicionRescatista, 100)).thenReturn(Arrays.asList());
 
-    Assertions.assertFalse(
+    Assertions.assertTrue(
         service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
             posicionRescatista, 100).isEmpty()
     );
-  }
-
-  @Test
-  public void obtenerHogaresAyudacan() {
-
-   when(service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE), posicionRescatista, 100))
-   .thenReturn(
-       Arrays.asList(getHogarDTO())
-   );
-
-    HogarDTO hogarAyudacan =
-        service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE), posicionRescatista, 100)
-            .stream()
-            .filter(x -> (x.getNombre().equals("Ayudacan")))
-            .findFirst()
-            .get();
-
-    Assertions.assertEquals(hogarAyudacan.getNombre(), "Ayudacan");
-    Assertions.assertEquals(hogarAyudacan.getTelefono(), "+541134586100");
-    Assertions.assertEquals(hogarAyudacan.getCapacidad(), 150);
-    Assertions.assertEquals(hogarAyudacan.getLugares_disponibles(), 49);
-    Assertions.assertTrue(hogarAyudacan.getPatio());
-    Assertions.assertTrue(hogarAyudacan.getCaracteristicas().isEmpty());
   }
 
   /**
@@ -81,7 +56,11 @@ public class HogaresServiceTest {
    */
   @Test
   public void obtenerHogaresMascotaGrandeYHogarConPatio() {
-    Assertions.assertTrue(
+
+    Mockito.doReturn(Arrays.asList()).when(service).getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE),
+        posicionRescatista, 100);
+
+    Assertions.assertFalse(
         service.getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE), posicionRescatista, 100)
             .stream()
             .anyMatch(HogarDTO::getPatio)
