@@ -38,7 +38,7 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
 
   public void removerAsociacion(Asociacion asociacion) {
     //this.asociaciones.remove(asociacion);
-    Asociacion asociacionABorrar = entityManager().find(Asociacion.class, asociacion);
+    Asociacion asociacionABorrar = entityManager().find(Asociacion.class, asociacion.getId());
     entityManager().remove(asociacionABorrar);
   }
 

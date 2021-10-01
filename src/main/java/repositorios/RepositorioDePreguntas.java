@@ -1,12 +1,14 @@
 package repositorios;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Pregunta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class RepositorioDePreguntas {
+public class RepositorioDePreguntas implements WithGlobalEntityManager {
   private final static RepositorioDePreguntas INSTANCE = new RepositorioDePreguntas();
   private final List<Pregunta> preguntas = new ArrayList<>();
 
@@ -18,13 +20,20 @@ public class RepositorioDePreguntas {
   }
 
   public void agregarPregunta(Pregunta pregunta) {
-    if (!this.preguntas.contains(pregunta)) {
-      this.preguntas.add(pregunta);
+    ;
+    if (Objects.isNull(entityManager().find(Pregunta.class, pregunta))) {
+      this.persisirPregunta(pregunta);
     }
   }
 
+  private void persisirPregunta(Pregunta pregunta) {
+    entityManager().persist(pregunta);
+  }
+
   public void eliminarPregunta(Pregunta pregunta) {
-    this.preguntas.remove(pregunta);
+    //this.preguntas.remove(pregunta);
+    Pregunta preguntaABorrar = entityManager().find(Pregunta.class, pregunta);
+    entityManager().remove(preguntaABorrar);
   }
 
   public void borrarPreguntas() {

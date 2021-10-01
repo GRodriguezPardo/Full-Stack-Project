@@ -1,11 +1,14 @@
 package personas;
 
+import persistence.PersistenceId;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import java.util.List;
 
-@Embeddable
-public class Pregunta {
+@Entity
+public class Pregunta extends PersistenceId {
   private final String cuerpoDuenio;
   private final String cuerpoInteresado;
 

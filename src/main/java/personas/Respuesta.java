@@ -1,11 +1,14 @@
 package personas;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import persistence.PersistenceId;
+
 import java.util.Objects;
-@Embeddable
-public class Respuesta {
-  @Embedded
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Respuesta extends PersistenceId {
+  @ManyToOne
   public Pregunta pregunta;
   public String respuesta;
 

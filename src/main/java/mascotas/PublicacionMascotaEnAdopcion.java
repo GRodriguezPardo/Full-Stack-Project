@@ -6,10 +6,7 @@ import personas.Duenio;
 import personas.Respuesta;
 import repositorios.RepositorioDeUsuarios;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class PublicacionMascotaEnAdopcion extends PersistenceId{
 
   @ManyToOne
   private final Mascota mascota;
-  @Transient
+  @OneToMany
   private final List<Respuesta> respuestas = new ArrayList<>();
 
   public PublicacionMascotaEnAdopcion(Mascota mascota) {
