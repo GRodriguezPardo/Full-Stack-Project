@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
   private final static RepositorioDeAsociaciones INSTANCE = new RepositorioDeAsociaciones();
-  private final List<Asociacion> asociaciones = new ArrayList<>();
+  //private final List<Asociacion> asociaciones = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -38,7 +38,8 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
 
   public void removerAsociacion(Asociacion asociacion) {
     //this.asociaciones.remove(asociacion);
-    entityManager().remove(asociacion);
+    Asociacion asociacionABorrar = entityManager().find(Asociacion.class, asociacion);
+    entityManager().remove(asociacionABorrar);
   }
 
   @SuppressWarnings("unchecked")
