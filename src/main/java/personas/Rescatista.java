@@ -5,8 +5,7 @@ import mascotas.MascotaPerdida;
 import persistence.PersistenceId;
 import repositorios.RepositorioDeRescates;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +19,10 @@ import java.util.Objects;
 @Entity
 public class Rescatista extends PersistenceId {
 
-  @Transient
+  @ManyToOne
   private final Persona persona;
 
-  @Transient
+  @OneToOne
   private final MascotaPerdida mascota;
   private final LocalDate fecha;
 

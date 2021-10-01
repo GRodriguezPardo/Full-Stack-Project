@@ -26,7 +26,8 @@ public class Persona extends PersistenceId {
 
   @Embedded
   private final List<Contacto> contactos = new ArrayList<>();
-  @Transient
+
+  @Embedded
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**

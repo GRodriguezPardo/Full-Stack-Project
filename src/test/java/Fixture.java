@@ -141,5 +141,8 @@ public class Fixture {
     return publicacionInteresadoEnAdopcion;
   }
 
+  public Usuario unUsuario(String usuario , String clave ,Duenio duenio){
+    return new Usuario(usuario, clave, duenio);
+  }
 
 }

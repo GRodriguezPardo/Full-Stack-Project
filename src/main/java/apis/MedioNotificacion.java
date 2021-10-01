@@ -1,13 +1,22 @@
 package apis;
 
+import persistence.PersistenceId;
 import personas.Contacto;
 
-public interface MedioNotificacion {
-  void notificarMascotaPerdida(Contacto contacto);
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-  void notificarInteresEnAdopcion(Contacto contacto);
+@Entity
+@Embeddable
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class MedioNotificacion extends PersistenceId {
+  public abstract void notificarMascotaPerdida(Contacto contacto);
 
-  void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad);
+  public abstract void notificarInteresEnAdopcion(Contacto contacto);
 
-  void notificarMailDeBaja(Contacto unContacto);
+  public abstract void notificarSugerenciaSemanal(Contacto contacto, Integer cantidad);
+
+  public abstract void notificarMailDeBaja(Contacto unContacto);
 }

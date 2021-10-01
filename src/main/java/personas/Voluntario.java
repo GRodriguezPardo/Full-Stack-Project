@@ -8,7 +8,8 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("voluntario")
 public class Voluntario extends Perfil {
-  @OneToOne
+
+  @ManyToOne
   private final Asociacion asociacion;
 
   public Voluntario(String _usuario, String _clave, Asociacion asociacion) {

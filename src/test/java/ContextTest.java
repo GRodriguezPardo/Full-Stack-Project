@@ -48,4 +48,10 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
   public void puedePersistirUnRescatista() {
     entityManager().persist(fixture.rescatista(0,0));
   }
-}
+
+  @Test
+  public void puedePersistirUnUsuario() {
+    entityManager().persist(fixture.unUsuario("hola","chau", fixture.duenio()));
+  }
+
+  }

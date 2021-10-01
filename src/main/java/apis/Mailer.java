@@ -1,6 +1,7 @@
 package apis;
 
 import exceptions.FalloServicioEmailException;
+import persistence.PersistenceId;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -8,9 +9,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.persistence.Entity;
 import java.util.Properties;
 
-public class Mailer {
+@Entity
+public class Mailer extends PersistenceId {
   private String remitente;
   private String clave;
 

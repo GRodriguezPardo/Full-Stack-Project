@@ -6,9 +6,16 @@ import com.twilio.type.PhoneNumber;
 import exceptions.FaltanDatosException;
 import personas.Contacto;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
-public class TwilioJava implements MedioNotificacion {
+@Entity
+@DiscriminatorValue("SMS")
+public class TwilioJava extends MedioNotificacion {
 
+  @OneToOne
   public Smser smser;
   /*Se debe crear una cuenta en https://www.twilio.com y , en el dashboard , estan las credenciales a setear.
   La trial tiene mensajes limitados , por eso no pongo la que cree.La paga es ilimitada.
@@ -52,6 +59,6 @@ public class TwilioJava implements MedioNotificacion {
 
   @Override
   public void notificarMailDeBaja(Contacto contacto) {
-    ;
+
   }
 }

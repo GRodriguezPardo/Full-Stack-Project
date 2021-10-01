@@ -21,6 +21,11 @@
         <class>mascotas.PublicacionMascotaPerdida</class>
         <class>mascotas.PublicacionInteresadoEnAdopcion</class>
         <class>mascotas.PublicacionMascotaEnAdopcion</class>
+        <class>apis.MedioNotificacion</class>
+        <class>apis.Mailer</class>
+        <class>apis.Smser</class>
+        <class>apis.TwilioJava</class>
+        <class>apis.JavaXMail</class>
 
 
         <properties>

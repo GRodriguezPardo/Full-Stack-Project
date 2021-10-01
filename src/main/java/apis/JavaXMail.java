@@ -2,9 +2,15 @@ package apis;
 
 import personas.Contacto;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
-public class JavaXMail implements MedioNotificacion {
+@Entity
+@DiscriminatorValue("Mail")
+public class JavaXMail extends MedioNotificacion {
 
+  @OneToOne
   public Mailer mailer;
 
   public JavaXMail(Mailer mailer) {
