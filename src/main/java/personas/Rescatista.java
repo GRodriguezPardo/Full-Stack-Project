@@ -2,6 +2,7 @@ package personas;
 
 import exceptions.FaltanDatosException;
 import mascotas.MascotaPerdida;
+import org.uqbarproject.jpa.java8.extras.convert.LocalDateConverter;
 import persistence.PersistenceId;
 import repositorios.RepositorioDeRescates;
 
@@ -24,6 +25,7 @@ public class Rescatista extends PersistenceId {
 
   @OneToOne(cascade = CascadeType.ALL)
   private final MascotaPerdida mascota;
+  @Convert(converter = LocalDateConverter.class)
   private final LocalDate fecha;
 
   /**
