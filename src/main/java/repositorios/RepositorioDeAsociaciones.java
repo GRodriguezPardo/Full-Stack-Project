@@ -3,6 +3,7 @@ package repositorios;
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Asociacion;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class RepositorioDeAsociaciones {
+public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
   private final static RepositorioDeAsociaciones INSTANCE = new RepositorioDeAsociaciones();
   private final List<Asociacion> asociaciones = new ArrayList<>();
 
@@ -31,17 +32,26 @@ public class RepositorioDeAsociaciones {
   }
 
   public void agregarAsociacion(Asociacion asociacion) {
-    this.asociaciones.add(asociacion);
+    //this.asociaciones.add(asociacion);
+    entityManager().persist(asociacion);
   }
 
   public void removerAsociacion(Asociacion asociacion) {
-    this.asociaciones.remove(asociacion);
+    //this.asociaciones.remove(asociacion);
+    entityManager().remove(asociacion);
   }
 
+  @SuppressWarnings("unchecked")
   public List<PublicacionMascotaPerdida> publicacionesMascotas() {
-    return this.asociaciones.stream()
+    /* return this.asociaciones.stream()
             .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
             .collect(Collectors.toList());
+     */
+    List<Asociacion> asociaciones = entityManager()
+        .createQuery("from Asociacion").getResultList();
+    return asociaciones.stream()
+        .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
+        .collect(Collectors.toList());
   }
 
   public List<PublicacionMascotaPerdida> publicacionesAprobadas() {
@@ -58,19 +68,22 @@ public class RepositorioDeAsociaciones {
             .collect(Collectors.toList());
   }
 
+  @SuppressWarnings("unchecked")
   public List<Asociacion> getAsociaciones() {
-    return this.asociaciones;
+    //return this.asociaciones;
+    return entityManager()
+        .createQuery("from Asociacion").getResultList();
   }
 
   public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion) {
-    if (this.asociaciones.isEmpty()) {
+    if (this.getAsociaciones().isEmpty()) {
       throw new NoHayNingunaAsociasionException("No se pueden agregar publicaciones porque no hay asociasiones");
     }
-    return this.asociaciones.stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion()))).get();
+    return this.getAsociaciones().stream().min(Comparator.comparingInt(asociacion -> asociacion.distanciaA(publicacion.getPosicion()))).get();
   }
 
   public List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion() {
-    return this.asociaciones.stream()
+    return this.getAsociaciones().stream()
             .flatMap(asociacion -> asociacion.getPublicacionesEnAdopcion().stream())
             .collect(Collectors.toList());
   }
