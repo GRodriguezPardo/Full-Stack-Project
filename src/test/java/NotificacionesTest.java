@@ -26,8 +26,8 @@ public class NotificacionesTest {
   @Test
   @Disabled
   public void enviarMailNoTiraErrorTESTMANUAL() {
-    JavaXMail emailSender = new JavaXMail(new Mailer("unemailejemplar", "HolaComoEstas"));// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
-    assertDoesNotThrow(() -> emailSender.getMailer().sendEmail("unEjemplo@gmail.com", "Encontramos a tu mascota", "Ejemplo"));
+    Mailer emailSender = new Mailer(new JavaXMail("unemailejemplar", "HolaComoEstas"));// _________\/__________ aca pones el mailDestinatario y te fijas que llegue
+    assertDoesNotThrow(() -> emailSender.getJavax().sendEmail("unEjemplo@gmail.com", "Encontramos a tu mascota", "Ejemplo"));
   }
 
   @Test

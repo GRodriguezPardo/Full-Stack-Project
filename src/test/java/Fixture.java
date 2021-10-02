@@ -1,4 +1,4 @@
-import apis.JavaXMail;
+import apis.Mailer;
 import apis.MedioNotificacion;
 import apis.TwilioJava;
 import mascotas.*;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 
 public class Fixture {
-  MedioNotificacion emailSender = mock(JavaXMail.class);
+  MedioNotificacion emailSender = mock(Mailer.class);
   MedioNotificacion smsSender = mock(TwilioJava.class);
 
   MedioNotificacion getEmailSenderMock() {
