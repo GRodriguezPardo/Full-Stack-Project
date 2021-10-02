@@ -24,10 +24,10 @@ public class Persona extends PersistenceId {
   @Column
   private final LocalDate fechaNacimiento;
 
-  @Embedded
+  @OneToMany
   private final List<Contacto> contactos = new ArrayList<>();
 
-  @ManyToMany
+  @OneToMany
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**
