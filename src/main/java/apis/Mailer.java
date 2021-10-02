@@ -4,13 +4,13 @@ import personas.Contacto;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("Mail")
 public class Mailer extends MedioNotificacion {
 
-  @OneToOne
+  @Transient
   public JavaXMail javax;
 
   public Mailer(JavaXMail javax) {

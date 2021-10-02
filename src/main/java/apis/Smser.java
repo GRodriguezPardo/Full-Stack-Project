@@ -1,21 +1,14 @@
 package apis;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-import exceptions.FaltanDatosException;
 import personas.Contacto;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("SMS")
 public class Smser extends MedioNotificacion {
 
-  @OneToOne
+  @Transient
   public TwilioJava twilio;
   /*Se debe crear una cuenta en https://www.twilio.com y , en el dashboard , estan las credenciales a setear.
   La trial tiene mensajes limitados , por eso no pongo la que cree.La paga es ilimitada.
