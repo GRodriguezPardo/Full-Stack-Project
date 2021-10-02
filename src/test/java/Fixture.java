@@ -1,6 +1,6 @@
 import apis.Mailer;
 import apis.MedioNotificacion;
-import apis.TwilioJava;
+import apis.Smser;
 import mascotas.*;
 import personas.*;
 import repositorios.RepositorioDePreguntas;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.mock;
 
 public class Fixture {
   MedioNotificacion emailSender = mock(Mailer.class);
-  MedioNotificacion smsSender = mock(TwilioJava.class);
+  MedioNotificacion smsSender = mock(Smser.class);
 
   MedioNotificacion getEmailSenderMock() {
     return this.emailSender;
