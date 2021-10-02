@@ -17,6 +17,8 @@ public class Mailer extends MedioNotificacion {
     this.javax =javax;
   }
 
+  private Mailer(){  ; }//pedirle la instancia a un service locator
+
   public void notificarMascotaPerdida(Contacto contacto) {
     this.javax.sendEmail(contacto.getEmail(), "Sistemas de Rescates", "Encontramos a tu mascota perdida");
   }
