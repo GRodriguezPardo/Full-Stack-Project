@@ -14,8 +14,10 @@ import java.util.Optional;
 
 @Entity
 public class PublicacionInteresadoEnAdopcion extends PersistenceId {
+
   @OneToMany
   private final List<Respuesta> respuestas = new ArrayList<>();
+
   @ManyToOne
   public Persona persona;
 

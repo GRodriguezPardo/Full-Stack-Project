@@ -10,19 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+//TODO: Usar siempre JoinColumn en los OneToMany
 @Entity
 public class Asociacion extends PersistenceId {
 
   @OneToMany
+  @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
 
-  @OneToMany(targetEntity = PublicacionMascotaEnAdopcion.class)
+  @OneToMany
+  @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
 
-  @OneToMany(targetEntity = PublicacionInteresadoEnAdopcion.class)
+  @OneToMany
+  @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
-  @Embedded
+  @OneToMany
   private final List<Pregunta> preguntas = new ArrayList<>();
 
   @Embedded

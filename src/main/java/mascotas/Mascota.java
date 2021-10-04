@@ -21,13 +21,20 @@ public class Mascota extends PersistenceId {
   private final Sexo sexo;
   private final Short edad;
   private final String descripcion;
+
+  //TODO: Podemos pasar las fotos a URL
   @Transient
   private final List<Image> fotos;
-  /*@ElementCollection
+
+  //TODO: Podemos ver de probar lo comentado
+  /*
+  @OneToMany
   @CollectionTable(name = "caracteristicas_mapping",
       joinColumns = {@JoinColumn(name = "mascota_id", referencedColumnName = "id")})
   @MapKeyColumn(name = "nombre_caracteristica")
    */
+
+  //TODO: Podes ver de cambiar MAP por un LIST
   @Transient
   private final Map<String, Caracteristica> caracteristicas;
   @Enumerated

@@ -8,6 +8,7 @@ import persistence.PersistenceId;
 
 import javax.persistence.Entity;
 
+// TODO: Podriamos poner un nombre mas representativo SmsService
 @Entity
 public class Smser extends PersistenceId {
   public String accountSid;

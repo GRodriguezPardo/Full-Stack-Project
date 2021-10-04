@@ -15,6 +15,7 @@ public class PublicacionMascotaEnAdopcion extends PersistenceId{
 
   @ManyToOne
   private final Mascota mascota;
+
   @OneToMany
   private final List<Respuesta> respuestas = new ArrayList<>();
 

@@ -48,8 +48,7 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
             .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
             .collect(Collectors.toList());
      */
-    List<Asociacion> asociaciones = entityManager()
-        .createQuery("from Asociacion").getResultList();
+    List<Asociacion> asociaciones = this.getAsociaciones();
     return asociaciones.stream()
         .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
         .collect(Collectors.toList());

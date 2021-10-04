@@ -3,7 +3,6 @@ package apis;
 import persistence.PersistenceId;
 import personas.Contacto;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;

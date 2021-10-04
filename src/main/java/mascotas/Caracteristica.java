@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
 /**
  * Clase template utilizada para definir a una caracteristica.
@@ -12,8 +13,8 @@ import javax.persistence.Embeddable;
  *
  * @param <T> es el tipo de dato que se le dara al valor contenido en la clase.
  */
-@Embeddable
-public class Caracteristica<T> {
+@Entity
+public class Caracteristica<T> extends PersistenceId{
   @Type(type = "java.lang.Object")
   private T valor = null;
 
@@ -22,7 +23,6 @@ public class Caracteristica<T> {
    * Como no se exige un valor inicial queda en null.
    */
   public Caracteristica() {
-
   }
 
   /**

@@ -27,7 +27,7 @@ public class Persona extends PersistenceId {
   @Embedded
   private final List<Contacto> contactos = new ArrayList<>();
 
-  @ManyToMany
+  @ManyToMany //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**

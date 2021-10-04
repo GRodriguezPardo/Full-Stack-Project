@@ -23,6 +23,12 @@ public class TwilioJava extends MedioNotificacion {
   El senderNumber se obtiene en le dashboard , con el boton rojo que genera un numero para enviar mensajes ,
    el del registro no sirve.*/
 
+
+  //TODO Aca debemos linkearlo con un service locator
+  public TwilioJava(){
+
+  }
+
   public TwilioJava(Smser smser){
     this.smser = smser;
   }
