@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Voluntario extends Perfil {
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private final Asociacion asociacion;
 
   public Voluntario(String _usuario, String _clave, Asociacion asociacion) {

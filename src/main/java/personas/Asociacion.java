@@ -5,7 +5,10 @@ import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 import persistence.PersistenceId;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

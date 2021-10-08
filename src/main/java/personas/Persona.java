@@ -24,7 +24,7 @@ public class Persona extends PersistenceId {
   @Column
   private final LocalDate fechaNacimiento;
 
-  @Embedded
+  @OneToMany
   private final List<Contacto> contactos = new ArrayList<>();
 
   @ManyToMany //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
