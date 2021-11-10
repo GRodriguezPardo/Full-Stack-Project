@@ -88,6 +88,47 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- spark -->
+    <dependency>
+      <groupId>com.sparkjava</groupId>
+      <artifactId>spark-core</artifactId>
+      <version>2.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sparkjava</groupId>
+      <artifactId>spark-template-handlebars</artifactId>
+      <version>2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sparkjava</groupId>
+      <artifactId>spark-debug-tools</artifactId>
+      <version>0.5</version>
+    </dependency>
+    <!-- end of spark -->
+
+    <!-- handlebars -->
+    <dependency>
+      <groupId>com.github.jknack</groupId>
+      <artifactId>handlebars-helpers</artifactId>
+      <version>4.0.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.jknack</groupId>
+      <artifactId>handlebars-humanize</artifactId>
+      <version>4.0.6</version>
+    </dependency>
+    <!-- end of handlebars -->
+
+    <!-- simple login -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.21</version>
+    </dependency>
+    <!-- end of simple login -->
   </dependencies>
 
   <build>
