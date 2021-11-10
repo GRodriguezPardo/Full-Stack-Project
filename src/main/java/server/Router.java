@@ -1,24 +1,27 @@
 package server;
 
+import controllers.HomeController;
+import controllers.LoginController;
+import controllers.MascotaController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import spark.utils.BooleanHelper;
-import spark.utils.HandlebarsTemplateEngineBuilder;
 
 public class Router {
 
   public static void configure() {
-    HandlebarsTemplateEngine engine = HandlebarsTemplateEngineBuilder
-        .create()
-				.withDefaultHelpers()
-        .withHelper("isTrue", BooleanHelper.isTrue)
-        .build();
-    Spark.staticFiles.location("/public");
+    HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+    HomeController home = new HomeController();
+    MascotaController mascotaController = MascotaController.instance();
 
-    //ProyectosController proyectosController = new ProyectosController();
+    Spark.get("/",home::index,engine);
+    Spark.get("/login", LoginController::show, engine);
+    Spark.post("/login", LoginController::login, engine);
 
-    //Spark.get("/", HomeController::home, engine);
-    // Spark.get("/login", LoginController::show, engine);
-    // Spark.post("/login", LoginController::login, engine);
+    //Rutas de Mascotas
+    Spark.get("/mascotas/encontradas", mascotaController::encontradas,engine);
+    Spark.get("/mascotas/registrar",mascotaController::registrar,engine);
+    Spark.get("/mascotas/perdidas",mascotaController::perdidas,engine);
+    Spark.get("/mascotas/:mascota",mascotaController::mascota,engine);
+
   }
 }
