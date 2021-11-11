@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<header>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-</body>
-</html>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</header>
+<div class="jumbotron text-center">
+    <h1>Rescate de Patitas</h1>
+    <p> Bienvenido {{this}}</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Caracteristicas</h2>
+          <ul>
+           <li>
+               {#caracteristicas}
+               {Valor}
+               {/caracteristicas}
+           </li>
+          </ul>
+
+
+        </div>
+        <div class="col-sm-4">
+            <h2>Agregar caracteristica</h2>
+            <p>Por favor, complete los datos que se mencionan a continuación:</p>
+            <form action="/caracteristicas/crear" method="POST">
+
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre de nueva caracteristica"><br><br>
+
+                <input type="submit" value="Confirmar">
+            </form>  </div>
+        <div class="col-sm-4">
+            <h2>Eliminar caracteristica</h2>
+            <p>Por favor, complete los datos que se mencionan a continuación:</p>
+            <form action="/caracteristicas/borrar" method="GET">
+
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre de la caracteristica"><br><br>
+
+                <input type="submit" value="Confirmar">
+            </form>
+        </div>
+    </div>
+</div>

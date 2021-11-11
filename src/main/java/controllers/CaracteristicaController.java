@@ -1,9 +1,13 @@
 package controllers;
 
 import mascotas.Caracteristica;
+import repositorios.RepositorioDeMascotas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CaracteristicaController {
 
@@ -17,7 +21,10 @@ public class CaracteristicaController {
   }
 
   public ModelAndView caracteristicas(Request request, Response response) {
-    return new ModelAndView(null,"caracteristicas.html.hbs");
+    List<String> caracteristicas = RepositorioDeMascotas.instance().obtenerListado()
+            .stream().flatMap(m -> m.getCaracteristicas().keySet().stream()).collect(Collectors.toList());
+
+    return new ModelAndView(caracteristicas ,"caracteristicas.html.hbs");
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
