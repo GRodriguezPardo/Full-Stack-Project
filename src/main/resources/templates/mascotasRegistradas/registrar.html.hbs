@@ -1,17 +1,4 @@
-<header>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</header>
-<div style="background-color:#45B6FE;color:white" class="jumbotron text-center">
-    <h1>Rescate de Patitas</h1>
-    <p> Bienvenido {{this}}</p>
-</div>
+{{#partial "contenido"}}
 
 <div class="container">
     <div class="row">
@@ -65,3 +52,7 @@
         </div>
     </div>
 </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}

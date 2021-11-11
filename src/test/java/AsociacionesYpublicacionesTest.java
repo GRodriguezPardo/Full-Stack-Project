@@ -6,8 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeUsuarios;
@@ -17,7 +19,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class AsociacionesYpublicacionesTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityManagerOps, WithGlobalEntityManager {
   Fixture fixture = new Fixture();
 
   /*
