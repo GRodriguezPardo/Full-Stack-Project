@@ -23,9 +23,11 @@ public class Router {
     Spark.get("/mascotas/registrar",mascotaController::registrar,engine);
     Spark.get("/mascotas/perdidas",mascotaController::perdidas,engine);
     Spark.get("/mascotas/:mascota",mascotaController::mascota,engine);
+    Spark.get("/mascotas/perdidas/conChapita", mascotaController::conChapita,engine);
 
     Spark.get("/mascotas",mascotaController::listado);
     Spark.post("/mascotas/crear",mascotaController::crearMascota);
+
 
   }
 }
