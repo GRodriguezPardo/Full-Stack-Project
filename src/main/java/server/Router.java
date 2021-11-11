@@ -15,6 +15,7 @@ public class Router {
 
     Spark.get("/",home::index,engine);
     Spark.get("/login", LoginController::show, engine);
+    Spark.get("/error",home::error,engine);
     Spark.post("/login", LoginController::login, engine);
 
     //Rutas de Mascotas
@@ -22,6 +23,9 @@ public class Router {
     Spark.get("/mascotas/registrar",mascotaController::registrar,engine);
     Spark.get("/mascotas/perdidas",mascotaController::perdidas,engine);
     Spark.get("/mascotas/:mascota",mascotaController::mascota,engine);
+
+    Spark.get("/mascotas",mascotaController::listado);
+    Spark.post("/mascotas/crear",mascotaController::crearMascota);
 
   }
 }

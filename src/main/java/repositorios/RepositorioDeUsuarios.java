@@ -10,7 +10,6 @@ import personas.Duenio;
 import personas.Usuario;
 import personas.Voluntario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -116,26 +115,7 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
         .setParameter("clave", clave)
 				.getResultList().isEmpty();
   }
-  /*
-    /**
-     * Permite a un Usuario cambiar su contraseña.
-     *
-     * @param usuario    es el Usuario cuya contraseña cambiara.
-     * @param claveVieja es la anterior clave del Usuario, necesaria para
-     *                   comprobar sus credenciales.
-     * @param claveNueva es la nueva clave.
-     */
-  /*
-  public void cambiarClave(String usuario, String claveVieja, String claveNueva) {
-    if (this.comprobarClave(usuario, claveVieja)) {
-      this.administradores.stream()
-              .filter(unPerfil -> unPerfil.getUsuario().equals(usuario))
-              .findFirst().get().setClave(claveNueva);
-    } else {
-      throw new DatosErroneosException("Usuario o contraseña erroneos");
-    }
-  }
-*/
+
   public void removerAdmin(Admin perfil) {
     //this.administradores.remove(perfil);
     Admin perfilBorrar = entityManager().find(Admin.class, perfil.getId());
@@ -149,14 +129,12 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
   }
 
   public void removerVoluntario(Voluntario perfil) {
-    //this.voluntarios.remove(perfil);
     Voluntario perfilBorrar = entityManager().find(Voluntario.class, perfil.getId());
     entityManager().remove(perfilBorrar);
   }
 
-
   public List<Admin> administradores() {
-    //return this.administradores;
+
     return entityManager()
         .createQuery("from Admin").getResultList();
   }

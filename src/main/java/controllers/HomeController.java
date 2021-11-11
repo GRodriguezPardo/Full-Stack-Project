@@ -14,4 +14,8 @@ public class HomeController {
   public String obtenerSesion(){
     return "Hola Mundo";
   }
+
+  public ModelAndView error(Request request, Response response) {
+    return new ModelAndView(obtenerSesion(), "error.html.hbs");
+  }
 }
