@@ -25,23 +25,23 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
   }
 
   public ModelAndView encontradas(Request request, Response response) {
-    return new ModelAndView(null,"encontradas.html.hbs");
+    return new ModelAndView(null, "mascotasPerdidas/encontradas.html.hbs");
   }
 
   public ModelAndView registrar(Request request, Response response) {
-    return new ModelAndView(null,"registrar.html.hbs");
+    return new ModelAndView(null, "mascotasRegistradas/registrar.html.hbs");
   }
 
   public ModelAndView perdidas(Request request, Response response) {
-    return new ModelAndView(null,"perdidas.html.hbs");
+    return new ModelAndView(null, "mascotasPerdidas/perdidas.html.hbs");
   }
 
   public ModelAndView conChapita(Request request, Response response) {
-    return new ModelAndView(null,"conChapita.html.hbs");
+    return new ModelAndView(null, "mascotasPerdidas/conChapita.html.hbs");
   }
 
   public ModelAndView mascota(Request request, Response response) {
-    return new ModelAndView(null,"mascota.html.hbs");
+    return new ModelAndView(null, "mascotasRegistradas/mascota.html.hbs");
   }
 
   public Void crearMascota(Request request, Response response) {
@@ -49,18 +49,18 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
     try {
 
-      mascota.setApodo(request.queryParams("nombre"));
+      mascota.setApodo(request.queryParams("apodo"));
       mascota.setNombre(request.queryParams("nombre"));
-      mascota.setTamanio((request.queryParams("mascota") == "chico")?Tamanio.CHICO:Tamanio.MEDIANO);
-      mascota.setEspecie((request.queryParams("especie") == "gato")? Especie.GATO:Especie.PERRO);
+      mascota.setTamanio(this.analizarTamanio(request.queryParams("tamanno")));
+      mascota.setEspecie((request.queryParams("especie").equals("gato")) ? Especie.GATO : Especie.PERRO);
       mascota.setEdad(Short.parseShort("7"));
       mascota.setSexo(Sexo.HEMBRA);
       mascota.agregarImagen("");
-      withTransaction(() ->{
-          RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota());
+      withTransaction(() -> {
+        RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota());
       });
 
-    }catch (RuntimeException e){
+    } catch (RuntimeException e) {
       response.redirect("/error");
     }
     response.status(200);
@@ -73,5 +73,18 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     response.status(200);
     response.body(RepositorioDeMascotas.instance().obtenerListado().toString());
     return null;
+  }
+
+  public Tamanio analizarTamanio(String param) {
+    if(param.equals("chico")) {
+      return Tamanio.CHICO;
+    }
+    if(param.equals("mediano")) {
+      return Tamanio.MEDIANO;
+    }
+    if(param.equals("grande")) {
+      return Tamanio.GRANDE;
+    }
+    throw new RuntimeException();
   }
 }

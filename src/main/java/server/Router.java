@@ -28,6 +28,8 @@ public class Router {
     Spark.get("/mascotas",mascotaController::listado);
     Spark.post("/mascotas/crear",mascotaController::crearMascota);
 
+    Spark.get("/ejemploclase",home::ejemploClase);
+
 
   }
 }

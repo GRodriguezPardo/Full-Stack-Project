@@ -6,7 +6,7 @@ import spark.Response;
 
 public class HomeController {
   public ModelAndView index(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(), "home.html.hbs");
+    return new ModelAndView(obtenerSesion(), "home/home.html.hbs");
   }
 
   //TODO: Debemos recuperar la sesión del usuario, en caso de fallar
@@ -16,6 +16,10 @@ public class HomeController {
   }
 
   public ModelAndView error(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(), "error.html.hbs");
+    return new ModelAndView(obtenerSesion(), "home/error.html.hbs");
+  }
+
+  public ModelAndView ejemploClase(Request request, Response response) {
+    return new ModelAndView(obtenerSesion(), "home/ejemploClase.html.hbs");
   }
 }

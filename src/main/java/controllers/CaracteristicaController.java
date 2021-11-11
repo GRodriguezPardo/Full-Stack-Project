@@ -13,8 +13,7 @@ public class CaracteristicaController {
 
   private final static CaracteristicaController INSTANCE = new CaracteristicaController();
 
-  private CaracteristicaController(){
-  }
+  private CaracteristicaController() {}
 
   public static CaracteristicaController instance (){
     return INSTANCE;
@@ -24,15 +23,15 @@ public class CaracteristicaController {
     List<String> caracteristicas = RepositorioDeMascotas.instance().obtenerListado()
             .stream().flatMap(m -> m.getCaracteristicas().keySet().stream()).collect(Collectors.toList());
 
-    return new ModelAndView(caracteristicas ,"caracteristicas.html.hbs");
+    return new ModelAndView(caracteristicas, "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null,"agregarCaracteristica.html.hbs");
+    return new ModelAndView(null, "caracteristicas/agregarCaracteristica.html.hbs");
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null,"eliminarCaracteristica.html.hbs");
+    return new ModelAndView(null, "caracteristicas/eliminarCaracteristica.html.hbs");
   }
 
 }
