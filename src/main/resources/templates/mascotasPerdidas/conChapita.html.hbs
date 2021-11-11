@@ -1,46 +1,29 @@
 
 {{#partial "contenido"}}
 
-<div class="container">
+<div class="container justify-content-center">
     <div class="row">
-        <div class="col-sm-4">
-            <h2>Datos Generales</h2>
-            <p>Por favor, complete los datos que se mencionan a continuación:</p>
-            <form action="/mascotas/crear" method="POST">
-                <input type="radio" id="especie" name="especie" value="perro">
-                <label for="html">Perro</label>
-                <input type="radio" id="especie" name="especie" value="gato">
-                <label for="css">Gato</label><br>
-
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre de Mascota"><br><br>
-
-                <label for="favcolor">Tamaño: </label>
-                <select name = "tamanno">
-                    <option value = "chico" selected>Chico</option>
-                    <option value = "mediano">Mediano</option>
-                    <option value = "grande">Grande</option>
-                </select><br>
-                <label for="favcolor">Color: </label>
-                <input type="color" id="color" name="color"><br>
-
-                <label for="favcolor">Descripción General: </label>
-                <textarea id="w3review" name="w3review" rows="3" cols="35"></textarea><br><br>
-                <input type="submit" value="Confirmar">
-            </form>
-            <p>Presione confirmar una vez ingresado todos los datos para poder dar de alta su mascota.</p>
+        <div class="col-sm-2">
         </div>
         <div class="col-sm-4">
-            <h2>Ubicación</h2>
-            <p>A continuación, seleccione la ubicación del domicilio de residencia:</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26264.35553387357!2d-58.451558399999996!3d-34.628317200000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc988ce0d740d%3A0x602044467b90ba52!2sMcDonald&#39;s!5e0!3m2!1ses!2sar!4v1636536590808!5m2!1ses!2sar" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div>
+                <h2 class="text-center limit" style="bold">
+                    ¡Encontraste a una mascota con chapita de Rescate de Patitas!
+                </h2>
+            </div>
+            <div>
+                <div><p class="text-center limit">
+                    Si encontraste una mascota perdida con una chapita pertenecitente a Rescate De Patitas, escaneá el código QR que se encuentra en la chapita.
+                </p></div>
+                <div><p class="text-center limit">
+                    El código te enviará a un formulario para que nos des tus datos y los datos acerca de donde encontraste a la mascota
+                </p></div>
+            </div>
         </div>
         <div class="col-sm-4">
-            <h2>Imagenes</h2>
-            <p>A continuación, seleccione las imagenes que desea subir de su mascota. Las mismas seran de utilidad ante una potencial busqueda.</p>
-            <form>
-                <label for="myfile">Selecciones un archivo:</label>
-                <input type="file" id="myfile" name="myfile">
-            </form>
+            <div style="position:relative; width:250px; height:206px; border-radius:4px ; overflow:hidden;">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_696182-MLA32289667336_092019-O.webp" width="100%" style="">
+            </div>
         </div>
     </div>
 </div>
