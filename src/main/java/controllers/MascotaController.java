@@ -36,6 +36,10 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(null,"perdidas.html.hbs");
   }
 
+  public ModelAndView conChapita(Request request, Response response) {
+    return new ModelAndView(null,"conChapita.html.hbs");
+  }
+
   public ModelAndView mascota(Request request, Response response) {
     return new ModelAndView(null,"mascota.html.hbs");
   }
