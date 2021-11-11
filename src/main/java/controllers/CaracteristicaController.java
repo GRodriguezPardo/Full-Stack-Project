@@ -27,11 +27,11 @@ public class CaracteristicaController {
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null, "caracteristicas/agregarCaracteristica.html.hbs");
+    return new ModelAndView(null, "caracteristicas/agregadoCaracteristica.html.hbs");
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null, "caracteristicas/eliminarCaracteristica.html.hbs");
+    return new ModelAndView(null, "caracteristicas/eliminacionCaracteristica.html.hbs");
   }
 
 }
