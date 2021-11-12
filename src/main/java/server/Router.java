@@ -3,6 +3,7 @@ package server;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -40,5 +41,11 @@ public class Router {
     Spark.get("/ejemploclase", home::ejemploClase, engine);
     Spark.get("/manualsetsession", loginController::manualSetSessionId, engine);
     Spark.get("/logout", loginController::logout, engine);
+
+    /*Spark.after((request, response) -> {
+      if(PerThreadEntityManagers.getEntityManager().isOpen()) {
+        PerThreadEntityManagers.closeEntityManager();
+      }
+    });*/
   }
 }
