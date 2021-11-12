@@ -6,6 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.Asociacion;
 import personas.Posicion;
 import personas.Pregunta;
@@ -21,14 +24,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
-public class TerceraIteracionTest {
+public class TerceraIteracionTest implements TransactionalOps, EntityManagerOps, WithGlobalEntityManager {
   static Asociacion asociacion;
   Fixture fixture = new Fixture();
   MedioNotificacion emailSender = fixture.getEmailSenderMock();
   MedioNotificacion smsSender = fixture.getSmsSenderMock();
 
-  @BeforeAll
-  public static void initRepositorios() {
+  @BeforeEach
+  public void init() {
+    this.beginTransaction();
     List<String> opciones = new ArrayList<String>();
     opciones.add("Si");
     opciones.add("No");
@@ -43,13 +47,10 @@ public class TerceraIteracionTest {
     repoPreguntas.agregarPregunta(new Pregunta("¿Necesita correa?", "¿Tenes correa?", opciones));
   }
 
-
-  @BeforeEach
-  public void init() {
-    // agregar asociacion
-  }
-
   @AfterEach
+  public void clean() {
+    this.rollbackTransaction();
+  }
   //remover cosas de los repositorios
 
 
@@ -59,8 +60,6 @@ public class TerceraIteracionTest {
     asociacion.agregarPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
 
     assertEquals(Arrays.asList(publicacionMascotaEnAdopcion), asociacion.getPublicacionesEnAdopcion());
-
-    asociacion.removerPublicacionMascotaEnAdopcion(publicacionMascotaEnAdopcion);
   }
 
 

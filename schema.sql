@@ -182,6 +182,13 @@
         primary key (id)
     )
 
+    create table caracteristicas_mapping (
+        mascota_id bigint not null,
+        caracteristicas_id bigint not null,
+        nombre_caracteristica varchar(255) not null,
+        primary key (mascota_id, nombre_caracteristica)
+    )
+
     alter table Asociacion_Pregunta 
         add constraint UK_fs7dv9osx6to8wag1aj5uufde  unique (preguntas_id)
 
@@ -196,6 +203,9 @@
 
     alter table PublicacionMascotaEnAdopcion_Respuesta 
         add constraint UK_gydw5ylm6yg6txtkogo5gbjm  unique (respuestas_id)
+
+    alter table caracteristicas_mapping 
+        add constraint UK_pfa96oi4nhhv2l1jw817gy9e8  unique (caracteristicas_id)
 
     alter table Asociacion_Pregunta 
         add constraint FK_fs7dv9osx6to8wag1aj5uufde 
@@ -321,3 +331,13 @@
         add constraint FK_15jg7c6d6l9uuqpibrvatuw9d 
         foreign key (asociacion_id) 
         references Asociacion
+
+    alter table caracteristicas_mapping 
+        add constraint FK_pfa96oi4nhhv2l1jw817gy9e8 
+        foreign key (caracteristicas_id) 
+        references Caracteristica
+
+    alter table caracteristicas_mapping 
+        add constraint FK_tpjprt1to2n1thsr1e741bu80 
+        foreign key (mascota_id) 
+        references Mascota

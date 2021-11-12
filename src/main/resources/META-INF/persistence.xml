@@ -16,6 +16,7 @@
         <class>personas.Duenio</class>
         <class>personas.Perfil</class>
         <class>mascotas.Mascota</class>
+        <class>mascotas.Caracteristica</class>
         <class>mascotas.MascotaPerdida</class>
         <class>mascotas.PosiblesCaracteristicas</class>
         <class>mascotas.PublicacionMascotaPerdida</class>

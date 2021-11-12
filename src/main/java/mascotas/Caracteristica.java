@@ -2,8 +2,6 @@ package mascotas;
 
 import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
-
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
 /**
@@ -15,7 +13,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Caracteristica<T> extends PersistenceId{
-  @Type(type = "java.lang.Object")
+  @Type(type = "java.lang.String")
   private T valor = null;
 
   /**

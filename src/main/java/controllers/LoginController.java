@@ -1,38 +1,47 @@
 package controllers;
 
-import apis.*;
-import personas.*;
+import apis.JavaXMail;
+import apis.Mailer;
+import apis.MedioNotificacion;
+import apis.Smser;
+import apis.TwilioJava;
+import java.time.LocalDate;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import personas.Contacto;
+import personas.Duenio;
+import personas.Persona;
+import personas.PersonaBuilder;
+import personas.Usuario;
 import repositorios.RepositorioDeUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.time.LocalDate;
+public class LoginController implements WithGlobalEntityManager, TransactionalOps {
 
-public class LoginController {
-
-  public static ModelAndView login(Request request, Response response) {
+  public ModelAndView login(Request request, Response response) {
     request.session().attribute("user", 1);
     response.redirect("/");
     return null;
   }
 
-  public static ModelAndView show(Request request, Response response) {
+  public ModelAndView show(Request request, Response response) {
     return new ModelAndView(null, "login/login.html.hbs");
   }
 
-  public static ModelAndView showSignUp(Request request, Response response) {
+  public ModelAndView showSignUp(Request request, Response response) {
     return new ModelAndView(null, "login/signUp.html.hbs");
   }
 
-  public static ModelAndView signUp(Request request, Response response) {
+  public ModelAndView signUp(Request request, Response response) {
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido(request.queryParams("nombre") + " " + request.queryParams("apellido"));
     personaBuilder.setFechaNacimiento(
          LocalDate.of(
-             Integer.valueOf(request.queryParams("anno")),
-             Integer.valueOf(request.queryParams("mes")),
-             Integer.valueOf(request.queryParams("dia"))
+             Integer.parseInt(request.queryParams("anno")),
+             Integer.parseInt(request.queryParams("mes")),
+             Integer.parseInt(request.queryParams("dia"))
          )
     );
     Contacto contacto = new Contacto(
@@ -41,32 +50,33 @@ public class LoginController {
         request.queryParams("emailContacto")
     );
     personaBuilder.agregarContacto(contacto);
-    MedioNotificacion medio = LoginController.analizarMedioNotificacion(request,response);
+    MedioNotificacion medio = analizarMedioNotificacion(request, response);
     personaBuilder.agregarMedioNotificacion(medio);
 
     Persona persona = personaBuilder.crearPersona();
-    try {
-      RepositorioDeUsuarios
-          .getInstance()
-          .agregarUsuario(
-              new Usuario(
-                  request.queryParams("usuario"),
-                  request.queryParams("contrasenna"),
-                  new Duenio(persona)));
-    } catch (Exception e) {
-      response.redirect("/error");
-      return null;
-    }
-    request.session().attribute("user", 1);
-    response.redirect("/");
+    this.withTransaction(() -> {
+      try {
+        RepositorioDeUsuarios
+            .getInstance()
+            .agregarUsuario(
+                new Usuario(
+                    request.queryParams("usuario"),
+                    request.queryParams("contrasenna"),
+                    new Duenio(persona)));
+        request.session().attribute("user", 1);
+        response.redirect("/");
+      } catch (Exception e) {
+        response.redirect("/error");
+      }
+    });
     return null;
   }
 
-  static MedioNotificacion analizarMedioNotificacion(Request req, Response res) {
-    if(req.queryParams("medioNotificacion").equals("email")) {
+  public MedioNotificacion analizarMedioNotificacion(Request req, Response res) {
+    if (req.queryParams("medioNotificacion").equals("email")) {
       return new Mailer(new JavaXMail("usuario", "contraseña"));
     }
-    if(req.queryParams("medioNotificacion").equals("telefono")) {
+    if (req.queryParams("medioNotificacion").equals("telefono")) {
       return new Smser(new TwilioJava("id", "token", "number"));
     }
     throw new RuntimeException();

@@ -56,5 +56,9 @@ public class Duenio extends PersistenceId {
   public Boolean tieneMascota(Mascota mascota) {
     return mascotas.contains(mascota);
   }
+
+  public List<Mascota> getMascotas() {
+    return this.mascotas;
+  }
 }
 

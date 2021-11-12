@@ -1,18 +1,21 @@
 package controllers;
 
-import mascotas.Especie;
-import mascotas.MascotaBuilder;
-import mascotas.Sexo;
-import mascotas.Tamanio;
+import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import personas.Usuario;
 import repositorios.RepositorioDeMascotas;
 import repositorios.RepositorioDeRescates;
+import repositorios.RepositorioDeUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class MascotaController implements WithGlobalEntityManager, TransactionalOps {
   private final static  MascotaController INSTANCE = new MascotaController();
@@ -54,7 +57,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setTamanio(this.analizarTamanio(request.queryParams("tamanno")));
       mascota.setEspecie((request.queryParams("especie").equals("gato")) ? Especie.GATO : Especie.PERRO);
       mascota.setEdad(Short.parseShort("7"));
-      mascota.setSexo(Sexo.HEMBRA);
+      mascota.setSexo((request.queryParams("sexo").equals("hembra")) ? Sexo.HEMBRA : Sexo.MACHO);
       mascota.agregarImagen("");
       withTransaction(() -> {
         RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota());
@@ -87,4 +90,23 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     }
     throw new RuntimeException();
   }
+
+  public ModelAndView listarMascotas(Request req, Response res) {
+		Map<String, List<Mascota>> model = new HashMap<>();
+    Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
+        .usuarios().stream()
+        .filter(unUsuario -> unUsuario.getUsuario()
+            .equals(req.session().attribute("usuario"))).findFirst();
+    Usuario usuario;
+    if(optionalUsuario.isPresent()) {
+      usuario = optionalUsuario.get();
+    } else {
+      throw new RuntimeException();
+    }
+
+		List<Mascota> mascotas = usuario.getDuenio().getMascotas();
+
+		model.put("mascotas", mascotas);
+		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
+	}
 }
