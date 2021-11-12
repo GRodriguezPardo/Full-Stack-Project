@@ -2,38 +2,26 @@
 
 <div class="container">
     <form action="/signup" method="POST">
-        <h2>Crear Usuario</h2>
-        <div class="row">
+            <div class="row">
             <div class="col-sm-4">
-               <h4>Datos de usuario</h4>
-               <h5>Usuario:</h5>
+               <h2>Datos de usuario</h2>
+               <p>A continuación, complete con la información que debera utilizar para ingresar a la plataforma:</p><br>
                <input type="text" id="usuario" name="usuario" placeholder="Usuario"><br><br>
-               <h5>Contraseña:</h5>
                <input type="text" id="contrasenna" name="contrasenna" placeholder="Contraseña"><br><br>
-
             </div>
             <div class="col-sm-4">
-                <h4>Datos sobre vos</h4>
-                <h5>Nombre:</h5>
+                <h2>Datos sobre vos</h2>
+                <p>También necesitamos que nos cuentes un poco sobre vos para:</p><br>
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br><br>
-
-                <h5>Apellido:</h5>
                 <input type="text" id="apellido" name="apellido" placeholder="Apellido"><br><br>
-                <h5>Fecha de Nacimiento:</h5>
-                <input type="text" id="dia" name="dia" placeholder="Dia">
-                <input type="text" id="mes" name="mes" placeholder="Mes">
-                <input type="text" id="anno" name="anno" placeholder="Año">
-
+                <label>Fecha de Nacimiento:</label><br>
+                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento">
             </div>
             <div class="col-sm-4">
-                <h4>Datos de contacto</h4>
-                <h5>Nombre del contacto:</h5>
+                <h2>Datos de contacto</h2>
+                <p>Por ultimo, necesitamos que nos brindes información sobre como contactarte:</p><br>
                 <input type="text" id="nombreContacto" name="nombreContacto" placeholder="Nombre del contacto"><br><br>
-
-                <h5>Email:</h5>
                 <input type="text" id="email" name="email" placeholder="Email"><br><br>
-
-                <h5>Telefono:</h5>
                 <input type="text" id="telefono" name="telefono" placeholder="Telefono"><br><br>
 
                 <label for="favcolor">Medio de notificacion preferido: </label><br>
