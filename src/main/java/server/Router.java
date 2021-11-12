@@ -26,17 +26,17 @@ public class Router {
     Spark.get("/mascotas/encontradas", mascotaController::encontradas, engine);
     Spark.get("/mascotas/perdidas", mascotaController::perdidas, engine);
     Spark.get("/mascotas/mismascotas/nueva", mascotaController::nuevaMascota, engine);
+    Spark.post("/mascotas/mismascotas/nueva", mascotaController::crearMascota);
     Spark.get("/mascotas/mismascotas/:mascota", mascotaController::mascota, engine);
     Spark.get("/mascotas/perdidas/conChapita",  mascotaController::conChapita, engine);
     Spark.get("mascotas/perdidas/sinChapita", mascotaController::sinChapita, engine);
     Spark.post("mascotas/perdidas/conChapita/registrar-mascota-perdida", mascotaController::registrarMascotaConChapita);
     Spark.post("mascotas/perdidas/sinChapita/registrar-mascota-perdida", mascotaController::registrarMascotaSinChapita);
 
-    Spark.get("mascotas/perdidas/gracias", mascotaController::agradecer,engine);
+    Spark.get("mascotas/perdidas/gracias", mascotaController::agradecer, engine);
 
     Spark.get("/mascotas", mascotaController::listado);
-    Spark.post("/mascotas/crear",mascotaController::crearMascota);
 
-    Spark.get("/ejemploclase",home::ejemploClase);
+    Spark.get("/ejemploclase", home::ejemploClase);
   }
 }
