@@ -17,10 +17,12 @@ import repositorios.RepositorioDeUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import java.util.HashMap;
+
+import java.awt.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MascotaController implements WithGlobalEntityManager, TransactionalOps {
   private final static  MascotaController INSTANCE = new MascotaController();
@@ -52,34 +54,48 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(null, "mascotasPerdidas/sinChapita.html.hbs");
   }
 
+  public ModelAndView agradecer(Request request, Response response) {
+    return new ModelAndView(null, "mascotasPerdidas/gracias.html.hbs");
+  }
+
   public ModelAndView mascota(Request request, Response response) {
     return new ModelAndView(null, "mascotasRegistradas/mascota.html.hbs");
   }
 
   public Void registrarMascotaSinChapita(Request request, Response response){
 
-    Posicion pos = new Posicion();
-    //List<Image> imagenes= new ArrayList<Image>("url1" , "url2", "url3");
+    Posicion pos = new Posicion();//todo castear el string o lo que venga de la posicion de google
 
+    List<Image> imagenes= new ArrayList<Image>();// TODO castear de url a Image
+    Image image1 = null;
+    Image image2 = null;
+    Image image3 = null;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     PersonaBuilder persona = new PersonaBuilder();
     try{
 
       persona.setNombreYApellido("nombre");
-      if("MedioDeNotificacion" == "SMS") {
-        TwilioJava contacto = new TwilioJava("telefono", "a", "11");
+
+      if(request.queryParams("MedioDeNotificacion") == "SMS") {
+
+        TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
         Smser smser = new Smser(contacto);
         persona.agregarMedioNotificacion(smser);
-      }else if ("MedioDeNotificacion" == "email"){
-        JavaXMail contactomail = new JavaXMail("mimail@.com","contrasenia");//TODO
+      }else if (request.queryParams("MedioDeNotificacion") == "email"){
+
+        JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
         Mailer mailer = new Mailer(contactomail);
         persona.agregarMedioNotificacion(mailer);
       }
 
-      MascotaPerdida mascota = new MascotaPerdida("estado",null, pos);
-      Rescatista rescate = new Rescatista(persona.crearPersona(), null/*"fecha"*/, mascota);
+      LocalDate fecha = LocalDate.parse(request.queryParams("fecha"), formatter);
 
-      PublicacionMascotaPerdida publicacionAGnerear = new PublicacionMascotaPerdida(rescate);
+      MascotaPerdida mascota = new MascotaPerdida(request.queryParams("estado"),imagenes, pos);
+      Rescatista rescate = new Rescatista(persona.crearPersona(), fecha, mascota);
+
+      PublicacionMascotaPerdida publicacionAGenerear = new PublicacionMascotaPerdida(rescate);
 
       withTransaction(() -> {
         RepositorioDeRescates.getInstance().agregarRescate(rescate);
@@ -91,8 +107,20 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
     response.status(200);
     response.body("OK");
-    response.redirect("/mascotas/sinChapita");
+    response.redirect("/mascotas/perdidas/gracias");
     return null;
+  }
+
+  public Void registrarMascotaConChapita(Request request, Response response) {
+
+
+
+
+    response.status(200);
+    response.body("OK");
+    response.redirect("/gracias");
+    return null;
+
   }
 
   public Void crearMascota(Request request, Response response) {
@@ -157,8 +185,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 		model.put("mascotas", mascotas);
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
- public Void registrarMascotaConChapita(Request request, Response response) {
 
-    return null;
-  }
+
 }
