@@ -7,7 +7,9 @@
           <ul>
            <li>
                {#caracteristicas}
-               {Valor} <imput type="button" id="caracteristica" value="Eliminar">  </imput>
+               <form action="/caracteristicas/crear" method="DELETE">
+                   <input type="button" id="borrar" value="eliminar"> algo {Valor}
+               </form>
                {/caracteristicas}
            </li>
           </ul>
