@@ -14,9 +14,9 @@ public class Router {
     MascotaController mascotaController = MascotaController.instance();
     LoginController loginController = new LoginController();
 
-    Spark.get("/",home::index,engine);
+    Spark.get("/", home::index, engine);
     Spark.get("/login", loginController::show, engine);
-    Spark.get("/error",home::error,engine);
+    Spark.get("/error", home::error, engine);
     Spark.post("/login", loginController::login, engine);
     Spark.get("/signup", loginController::showSignUp, engine);
     Spark.post("/signup", loginController::signUp, engine);
