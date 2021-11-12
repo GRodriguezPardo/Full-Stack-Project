@@ -1,0 +1,54 @@
+{{#partial "contenido"}}
+
+<div class="container">
+    <form action="/signup" method="POST">
+        <h2>Crear Usuario</h2>
+        <div class="row">
+            <div class="col-sm-4">
+               <h4>Datos de usuario</h4>
+               <h5>Usuario:</h5>
+               <input type="text" id="usuario" name="usuario" placeholder="Usuario"><br><br>
+               <h5>Contraseña:</h5>
+               <input type="text" id="contrasenna" name="contrasenna" placeholder="Contraseña"><br><br>
+
+            </div>
+            <div class="col-sm-4">
+                <h4>Datos sobre vos</h4>
+                <h5>Nombre:</h5>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br><br>
+
+                <h5>Apellido:</h5>
+                <input type="text" id="apellido" name="apellido" placeholder="Apellido"><br><br>
+                <h5>Fecha de Nacimiento:</h5>
+                <input type="text" id="dia" name="dia" placeholder="Dia">
+                <input type="text" id="mes" name="mes" placeholder="Mes">
+                <input type="text" id="anno" name="anno" placeholder="Año">
+
+            </div>
+            <div class="col-sm-4">
+                <h4>Datos de contacto</h4>
+                <h5>Nombre del contacto:</h5>
+                <input type="text" id="nombreContacto" name="nombreContacto" placeholder="Nombre del contacto"><br><br>
+
+                <h5>Email:</h5>
+                <input type="text" id="email" name="email" placeholder="Email"><br><br>
+
+                <h5>Telefono:</h5>
+                <input type="text" id="telefono" name="telefono" placeholder="Telefono"><br><br>
+
+                <label for="favcolor">Medio de notificacion preferido: </label><br>
+                <input type="radio" id="medioNotificacion" name="medioNotificacion" value="email">
+                <label for="html">Email</label>
+                <input type="radio" id="medioNotificacion" name="medioNotificacion" value="telefono">
+                <label for="css">Telefono</label><br><br>
+            </div>
+        </div>
+        <div class="text-center" >
+            <input type="submit" value="Crear Usuario">
+        </div>
+    </form>
+</div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}
