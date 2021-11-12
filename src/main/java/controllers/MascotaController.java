@@ -113,9 +113,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public Void registrarMascotaConChapita(Request request, Response response) {
 
-
-
-
     response.status(200);
     response.body("OK");
     response.redirect("/gracias");
