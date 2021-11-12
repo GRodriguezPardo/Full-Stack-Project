@@ -23,6 +23,8 @@ public class JavaXMail extends PersistenceId {
     this.clave = clave; //"HolaComoEstas"
   }
 
+
+
   public void setearNuevoRemitente(String remitente, String clave) {
     this.remitente = remitente;
     this.clave = clave;

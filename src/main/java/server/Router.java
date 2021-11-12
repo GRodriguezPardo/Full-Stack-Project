@@ -23,7 +23,11 @@ public class Router {
     Spark.get("/mascotas/registrar",mascotaController::registrar,engine);
     Spark.get("/mascotas/perdidas",mascotaController::perdidas,engine);
     Spark.get("/mascotas/:mascota",mascotaController::mascota,engine);
+
     Spark.get("/mascotas/perdidas/conChapita", mascotaController::conChapita,engine);
+    Spark.get("mascotas/perdidas/sinChapita",mascotaController::sinChapita,engine);
+    Spark.post("mascotas/perdidas/conChapita/registrar-mascota-perdida",mascotaController::registrarMascotaConChapita);
+    Spark.post("mascotas/perdidas/sinChapita/registrar-mascota-perdida",mascotaController::registrarMascotaSinChapita);
 
     Spark.get("/mascotas",mascotaController::listado);
     Spark.post("/mascotas/crear",mascotaController::crearMascota);

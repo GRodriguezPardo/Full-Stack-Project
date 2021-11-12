@@ -11,7 +11,7 @@ public class Posicion {
     this.longitud = longitud;
     this.latitud = latitud;
   }
-  protected Posicion() {
+  public Posicion() {
     this.longitud = new Double(0);
     this.latitud = new Double(0);
   }
