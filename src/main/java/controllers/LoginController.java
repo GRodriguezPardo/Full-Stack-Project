@@ -6,6 +6,10 @@ import apis.MedioNotificacion;
 import apis.Smser;
 import apis.TwilioJava;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.Contacto;
@@ -19,6 +23,12 @@ import spark.Request;
 import spark.Response;
 
 public class LoginController implements WithGlobalEntityManager, TransactionalOps {
+
+  public Map<String, Object> obtenerSesion(Request request, Response response){
+    Map<String, Object> model = new HashMap<>();
+    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    return model;
+  }
 
   public ModelAndView login(Request request, Response response) {
     if(RepositorioDeUsuarios.getInstance()
@@ -39,11 +49,11 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
   }
 
   public ModelAndView show(Request request, Response response) {
-    return new ModelAndView(null, "login/login.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "login/login.html.hbs");
   }
 
   public ModelAndView showSignUp(Request request, Response response) {
-    return new ModelAndView(null, "login/signUp.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "login/signUp.html.hbs");
   }
 
   public ModelAndView signUp(Request request, Response response) {
@@ -92,5 +102,17 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
       return new Smser(new TwilioJava("id", "a", "11"));
     }
     throw new RuntimeException();
+  }
+
+  public ModelAndView manualSetSessionId(Request req, Response res) {
+    req.session().attribute("user_id", 1);
+    res.redirect("/");
+    return null;
+  }
+
+  public ModelAndView logout(Request req, Response res) {
+    req.session().attribute("user_id", null);
+    res.redirect("/");
+    return null;
   }
 }

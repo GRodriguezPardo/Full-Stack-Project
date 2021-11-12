@@ -37,6 +37,8 @@ public class Router {
 
     Spark.get("/mascotas", mascotaController::listado);
 
-    Spark.get("/ejemploclase", home::ejemploClase);
+    Spark.get("/ejemploclase", home::ejemploClase, engine);
+    Spark.get("/manualsetsession", loginController::manualSetSessionId, engine);
+    Spark.get("/logout", loginController::logout, engine);
   }
 }

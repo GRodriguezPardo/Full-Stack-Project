@@ -34,32 +34,42 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return INSTANCE;
   }
 
+  public Map<String, Object> obtenerSesion(Request request, Response response){
+    Map<String, Object> model = new HashMap<>();
+    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    return model;
+  }
+
   public ModelAndView encontradas(Request request, Response response) {
-    return new ModelAndView(null, "mascotasPerdidas/encontradas.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/encontradas.html.hbs");
   }
 
   public ModelAndView nuevaMascota(Request request, Response response) {
-    return new ModelAndView(null, "mascotasRegistradas/nuevaMascota.html.hbs");
+    if(Objects.isNull(request.session().attribute("user_id"))) {
+      response.redirect("/login");
+      return null;
+    }
+    return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/nuevaMascota.html.hbs");
   }
 
   public ModelAndView perdidas(Request request, Response response) {
-    return new ModelAndView(null, "mascotasPerdidas/perdidas.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/perdidas.html.hbs");
   }
 
   public ModelAndView conChapita(Request request, Response response) {
-    return new ModelAndView(null, "mascotasPerdidas/conChapita.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/conChapita.html.hbs");
   }
 
   public ModelAndView sinChapita(Request request, Response response) {
-    return new ModelAndView(null, "mascotasPerdidas/sinChapita.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/sinChapita.html.hbs");
   }
 
   public ModelAndView agradecer(Request request, Response response) {
-    return new ModelAndView(null, "mascotasPerdidas/gracias.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/gracias.html.hbs");
   }
 
   public ModelAndView mascota(Request request, Response response) {
-    return new ModelAndView(null, "mascotasRegistradas/mascota.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/mascota.html.hbs");
   }
 
   public Void registrarMascotaSinChapita(Request request, Response response){
@@ -168,7 +178,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
   }
 
   public ModelAndView listarMascotas(Request req, Response res) {
-		Map<String, List<Mascota>> model = new HashMap<>();
+		Map<String, Object> model = new HashMap<>();
     Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
         .usuarios().stream()
         .filter(unUsuario -> unUsuario.getUsuario()
@@ -183,6 +193,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 		List<Mascota> mascotas = usuario.getDuenio().getMascotas();
 
 		model.put("mascotas", mascotas);
+    model.put("sesioniniciada", Objects.isNull(req.session().attribute("user_id")));
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
 

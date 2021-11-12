@@ -21,8 +21,12 @@
          </div>
          <div>
            <ul class="nav navbar-nav">
+           {{#if sesioniniciada}}
              <li><a style="cursor:pointer" href="/login">Log In</a></li>
              <li><a style="cursor:pointer" href="/signup">Sign Up</a></li>
+           {{else}}
+             <li><a style="cursor:pointer" href="/logout">Log Out</a></li>
+           {{/if}}
              <li><a style="cursor:pointer" href="/aboutus">AboutUs</a></li>
           </ul>
          </div>
