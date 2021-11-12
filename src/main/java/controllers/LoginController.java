@@ -21,8 +21,20 @@ import spark.Response;
 public class LoginController implements WithGlobalEntityManager, TransactionalOps {
 
   public ModelAndView login(Request request, Response response) {
-    request.session().attribute("user", 1);
-    response.redirect("/");
+    if(RepositorioDeUsuarios.getInstance()
+            .comprobarClave(
+                request.queryParams("usuario"),
+                request.queryParams("contrasenna")
+            )) {
+      Usuario usuario = RepositorioDeUsuarios.getInstance()
+          .usuarios().stream()
+          .filter(unUsuario -> unUsuario.getUsuario().equals(request.queryParams("usuario")))
+          .findFirst().get();
+      request.session().attribute("user_id", usuario.getId());
+      response.redirect("/");
+    } else {
+      response.redirect("/login");
+    }
     return null;
   }
 
