@@ -14,9 +14,7 @@ public class TwilioJava extends PersistenceId {
   public String authToken;
   public String senderNumber;
 
-  public TwilioJava(String id, String token, String number) {
-    this.accountSid = id;
-    this.authToken = token;
+  public TwilioJava( String number) {
     this.senderNumber = number;
     if (this.authToken == null || this.accountSid == null || this.senderNumber == null) {
       throw new FaltanDatosException("Falta indicar algun dato de los 3 pedidos");

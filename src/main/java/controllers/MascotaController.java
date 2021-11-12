@@ -1,8 +1,15 @@
 package controllers;
 
+import apis.JavaXMail;
+import apis.Mailer;
+import apis.Smser;
+import apis.TwilioJava;
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import personas.PersonaBuilder;
+import personas.Posicion;
+import personas.Rescatista;
 import personas.Usuario;
 import repositorios.RepositorioDeMascotas;
 import repositorios.RepositorioDeRescates;
@@ -10,8 +17,6 @@ import repositorios.RepositorioDeUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +48,51 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(null, "mascotasPerdidas/conChapita.html.hbs");
   }
 
+  public ModelAndView sinChapita(Request request, Response response) {
+    return new ModelAndView(null, "mascotasPerdidas/sinChapita.html.hbs");
+  }
+
   public ModelAndView mascota(Request request, Response response) {
     return new ModelAndView(null, "mascotasRegistradas/mascota.html.hbs");
+  }
+
+  public Void registrarMascotaSinChapita(Request request, Response response){
+
+    Posicion pos = new Posicion();
+    //List<Image> imagenes= new ArrayList<Image>("url1" , "url2", "url3");
+
+
+    PersonaBuilder persona = new PersonaBuilder();
+    try{
+
+      persona.setNombreYApellido("nombre");
+      if("MedioDeNotificacion" == "SMS") {
+        TwilioJava contacto = new TwilioJava("telefono");
+        Smser smser = new Smser(contacto);
+        persona.agregarMedioNotificacion(smser);
+      }else if ("MedioDeNotificacion" == "email"){
+        JavaXMail contactomail = new JavaXMail("mimail@.com","contrasenia");//TODO
+        Mailer mailer = new Mailer(contactomail);
+        persona.agregarMedioNotificacion(mailer);
+      }
+
+      MascotaPerdida mascota = new MascotaPerdida("estado",null, pos);
+      Rescatista rescate = new Rescatista(persona.crearPersona(), null/*"fecha"*/, mascota);
+
+      PublicacionMascotaPerdida publicacionAGnerear = new PublicacionMascotaPerdida(rescate);
+
+      withTransaction(() -> {
+        RepositorioDeRescates.getInstance().agregarRescate(rescate);
+      });
+
+    }catch (RuntimeException e){
+      response.redirect("/error");
+    }
+
+    response.status(200);
+    response.body("OK");
+    response.redirect("/mascotas/sinChapita");
+    return null;
   }
 
   public Void crearMascota(Request request, Response response) {
@@ -109,4 +157,8 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 		model.put("mascotas", mascotas);
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
+ public Void registrarMascotaConChapita(Request request, Response response) {
+
+    return null;
+  }
 }
