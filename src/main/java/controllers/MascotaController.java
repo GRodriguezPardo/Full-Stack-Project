@@ -67,7 +67,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
       persona.setNombreYApellido("nombre");
       if("MedioDeNotificacion" == "SMS") {
-        TwilioJava contacto = new TwilioJava("telefono");
+        TwilioJava contacto = new TwilioJava("telefono", "a", "11");
         Smser smser = new Smser(contacto);
         persona.agregarMedioNotificacion(smser);
       }else if ("MedioDeNotificacion" == "email"){

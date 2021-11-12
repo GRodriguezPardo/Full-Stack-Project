@@ -77,7 +77,7 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
       return new Mailer(new JavaXMail("usuario", "contraseña"));
     }
     if (req.queryParams("medioNotificacion").equals("telefono")) {
-      return new Smser(new TwilioJava("id", "token", "number"));
+      return new Smser(new TwilioJava("id", "a", "11"));
     }
     throw new RuntimeException();
   }

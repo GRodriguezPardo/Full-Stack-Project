@@ -29,14 +29,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
   }
 
   private void init() {
-
     withTransaction(() -> {
       entityManager().persist(this.unUsuario("UsurarioComun","clave", this.duenio()));
     });
   }
 
   MedioNotificacion emailSender = new Mailer(new JavaXMail("A","A"));
-  MedioNotificacion smsSender = new Smser(new TwilioJava("1" ,"a", "11"));
+  MedioNotificacion smsSender = new Smser(new TwilioJava("1", "a", "11"));
 
   MedioNotificacion getEmailSenderMock() {
     return this.emailSender;
