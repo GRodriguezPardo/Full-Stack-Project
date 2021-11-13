@@ -46,6 +46,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public ModelAndView nuevaMascota(Request request, Response response) {
     if(Objects.isNull(request.session().attribute("user_id"))) {
+      //request.session().attribute("origen", "");
       response.redirect("/login");
       return null;
     }
@@ -122,10 +123,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
   }
 
   public Void registrarMascotaConChapita(Request request, Response response) {
-
-
-
-
     response.status(200);
     response.body("OK");
     response.redirect("/gracias");
@@ -141,9 +138,10 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setApodo(request.queryParams("apodo"));
       mascota.setNombre(request.queryParams("nombre"));
       mascota.setTamanio(this.analizarTamanio(request.queryParams("tamanno")));
-      mascota.setEspecie((request.queryParams("especie").equals("gato")) ? Especie.GATO : Especie.PERRO);
+      mascota.setEspecie(Especie.valueOf(request.queryParams("especie")));
+
       mascota.setEdad(Short.parseShort("7"));
-      mascota.setSexo((request.queryParams("sexo").equals("hembra")) ? Sexo.HEMBRA : Sexo.MACHO);
+      mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
       withTransaction(() -> {
         RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota());
@@ -187,7 +185,8 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     if(optionalUsuario.isPresent()) {
       usuario = optionalUsuario.get();
     } else {
-      throw new RuntimeException();
+      res.redirect("/error");
+      return null;
     }
 
 		List<Mascota> mascotas = usuario.getDuenio().getMascotas();

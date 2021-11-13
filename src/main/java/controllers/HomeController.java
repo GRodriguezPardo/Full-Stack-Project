@@ -17,7 +17,7 @@ public class HomeController {
   // ir al login nuevamentes
   public Map<String, Object> obtenerSesion(Request request, Response response){
     Map<String, Object> model = new HashMap<>();
-    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
     return model;
   }
 

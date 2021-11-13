@@ -20,6 +20,6 @@ public class RepositorioDeMascotas implements WithGlobalEntityManager {
   }
 
   public List<Mascota> obtenerListado() {
-    return entityManager().createQuery("select a from mascota a",Mascota.class).getResultList();
+    return entityManager().createQuery("select a from Mascota a",Mascota.class).getResultList();
   }
 }

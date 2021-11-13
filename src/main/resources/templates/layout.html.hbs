@@ -2,7 +2,7 @@
 <header>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/estilos.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </header>
 <body>
-    <div style="background-color:#45B6FE;color:white;font-family:'Brush Script MT',cursive;" class="jumbotron text-center">
+    <div style="background-color:#45B6FE;font-family:'Brush Script MT',cursive;" class="jumbotron text-center text-white">
        <h1>Rescate de Patitas</h1>
     </div>
 
@@ -22,12 +22,12 @@
          <div>
            <ul class="nav navbar-nav">
            {{#if sesioniniciada}}
-             <li><a style="cursor:pointer" href="/login">Log In</a></li>
-             <li><a style="cursor:pointer" href="/signup">Sign Up</a></li>
+             <li><a style="cursor:pointer" href="/logout">Cerrar sesion</a></li>
            {{else}}
-             <li><a style="cursor:pointer" href="/logout">Log Out</a></li>
+             <li><a style="cursor:pointer" href="/login">Iniciar sesion</a></li>
+             <li><a style="cursor:pointer" href="/signup">Crear cuenta</a></li>
            {{/if}}
-             <li><a style="cursor:pointer" href="/aboutus">AboutUs</a></li>
+             <li><a style="cursor:pointer" href="/aboutus">Sobre nosotros</a></li>
           </ul>
          </div>
         </div>

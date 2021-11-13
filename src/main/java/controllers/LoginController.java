@@ -22,6 +22,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+//TODO: Clase que contenga el obtener sesion, del cual el resto herede. En vez de hacer "new ModelAndView" delegar en un metodo.
 public class LoginController implements WithGlobalEntityManager, TransactionalOps {
 
   public Map<String, Object> obtenerSesion(Request request, Response response){
@@ -48,7 +49,12 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
     return null;
   }
 
+  //TODO: ver el tema de mostrar algo segun el origen
   public ModelAndView show(Request request, Response response) {
+    String origen = request.session().attribute("origen");
+    if(!Objects.isNull(origen)) {
+      request.session().removeAttribute("origen");
+    }
     return new ModelAndView(obtenerSesion(request, response), "login/login.html.hbs");
   }
 

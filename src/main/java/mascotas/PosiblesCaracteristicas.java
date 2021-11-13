@@ -63,5 +63,7 @@ public class PosiblesCaracteristicas extends PersistenceId {
   public Caracteristica definirCaracteristica(String nombre) {
     Caracteristica caracteristica = caracteristicas.get(nombre);
     return caracteristica.clonar();
+    //EntityManager..createQuery("select a from PosibleCaracteristica a",PosibleCaracteristica.class).getResultList()...;
+    //return new Caracteristica<String>();
   }
 }
