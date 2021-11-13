@@ -57,26 +57,19 @@ public class Router {
     //TODO: Spark.get("/rescates", mascotaController::encontradas, engine);
     Spark.get("/mascotas/encontradas", mascotaController::encontradas, engine);
 
-    //TODO: Spark.get("/rescates/nueva", mascotaController::perdidas, engine);
-    Spark.get("/mascotas/perdidas", mascotaController::perdidas, engine);
+    Spark.get("/rescates/nueva", mascotaController::perdidas, engine);
 
-    //TODO: Spark.get("/rescates/nueva/sinChapita", mascotaController::sinChapita, engine);
-    Spark.get("/mascotas/perdidas/sinChapita", mascotaController::sinChapita, engine);
+    Spark.get("/rescates/nueva/sinChapita", mascotaController::sinChapita, engine);
 
-    //TODO: Spark.post("/rescates", mascotaController::registrarMascotaSinChapita, engine);
-    Spark.post("/mascotas/perdidas/sinChapita/registrar-mascota-perdida", mascotaController::registrarMascotaSinChapita);
+    Spark.post("/rescates", mascotaController::registrarMascotaSinChapita);
 
-    //TODO: Spark.get("/rescates/nueva/conChapita/detalles", mascotaController::conChapita, engine);
-    Spark.get("/mascotas/perdidas/conChapita",  mascotaController::conChapita, engine);
+    Spark.get("/rescates/nueva/conChapita/detalles",  mascotaController::conChapita, engine);
 
-    //TODO: se cambia por lo de abajo
-    Spark.post("/mascotas/perdidas/conChapita/registrar-mascota-perdida", mascotaController::registrarMascotaConChapita);
+    Spark.post("/mascotas/:id/rescates", mascotaController::registrarMascotaConChapita);
 
-    //TODO: Spark.get("/mascotas/:id/rescates/nueva", mascotaController::perdidas, engine); FORM MASCOTA CON CHAPITA
-    //TODO: Spark.post("/mascotas/:id/rescates", mascotaController::registrarMascotaConChapita, engine); POST RESCATE MASCOTA CON CHAPITA
+    Spark.get("/mascotas/:id/rescates/nueva", mascotaController::perdidas, engine); //TODO FORM MASCOTA CON CHAPITA
 
-    //TODO: Spark.get("/rescates/gracias", mascotaController::agradecer, engine);
-    Spark.get("/mascotas/perdidas/gracias", mascotaController::agradecer, engine);
+    Spark.get("/rescates/gracias", mascotaController::agradecer, engine);
 
     //------------------------------------------------------------------------------------//
 

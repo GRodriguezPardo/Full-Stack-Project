@@ -4,13 +4,12 @@ import apis.JavaXMail;
 import apis.Mailer;
 import apis.Smser;
 import apis.TwilioJava;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
-import personas.PersonaBuilder;
-import personas.Posicion;
-import personas.Rescatista;
-import personas.Usuario;
+import personas.*;
+import repositorios.RepositorioDeAsociaciones;
 import repositorios.RepositorioDeMascotas;
 import repositorios.RepositorioDeRescates;
 import repositorios.RepositorioDeUsuarios;
@@ -75,46 +74,49 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public Void registrarMascotaSinChapita(Request request, Response response){
 
-    Posicion pos = new Posicion();//todo castear el string o lo que venga de la posicion de google
+    //aagrego asociacion para testear TODO sacar despues
+    Asociacion asociacion = new Asociacion(new Posicion(30,25));
+    RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion);
 
-    List<Image> imagenes= new ArrayList<Image>();// TODO castear de url a Image
-    Image image1 = null;
-    Image image2 = null;
-    Image image3 = null;
-
+    List<Image> imagenes= new ArrayList<>();// TODO castear de url a Image
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     PersonaBuilder persona = new PersonaBuilder();
-    try{
+    Image image = null;
+    imagenes.add(image);
+   // try{
 
       persona.setNombreYApellido("nombre");
+      persona.setFechaNacimiento(LocalDate.now());
+      persona.agregarContacto(new Contacto("matias", "11", "mail"));
 
-      if(request.queryParams("MedioDeNotificacion") == "SMS") {
+      if(request.queryParams("SMS") != null) {
 
         TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
         Smser smser = new Smser(contacto);
         persona.agregarMedioNotificacion(smser);
-      }else if (request.queryParams("MedioDeNotificacion") == "email"){
+      }else if (request.queryParams("mail") != null){
 
         JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
         Mailer mailer = new Mailer(contactomail);
         persona.agregarMedioNotificacion(mailer);
       }
 
+      Posicion pos = new Posicion(Double.parseDouble(request.queryParams("longitud")),Double.parseDouble(request.queryParams("latitud")));
       LocalDate fecha = LocalDate.parse(request.queryParams("fecha"), formatter);
 
       MascotaPerdida mascota = new MascotaPerdida(request.queryParams("estado"),imagenes, pos);
-      Rescatista rescate = new Rescatista(persona.crearPersona(), fecha, mascota);
+      Rescatista rescate = new Rescatista(persona.crearPersona(), fecha , mascota);
 
       PublicacionMascotaPerdida publicacionAGenerear = new PublicacionMascotaPerdida(rescate);
 
       withTransaction(() -> {
         RepositorioDeRescates.getInstance().agregarRescate(rescate);
+        RepositorioDeAsociaciones.getInstance().asociacionMasCercana(publicacionAGenerear).agregarPublicacionMascotaPerdida(publicacionAGenerear);
       });
 
-    }catch (RuntimeException e){
+    /*}catch (RuntimeException e){
       response.redirect("/error");
-    }
+    }*/
 
     response.status(200);
     response.body("OK");
@@ -123,9 +125,12 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
   }
 
   public Void registrarMascotaConChapita(Request request, Response response) {
+
+    request.queryParams("qr");
+
     response.status(200);
     response.body("OK");
-    response.redirect("/gracias");
+    response.redirect("/mascotas/perdidas/gracias");
     return null;
 
   }
