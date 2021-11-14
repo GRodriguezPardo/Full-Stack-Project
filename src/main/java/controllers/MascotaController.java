@@ -83,7 +83,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     PersonaBuilder persona = new PersonaBuilder();
     Image image = null;
     imagenes.add(image);
-   // try{
+    //try{
 
       persona.setNombreYApellido("nombre");
       persona.setFechaNacimiento(LocalDate.now());
@@ -114,13 +114,13 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
         RepositorioDeAsociaciones.getInstance().asociacionMasCercana(publicacionAGenerear).agregarPublicacionMascotaPerdida(publicacionAGenerear);
       });
 
-    /*}catch (RuntimeException e){
-      response.redirect("/error");
-    }*/
+    //}catch (RuntimeException e){
+    //  response.redirect("/error");
+    //}
 
     response.status(200);
     response.body("OK");
-    response.redirect("/mascotas/perdidas/gracias");
+    response.redirect("/rescates/gracias");
     return null;
   }
 

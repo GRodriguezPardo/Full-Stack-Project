@@ -5,10 +5,7 @@ import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 import persistence.PersistenceId;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,15 +15,15 @@ import java.util.stream.Collectors;
 @Entity
 public class Asociacion extends PersistenceId {
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
