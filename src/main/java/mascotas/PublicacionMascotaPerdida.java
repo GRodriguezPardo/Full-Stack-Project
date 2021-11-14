@@ -21,6 +21,9 @@ public class PublicacionMascotaPerdida extends PersistenceId {
     this.aprobado = false;
   }
 
+  public PublicacionMascotaPerdida(){//todo ver si queda este cronstructor
+    this.rescatista = null;
+  }
   public void aprobar() {
     this.aprobado = true;
   }

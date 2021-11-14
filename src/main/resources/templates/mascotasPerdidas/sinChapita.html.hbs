@@ -1,49 +1,58 @@
+
 {{#partial "contenido"}}
-<form action="/mascotas/perdidas/sinchapita/registrar" method="POST">
+
+
     <div class="container">
+        <form action="/rescates" method="POST">
+
         <div class="row">
             <div class="col-sm-4">
                 <h2>Datos del rescatista</h2>
                 <p>Por favor, complete con sus datos personales:</p>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br><br>
-                <input type="text" id="domicilio" name="domicilio" placeholder="Domicilio"><br><br>
-                <p>Datos para contactarlo:</p>
-                <input type="text" id="email" name="email" placeholder="Email"><br><br>
+
+                    <input type="text" id="email" name="email" placeholder="email"><br><br>
+                    <input type="text" id="nombre" name="nombre" placeholder="nombre"><br><br>
+                    <input type="text" id="domicilio" name="domicilio" placeholder="domicilio"><br><br>
+                   <p>fecha en la que encontro a la mascota</p>
+                   <!--  <input type="date" id="fecha" name="fecha"> <br><br> -->
+                <input type="text" id="fecha" name="fecha" placeholder="dd/mm/aaaa"><br><br>
+                <label for="favcolor">Prefencia de contacto: </label>
+                <input type="radio" id="mail" name="mail" value="Email">
+                <label for="html">Email</label>
+                <input type="radio" id="SMS" name="SMS" value="SMS">
+                <label for="css">SMS</label><br><br>
+            </div>
+            <div class="col-sm-4">
+                <br><br>
                 <input type="text" id="telefono" name="telefono" placeholder="Telefono"><br><br>
+                <input type="text" id="estado" name="estado" placeholder="Estado de la mascota" ><br><br>Incluya fotos de la mascota</label><br><br>
+               <!-- <div class="input-group mb-3">
+                    <input type="file" id="ulr1" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">
+                </div><br>
                 <div class="input-group mb-3">
-                    <select class="form-select" id="MedioDeNotificacion"><br>
-                        <option selected>Medio de Preferencia</option>
-                        <option value="email">Email</option>
-                        <option value="SMS">SMS</option>
-                    </select>
-                    <label class="input-group-text" for="inputGroupSelect02"></label>
-                </div>
+                    <input type="file" id="url2" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">
+                </div><br>
+                <div class="input-group mb-3">
+                    <input type="file" id="url3" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">
+                </div><br> URL DE LAS IMAGENES-->
+                <br><br><br><br>
+                <a class="btn-confirmacion" href="/rescates" role="button"></a>
+                <input class= "btn-confirmacion" type="submit" value="Confirmar">
+
+
             </div>
-
             <div class="col-sm-4">
-                <h2>Datos de la mascota</h2>
-                <p>También, necesitamos que complete datos de la mascota encontrada:</p>
-                <label>Fecha en la que encontró a la mascota</label>
-                <input type="date" id="fecha" name="trip-start"> <br><br>
-
-                <input type="text" id="estado" name="estado" placeholder="Estado de la mascota" ><br><br>
-                <form>
-                    <label for="myfile">Selecciones las imágenes a subir:</label>
-                    <input type="file" id="file1" name="Imagen 1"><br>
-                    <input type="file" id="file2" name="Imagen 2"><br>
-                    <input type="file" id="file3" name="Imagen 3"><br>
-                </form>
-            </div>
-
-            <div class="col-sm-4">
-                <h2>Datos de Ubicación</h2>
-                <p>Y para terminar, la ubicación de donde encontró a la mascota</p>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26264.35553387357!2d-58.451558399999996!3d-34.628317200000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc988ce0d740d%3A0x602044467b90ba52!2sMcDonald&#39;s!5e0!3m2!1ses!2sar!4v1636536590808!5m2!1ses!2sar" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <p>seleccione la ubicación de donde encontro a la mascota</p><br>
+                <input type="text" id="latitud" name="latitud" placeholder="Latitud de la ubicacion"><br><br>
+                <input type="text" id="longitud" name="longitud" placeholder="Longitud de la ubicacion"><br><br>
             </div>
         </div>
-        <input type="submit" value="Confirmar">
+        </form>
     </div>
-</form>
+
 {{/partial}}
 
 {{>layout.html.hbs}}

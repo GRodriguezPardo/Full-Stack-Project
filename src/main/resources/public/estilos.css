@@ -1,0 +1,11 @@
+.text-white {
+    color: white;
+}
+
+.home-image {
+    position:relative;
+    width:250px;
+    height:290px;
+    border-radius:4px ;
+    overflow:hidden;
+}

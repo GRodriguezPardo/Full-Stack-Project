@@ -24,10 +24,10 @@ public class Persona extends PersistenceId {
   @Column
   private final LocalDate fechaNacimiento;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   private final List<Contacto> contactos = new ArrayList<>();
 
-  @ManyToMany //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
+  @ManyToMany(cascade = {CascadeType.ALL}) //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**
@@ -62,6 +62,11 @@ public class Persona extends PersistenceId {
     this.fechaNacimiento = _fechaNacimiento;
     this.contactos.addAll(_contacto);
     this.agregarMedioNotificacion(_medioNotificacion);
+  }
+
+  public Persona(){//todo ver si queda este cronstructor
+    nombreYApellido = null ;
+    fechaNacimiento = null;
   }
 
   /**

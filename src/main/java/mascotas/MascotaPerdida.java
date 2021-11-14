@@ -45,6 +45,12 @@ public class MascotaPerdida extends PersistenceId {
     this.posicion = posicion;
   }
 
+  public MascotaPerdida(){//todo ver si queda este constructor
+    posicion= null;
+    descripcionEstado = null;
+    fotos = null;
+  }
+
   public String getDescripcionEstado() {
     return descripcionEstado;
   }

@@ -6,7 +6,10 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CaracteristicaController {
@@ -19,6 +22,12 @@ public class CaracteristicaController {
     return INSTANCE;
   }
 
+  public Map<String, Object> obtenerSesion(Request request, Response response){
+    Map<String, Object> model = new HashMap<>();
+    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    return model;
+  }
+
   public ModelAndView caracteristicas(Request request, Response response) {
     List<String> caracteristicas = RepositorioDeMascotas.instance().obtenerListado()
             .stream().flatMap(m -> m.getCaracteristicas().keySet().stream()).collect(Collectors.toList());
@@ -27,11 +36,11 @@ public class CaracteristicaController {
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null, "caracteristicas/agregadoCaracteristica.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-    return new ModelAndView(null, "caracteristicas/eliminacionCaracteristica.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
   }
 
 }

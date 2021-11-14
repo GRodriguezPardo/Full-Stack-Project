@@ -4,6 +4,9 @@ import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
 import javax.persistence.Entity;
 
+//TODO: Separar las posibles caracteristicas de las caracteristicas de cada mascota
+// class
+
 /**
  * Clase template utilizada para definir a una caracteristica.
  * La clase posee un unico atributo cuyo tipo sera el pasado por parametro.
@@ -12,7 +15,7 @@ import javax.persistence.Entity;
  * @param <T> es el tipo de dato que se le dara al valor contenido en la clase.
  */
 @Entity
-public class Caracteristica<T> extends PersistenceId{
+public class Caracteristica<T> extends PersistenceId {
   @Type(type = "java.lang.String")
   private T valor = null;
 

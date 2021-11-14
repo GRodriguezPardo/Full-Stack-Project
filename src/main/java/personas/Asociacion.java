@@ -1,14 +1,12 @@
 package personas;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
 import persistence.PersistenceId;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,15 +16,15 @@ import java.util.stream.Collectors;
 @Entity
 public class Asociacion extends PersistenceId {
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name="Asociacion_Id")
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
@@ -38,6 +36,12 @@ public class Asociacion extends PersistenceId {
 
   public Asociacion(Posicion posicion) {
     this.posicion = posicion;
+    this.publicacionesDeMascotasPerdidas = new ArrayList<>();
+    this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
+    this.publicacionInteresadoEnAdopcion = new ArrayList<>();
+  }
+  public Asociacion(){//todo ver si queda este cronstructor
+    posicion = null;
     this.publicacionesDeMascotasPerdidas = new ArrayList<>();
     this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
     this.publicacionInteresadoEnAdopcion = new ArrayList<>();

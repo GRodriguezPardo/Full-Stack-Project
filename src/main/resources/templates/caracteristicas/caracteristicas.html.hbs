@@ -7,7 +7,9 @@
           <ul>
            <li>
                {#caracteristicas}
-               {Valor}
+               <form action="/caracteristicas/crear" method="DELETE">
+                   <input type="button" id="borrar" value="eliminar"> algo {Valor}
+               </form>
                {/caracteristicas}
            </li>
           </ul>
@@ -23,16 +25,6 @@
 
                 <input type="submit" value="Confirmar">
             </form>  </div>
-        <div class="col-sm-4">
-            <h2>Eliminar caracteristica</h2>
-            <p>Por favor, complete los datos que se mencionan a continuación:</p>
-            <form action="/caracteristicas/borrar" method="GET">
-
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre de la caracteristica"><br><br>
-
-                <input type="submit" value="Confirmar">
-            </form>
-        </div>
     </div>
 </div>
 

@@ -110,7 +110,7 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       return false;
     }
     return !entityManager()
-				.createQuery("select a from Admin a where usuario = :usuario and clave =:clave")
+				.createQuery("select a from Usuario a where usuario =:usuario and clave =:clave")
 				.setParameter("usuario", usuario)
         .setParameter("clave", clave)
 				.getResultList().isEmpty();

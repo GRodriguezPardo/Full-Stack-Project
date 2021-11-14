@@ -1,0 +1,20 @@
+
+{{#partial "contenido"}}
+
+
+    <div class="container">
+        <form action="/asociacion" method="POST">
+
+            <p>Por favor, complete con la ubicacion de la asociacion:</p>
+
+            <input type="text" id="longitud" name="longitud" placeholder="Longitud"><br><br>
+            <input type="text" id="latitud" name="latitud" placeholder="Latitud"><br><br>
+
+            <a class="boton-aosiacion" href="/asociacion" role="button"></a>
+            <input class= "boton-aosiacion" type="submit" value="Agregar asociacion">
+        </form>
+    </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}
