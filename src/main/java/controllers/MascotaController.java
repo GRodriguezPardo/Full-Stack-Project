@@ -72,11 +72,17 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/mascota.html.hbs");
   }
 
-  public Void registrarMascotaSinChapita(Request request, Response response){
+  public Void registrarAsosiacion(Request request,Response response){
 
-    //aagrego asociacion para testear TODO sacar despues
     Asociacion asociacion = new Asociacion(new Posicion(30,25));
     RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion);
+    response.status(200);
+    response.body("OK");
+    response.redirect("/rescates");
+    return null;
+  }
+
+  public Void registrarMascotaSinChapita(Request request, Response response){
 
     List<Image> imagenes= new ArrayList<>();// TODO castear de url a Image
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -4,6 +4,7 @@ import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import spark.ResponseTransformer;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -76,7 +77,7 @@ public class Router {
     // Utilities
     Spark.get("/ejemploclase", home::ejemploClase, engine);
     Spark.get("/manualsetsession", loginController::manualSetSessionId, engine);
-
+    Spark.post("/add-asociacion", mascotaController::registrarAsosiacion);//todo dejar al menos una asociacion en la base de datos
     /*Spark.after((request, response) -> {
       if(PerThreadEntityManagers.getEntityManager().isOpen()) {
         PerThreadEntityManagers.closeEntityManager();
