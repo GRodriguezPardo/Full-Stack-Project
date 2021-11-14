@@ -5,27 +5,27 @@
         <div class="col-sm-4">
             <h2>Datos Generales</h2>
             <p>Por favor, complete los datos que se mencionan a continuación:</p>
-            <form action="/mascotas/mismascotas/nueva" method="POST">
+            <form action="/mascotas" method="POST">
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre de Mascota"><br><br>
                 <input type="text" id="apodo" name="apodo" placeholder="Apodo de la mascota"><br><br>
 
                 <label for="favcolor">Especie: </label>
-                <input type="radio" id="especie" name="especie" value="perro">
+                <input type="radio" id="especie" name="especie" value="PERRO">
                 <label for="html">Perro</label>
-                <input type="radio" id="especie" name="especie" value="gato">
+                <input type="radio" id="especie" name="especie" value="GATO">
                 <label for="css">Gato</label><br><br>
 
                 <label for="favcolor">Sexo: </label>
-                <input type="radio" id="sexo" name="sexo" value="hembra">
+                <input type="radio" id="sexo" name="sexo" value="HEMBRA">
                 <label for="html">Hembra</label>
-                <input type="radio" id="sexo" name="sexo" value="macho">
+                <input type="radio" id="sexo" name="sexo" value="MACHO">
                 <label for="css">Macho</label><br><br>
 
                 <label for="favcolor">Tamaño: </label>
                 <select name = "tamanno">
-                    <option value = "chico" selected>Chico</option>
-                    <option value = "mediano">Mediano</option>
-                    <option value = "grande">Grande</option>
+                    <option value = "CHICO" selected>Chico</option>
+                    <option value = "MEDIANO">Mediano</option>
+                    <option value = "GRANDE">Grande</option>
                 </select><br><br>
 
                 <label for="favcolor">Color: </label>

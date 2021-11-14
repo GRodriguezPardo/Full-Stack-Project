@@ -3,8 +3,6 @@ package server;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-import spark.ResponseTransformer;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -18,10 +16,7 @@ public class Router {
     LoginController loginController = new LoginController();
     expectionHandling();
 
-    //------------------------------------------------------------------------------------//
-
     //Rutas generales
-
     Spark.get("/", home::index, engine);
     Spark.get("/login", loginController::show, engine);
     Spark.post("/login", loginController::login, engine);
@@ -39,13 +34,11 @@ public class Router {
     //Rutas de Mascotas
     //TODO: arreglar las rutas de mascotas de usuario (quitar /misMascotas/)
 
-    //TODO: Spark.get("/mascotas/nueva", mascotaController::nuevaMascota, engine);
-    Spark.get("/mascotas/mismascotas/nueva", mascotaController::nuevaMascota, engine);
+    Spark.get("/mascotas/nueva", mascotaController::nuevaMascota, engine);
 
     Spark.get("/mascotas", mascotaController::listarMascotas, engine);
 
-    //TODO: Spark.post("/mascotas", mascotaController::crearMascota, engine);
-    Spark.post("/mascotas/mismascotas/nueva", mascotaController::crearMascota);
+    Spark.post("/mascotas", mascotaController::crearMascota);
 
     //TODO: Spark.get("/mascotas/:mascotaID", mascotaController::mascota, engine);
     Spark.get("/mascotas/mismascotas/:mascota", mascotaController::mascota, engine);

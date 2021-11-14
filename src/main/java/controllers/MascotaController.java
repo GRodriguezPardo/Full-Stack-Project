@@ -4,7 +4,6 @@ import apis.JavaXMail;
 import apis.Mailer;
 import apis.Smser;
 import apis.TwilioJava;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -17,7 +16,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.swing.text.View;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -79,9 +77,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public Void registrarAsosiacion(Request request,Response response){
     Asociacion asociacion = new Asociacion(new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
-    withTransaction(() -> {
-          RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion);
-    });
+    withTransaction(() -> RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion));
     response.status(200);
     response.body("OK");
     response.redirect("");
@@ -95,7 +91,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     PersonaBuilder persona = new PersonaBuilder();
     Image image = null;
     imagenes.add(image);
-    //try{
 
       persona.setNombreYApellido("nombre");
       persona.setFechaNacimiento(LocalDate.now());
@@ -126,10 +121,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
         RepositorioDeAsociaciones.getInstance().asociacionMasCercana(publicacionAGenerear).agregarPublicacionMascotaPerdida(publicacionAGenerear);
       });
 
-    //}catch (RuntimeException e){
-    //  response.redirect("/error");
-    //}
-
     response.status(200);
     response.body("OK");
     response.redirect("/rescates/gracias");
@@ -151,47 +142,28 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     MascotaBuilder mascota = new MascotaBuilder();
 
     try {
-
       mascota.setApodo(request.queryParams("apodo"));
       mascota.setNombre(request.queryParams("nombre"));
-      mascota.setTamanio(this.analizarTamanio(request.queryParams("tamanno")));
+      mascota.setTamanio(Tamanio.valueOf(request.queryParams("tamanno")));
       mascota.setEspecie(Especie.valueOf(request.queryParams("especie")));
-
       mascota.setEdad(Short.parseShort("7"));
       mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
-      withTransaction(() -> {
-        RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota());
-      });
+      mascota.setDescripcion(request.queryParams("descripcion"));
+      //TODO: Estoy guardando en un repo por separado las mascotas, hay que ver de asociarlo con los usuarios
+      withTransaction(() -> RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota()));
 
     } catch (RuntimeException e) {
+      System.out.println(e.toString());
       response.redirect("/error");
     }
     response.status(200);
     response.body("OK");
-    response.redirect("/registrar");
+    response.redirect("/mascotas/nueva");
     return null;
   }
 
-  public Void listado(Request request, Response response) {
-    response.status(200);
-    response.body(RepositorioDeMascotas.instance().obtenerListado().toString());
-    return null;
-  }
-
-  public Tamanio analizarTamanio(String param) {
-    if(param.equals("chico")) {
-      return Tamanio.CHICO;
-    }
-    if(param.equals("mediano")) {
-      return Tamanio.MEDIANO;
-    }
-    if(param.equals("grande")) {
-      return Tamanio.GRANDE;
-    }
-    throw new RuntimeException();
-  }
-
+  //TODO: Esta reventando el Listar Mascotas
   public ModelAndView listarMascotas(Request req, Response res) {
 		Map<String, Object> model = new HashMap<>();
     Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
@@ -212,7 +184,5 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     model.put("sesioniniciada", Objects.isNull(req.session().attribute("user_id")));
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
-
-
 
 }
