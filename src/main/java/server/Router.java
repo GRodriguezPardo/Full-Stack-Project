@@ -72,12 +72,15 @@ public class Router {
 
     Spark.get("/rescates/gracias", mascotaController::agradecer, engine);
 
+    Spark.get("/asociacion/nueva",mascotaController::nuevaAsociacion, engine);
+
+    Spark.post("/asociacion", mascotaController::registrarAsosiacion);
     //------------------------------------------------------------------------------------//
 
     // Utilities
     Spark.get("/ejemploclase", home::ejemploClase, engine);
     Spark.get("/manualsetsession", loginController::manualSetSessionId, engine);
-    Spark.post("/add-asociacion", mascotaController::registrarAsosiacion);//todo dejar al menos una asociacion en la base de datos
+    //todo dejar al menos una asociacion en la base de datos
     /*Spark.after((request, response) -> {
       if(PerThreadEntityManagers.getEntityManager().isOpen()) {
         PerThreadEntityManagers.closeEntityManager();

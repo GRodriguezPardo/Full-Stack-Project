@@ -17,6 +17,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.swing.text.View;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,13 +73,18 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/mascota.html.hbs");
   }
 
-  public Void registrarAsosiacion(Request request,Response response){
+  public ModelAndView nuevaAsociacion(Request request, Response response) {
+    return new ModelAndView(obtenerSesion(request, response) ,"asociaciones/nueva-asociacion.html.hbs");
+  }
 
-    Asociacion asociacion = new Asociacion(new Posicion(30,25));
-    RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion);
+  public Void registrarAsosiacion(Request request,Response response){
+    Asociacion asociacion = new Asociacion(new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
+    withTransaction(() -> {
+          RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion);
+    });
     response.status(200);
     response.body("OK");
-    response.redirect("/rescates");
+    response.redirect("");
     return null;
   }
 
@@ -206,6 +212,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     model.put("sesioniniciada", Objects.isNull(req.session().attribute("user_id")));
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
+
 
 
 }

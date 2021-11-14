@@ -1,5 +1,6 @@
 package personas;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
@@ -35,6 +36,12 @@ public class Asociacion extends PersistenceId {
 
   public Asociacion(Posicion posicion) {
     this.posicion = posicion;
+    this.publicacionesDeMascotasPerdidas = new ArrayList<>();
+    this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
+    this.publicacionInteresadoEnAdopcion = new ArrayList<>();
+  }
+  public Asociacion(){//todo ver si queda este cronstructor
+    posicion = null;
     this.publicacionesDeMascotasPerdidas = new ArrayList<>();
     this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
     this.publicacionInteresadoEnAdopcion = new ArrayList<>();

@@ -64,6 +64,11 @@ public class Persona extends PersistenceId {
     this.agregarMedioNotificacion(_medioNotificacion);
   }
 
+  public Persona(){//todo ver si queda este cronstructor
+    nombreYApellido = null ;
+    fechaNacimiento = null;
+  }
+
   /**
    * Agrega una nueva forma de contacto.
    *
