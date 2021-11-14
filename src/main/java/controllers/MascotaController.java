@@ -48,7 +48,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       response.redirect("/login");
       return null;
     }
-    return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/nuevaMascota.html.hbs");
+    return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/nueva.html.hbs");
   }
 
   public ModelAndView perdidas(Request request, Response response) {
