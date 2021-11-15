@@ -27,7 +27,7 @@ public class Mascota extends PersistenceId {
   private final List<Image> fotos;
 
   //TODO: Podemos ver de probar lo comentado
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL)
   @CollectionTable(name = "caracteristicas_mapping",
       joinColumns = {@JoinColumn(name = "mascota_id", referencedColumnName = "id")})
   @MapKeyColumn(name = "nombre_caracteristica")

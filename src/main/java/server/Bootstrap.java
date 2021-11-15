@@ -7,14 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
-import mascotas.Especie;
-import mascotas.Mascota;
-import mascotas.MascotaBuilder;
-import mascotas.MascotaPerdida;
-import mascotas.PublicacionInteresadoEnAdopcion;
-import mascotas.PublicacionMascotaEnAdopcion;
-import mascotas.Sexo;
-import mascotas.Tamanio;
+
+import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -30,6 +24,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
   private void init() {
     withTransaction(() -> {
+      PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+      PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<String>());
       entityManager().persist(this.unUsuario("UsurarioComun","clave", this.duenio()));
     });
   }
@@ -49,11 +45,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
   }
 
-  public void settearCastrado(MascotaBuilder mascotaBuilder, Boolean estado) {
+  public void settearCastrado(MascotaBuilder mascotaBuilder, String estado) {
     mascotaBuilder.agregarNuevaCaracteristica("Esta castrado", estado);
   }
 
-  public Mascota mascota(boolean castrada) {
+  public Mascota mascota(String castrada) {
     MascotaBuilder mascotaBuilder = new MascotaBuilder();
     mascotaBuilder.setNombre("Sergio Ramos");
     mascotaBuilder.setApodo("Noventa y ramos");
@@ -119,13 +115,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     personaBuilder.agregarMedioNotificacion(emailSender);
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.getPersona().agregarMedioNotificacion(smsSender);
-    duenio.agregarMascota(this.mascota(false));
+    duenio.agregarMascota(this.mascota("FALSE"));
     duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "Anto@Anto.com"));
     return duenio;
   }
 
   public PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion(Asociacion asociacion) {
-    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota(false));
+    PublicacionMascotaEnAdopcion publicacionMascotaEnAdopcion = new PublicacionMascotaEnAdopcion(this.mascota("FALSE"));
 
     RepositorioDePreguntas.getInstance().getPreguntas().forEach(
             pregunta -> publicacionMascotaEnAdopcion.agregarRespuesta(new Respuesta("Si", pregunta))

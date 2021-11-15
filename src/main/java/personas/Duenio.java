@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Duenio extends PersistenceId {
   @OneToOne(cascade = CascadeType.ALL)
   private final Persona persona;
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL)
   private final List<Mascota> mascotas = new ArrayList<>();
 
   /**
