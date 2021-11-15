@@ -137,11 +137,12 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
       persona.agregarMedioNotificacion(mailer);
     }
 
+    MascotaPerdida mascotaPerdida = new MascotaPerdida(request.queryParams("estado"), null, new Posicion(Double.parseDouble(request.queryParams("longitud")),Double.parseDouble(request.queryParams("latitud"))));
 
-    Rescatista rescatista = new Rescatista(persona.crearPersona(), LocalDate.now(), null);
-    withTransaction(() -> RepositorioDeRescates.getInstance().agregarRescate(rescatista));
-
+    Rescatista rescatista = new Rescatista(persona.crearPersona(), LocalDate.now(), mascotaPerdida );
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.session().attribute("id"));
+
+    withTransaction(() -> RepositorioDeRescates.getInstance().agregarRescate(rescatista));
     withTransaction(() -> RepositorioDeUsuarios.getInstance().usuarioDuenioDe(mascota).contactarDuenioPorMascota());
 
 
