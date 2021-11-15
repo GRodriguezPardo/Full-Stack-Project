@@ -75,6 +75,10 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(obtenerSesion(request, response) ,"asociaciones/nueva-asociacion.html.hbs");
   }
 
+  public ModelAndView formularioRescatista(Request request, Response response) {
+    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/rescatista.html.hbs");
+  }
+
   public Void registrarAsosiacion(Request request,Response response){
     Asociacion asociacion = new Asociacion(new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
     withTransaction(() -> RepositorioDeAsociaciones.getInstance().agregarAsociacion(asociacion));
@@ -127,13 +131,50 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return null;
   }
 
-  public Void registrarMascotaConChapita(Request request, Response response) {
+  public Void registrarRescatista(Request request, Response response){
 
-    request.queryParams("qr");
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    PersonaBuilder persona = new PersonaBuilder();
+    persona.setNombreYApellido("nombre");
+    persona.setFechaNacimiento(LocalDate.parse(request.queryParams("nacimiento"), formatter));
+    persona.agregarContacto(new Contacto("matias", "11", "mail"));
+
+    if(request.queryParams("SMS") != null) {
+      TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
+      Smser smser = new Smser(contacto);
+      persona.agregarMedioNotificacion(smser);
+    }else if (request.queryParams("mail") != null){
+      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
+      Mailer mailer = new Mailer(contactomail);
+      persona.agregarMedioNotificacion(mailer);
+    }
+
+
+    Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.session().attribute("id"));
+    MascotaPerdida mascotaPerdida =  new MascotaPerdida();// todo Consultar como queda esta parte, porque el id es de cada mascota, pero es distinta la entidad a Mascota perdida
+
+    Rescatista rescate = new Rescatista(persona.crearPersona(), LocalDate.now() ,mascotaPerdida /*todo ver como reconocer esta mascota que esta en :id */ );
+    PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(rescate);
+
+
+    withTransaction(() -> RepositorioDeAsociaciones.getInstance().asociacionMasCercana(nuevaPublicacion).agregarPublicacionMascotaPerdida(nuevaPublicacion));
+    withTransaction(() -> RepositorioDeRescates.getInstance().agregarRescate(rescate));
 
     response.status(200);
     response.body("OK");
-    response.redirect("/mascotas/perdidas/gracias");
+    response.redirect("/rescates/gracias");
+    return null;
+  }
+
+  public Void registrarMascotaConChapita(Request request, Response response) {
+
+
+
+    response.status(200);
+    response.body("OK");
+    response.redirect("/mascotas/:id/rescates/nueva");
     return null;
 
   }
@@ -184,5 +225,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     model.put("sesioniniciada", Objects.isNull(req.session().attribute("user_id")));
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
+
 
 }

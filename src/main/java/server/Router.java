@@ -61,7 +61,9 @@ public class Router {
 
     Spark.post("/mascotas/:id/rescates", mascotaController::registrarMascotaConChapita);
 
-    Spark.get("/mascotas/:id/rescates/nueva", mascotaController::perdidas, engine); //TODO FORM MASCOTA CON CHAPITA
+    Spark.get("/mascotas/:id/rescates/nueva", mascotaController::formularioRescatista, engine); //TODO FORM MASCOTA CON CHAPITA
+
+    Spark.post("/mascotas/:id/rescatista", mascotaController::registrarRescatista);
 
     Spark.get("/rescates/gracias", mascotaController::agradecer, engine);
 
