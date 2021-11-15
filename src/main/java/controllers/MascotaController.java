@@ -51,21 +51,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/nueva.html.hbs");
   }
 
-  public ModelAndView perdidas(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/perdidas.html.hbs");
-  }
-
-  public ModelAndView conChapita(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/conChapita.html.hbs");
-  }
-
-  public ModelAndView sinChapita(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/sinChapita.html.hbs");
-  }
-
-  public ModelAndView agradecer(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/gracias.html.hbs");
-  }
 
   public ModelAndView mascota(Request request, Response response) {
     return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/mascota.html.hbs");
@@ -75,9 +60,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(obtenerSesion(request, response) ,"asociaciones/nueva-asociacion.html.hbs");
   }
 
-  public ModelAndView formularioRescatista(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/rescatista.html.hbs");
-  }
 
   public Void registrarAsosiacion(Request request,Response response){
     Asociacion asociacion = new Asociacion(new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
@@ -88,96 +70,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return null;
   }
 
-  public Void registrarMascotaSinChapita(Request request, Response response){
 
-    List<Image> imagenes= new ArrayList<>();// TODO castear de url a Image
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    PersonaBuilder persona = new PersonaBuilder();
-    Image image = null;
-    imagenes.add(image);
-
-      persona.setNombreYApellido("nombre");
-      persona.setFechaNacimiento(LocalDate.now());
-      persona.agregarContacto(new Contacto("matias", "11", "mail"));
-
-      if(request.queryParams("SMS") != null) {
-
-        TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
-        Smser smser = new Smser(contacto);
-        persona.agregarMedioNotificacion(smser);
-      }else if (request.queryParams("mail") != null){
-
-        JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
-        Mailer mailer = new Mailer(contactomail);
-        persona.agregarMedioNotificacion(mailer);
-      }
-
-      Posicion pos = new Posicion(Double.parseDouble(request.queryParams("longitud")),Double.parseDouble(request.queryParams("latitud")));
-      LocalDate fecha = LocalDate.parse(request.queryParams("fecha"), formatter);
-
-      MascotaPerdida mascota = new MascotaPerdida(request.queryParams("estado"),imagenes, pos);
-      Rescatista rescate = new Rescatista(persona.crearPersona(), fecha , mascota);
-
-      PublicacionMascotaPerdida publicacionAGenerear = new PublicacionMascotaPerdida(rescate);
-
-      withTransaction(() -> {
-        RepositorioDeRescates.getInstance().agregarRescate(rescate);
-        RepositorioDeAsociaciones.getInstance().asociacionMasCercana(publicacionAGenerear).agregarPublicacionMascotaPerdida(publicacionAGenerear);
-      });
-
-    response.status(200);
-    response.body("OK");
-    response.redirect("/rescates/gracias");
-    return null;
-  }
-
-  public Void registrarRescatista(Request request, Response response){
-
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    PersonaBuilder persona = new PersonaBuilder();
-    persona.setNombreYApellido("nombre");
-    persona.setFechaNacimiento(LocalDate.parse(request.queryParams("nacimiento"), formatter));
-    persona.agregarContacto(new Contacto("matias", "11", "mail"));
-
-    if(request.queryParams("SMS") != null) {
-      TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
-      Smser smser = new Smser(contacto);
-      persona.agregarMedioNotificacion(smser);
-    }else if (request.queryParams("mail") != null){
-      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
-      Mailer mailer = new Mailer(contactomail);
-      persona.agregarMedioNotificacion(mailer);
-    }
-
-
-    Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.session().attribute("id"));
-    MascotaPerdida mascotaPerdida =  new MascotaPerdida();// todo Consultar como queda esta parte, porque el id es de cada mascota, pero es distinta la entidad a Mascota perdida
-
-    Rescatista rescate = new Rescatista(persona.crearPersona(), LocalDate.now() ,mascotaPerdida /*todo ver como reconocer esta mascota que esta en :id */ );
-    PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(rescate);
-
-
-    withTransaction(() -> RepositorioDeAsociaciones.getInstance().asociacionMasCercana(nuevaPublicacion).agregarPublicacionMascotaPerdida(nuevaPublicacion));
-    withTransaction(() -> RepositorioDeRescates.getInstance().agregarRescate(rescate));
-
-    response.status(200);
-    response.body("OK");
-    response.redirect("/rescates/gracias");
-    return null;
-  }
-
-  public Void registrarMascotaConChapita(Request request, Response response) {
-
-
-
-    response.status(200);
-    response.body("OK");
-    response.redirect("/mascotas/:id/rescates/nueva");
-    return null;
-
-  }
 
   public Void crearMascota(Request request, Response response) {
     MascotaBuilder mascota = new MascotaBuilder();

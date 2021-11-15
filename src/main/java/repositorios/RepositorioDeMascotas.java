@@ -28,4 +28,5 @@ public class RepositorioDeMascotas implements WithGlobalEntityManager {
 
   public Mascota obtenerMascota(String id){
     return entityManager().createQuery("SELECT a FROM Mascota a WHERE a.id = '" + id + "'",Mascota.class).getSingleResult(); // todo ver porque esta query da error }
+     }
 }

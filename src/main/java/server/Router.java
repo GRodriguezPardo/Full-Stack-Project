@@ -3,6 +3,7 @@ package server;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
+import controllers.MascotaPerdidaController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -13,6 +14,7 @@ public class Router {
     HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
     HomeController home = new HomeController();
     MascotaController mascotaController = MascotaController.instance();
+    MascotaPerdidaController mascotaPerdidaController = MascotaPerdidaController.instance();
     LoginController loginController = new LoginController();
     expectionHandling();
 
@@ -51,21 +53,21 @@ public class Router {
     //TODO: Spark.get("/rescates", mascotaController::encontradas, engine);
     Spark.get("/mascotas/encontradas", mascotaController::encontradas, engine);
 
-    Spark.get("/rescates/nueva", mascotaController::perdidas, engine);
+    Spark.get("/rescates/nueva", mascotaPerdidaController::perdidas, engine);
 
-    Spark.get("/rescates/nueva/sinChapita", mascotaController::sinChapita, engine);
+    Spark.get("/rescates/nueva/sinChapita", mascotaPerdidaController::sinChapita, engine);
 
-    Spark.post("/rescates", mascotaController::registrarMascotaSinChapita);
+    Spark.post("/rescates", mascotaPerdidaController::registrarMascotaSinChapita);
 
-    Spark.get("/rescates/nueva/conChapita/detalles",  mascotaController::conChapita, engine);
+    Spark.get("/rescates/nueva/conChapita/detalles",  mascotaPerdidaController::conChapita, engine);
 
-    Spark.post("/mascotas/:id/rescates", mascotaController::registrarMascotaConChapita);
+    Spark.post("/mascotas/:id/rescates", mascotaPerdidaController::registrarMascotaConChapita);
 
-    Spark.get("/mascotas/:id/rescates/nueva", mascotaController::formularioRescatista, engine); //TODO FORM MASCOTA CON CHAPITA
+    Spark.get("/mascotas/:id/rescates/nueva", mascotaPerdidaController::formularioRescatista, engine); //TODO FORM MASCOTA CON CHAPITA
 
-    Spark.post("/mascotas/:id/rescatista", mascotaController::registrarRescatista);
+    Spark.post("/mascotas/:id/rescatista", mascotaPerdidaController::contactarDuenio);
 
-    Spark.get("/rescates/gracias", mascotaController::agradecer, engine);
+    Spark.get("/rescates/gracias", mascotaPerdidaController::agradecer, engine);
 
     Spark.get("/asociacion/nueva",mascotaController::nuevaAsociacion, engine);
 
