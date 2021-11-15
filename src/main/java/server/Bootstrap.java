@@ -26,7 +26,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     withTransaction(() -> {
       PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
       PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<String>());
-      entityManager().persist(this.unUsuario("UsurarioComun","clave", this.duenio()));
+      entityManager().persist(this.unUsuario("UsuarioComun","clave", this.duenio()));
     });
   }
 

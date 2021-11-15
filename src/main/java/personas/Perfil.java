@@ -18,6 +18,9 @@ public abstract class Perfil extends PersistenceId{
     this.clave = _clave;
   }
 
+  protected Perfil() {}
+
+
   public long getId() {
     return id;
   }

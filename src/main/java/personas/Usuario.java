@@ -15,6 +15,10 @@ public class Usuario extends Perfil {
     this.duenio = _duenio;
   }
 
+  protected Usuario() {
+    this.duenio = null;
+  }
+
   public Boolean duenioDe(Mascota mascota) {
     return duenio.tieneMascota(mascota);
   }

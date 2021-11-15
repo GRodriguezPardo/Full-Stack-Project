@@ -32,6 +32,10 @@ public class Duenio extends PersistenceId {
     this.persona = _persona;
   }
 
+  public Duenio() {
+    this.persona = null;
+  }
+
   /**
    * Agrega una mascota a la lista de mascotas de la clase.
    *
