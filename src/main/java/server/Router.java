@@ -42,8 +42,7 @@ public class Router {
 
     Spark.post("/mascotas", mascotaController::crearMascota);
 
-    //TODO: Spark.get("/mascotas/:mascotaID", mascotaController::mascota, engine);
-    Spark.get("/mascotas/mismascotas/:mascota", mascotaController::mascota, engine);
+    Spark.get("/mascotas/:mascotaID", mascotaController::mascota, engine);
 
     //------------------------------------------------------------------------------------//
 
