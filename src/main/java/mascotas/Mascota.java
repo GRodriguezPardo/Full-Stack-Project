@@ -76,6 +76,18 @@ public class Mascota extends PersistenceId {
     this.tamanio = tamanio;
   }
 
+  private Mascota() {
+    especie = null;
+    tamanio = null;
+    caracteristicas = new HashMap<>();
+    fotos = null;
+    descripcion = null;
+    nombre = null;
+    edad = null;
+    apodo = null;
+    sexo = null;
+  }
+
   //TODO: Implementar logica de negocio para evaluar compatibilidad
   public boolean esCompatible(Caracteristica caracteristica) {
     return true;
