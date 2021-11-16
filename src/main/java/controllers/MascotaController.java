@@ -34,7 +34,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public Map<String, Object> obtenerSesion(Request request, Response response){
     Map<String, Object> model = new HashMap<>();
-    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
     return model;
   }
 
@@ -53,7 +53,27 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
 
   public ModelAndView mascota(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasRegistradas/mascota.html.hbs");
+    Map<String, Object> model = new HashMap<>();
+    Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
+        .usuarios().stream()
+        .filter(unUsuario -> ((Object) unUsuario.getId()).equals(
+            request.session().attribute("user_id"))).findFirst();
+    Usuario usuario;
+    if(optionalUsuario.isPresent()) {
+      usuario = optionalUsuario.get();
+    } else {
+      throw new RuntimeException("Usted no existe");
+    }
+
+		Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.params("mascotaId"));
+
+    if(RepositorioDeUsuarios.getInstance().usuarioDuenioDe(mascota).getId() != usuario.getId()) {
+      throw new RuntimeException("Usted no es dueño de esta mascota");
+    }
+
+		model.put("mascota", mascota);
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
+    return new ModelAndView(model, "mascotasRegistradas/mascota.html.hbs");
   }
 
   public ModelAndView nuevaAsociacion(Request request, Response response) {
@@ -114,7 +134,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 		List<Mascota> mascotas = usuario.getDuenio().getMascotas();
 
 		model.put("mascotas", mascotas);
-    model.put("sesioniniciada", Objects.isNull(req.session().attribute("user_id")));
+    model.put("sesioniniciada", !Objects.isNull(req.session().attribute("user_id")));
 		return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
 	}
 
