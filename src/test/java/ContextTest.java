@@ -15,8 +15,8 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal");//, new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado");//), new Caracteristica<Boolean>());
   }
   @Test
   public void contextUp() {

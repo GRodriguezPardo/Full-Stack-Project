@@ -27,8 +27,8 @@ public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityM
   */
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal");//, new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado");//), new Caracteristica<Boolean>());
   }
 
   @BeforeEach

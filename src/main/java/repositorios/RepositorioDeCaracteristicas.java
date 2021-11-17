@@ -1,13 +1,13 @@
 package repositorios;
 
+import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import mascotas.Caracteristica;
 import persistence.PersistenceId;
+import personas.Contacto;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Clase singleton que guarda todas las posible caracteristicas que puede
@@ -21,8 +21,7 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
   @Column(name = "caracteristica")
    */
   @Transient
-  private final Map<String, Caracteristica> caracteristicas = new HashMap<>();
-
+  private final List<String> caracteristicas = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -44,14 +43,13 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
    * Agrega una nueva posible Caracteristica al hashMap de caracteristicas
    * bajo el nombre pasado porparametro.
    *
-   * @param nombre              nombre que referenciara a la nueva Caracteristica.
-   * @param nuevaCaracteristica nueva psoible Caracteristica.
+   * @param nuevaCaracteristica nombre de la nueva psoible Caracteristica.
    */
-  public void agregarPosibleCaracteristica(String nombre, Caracteristica nuevaCaracteristica) {
+  public void agregarPosibleCaracteristica(String nuevaCaracteristica) {
     if (Objects.isNull(nuevaCaracteristica)) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
-    this.caracteristicas.put(nombre, nuevaCaracteristica);
+    this.caracteristicas.add(nuevaCaracteristica);
   }
 
   /**
@@ -62,8 +60,13 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
    * @return retorna un clon de la caracteristica buscada.
    */
   public Caracteristica definirCaracteristica(String nombre) {
-    Caracteristica caracteristica = caracteristicas.get(nombre);
-    return caracteristica.clonar();
+    if(this.caracteristicas.contains(nombre)){
+      return new Caracteristica();
+    } else {
+      throw new DatosErroneosException("Caractetristica invalida");
+    }
+    //Caracteristica caracteristica = caracteristicas.get(nombre);   return caracteristica.clonar();
+
     //EntityManager..createQuery("select a from PosibleCaracteristica a",PosibleCaracteristica.class).getResultList()...;
     //return new Caracteristica<String>();
   }
