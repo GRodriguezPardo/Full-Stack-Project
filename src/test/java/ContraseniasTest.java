@@ -3,7 +3,6 @@ import exceptions.EsContraseniaDebilException;
 import exceptions.NoEsContraseniaAlfanumericaException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import personas.Admin;
 import repositorios.RepositorioDeUsuarios;
 import seguridad.*;
 
@@ -60,16 +59,17 @@ public class ContraseniasTest {
     Validaciones validaciones = new Validaciones();
     Assertions.assertDoesNotThrow(() -> validaciones.hacerValidaciones("viVaLaPaTrIa_2021")); //Esa es una que no esta en el txt
   }
-/*
-  @Test
-  public void cambioClaveCorrectamente() {
-    Admin adminPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
-    RepositorioDeUsuarios.getInstance().agregarAdmin(adminPrueba);
-    RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
-    Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
-    RepositorioDeUsuarios.getInstance().removerAdmin(adminPrueba);
-  }
-*/
+
+  /*
+    @Test
+    public void cambioClaveCorrectamente() {
+      Admin adminPrueba = new Admin("Jose", "viVaLaPaTrIa_2021");
+      RepositorioDeUsuarios.getInstance().agregarAdmin(adminPrueba);
+      RepositorioDeUsuarios.getInstance().cambiarClave("Jose", "viVaLaPaTrIa_2021", "aguanteLaBolgnesa_2021");
+      Assertions.assertTrue(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", "aguanteLaBolgnesa_2021"));
+      RepositorioDeUsuarios.getInstance().removerAdmin(adminPrueba);
+    }
+  */
   @Test
   public void rebotarComprobacionClaveVacia() {
     Assertions.assertFalse(RepositorioDeUsuarios.getInstance().comprobarClave("Jose", null));

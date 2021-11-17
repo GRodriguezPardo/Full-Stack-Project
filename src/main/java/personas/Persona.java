@@ -27,7 +27,8 @@ public class Persona extends PersistenceId {
   @OneToMany(cascade = {CascadeType.ALL})
   private final List<Contacto> contactos = new ArrayList<>();
 
-  @ManyToMany(cascade = {CascadeType.ALL}) //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
+  @ManyToMany(cascade = {CascadeType.ALL})
+  //TODO: Ver de emplear un repositorio de medios, con el objetivo de poder recuperar un medio ya empleado
   private final List<MedioNotificacion> mediosNotificacion = new ArrayList<>();
 
   /**
@@ -64,8 +65,8 @@ public class Persona extends PersistenceId {
     this.agregarMedioNotificacion(_medioNotificacion);
   }
 
-  public Persona(){//todo ver si queda este cronstructor
-    nombreYApellido = null ;
+  public Persona() {//todo ver si queda este cronstructor
+    nombreYApellido = null;
     fechaNacimiento = null;
   }
 
@@ -96,25 +97,25 @@ public class Persona extends PersistenceId {
 
   public void contactarPorMascota() {
     this.contactar(medio ->
-        this.contactos.forEach(unContacto -> medio.notificarMascotaPerdida(unContacto))
+            this.contactos.forEach(unContacto -> medio.notificarMascotaPerdida(unContacto))
     );
   }
 
   public void contactarPorInteresado() {
     this.contactar(medio ->
-        this.contactos.forEach(unContacto -> medio.notificarInteresEnAdopcion(unContacto))
+            this.contactos.forEach(unContacto -> medio.notificarInteresEnAdopcion(unContacto))
     );
   }
 
   public void contactarPorSugerenciaSemanal(Integer cantidad) {
     this.contactar(medio ->
-        this.contactos.forEach(unContacto -> medio.notificarSugerenciaSemanal(unContacto,cantidad))
+            this.contactos.forEach(unContacto -> medio.notificarSugerenciaSemanal(unContacto, cantidad))
     );
   }
 
   public void contactarPorMailBaja() {
     this.contactar(medio ->
-        this.contactos.forEach(unContacto -> medio.notificarMailDeBaja(unContacto))
+            this.contactos.forEach(unContacto -> medio.notificarMailDeBaja(unContacto))
     );
   }
 

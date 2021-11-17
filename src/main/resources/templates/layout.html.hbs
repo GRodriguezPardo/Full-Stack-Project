@@ -10,40 +10,40 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </header>
 <body>
-    <div style="background-color:#45B6FE;font-family:'Brush Script MT',cursive;" class="jumbotron text-center text-white">
-       <h1>Rescate de Patitas</h1>
-    </div>
+<div style="background-color:#45B6FE;font-family:'Brush Script MT',cursive;" class="jumbotron text-center text-white">
+    <h1>Rescate de Patitas</h1>
+</div>
 
-    <nav class="navbar navbar-default">
-     <div class="container">
-          <div class="navbar-header">
-            <a style="cursor:pointer" class="navbar-brand" href="/">Home</a>
-         </div>
-         <div>
-           <ul class="nav navbar-nav">
-           {{#if sesioniniciada}}
-             <li><a style="cursor:pointer" href="/logout">Cerrar sesion</a></li>
-           {{else}}
-             <li><a style="cursor:pointer" href="/login">Iniciar sesion</a></li>
-             <li><a style="cursor:pointer" href="/signup">Crear cuenta</a></li>
-           {{/if}}
-             <li><a style="cursor:pointer" href="/asociacion/nueva">Agregar asociacion</a></li>
-             <li><a style="cursor:pointer" href="/aboutus">Sobre nosotros</a></li>
-
-          </ul>
-         </div>
-        </div>
-     </nav>
-    <body>
+<nav class="navbar navbar-default">
     <div class="container">
-	    {{#block "contenido"}}
-	    {{/block}}
+        <div class="navbar-header">
+            <a style="cursor:pointer" class="navbar-brand" href="/">Home</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                {{#if sesioniniciada}}
+                    <li><a style="cursor:pointer" href="/logout">Cerrar sesion</a></li>
+                {{else}}
+                    <li><a style="cursor:pointer" href="/login">Iniciar sesion</a></li>
+                    <li><a style="cursor:pointer" href="/signup">Crear cuenta</a></li>
+                {{/if}}
+                <li><a style="cursor:pointer" href="/asociacion/nueva">Agregar asociacion</a></li>
+                <li><a style="cursor:pointer" href="/aboutus">Sobre nosotros</a></li>
+
+            </ul>
+        </div>
     </div>
-    </body>
-    <footer class="footer">
-        <p class="text-center">
-          &copy; 2021 Rescate de Patitas
-        </p>
-    </footer>
-    </body>
-    </html>
+</nav>
+<body>
+<div class="container">
+    {{#block "contenido"}}
+    {{/block}}
+</div>
+</body>
+<footer class="footer">
+    <p class="text-center">
+        &copy; 2021 Rescate de Patitas
+    </p>
+</footer>
+</body>
+</html>

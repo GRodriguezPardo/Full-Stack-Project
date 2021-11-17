@@ -29,7 +29,7 @@ public class Mascota extends PersistenceId {
   //TODO: Podemos ver de probar lo comentado
   @OneToMany(cascade = CascadeType.ALL)
   @CollectionTable(name = "caracteristicas_mapping",
-      joinColumns = {@JoinColumn(name = "mascota_id", referencedColumnName = "id")})
+          joinColumns = {@JoinColumn(name = "mascota_id", referencedColumnName = "id")})
   @MapKeyColumn(name = "nombre_caracteristica")
   private final Map<String, Caracteristica> caracteristicas;
   @Enumerated

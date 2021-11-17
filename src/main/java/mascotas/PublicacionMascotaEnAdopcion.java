@@ -6,12 +6,14 @@ import personas.Duenio;
 import personas.Respuesta;
 import repositorios.RepositorioDeUsuarios;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class PublicacionMascotaEnAdopcion extends PersistenceId{
+public class PublicacionMascotaEnAdopcion extends PersistenceId {
 
   @ManyToOne
   private final Mascota mascota;

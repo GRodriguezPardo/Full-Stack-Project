@@ -9,35 +9,36 @@ import com.github.jknack.handlebars.helper.StringHelpers;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class HandlebarsTemplateEngineBuilder {
-	private HandlebarsTemplateEngine engine;
+  private final HandlebarsTemplateEngine engine;
 
-	private HandlebarsTemplateEngineBuilder(HandlebarsTemplateEngine engine) {
-		this.engine = engine;
-	}
+  private HandlebarsTemplateEngineBuilder(HandlebarsTemplateEngine engine) {
+    this.engine = engine;
+  }
 
-	public static HandlebarsTemplateEngineBuilder create() {
-		return new HandlebarsTemplateEngineBuilder(
-				new HandlebarsTemplateEngine());
-	}
+  public static HandlebarsTemplateEngineBuilder create() {
+    return new HandlebarsTemplateEngineBuilder(
+            new HandlebarsTemplateEngine());
+  }
 
-	public HandlebarsTemplateEngineBuilder withHelper(String name,
-			Helper<?> helper) {
-		getHandlerbars().registerHelper(name, helper);
-		return this;
-	}
+  public HandlebarsTemplateEngineBuilder withHelper(String name,
+                                                    Helper<?> helper) {
+    getHandlerbars().registerHelper(name, helper);
+    return this;
+  }
 
-	private Handlebars getHandlerbars() {
-		return (Handlebars) DarkMagic.getField(this.engine, "handlebars");
-	}
+  private Handlebars getHandlerbars() {
+    return (Handlebars) DarkMagic.getField(this.engine, "handlebars");
+  }
 
-	public HandlebarsTemplateEngine build() {
-		return engine;
-	}
-	public HandlebarsTemplateEngineBuilder withDefaultHelpers() {
-		StringHelpers.register(getHandlerbars());
-		NumberHelper.register(getHandlerbars());
-		HumanizeHelper.register(getHandlerbars());
-		withHelper("i18n", I18nHelper.i18n);
-		return this;
-	}
+  public HandlebarsTemplateEngine build() {
+    return engine;
+  }
+
+  public HandlebarsTemplateEngineBuilder withDefaultHelpers() {
+    StringHelpers.register(getHandlerbars());
+    NumberHelper.register(getHandlerbars());
+    HumanizeHelper.register(getHandlerbars());
+    withHelper("i18n", I18nHelper.i18n);
+    return this;
+  }
 }

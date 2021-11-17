@@ -49,8 +49,8 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
      */
     List<Asociacion> asociaciones = this.getAsociaciones();
     return asociaciones.stream()
-        .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
-        .collect(Collectors.toList());
+            .flatMap(unaAsociacion -> unaAsociacion.publicacionesACargo().stream())
+            .collect(Collectors.toList());
   }
 
   public List<PublicacionMascotaPerdida> publicacionesAprobadas() {
@@ -71,7 +71,7 @@ public class RepositorioDeAsociaciones implements WithGlobalEntityManager {
   public List<Asociacion> getAsociaciones() {
     //return this.asociaciones;
     return entityManager()
-        .createQuery("select a from Asociacion a", Asociacion.class).getResultList();
+            .createQuery("select a from Asociacion a", Asociacion.class).getResultList();
   }
 
   public Asociacion asociacionMasCercana(PublicacionMascotaPerdida publicacion) {

@@ -2,6 +2,7 @@ package mascotas;
 
 import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
+
 import javax.persistence.Entity;
 
 //TODO: Separar las posibles caracteristicas de las caracteristicas de cada mascota

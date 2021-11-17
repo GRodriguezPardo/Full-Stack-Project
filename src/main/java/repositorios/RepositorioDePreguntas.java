@@ -3,9 +3,7 @@ package repositorios;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Pregunta;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class RepositorioDePreguntas implements WithGlobalEntityManager {
@@ -37,7 +35,7 @@ public class RepositorioDePreguntas implements WithGlobalEntityManager {
   public List<Pregunta> getPreguntas() {
     //return this.preguntas;
     return entityManager()
-        .createQuery("from Pregunta").getResultList();
+            .createQuery("from Pregunta").getResultList();
   }
   /*El metodo de abajo es para que el que gestiona las preguntas globales vea si ya hizo preguntas
   que esta pensando o tiene mejores o si no. */

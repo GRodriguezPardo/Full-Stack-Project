@@ -3,7 +3,6 @@ package personas;
 import persistence.PersistenceId;
 
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Pregunta extends PersistenceId {
   private final List<String> opciones;
   private boolean visible = true;
 
-  public Pregunta(String cuerpoDuenio, String cuerpoInteresado , List<String> opciones) {
+  public Pregunta(String cuerpoDuenio, String cuerpoInteresado, List<String> opciones) {
     this.cuerpoDuenio = cuerpoDuenio;
     this.cuerpoInteresado = cuerpoInteresado;
     this.opciones = opciones;
@@ -45,7 +44,7 @@ public class Pregunta extends PersistenceId {
     return this.visible;
   }
 
-  public List<String>getOpciones(){
+  public List<String> getOpciones() {
     return this.opciones;
   }
 }

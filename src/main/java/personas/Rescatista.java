@@ -56,7 +56,7 @@ public class Rescatista extends PersistenceId {
     RepositorioDeRescates.getInstance().agregarRescate(this);
   }
 
-  public Rescatista(){//todo ver si queda este cronstructor
+  public Rescatista() {//todo ver si queda este cronstructor
     persona = null;
     mascota = null;
     fecha = null;

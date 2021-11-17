@@ -24,20 +24,20 @@ import spark.Response;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class MascotaPerdidaController implements WithGlobalEntityManager, TransactionalOps {
-  private final static  MascotaPerdidaController INSTANCE = new MascotaPerdidaController();
+  private final static MascotaPerdidaController INSTANCE = new MascotaPerdidaController();
 
-  private MascotaPerdidaController(){
+  private MascotaPerdidaController() {
   }
 
-  public static MascotaPerdidaController instance (){
+  public static MascotaPerdidaController instance() {
     return INSTANCE;
   }
 
-  public Map<String, Object> obtenerSesion(Request request, Response response){
+  public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
     return model;
@@ -64,9 +64,9 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
   }
 
 
-  public Void registrarMascotaSinChapita(Request request, Response response){
+  public Void registrarMascotaSinChapita(Request request, Response response) {
 
-    List<Image> imagenes= new ArrayList<>();// TODO castear de url a Image
+    List<Image> imagenes = new ArrayList<>();// TODO castear de url a Image
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     PersonaBuilder persona = new PersonaBuilder();
     Image image = null;
@@ -76,23 +76,23 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
     persona.setFechaNacimiento(LocalDate.now());
     persona.agregarContacto(new Contacto("matias", "11", "mail"));
 
-    if(request.queryParams("SMS") != null) {
+    if (request.queryParams("SMS") != null) {
 
       TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
       Smser smser = new Smser(contacto);
       persona.agregarMedioNotificacion(smser);
-    }else if (request.queryParams("mail") != null){
+    } else if (request.queryParams("mail") != null) {
 
-      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
+      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com", "contrasenia");
       Mailer mailer = new Mailer(contactomail);
       persona.agregarMedioNotificacion(mailer);
     }
 
-    Posicion pos = new Posicion(Double.parseDouble(request.queryParams("longitud")),Double.parseDouble(request.queryParams("latitud")));
+    Posicion pos = new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud")));
     LocalDate fecha = LocalDate.parse(request.queryParams("fecha"), formatter);
 
-    MascotaPerdida mascota = new MascotaPerdida(request.queryParams("estado"),imagenes, pos);
-    Rescatista rescate = new Rescatista(persona.crearPersona(), fecha , mascota);
+    MascotaPerdida mascota = new MascotaPerdida(request.queryParams("estado"), imagenes, pos);
+    Rescatista rescate = new Rescatista(persona.crearPersona(), fecha, mascota);
 
     PublicacionMascotaPerdida publicacionAGenerear = new PublicacionMascotaPerdida(rescate);
 
@@ -117,7 +117,7 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
 
   }
 
-  public Void contactarDuenio(Request request, Response response){
+  public Void contactarDuenio(Request request, Response response) {
 
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -127,19 +127,19 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
     persona.setFechaNacimiento(LocalDate.parse(request.queryParams("nacimiento"), formatter));
     persona.agregarContacto(new Contacto("matias", "11", "mail"));
 
-    if(request.queryParams("SMS") != null) {
+    if (request.queryParams("SMS") != null) {
       TwilioJava contacto = new TwilioJava(request.queryParams("telefono"), "a", "11");
       Smser smser = new Smser(contacto);
       persona.agregarMedioNotificacion(smser);
-    }else if (request.queryParams("mail") != null){
-      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com","contrasenia");
+    } else if (request.queryParams("mail") != null) {
+      JavaXMail contactomail = new JavaXMail("mailDelservivionuestro@.com", "contrasenia");
       Mailer mailer = new Mailer(contactomail);
       persona.agregarMedioNotificacion(mailer);
     }
 
-    MascotaPerdida mascotaPerdida = new MascotaPerdida(request.queryParams("estado"), null, new Posicion(Double.parseDouble(request.queryParams("longitud")),Double.parseDouble(request.queryParams("latitud"))));
+    MascotaPerdida mascotaPerdida = new MascotaPerdida(request.queryParams("estado"), null, new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
 
-    Rescatista rescatista = new Rescatista(persona.crearPersona(), LocalDate.now(), mascotaPerdida );
+    Rescatista rescatista = new Rescatista(persona.crearPersona(), LocalDate.now(), mascotaPerdida);
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.session().attribute("id"));
 
     withTransaction(() -> RepositorioDeRescates.getInstance().agregarRescate(rescatista));

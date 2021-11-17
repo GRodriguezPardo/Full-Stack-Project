@@ -2,7 +2,9 @@ package apis;
 
 import personas.Contacto;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 // TODO: Podriamos poner un nombre mas representativo SmsService
 @Entity
@@ -17,11 +19,12 @@ public class Smser extends MedioNotificacion {
   El senderNumber se obtiene en le dashboard , con el boton rojo que genera un numero para enviar mensajes ,
    el del registro no sirve.*/
 
-  public Smser(TwilioJava twilio){
+  public Smser(TwilioJava twilio) {
     this.twilio = twilio;
   }
 
-  public Smser(){  ; }//pedirle la instancia a un service locator
+  public Smser() {
+  }//pedirle la instancia a un service locator
 
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
   /*public void sendSms(String destinationNumber, String mensaje) {

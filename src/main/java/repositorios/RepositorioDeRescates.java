@@ -5,7 +5,6 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Rescatista;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,12 +63,12 @@ public class RepositorioDeRescates implements WithGlobalEntityManager {
             .collect(Collectors.toList());
      */
     List<Rescatista> rescatistas = entityManager()
-				.createQuery("from Rescatista where fecha >= :haceXDias")
-				.setParameter("haceXDias", LocalDate.now().minusDays((long) dias))
-				.getResultList();
+            .createQuery("from Rescatista where fecha >= :haceXDias")
+            .setParameter("haceXDias", LocalDate.now().minusDays((long) dias))
+            .getResultList();
     return rescatistas.stream()
-        .map(Rescatista::getMascota)
-        .collect(Collectors.toList());
+            .map(Rescatista::getMascota)
+            .collect(Collectors.toList());
   }
 
 

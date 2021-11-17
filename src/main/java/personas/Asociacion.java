@@ -1,6 +1,5 @@
 package personas;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import mascotas.PublicacionInteresadoEnAdopcion;
 import mascotas.PublicacionMascotaEnAdopcion;
 import mascotas.PublicacionMascotaPerdida;
@@ -17,15 +16,15 @@ import java.util.stream.Collectors;
 public class Asociacion extends PersistenceId {
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name="Asociacion_Id")
+  @JoinColumn(name = "Asociacion_Id")
   private final List<PublicacionMascotaPerdida> publicacionesDeMascotasPerdidas;
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name="Asociacion_Id")
+  @JoinColumn(name = "Asociacion_Id")
   private final List<PublicacionMascotaEnAdopcion> publicacionesDeMascotasEnAdopcion;
 
   @OneToMany(cascade = {CascadeType.ALL})
-  @JoinColumn(name="Asociacion_Id")
+  @JoinColumn(name = "Asociacion_Id")
   private final List<PublicacionInteresadoEnAdopcion> publicacionInteresadoEnAdopcion;
 
   @OneToMany
@@ -40,7 +39,8 @@ public class Asociacion extends PersistenceId {
     this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
     this.publicacionInteresadoEnAdopcion = new ArrayList<>();
   }
-  public Asociacion(){//todo ver si queda este cronstructor
+
+  public Asociacion() {//todo ver si queda este cronstructor
     posicion = null;
     this.publicacionesDeMascotasPerdidas = new ArrayList<>();
     this.publicacionesDeMascotasEnAdopcion = new ArrayList<>();
@@ -111,11 +111,11 @@ public class Asociacion extends PersistenceId {
 
   public void realizarRecomendacionesSemanales() {
     getPublicacionInteresadoEnAdopcion().forEach(
-          publicacionInteresado -> publicacionInteresado.notificacionSemanal(
-              getPublicacionesEnAdopcion().stream().filter(
-              publicacionAdopcion -> publicacionAdopcion.getRespuestas().stream().allMatch(
-                  publicacionInteresado::coincideRespuesta)
-          ).count())
-      );
+            publicacionInteresado -> publicacionInteresado.notificacionSemanal(
+                    getPublicacionesEnAdopcion().stream().filter(
+                            publicacionAdopcion -> publicacionAdopcion.getRespuestas().stream().allMatch(
+                                    publicacionInteresado::coincideRespuesta)
+                    ).count())
+    );
   }
 }

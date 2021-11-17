@@ -18,11 +18,10 @@ public class JavaXMail extends PersistenceId {
   private String clave;
 
 
-  public JavaXMail(String remitente, String clave){
+  public JavaXMail(String remitente, String clave) {
     this.remitente = remitente; //"unemailejemplar"
     this.clave = clave; //"HolaComoEstas"
   }
-
 
 
   public void setearNuevoRemitente(String remitente, String clave) {

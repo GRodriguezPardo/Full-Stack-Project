@@ -2,9 +2,9 @@ package personas;
 
 import persistence.PersistenceId;
 
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 public class Respuesta extends PersistenceId {
@@ -25,7 +25,7 @@ public class Respuesta extends PersistenceId {
     return this.respuesta;
   }
 
-  public boolean coincide(Respuesta respuesta){
+  public boolean coincide(Respuesta respuesta) {
     return Objects.equals(this.getPregunta(), respuesta.getPregunta());
   }
 }

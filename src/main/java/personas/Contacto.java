@@ -2,7 +2,6 @@ package personas;
 
 import persistence.PersistenceId;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
 /**

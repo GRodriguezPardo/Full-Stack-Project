@@ -5,10 +5,12 @@ import exceptions.FaltanDatosException;
 import mascotas.Caracteristica;
 import mascotas.PosibleCaracteristica;
 import persistence.PersistenceId;
-import personas.Contacto;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -51,11 +53,13 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
     if (Objects.isNull(nuevaCaracteristica)) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
-    if(!this.caracteristicaExistente(nuevaCaracteristica)){
-    this.posiblesCaracteristicas.add(new PosibleCaracteristica(nuevaCaracteristica));}
+    if (!this.caracteristicaExistente(nuevaCaracteristica)) {
+      this.posiblesCaracteristicas.add(new PosibleCaracteristica(nuevaCaracteristica));
+    }
 
   }
-  public boolean caracteristicaExistente(String nombre){
+
+  public boolean caracteristicaExistente(String nombre) {
     return this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList()).isEmpty();
   }
 
@@ -67,7 +71,7 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
    * @return retorna una instancia la caracteristica buscada.
    */
   public Caracteristica definirCaracteristica(String nombre) {
-    if(this.caracteristicaExistente(nombre)){
+    if (this.caracteristicaExistente(nombre)) {
       return new Caracteristica();
     } else {
       throw new DatosErroneosException("Caractetristica invalida");

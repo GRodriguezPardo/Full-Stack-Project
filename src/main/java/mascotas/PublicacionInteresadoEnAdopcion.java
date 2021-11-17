@@ -1,12 +1,13 @@
 package mascotas;
 
 import exceptions.NoHayRespuestaException;
-import org.hibernate.annotations.Type;
 import persistence.PersistenceId;
 import personas.Persona;
 import personas.Respuesta;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class PublicacionInteresadoEnAdopcion extends PersistenceId {
     this.persona = persona;
   }
 
-  public void notificarMailDeBaja(){
+  public void notificarMailDeBaja() {
     this.persona.contactarPorMailBaja();
   }
 

@@ -1,8 +1,7 @@
 import apis.JavaXMail;
-import apis.Smser;
 import apis.Mailer;
+import apis.Smser;
 import apis.TwilioJava;
-import mascotas.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ public class NotificacionesTest {
   @Test
   @Disabled
   public void enviarSmsNoTiraErrorTESTMANUAL() {
-    Smser sender = new Smser(new TwilioJava( null, "a", "11"));//LEER comentarios en smsSender para probar posta con tu telefono
+    Smser sender = new Smser(new TwilioJava(null, "a", "11"));//LEER comentarios en smsSender para probar posta con tu telefono
     Contacto contacto = new Contacto("Anonimo", "+541165919737", "messi@messi.com");
     assertDoesNotThrow(() -> sender.notificarMascotaPerdida(contacto));
   }  /*Ahi pones un numero destinatario verificado en la pagina (ese lo esta pero no vas a ver el mensaje , es para mostrar el formato

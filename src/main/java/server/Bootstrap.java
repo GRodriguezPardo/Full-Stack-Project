@@ -1,13 +1,6 @@
 package server;
 
 import apis.*;
-
-import java.awt.Image;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.ImageIcon;
-
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -16,9 +9,17 @@ import personas.*;
 import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDePreguntas;
 
+import javax.swing.*;
+import java.awt.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
+  MedioNotificacion emailSender = new Mailer(new JavaXMail("A", "A"));
+  MedioNotificacion smsSender = new Smser(new TwilioJava("1", "a", "11"));
+
   public static void main(String[] args) {
     new Bootstrap().init();
   }
@@ -27,12 +28,9 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     withTransaction(() -> {
       RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal");//, new Caracteristica<String>());
       RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado");//, new Caracteristica<String>());
-      entityManager().persist(this.unUsuario("UsuarioComun","clave", this.duenio()));
+      entityManager().persist(this.unUsuario("UsuarioComun", "clave", this.duenio()));
     });
   }
-
-  MedioNotificacion emailSender = new Mailer(new JavaXMail("A","A"));
-  MedioNotificacion smsSender = new Smser(new TwilioJava("1", "a", "11"));
 
   MedioNotificacion getEmailSenderMock() {
     return this.emailSender;
@@ -158,7 +156,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     return publicacionInteresadoEnAdopcion;
   }
 
-  public Usuario unUsuario(String usuario , String clave ,Duenio duenio){
+  public Usuario unUsuario(String usuario, String clave, Duenio duenio) {
     return new Usuario(usuario, clave, duenio);
   }
 

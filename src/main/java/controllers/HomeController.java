@@ -15,7 +15,7 @@ public class HomeController {
 
   //TODO: Debemos recuperar la sesión del usuario, en caso de fallar
   // ir al login nuevamentes
-  public Map<String, Object> obtenerSesion(Request request, Response response){
+  public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
     return model;

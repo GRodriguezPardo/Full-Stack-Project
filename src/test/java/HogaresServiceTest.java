@@ -10,7 +10,7 @@ import services.HogaresService;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class HogaresServiceTest {
 
@@ -18,10 +18,10 @@ public class HogaresServiceTest {
   private Posicion posicionRescatista = posicionRescatista = new Posicion(0, 0);
 
   @BeforeEach
-  public void setup(){
+  public void setup() {
     service = Mockito.mock(HogaresService.class);
     Mockito.doReturn(Arrays.asList()).when(service).getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
-        posicionRescatista, 100);
+            posicionRescatista, 100);
 
   }
 
@@ -29,11 +29,11 @@ public class HogaresServiceTest {
   public void obtenerHogaresDeTransito() {
 
     when(service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
-        posicionRescatista, 100)).thenReturn(Arrays.asList());
+            posicionRescatista, 100)).thenReturn(Arrays.asList());
 
     Assertions.assertTrue(
-        service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
-            posicionRescatista, 100).isEmpty()
+            service.getHogarMascota(getMascota(Especie.PERRO, Tamanio.GRANDE),
+                    posicionRescatista, 100).isEmpty()
     );
   }
 
@@ -43,11 +43,11 @@ public class HogaresServiceTest {
   @Test
   public void obtenerHogaresMascotaGrandeYHogarSinPatio() {
     Assertions.assertEquals(
-        service.getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE),
-            posicionRescatista,
-            100)
-            .stream().filter(hogar -> !hogar.getPatio())
-            .count(), 0
+            service.getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE),
+                    posicionRescatista,
+                    100)
+                    .stream().filter(hogar -> !hogar.getPatio())
+                    .count(), 0
     );
   }
 
@@ -58,12 +58,12 @@ public class HogaresServiceTest {
   public void obtenerHogaresMascotaGrandeYHogarConPatio() {
 
     Mockito.doReturn(Arrays.asList()).when(service).getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE),
-        posicionRescatista, 100);
+            posicionRescatista, 100);
 
     Assertions.assertFalse(
-        service.getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE), posicionRescatista, 100)
-            .stream()
-            .anyMatch(HogarDTO::getPatio)
+            service.getHogarMascota(getMascota(Especie.GATO, Tamanio.GRANDE), posicionRescatista, 100)
+                    .stream()
+                    .anyMatch(HogarDTO::getPatio)
     );
   }
 
@@ -73,9 +73,9 @@ public class HogaresServiceTest {
   @Test
   public void obtenerHogaresMascotaChicaYHogarSinPatio() {
     Assertions.assertFalse(
-        service.getHogarMascota(getMascota(Especie.GATO, Tamanio.CHICO),
-            posicionRescatista, 100)
-            .stream().anyMatch(hogar -> !hogar.getPatio())
+            service.getHogarMascota(getMascota(Especie.GATO, Tamanio.CHICO),
+                    posicionRescatista, 100)
+                    .stream().anyMatch(hogar -> !hogar.getPatio())
     );
   }
 
@@ -85,13 +85,13 @@ public class HogaresServiceTest {
   @Test
   public void obtenerHogaresMascotaChicaYHogarConPatio() {
     Assertions.assertFalse(
-        service.getHogarMascota(getMascota(Especie.GATO, Tamanio.CHICO),
-            posicionRescatista, 100)
-            .stream().anyMatch(hogar -> !hogar.getPatio())
+            service.getHogarMascota(getMascota(Especie.GATO, Tamanio.CHICO),
+                    posicionRescatista, 100)
+                    .stream().anyMatch(hogar -> !hogar.getPatio())
     );
   }
 
-  public Mascota getMascota(Especie especie, Tamanio tamanio){
+  public Mascota getMascota(Especie especie, Tamanio tamanio) {
 
     MascotaBuilder builder = new MascotaBuilder();
 
@@ -107,7 +107,7 @@ public class HogaresServiceTest {
     return builder.finalizarMascota();
   }
 
-  public HogarDTO getHogarDTO(){
+  public HogarDTO getHogarDTO() {
     HogarDTO hogarDTO = new HogarDTO();
 
     hogarDTO.setNombre("Ayudacan");

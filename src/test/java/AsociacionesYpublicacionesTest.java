@@ -1,6 +1,4 @@
 import exceptions.NoHayNingunaAsociasionException;
-import mascotas.Caracteristica;
-import repositorios.RepositorioDeCaracteristicas;
 import mascotas.PublicacionMascotaPerdida;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,6 +9,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
+import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDeUsuarios;
 
 import java.util.Objects;

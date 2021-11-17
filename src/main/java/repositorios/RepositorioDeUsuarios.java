@@ -24,6 +24,7 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
   private final List<Usuario> usuarios = new ArrayList<>();
   private final List<Voluntario> voluntarios = new ArrayList<>();
  */
+
   /**
    * Contructor privado al ser singleton.
    */
@@ -48,9 +49,9 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
     boolean condition = !entityManager()
-				.createQuery("select a from Admin a where usuario = :nuevoUsuario")
-				.setParameter("nuevoUsuario", admin.getUsuario())
-				.getResultList().isEmpty();
+            .createQuery("select a from Admin a where usuario = :nuevoUsuario")
+            .setParameter("nuevoUsuario", admin.getUsuario())
+            .getResultList().isEmpty();
     //this.administradores.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(admin.getUsuario()))
     if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
@@ -67,9 +68,9 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
     boolean condition = !entityManager()
-				.createQuery("select a from Voluntario a where usuario = :nuevoUsuario")
-				.setParameter("nuevoUsuario", voluntario.getUsuario())
-				.getResultList().isEmpty();
+            .createQuery("select a from Voluntario a where usuario = :nuevoUsuario")
+            .setParameter("nuevoUsuario", voluntario.getUsuario())
+            .getResultList().isEmpty();
     //this.voluntarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(voluntario.getUsuario()))
     if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
@@ -86,9 +87,9 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       throw new FaltanDatosException("Se debe proveer un Usuario y una contraseña");
     }
     boolean condition = !entityManager()
-				.createQuery("select a from Usuario a where usuario = :nuevoUsuario")
-				.setParameter("nuevoUsuario", usuario.getUsuario())
-				.getResultList().isEmpty();
+            .createQuery("select a from Usuario a where usuario = :nuevoUsuario")
+            .setParameter("nuevoUsuario", usuario.getUsuario())
+            .getResultList().isEmpty();
     //this.usuarios.stream().anyMatch(unPerfil -> unPerfil.getUsuario().equals(usuario.getUsuario()))
     if (condition) {
       throw new DatosErroneosException("Nombre de Usuario tomado, elegir otro");
@@ -110,10 +111,10 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
       return false;
     }
     return !entityManager()
-				.createQuery("select a from Usuario a where usuario =:usuario and clave =:clave")
-				.setParameter("usuario", usuario)
-        .setParameter("clave", clave)
-				.getResultList().isEmpty();
+            .createQuery("select a from Usuario a where usuario =:usuario and clave =:clave")
+            .setParameter("usuario", usuario)
+            .setParameter("clave", clave)
+            .getResultList().isEmpty();
   }
 
   public void removerAdmin(Admin perfil) {
@@ -136,19 +137,19 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
   public List<Admin> administradores() {
 
     return entityManager()
-        .createQuery("from Admin").getResultList();
+            .createQuery("from Admin").getResultList();
   }
 
   public List<Usuario> usuarios() {
     //return this.usuarios;
     return entityManager()
-        .createQuery("from Usuario").getResultList();
+            .createQuery("from Usuario").getResultList();
   }
 
   public List<Voluntario> voluntarios() {
     //return this.voluntarios;
     return entityManager()
-        .createQuery("from Admin").getResultList();
+            .createQuery("from Admin").getResultList();
   }
 
   public Duenio usuarioDuenioDe(Mascota mascota) {

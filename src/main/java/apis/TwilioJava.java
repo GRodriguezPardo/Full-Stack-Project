@@ -22,6 +22,7 @@ public class TwilioJava extends PersistenceId {
       throw new FaltanDatosException("Falta indicar algun dato de los 3 pedidos");
     }
   }
+
   /*Ese numero de destino debe estar verificado en la pagina y debe escribirse igual que como aparece en ella al verificarlo ahi. */
   public void sendSms(String destinationNumber, String mensaje) {
     Twilio.init(this.accountSid, this.authToken);

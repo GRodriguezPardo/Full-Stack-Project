@@ -2,10 +2,11 @@ package personas;
 
 import persistence.PersistenceId;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Perfil extends PersistenceId{
+public abstract class Perfil extends PersistenceId {
 
   @Column
   private String usuario;
@@ -18,12 +19,14 @@ public abstract class Perfil extends PersistenceId{
     this.clave = _clave;
   }
 
-  protected Perfil() {}
+  protected Perfil() {
+  }
 
 
   public long getId() {
     return id;
   }
+
   public String getClave() {
     return clave;
   }

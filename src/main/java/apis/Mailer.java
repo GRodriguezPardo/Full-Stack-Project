@@ -14,10 +14,11 @@ public class Mailer extends MedioNotificacion {
   public JavaXMail javax;
 
   public Mailer(JavaXMail javax) {
-    this.javax =javax;
+    this.javax = javax;
   }
 
-  public Mailer(){  ; }//pedirle la instancia a un service locator
+  public Mailer() {
+  }//pedirle la instancia a un service locator
 
   public void notificarMascotaPerdida(Contacto contacto) {
     this.javax.sendEmail(contacto.getEmail(), "Sistemas de Rescates", "Encontramos a tu mascota perdida");
@@ -51,10 +52,10 @@ public class Mailer extends MedioNotificacion {
   @Override
   public void notificarMailDeBaja(Contacto unContacto) {
     this.javax.sendEmail(unContacto.getEmail(),
-        "Baja del Sistema", "https:\\\\patitas.com\\darseDeBaja");
+            "Baja del Sistema", "https:\\\\patitas.com\\darseDeBaja");
   }
 
-  public JavaXMail getJavax(){
+  public JavaXMail getJavax() {
     return this.javax;
   }
 

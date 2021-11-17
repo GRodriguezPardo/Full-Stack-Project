@@ -1,9 +1,10 @@
 package personas;
 
+import mascotas.Mascota;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import mascotas.Mascota;
 
 @Entity
 public class Usuario extends Perfil {

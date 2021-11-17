@@ -1,6 +1,5 @@
 package controllers;
 
-import mascotas.Caracteristica;
 import repositorios.RepositorioDeMascotas;
 import spark.ModelAndView;
 import spark.Request;
@@ -16,13 +15,14 @@ public class CaracteristicaController {
 
   private final static CaracteristicaController INSTANCE = new CaracteristicaController();
 
-  private CaracteristicaController() {}
+  private CaracteristicaController() {
+  }
 
-  public static CaracteristicaController instance (){
+  public static CaracteristicaController instance() {
     return INSTANCE;
   }
 
-  public Map<String, Object> obtenerSesion(Request request, Response response){
+  public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
     return model;
