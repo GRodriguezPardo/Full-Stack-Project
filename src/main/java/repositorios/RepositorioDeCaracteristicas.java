@@ -3,11 +3,13 @@ package repositorios;
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import mascotas.Caracteristica;
+import mascotas.PosibleCaracteristica;
 import persistence.PersistenceId;
 import personas.Contacto;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Clase singleton que guarda todas las posible caracteristicas que puede
@@ -21,7 +23,7 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
   @Column(name = "caracteristica")
    */
   @Transient
-  private final List<String> caracteristicas = new ArrayList<>();
+  private final List<PosibleCaracteristica> posiblesCaracteristicas = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -40,8 +42,8 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
   }
 
   /**
-   * Agrega una nueva posible Caracteristica al hashMap de caracteristicas
-   * bajo el nombre pasado porparametro.
+   * Agrega una nueva posible Caracteristica pasada por parametro a la lista
+   * de posibles caracteristicas.
    *
    * @param nuevaCaracteristica nombre de la nueva psoible Caracteristica.
    */
@@ -49,18 +51,23 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
     if (Objects.isNull(nuevaCaracteristica)) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
-    this.caracteristicas.add(nuevaCaracteristica);
+    if(!this.caracteristicaExistente(nuevaCaracteristica)){
+    this.posiblesCaracteristicas.add(new PosibleCaracteristica(nuevaCaracteristica));}
+
+  }
+  public boolean caracteristicaExistente(String nombre){
+    return this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList()).isEmpty();
   }
 
   /**
-   * Busca la caracteristica referenciada por el nombre pasado por parametro
+   * Busca el nombre de caracteristica pasado por parametro
    * y devulve un clon de la misma.
    *
    * @param nombre es el nombre de la Caracteristica que se busca.
-   * @return retorna un clon de la caracteristica buscada.
+   * @return retorna una instancia la caracteristica buscada.
    */
   public Caracteristica definirCaracteristica(String nombre) {
-    if(this.caracteristicas.contains(nombre)){
+    if(this.caracteristicaExistente(nombre)){
       return new Caracteristica();
     } else {
       throw new DatosErroneosException("Caractetristica invalida");
