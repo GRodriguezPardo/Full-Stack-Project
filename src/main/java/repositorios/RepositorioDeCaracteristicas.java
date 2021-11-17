@@ -1,6 +1,7 @@
-package mascotas;
+package repositorios;
 
 import exceptions.FaltanDatosException;
+import mascotas.Caracteristica;
 import persistence.PersistenceId;
 
 import javax.persistence.*;
@@ -13,8 +14,8 @@ import java.util.Objects;
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
 @Entity
-public class PosiblesCaracteristicas extends PersistenceId {
-  private static final PosiblesCaracteristicas INSTANCE = new PosiblesCaracteristicas();
+public class RepositorioDeCaracteristicas extends PersistenceId {
+  private static final RepositorioDeCaracteristicas INSTANCE = new RepositorioDeCaracteristicas();
   /*@ElementCollection
   @MapKeyColumn(name = "nombre_caracteristica")
   @Column(name = "caracteristica")
@@ -26,7 +27,7 @@ public class PosiblesCaracteristicas extends PersistenceId {
   /**
    * Contructor privado al ser singleton.
    */
-  private PosiblesCaracteristicas() {
+  private RepositorioDeCaracteristicas() {
 
   }
 
@@ -35,7 +36,7 @@ public class PosiblesCaracteristicas extends PersistenceId {
    *
    * @return retorna al singleton.
    */
-  public static PosiblesCaracteristicas getInstance() {
+  public static RepositorioDeCaracteristicas getInstance() {
     return INSTANCE;
   }
 

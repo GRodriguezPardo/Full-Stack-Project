@@ -13,6 +13,7 @@ import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.*;
+import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDePreguntas;
 
 
@@ -24,8 +25,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
   private void init() {
     withTransaction(() -> {
-      PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-      PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<String>());
+      RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+      RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<String>());
       entityManager().persist(this.unUsuario("UsuarioComun","clave", this.duenio()));
     });
   }

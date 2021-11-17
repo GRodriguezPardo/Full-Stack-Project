@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import personas.Duenio;
 import personas.Rescatista;
 import personas.Usuario;
+import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDeRescates;
 import repositorios.RepositorioDeUsuarios;
 
@@ -25,8 +26,8 @@ public class MascotasDueniosYrescatistasTest extends AbstractPersistenceTest imp
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
 
   @Test

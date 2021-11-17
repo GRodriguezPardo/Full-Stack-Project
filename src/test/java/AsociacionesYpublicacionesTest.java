@@ -1,6 +1,6 @@
 import exceptions.NoHayNingunaAsociasionException;
 import mascotas.Caracteristica;
-import mascotas.PosiblesCaracteristicas;
+import repositorios.RepositorioDeCaracteristicas;
 import mascotas.PublicacionMascotaPerdida;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.*;
 import repositorios.RepositorioDeAsociaciones;
@@ -28,8 +27,8 @@ public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityM
   */
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
 
   @BeforeEach

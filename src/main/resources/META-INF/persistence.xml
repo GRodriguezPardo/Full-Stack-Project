@@ -18,7 +18,7 @@
         <class>mascotas.Mascota</class>
         <class>mascotas.Caracteristica</class>
         <class>mascotas.MascotaPerdida</class>
-        <class>mascotas.PosiblesCaracteristicas</class>
+        <class>repositorios.RepositorioDeCaracteristicas</class>
         <class>mascotas.PublicacionMascotaPerdida</class>
         <class>mascotas.PublicacionInteresadoEnAdopcion</class>
         <class>mascotas.PublicacionMascotaEnAdopcion</class>

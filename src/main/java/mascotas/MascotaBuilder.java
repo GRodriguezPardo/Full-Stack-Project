@@ -1,6 +1,7 @@
 package mascotas;
 
 import exceptions.FaltanDatosException;
+import repositorios.RepositorioDeCaracteristicas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -107,7 +108,7 @@ public class MascotaBuilder {
       );
     }
     Caracteristica caracteristicaEnCreacion =
-            PosiblesCaracteristicas.getInstance()
+            RepositorioDeCaracteristicas.getInstance()
                     .definirCaracteristica(nombre);
     caracteristicaEnCreacion.setValor(valor);
     this.caracteristicas.put(nombre, caracteristicaEnCreacion);

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import personas.Contacto;
+import repositorios.RepositorioDeCaracteristicas;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -15,8 +16,8 @@ public class NotificacionesTest {
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
 
   @Test

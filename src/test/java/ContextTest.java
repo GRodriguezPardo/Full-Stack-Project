@@ -1,5 +1,5 @@
 import mascotas.Caracteristica;
-import mascotas.PosiblesCaracteristicas;
+import repositorios.RepositorioDeCaracteristicas;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +15,8 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
-    PosiblesCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal", new Caracteristica<String>());
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Esta castrado", new Caracteristica<Boolean>());
   }
   @Test
   public void contextUp() {
