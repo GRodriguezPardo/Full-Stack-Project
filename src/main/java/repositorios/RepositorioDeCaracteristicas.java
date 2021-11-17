@@ -59,8 +59,21 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
 
   }
 
+  public void eliminarPosibleCaracteristica(String caracteristica) {
+    if (Objects.isNull(caracteristica)) {
+      throw new FaltanDatosException("No ha aportado caracteristica");
+    }
+    if (this.caracteristicaExistente(caracteristica)) {
+      this.posiblesCaracteristicas.remove(this.hallarPosibleCaracteristica(caracteristica));
+    }
+  }
+
+  private PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
+    return this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList()).get(0);
+  }
+
   public boolean caracteristicaExistente(String nombre) {
-    return this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList()).isEmpty();
+    return this.hallarPosibleCaracteristica(nombre) == null;
   }
 
   /**
