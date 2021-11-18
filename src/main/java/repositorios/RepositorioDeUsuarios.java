@@ -154,7 +154,8 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
 
   public Duenio usuarioDuenioDe(Mascota mascota) {
     Mascota sessionMascota = entityManager().find(Mascota.class, mascota.getId());
-    List<Usuario> usuariosDuenio = usuarios().stream().filter(usuario -> usuario.duenioDe(sessionMascota)).collect(Collectors.toList());
+    List<Usuario> usuariosDuenio =
+        usuarios().stream().filter(usuario -> usuario.duenioDe(sessionMascota)).collect(Collectors.toList());
 
     if (!usuariosDuenio.isEmpty()) {
       return usuariosDuenio.stream().findFirst().get().getDuenio();
