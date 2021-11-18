@@ -69,7 +69,9 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
   }
 
   private PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
-    return this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList()).get(0);
+    List<PosibleCaracteristica> resultado = this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList());
+    if(resultado.isEmpty()){return null;}
+    else {return resultado.get(0);}
   }
 
   public boolean caracteristicaExistente(String nombre) {
