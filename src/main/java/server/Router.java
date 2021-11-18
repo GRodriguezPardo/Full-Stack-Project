@@ -1,9 +1,6 @@
 package server;
 
-import controllers.HomeController;
-import controllers.LoginController;
-import controllers.MascotaController;
-import controllers.MascotaPerdidaController;
+import controllers.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -17,6 +14,7 @@ public class Router {
     MascotaController mascotaController = MascotaController.instance();
     MascotaPerdidaController mascotaPerdidaController = MascotaPerdidaController.instance();
     LoginController loginController = new LoginController();
+    AdminController adminController = new AdminController();
     expectionHandling();
 
     //Rutas generales
@@ -28,9 +26,9 @@ public class Router {
     Spark.post("/signup", loginController::signUp, engine);
     Spark.get("/error", home::error, engine);
 
-    //TODO: Spark.get("/admin/login", loginController::showAdmin, engine);
-    //TODO: Spark.post("/admin/login", loginController:loginAdmin, engine);
-    //TODO: Spark.get("/admin/logout", loginController::logoutAdmin, engine);
+    Spark.get("/admin/login", adminController::showAdmin, engine);
+    Spark.post("/admin/login", adminController::loginAdmin, engine);
+    Spark.get("/admin/logout", adminController::logoutAdmin, engine);
 
     //------------------------------------------------------------------------------------//
 

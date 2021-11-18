@@ -25,6 +25,9 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
   private void init() {
     withTransaction(() -> {
       entityManager().persist(this.unUsuario("UsuarioComun","clave", this.duenio()));
+      entityManager().persist(new Admin("admin","root"));
+      entityManager().persist(new Asociacion(new Posicion(44.00,55.00)));
+      entityManager().persist(new PublicacionMascotaPerdida(this.rescatista(55,66)));
     });
   }
 

@@ -8,4 +8,6 @@ public class Admin extends Perfil {
     super(usuario, clave);
   }
 
+  public Admin(){
+  }
 }

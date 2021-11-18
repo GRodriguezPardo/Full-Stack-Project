@@ -5,6 +5,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Posicion {
   private final Double longitud;
+
+  public Double getLongitud() {
+    return longitud;
+  }
+
+  public Double getLatitud() {
+    return latitud;
+  }
+
   private final Double latitud;
 
   public Posicion(double longitud, double latitud) {

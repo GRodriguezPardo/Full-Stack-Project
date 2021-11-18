@@ -19,7 +19,7 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
 
   public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
-    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
     return model;
   }
 

@@ -117,6 +117,17 @@ public class RepositorioDeUsuarios implements WithGlobalEntityManager {
             .getResultList().isEmpty();
   }
 
+  public Boolean comprobarClaveAdmin(String admin, String clave) {
+    if (Objects.isNull(clave)) {
+      return false;
+    }
+    return !entityManager()
+        .createQuery("select a from Admin a where usuario =:usuario and clave =:clave")
+        .setParameter("usuario", admin)
+        .setParameter("clave", clave)
+        .getResultList().isEmpty();
+  }
+
   public void removerAdmin(Admin perfil) {
     //this.administradores.remove(perfil);
     Admin perfilBorrar = entityManager().find(Admin.class, perfil.getId());
