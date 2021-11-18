@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MascotaPerdidaController implements WithGlobalEntityManager, TransactionalOps {
   private final static MascotaPerdidaController INSTANCE = new MascotaPerdidaController();
@@ -72,7 +73,7 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
     Image image = null;
     imagenes.add(image);
 
-    persona.setNombreYApellido("nombre");
+    persona.setNombreYApellido(request.queryParams("nombre"));
     persona.setFechaNacimiento(LocalDate.now());
     persona.agregarContacto(new Contacto("matias", "11", "mail"));
 
@@ -110,15 +111,6 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
 
   public Void registrarMascotaConChapita(Request request, Response response) {
 
-    response.status(200);
-    response.body("OK");
-    response.redirect("/mascotas/:id/rescates/nueva");
-    return null;
-
-  }
-
-  public Void contactarDuenio(Request request, Response response) {
-
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -153,4 +145,11 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
   }
 
 
+  public ModelAndView listarRescates(Request request, Response response) {
+
+    Map<String, Object> model = new HashMap<>();
+    List<Rescatista> rescates = RepositorioDeRescates.getInstance().getRescates();
+    model.put("rescates", rescates);
+    return new ModelAndView(model , "mascotasPerdidas/listado.html.hbs");
+  }
 }

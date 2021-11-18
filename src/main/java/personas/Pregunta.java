@@ -22,8 +22,6 @@ public class Pregunta extends PersistenceId {
 
   }
 
-  //TODO :  HECHO   ,las respuestas cerradas no solo son booleanos
-
   public String getCuerpoDuenio() {
     return cuerpoDuenio;
   }

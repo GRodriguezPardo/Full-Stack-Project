@@ -34,7 +34,6 @@ public class Router {
     //------------------------------------------------------------------------------------//
 
     //Rutas de Mascotas
-    //TODO: arreglar las rutas de mascotas de usuario (quitar /misMascotas/)
 
     Spark.get("/mascotas/nueva", mascotaController::nuevaMascota, engine);
 
@@ -47,10 +46,8 @@ public class Router {
     //------------------------------------------------------------------------------------//
 
     //Rutas de rescates
-    //TODO: arreglar las rutas de mascotas perdidas, no agrupar bajo el mismo recurso que las del usuario
 
-    //TODO: Spark.get("/rescates", mascotaController::encontradas, engine);
-    Spark.get("/mascotas/encontradas", mascotaController::encontradas, engine);
+    Spark.get("/rescates", mascotaPerdidaController::listarRescates, engine);
 
     Spark.get("/rescates/nueva", mascotaPerdidaController::perdidas, engine);
 
@@ -60,11 +57,9 @@ public class Router {
 
     Spark.get("/rescates/nueva/conChapita/detalles", mascotaPerdidaController::conChapita, engine);
 
-    Spark.post("/mascotas/:id/rescates", mascotaPerdidaController::registrarMascotaConChapita);
+    Spark.get("/mascotas/:id/rescates/nueva", mascotaPerdidaController::formularioRescatista, engine); //url que te llevaria el get del qr
 
-    Spark.get("/mascotas/:id/rescates/nueva", mascotaPerdidaController::formularioRescatista, engine); //TODO FORM MASCOTA CON CHAPITA
-
-    Spark.post("/mascotas/:id/rescatista", mascotaPerdidaController::contactarDuenio);
+    Spark.post("/mascotas/:id/rescatista", mascotaPerdidaController::registrarMascotaConChapita);
 
     Spark.get("/rescates/gracias", mascotaPerdidaController::agradecer, engine);
 
@@ -76,7 +71,7 @@ public class Router {
     // Utilities
     Spark.get("/ejemploclase", home::ejemploClase, engine);
     Spark.get("/manualsetsession", loginController::manualSetSessionId, engine);
-    //todo dejar al menos una asociacion en la base de datos
+
     /*Spark.after((request, response) -> {
       if(PerThreadEntityManagers.getEntityManager().isOpen()) {
         PerThreadEntityManagers.closeEntityManager();

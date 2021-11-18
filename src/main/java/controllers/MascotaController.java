@@ -31,10 +31,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return model;
   }
 
-  public ModelAndView encontradas(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/encontradas.html.hbs");
-  }
-
   public ModelAndView nuevaMascota(Request request, Response response) {
     if (Objects.isNull(request.session().attribute("user_id"))) {
       //request.session().attribute("origen", "");

@@ -4,6 +4,7 @@ import exceptions.FaltanDatosException;
 import persistence.PersistenceId;
 import personas.Posicion;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -16,11 +17,11 @@ import java.util.Objects;
  */
 @Entity
 public class MascotaPerdida extends PersistenceId {
-  private final String descripcionEstado;
+  private String descripcionEstado;
   @Transient
-  private final List<Image> fotos;
+  private List<Image> fotos;
   @Embedded
-  private final Posicion posicion;
+  private Posicion posicion;
 
   /**
    * Constructor de la clase.
@@ -44,11 +45,7 @@ public class MascotaPerdida extends PersistenceId {
     this.posicion = posicion;
   }
 
-  public MascotaPerdida() {//todo ver si queda este constructor
-    posicion = null;
-    descripcionEstado = null;
-    fotos = null;
-  }
+  private MascotaPerdida(){}
 
   public String getDescripcionEstado() {
     return descripcionEstado;

@@ -12,8 +12,10 @@ import java.util.List;
 
 @Entity
 public class PublicacionMascotaPerdida extends PersistenceId {
+
+
   @ManyToOne
-  private final Rescatista rescatista;
+  private Rescatista rescatista;
   private Boolean aprobado;
 
   public PublicacionMascotaPerdida(Rescatista _rescatista) {
@@ -21,8 +23,7 @@ public class PublicacionMascotaPerdida extends PersistenceId {
     this.aprobado = false;
   }
 
-  public PublicacionMascotaPerdida() {//todo ver si queda este cronstructor
-    this.rescatista = null;
+  private PublicacionMascotaPerdida(){
   }
 
   public void aprobar() {
@@ -43,5 +44,9 @@ public class PublicacionMascotaPerdida extends PersistenceId {
 
   public Posicion getPosicion() {
     return rescatista.getPosicion();
+  }
+
+  public Rescatista getRescatista() {
+    return rescatista;
   }
 }

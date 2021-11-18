@@ -2,6 +2,7 @@ package repositorios;
 
 import mascotas.MascotaPerdida;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import personas.Asociacion;
 import personas.Rescatista;
 
 import java.time.LocalDate;
@@ -69,6 +70,10 @@ public class RepositorioDeRescates implements WithGlobalEntityManager {
     return rescatistas.stream()
             .map(Rescatista::getMascota)
             .collect(Collectors.toList());
+  }
+
+  public List<Rescatista> getRescates(){
+    return entityManager().createQuery("select a from Rescatista a", Rescatista.class).getResultList();
   }
 
 

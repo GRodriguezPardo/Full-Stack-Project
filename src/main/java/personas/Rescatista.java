@@ -21,12 +21,12 @@ import java.util.Objects;
 public class Rescatista extends PersistenceId {
 
   @ManyToOne(cascade = CascadeType.ALL)
-  private final Persona persona;
+  private Persona persona;
 
   @OneToOne(cascade = CascadeType.ALL)
-  private final MascotaPerdida mascota;
+  private MascotaPerdida mascota;
   @Convert(converter = LocalDateConverter.class)
-  private final LocalDate fecha;
+  private LocalDate fecha;
 
   /**
    * Constructor de la clase.
@@ -56,11 +56,7 @@ public class Rescatista extends PersistenceId {
     RepositorioDeRescates.getInstance().agregarRescate(this);
   }
 
-  public Rescatista() {//todo ver si queda este cronstructor
-    persona = null;
-    mascota = null;
-    fecha = null;
-  }
+  private Rescatista(){}
 
   /**
    * Getter de la fecha.
