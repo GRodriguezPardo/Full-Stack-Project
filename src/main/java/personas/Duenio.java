@@ -60,8 +60,8 @@ public class Duenio extends PersistenceId {
     this.persona.contactarPorInteresado();
   }
 
-  public Boolean tieneMascota(Mascota mascota) {
-    return mascotas.contains(mascota);
+  public Boolean tieneMascota(Mascota _mascota) {
+    return mascotas.stream().anyMatch(mascota ->mascota.getId() == _mascota.getId());
   }
 
   public List<Mascota> getMascotas() {

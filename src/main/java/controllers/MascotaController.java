@@ -43,16 +43,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public ModelAndView mascota(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
-    Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
-            .usuarios().stream()
-            .filter(unUsuario -> ((Object) unUsuario.getId()).equals(
-                    request.session().attribute("user_id"))).findFirst();
-    Usuario usuario;
-    if (optionalUsuario.isPresent()) {
-      usuario = optionalUsuario.get();
-    } else {
-      throw new RuntimeException("Usted no existe");
-    }
+    Usuario usuario = getUsuario(request);
 
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.params("mascotaId"));
 
@@ -93,7 +84,10 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.agregarImagen("");
       mascota.setDescripcion(request.queryParams("descripcion"));
       //TODO: Estoy guardando en un repo por separado las mascotas, hay que ver de asociarlo con los usuarios
-      withTransaction(() -> RepositorioDeMascotas.instance().agregarMascota(mascota.finalizarMascota()));
+      withTransaction(() -> {
+            getUsuario(request).getDuenio().agregarMascota(mascota.finalizarMascota());
+          }
+      );
 
     } catch (RuntimeException e) {
       System.out.println(e.toString());
@@ -101,29 +95,34 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     }
     response.status(200);
     response.body("OK");
-    response.redirect("/mascotas/nueva");
+    response.redirect("/mascotas");
     return null;
   }
 
   //TODO: Esta reventando el Listar Mascotas
   public ModelAndView listarMascotas(Request req, Response res) {
     Map<String, Object> model = new HashMap<>();
-    Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
-            .usuarios().stream()
-            .filter(unUsuario -> ((Object) unUsuario.getId()).equals(
-                    req.session().attribute("user_id"))).findFirst();
-    Usuario usuario;
-    if (optionalUsuario.isPresent()) {
-      usuario = optionalUsuario.get();
-    } else {
-      throw new RuntimeException("Usted no existe");
-    }
+    Usuario usuario = getUsuario(req);
 
     List<Mascota> mascotas = usuario.getDuenio().getMascotas();
 
     model.put("mascotas", mascotas);
     model.put("sesioniniciada", !Objects.isNull(req.session().attribute("user_id")));
     return new ModelAndView(model, "mascotasRegistradas/misMascotas.html.hbs");
+  }
+
+  private Usuario getUsuario(Request req) {
+    Optional<Usuario> optionalUsuario = RepositorioDeUsuarios.getInstance()
+        .usuarios().stream()
+        .filter(unUsuario -> ((Object) unUsuario.getId()).equals(
+            req.session().attribute("user_id"))).findFirst();
+    Usuario usuario;
+    if (optionalUsuario.isPresent()) {
+      usuario = optionalUsuario.get();
+    } else {
+      throw new RuntimeException("Usted no existe");
+    }
+    return usuario;
   }
 
 
