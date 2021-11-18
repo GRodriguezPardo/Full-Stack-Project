@@ -58,11 +58,7 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
     PersonaBuilder personaBuilder = new PersonaBuilder();
     personaBuilder.setNombreYApellido(request.queryParams("nombre") + " " + request.queryParams("apellido"));
     personaBuilder.setFechaNacimiento(
-            LocalDate.of(
-                    Integer.parseInt(request.queryParams("anno")),
-                    Integer.parseInt(request.queryParams("mes")),
-                    Integer.parseInt(request.queryParams("dia"))
-            )
+            LocalDate.parse(request.queryParams("fecha-nacimiento"))
     );
     Contacto contacto = new Contacto(
             request.queryParams("nombreContacto"),
