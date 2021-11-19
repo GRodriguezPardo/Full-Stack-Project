@@ -4,15 +4,15 @@
         <div class="row">
             <div class="col-sm-4">
                 <h2>Caracteristicas</h2>
-                <ul>
-                    <li>
-                        {#caracteristicas}
-                        <form action="/caracteristicas/crear" method="DELETE">
-                            <input type="button" id="borrar" value="eliminar"> algo {Valor}
-                        </form>
-                        {/caracteristicas}
-                    </li>
-                </ul>
+
+                        {{#each caracteristicas}}
+                        <ul>
+                        <li>
+                            {{valor}}
+                        </li>
+                        </ul>
+                        {{/each}}
+
 
 
             </div>

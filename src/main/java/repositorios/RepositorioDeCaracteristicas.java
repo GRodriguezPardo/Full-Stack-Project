@@ -57,6 +57,10 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
 
   }
 
+  public List<PosibleCaracteristica> getPosiblesCaracteristicas(){
+    return this.posiblesCaracteristicas;
+  }
+
   public void eliminarPosibleCaracteristica(String caracteristica) {
     if (Objects.isNull(caracteristica)) {
       throw new FaltanDatosException("No ha aportado caracteristica");
