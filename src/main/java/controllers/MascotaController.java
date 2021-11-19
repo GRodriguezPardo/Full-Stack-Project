@@ -83,14 +83,13 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
       mascota.setDescripcion(request.queryParams("descripcion"));
-      //TODO: Estoy guardando en un repo por separado las mascotas, hay que ver de asociarlo con los usuarios
       withTransaction(() -> {
             getUsuario(request).getDuenio().agregarMascota(mascota.finalizarMascota());
           }
       );
 
-    } catch (RuntimeException e) {
-      System.out.println(e.toString());
+    } catch (Exception e) {
+      request.session().attribute("errorMessage", e.getMessage());
       response.redirect("/error");
     }
     response.status(200);
@@ -99,7 +98,6 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return null;
   }
 
-  //TODO: Esta reventando el Listar Mascotas
   public ModelAndView listarMascotas(Request req, Response res) {
     Map<String, Object> model = new HashMap<>();
     Usuario usuario = getUsuario(req);

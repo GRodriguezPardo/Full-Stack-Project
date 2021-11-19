@@ -82,6 +82,7 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
         request.session().attribute("user", 1);
         response.redirect("/");
       } catch (Exception e) {
+        request.session().attribute("errorMessage", e.getMessage());
         response.redirect("/error");
       }
     });

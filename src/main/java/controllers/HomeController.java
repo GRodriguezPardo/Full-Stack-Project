@@ -22,7 +22,19 @@ public class HomeController {
   }
 
   public ModelAndView error(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "home/error.html.hbs");
+    Map<String, Object> model = new HashMap<>();
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
+
+    if(request.session().attribute("errorMessage") != null) {
+      model.put("errorMessage", request.session().attribute("errorMessage"));
+      request.session().removeAttribute("errorMessage");
+      model.put("errorMessagePresent", true);
+    } else {
+      model.put("errorMessage", null);
+      model.put("errorMessagePresent", false);
+    }
+
+    return new ModelAndView(model, "home/error.html.hbs");
   }
 
   public ModelAndView ejemploClase(Request request, Response response) {
