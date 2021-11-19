@@ -23,6 +23,11 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
   }
 
   public ModelAndView caracteristicas(Request request, Response response) {
+    if(request.session().attribute("admin_id") == null) {
+      response.redirect("/error");
+      return null;
+    }
+
     List<PosibleCaracteristica> caracteristicas = RepositorioDeCaracteristicas.getInstance().getPosiblesCaracteristicas();
 
     Map<String, Object> model = new HashMap<>();
@@ -36,7 +41,7 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
     //lo de abajo es porque no funciona haciendolo con el repositorio
     withTransaction(() -> {
                RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
-              //ntityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
+              //entityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
             });
     response.redirect("/caracteristicas"); return  null;
   }
