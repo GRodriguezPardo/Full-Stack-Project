@@ -49,7 +49,9 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.params("mascotaId"));
 
     if (RepositorioDeUsuarios.getInstance().usuarioDuenioDe(mascota).getId() != usuario.getId()) {
-      throw new RuntimeException("Usted no es dueño de esta mascota");
+      request.session().attribute("errorMessage", "Usted no es dueño de esta mascota")
+      response.redirect("/error");
+      return null;
     }
 
     model.put("mascota", mascota);
