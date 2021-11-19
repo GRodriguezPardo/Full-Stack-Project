@@ -42,10 +42,13 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-  RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(request.queryParams("nombre"));
+    String valor = request.pathInfo();
+     valor = valor.substring(17 , valor.length() - 7); //en 17 esta la segunda '/' y 7 ocupa el '/delete'
+
+  RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(valor);
 
    // response.redirect("/caracteristicas");
-    response.redirect("/home/error.html.hbs");
+    response.redirect("/error");
     return  null;
   }
 
