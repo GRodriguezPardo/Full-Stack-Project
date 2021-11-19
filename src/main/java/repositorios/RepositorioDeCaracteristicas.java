@@ -87,11 +87,10 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
    */
   public Caracteristica definirCaracteristica(String nombre) {
     if (this.caracteristicaExistente(nombre)) {
-      return new Caracteristica();
+      return new Caracteristica(nombre);
     } else {
       throw new DatosErroneosException("Caractetristica invalida");
     }
-    //Caracteristica caracteristica = caracteristicas.get(nombre);   return caracteristica.clonar();
 
     //EntityManager..createQuery("select a from PosibleCaracteristica a",PosibleCaracteristica.class).getResultList()...;
     //return new Caracteristica<String>();

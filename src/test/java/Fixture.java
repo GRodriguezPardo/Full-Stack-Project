@@ -29,7 +29,7 @@ public class Fixture {
     mascotaBuilder.agregarNuevaCaracteristica("Color principal", color);
   }
 
-  public void settearCastrado(MascotaBuilder mascotaBuilder, Boolean estado) {
+  public void settearCastrado(MascotaBuilder mascotaBuilder, String estado) {
     mascotaBuilder.agregarNuevaCaracteristica("Esta castrado", estado);
   }
 
@@ -44,7 +44,7 @@ public class Fixture {
     mascotaBuilder.setTamanio(Tamanio.GRANDE);
     mascotaBuilder.agregarImagen("https://upload.wikimedia.org/wikipedia/commons/4/43/Russia-Spain_2017_%286%29.jpg");
     this.settearColorPrincipal(mascotaBuilder, "Blanco");
-    this.settearCastrado(mascotaBuilder, castrada);
+    this.settearCastrado(mascotaBuilder, "castrada");
     return mascotaBuilder.finalizarMascota();
   }
 
