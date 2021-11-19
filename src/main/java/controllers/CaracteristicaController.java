@@ -39,14 +39,14 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
               entityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
             });
     response.redirect("/caracteristicas"); return  null;
-    //return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
   RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(request.queryParams("nombre"));
 
-    response.redirect("/caracteristicas"); return  null;
-   // return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
+   // response.redirect("/caracteristicas");
+    response.redirect("/home/error.html.hbs");
+    return  null;
   }
 
 }
