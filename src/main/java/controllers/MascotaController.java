@@ -108,6 +108,12 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     Map<String, Object> model = new HashMap<>();
     Usuario usuario = getUsuario(req);
 
+    if (Objects.isNull(usuario)) {
+      req.session().attribute("errorMessage", "Usted no existe");
+      res.redirect("/error");
+      return null;
+    }
+
     List<Mascota> mascotas = usuario.getDuenio().getMascotas();
 
     model.put("mascotas", mascotas);
@@ -124,7 +130,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     if (optionalUsuario.isPresent()) {
       usuario = optionalUsuario.get();
     } else {
-      throw new RuntimeException("Usted no existe");
+      return null;
     }
     return usuario;
   }

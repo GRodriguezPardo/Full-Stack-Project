@@ -67,6 +67,11 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
     );
     personaBuilder.agregarContacto(contacto);
     MedioNotificacion medio = analizarMedioNotificacion(request, response);
+    if(Objects.isNull(medio)) {
+      request.session().attribute("errorMessage", "Por favor, elija un medio de notificacion");
+      response.redirect("/error");
+      return null;
+    }
     personaBuilder.agregarMedioNotificacion(medio);
 
     Persona persona = personaBuilder.crearPersona();
@@ -96,7 +101,7 @@ public class LoginController implements WithGlobalEntityManager, TransactionalOp
     if (req.queryParams("medioNotificacion").equals("telefono")) {
       return new Smser(new TwilioJava("id", "a", "11"));
     }
-    throw new RuntimeException();
+    return null;
   }
 
   public ModelAndView manualSetSessionId(Request req, Response res) {
