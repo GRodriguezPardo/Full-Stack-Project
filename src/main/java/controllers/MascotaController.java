@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.FaltanDatosException;
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -88,8 +89,11 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
           }
       );
 
-    } catch (Exception e) {
+    } catch (FaltanDatosException e) {
       request.session().attribute("errorMessage", e.getMessage());
+      response.redirect("/error");
+    } catch (Exception e) {
+      request.session().attribute("errorMessage", "Algo salio mal");
       response.redirect("/error");
     }
     response.status(200);
