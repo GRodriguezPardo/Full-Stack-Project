@@ -9,10 +9,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CaracteristicaController {
@@ -26,9 +23,15 @@ public class CaracteristicaController {
   public ModelAndView caracteristicas(Request request, Response response) {
     List<PosibleCaracteristica> caracteristicas = RepositorioDeCaracteristicas.getInstance().getPosiblesCaracteristicas();
 
+    caracteristicas.add(new PosibleCaracteristica("test 1"));
+    caracteristicas.add(new PosibleCaracteristica("test 2"));
+    caracteristicas.add(new PosibleCaracteristica("test 3"));
+
     Map<String, Object> model = new HashMap<>();
 
     model.put("caracteristicas", caracteristicas);
+
+
 
     return new ModelAndView(model, "caracteristicas/caracteristicas.html.hbs");
   }

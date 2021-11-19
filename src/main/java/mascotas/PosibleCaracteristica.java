@@ -16,5 +16,5 @@ public class PosibleCaracteristica extends PersistenceId {
     return this.nombreCaracteristica.equals(nombre);
   }
 
-  public String gatValor(){return this.nombreCaracteristica ;}
+  public String getValor(){return this.nombreCaracteristica ;}
 }
