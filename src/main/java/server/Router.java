@@ -33,6 +33,7 @@ public class Router {
     //lo de caracteristicas
     Spark.get("/caracteristicas",caracteristicaController::caracteristicas , engine);
     Spark.post("/caracteristicas",caracteristicaController::agregarCaracteristica , engine);
+    Spark.delete("/caracteristicas",caracteristicaController::eliminarCaracteristica , engine);
 
     //------------------------------------------------------------------------------------//
 
