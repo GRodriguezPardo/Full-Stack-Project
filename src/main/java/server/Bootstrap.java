@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import mascotas.*;
+import org.jboss.logging.annotations.Pos;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -30,8 +31,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       entityManager().persist(new Asociacion(new Posicion(44.00,55.00)));
       entityManager().persist(new PublicacionMascotaPerdida(this.rescatista(55,66)));
 
-      RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Raza");
-      RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Numero de estremidades");
+     // RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Numero de estremidades");
+      // RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Enfermedades");
+      //no anda haciendolo con el repositorio...
+    entityManager().persist(new PosibleCaracteristica("Numero de estremidades"));
+    entityManager().persist(new PosibleCaracteristica("Enfermedades"));
     });
   }
 

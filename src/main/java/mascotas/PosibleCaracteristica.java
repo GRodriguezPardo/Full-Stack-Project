@@ -12,6 +12,8 @@ public class PosibleCaracteristica extends PersistenceId {
     this.nombreCaracteristica = nombre;
   }
 
+  private PosibleCaracteristica(){ }
+
   public boolean seLlamaAsi(String nombre) {
     return this.nombreCaracteristica.equals(nombre);
   }

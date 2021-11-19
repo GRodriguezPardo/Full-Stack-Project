@@ -20,8 +20,7 @@ import java.util.stream.Collectors;
  * Clase singleton que guarda todas las posible caracteristicas que puede
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
-@Entity
-public class RepositorioDeCaracteristicas extends PersistenceId implements WithGlobalEntityManager {
+public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
   private static final RepositorioDeCaracteristicas INSTANCE = new RepositorioDeCaracteristicas();
 
   /**
@@ -52,6 +51,7 @@ public class RepositorioDeCaracteristicas extends PersistenceId implements WithG
     }
     if (!this.caracteristicaExistente(nuevaCaracteristica)) {
        entityManager().persist(new PosibleCaracteristica(nuevaCaracteristica));
+       entityManager().flush();
     }
 
   }
