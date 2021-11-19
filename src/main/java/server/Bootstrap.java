@@ -30,6 +30,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       entityManager().persist(new Asociacion(new Posicion(44.00,55.00)));
       entityManager().persist(new PublicacionMascotaPerdida(this.rescatista(55,66)));
       RepositorioDeMascotas.instance().agregarMascota(this.mascota("si"));
+      entityManager().persist(new PosibleCaracteristica("Numero extremidades"));
+      entityManager().persist(new PosibleCaracteristica("Enfermedades"));
     });
   }
 

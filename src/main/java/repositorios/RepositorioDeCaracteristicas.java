@@ -51,7 +51,7 @@ public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
     }
     if (!this.caracteristicaExistente(nuevaCaracteristica)) {
        entityManager().persist(new PosibleCaracteristica(nuevaCaracteristica));
-       entityManager().flush();
+
     }
 
   }
