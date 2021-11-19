@@ -34,7 +34,7 @@ public class Smser extends MedioNotificacion {
   }*/
 
   public void notificarMascotaPerdida(Contacto contacto) {
-    this.twilio.sendSms(contacto.getTelefono(), "Encontrasmos a tu mascota perdida");
+   // this.twilio.sendSms(contacto.getTelefono(), "Encontrasmos a tu mascota perdida");
   }
 
   @Override

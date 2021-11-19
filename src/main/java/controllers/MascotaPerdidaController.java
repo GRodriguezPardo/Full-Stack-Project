@@ -61,7 +61,9 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
   }
 
   public ModelAndView formularioRescatista(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "mascotasPerdidas/rescatista.html.hbs");
+    Map<String, Object> model = new HashMap<>();
+    model.put("idDeMascota", request.params("id"));
+    return new ModelAndView(model, "mascotasPerdidas/rescatista.html.hbs");
   }
 
 
@@ -112,6 +114,9 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
   public Void registrarMascotaConChapita(Request request, Response response) {
 
 
+    List<Image> imagenes = new ArrayList<>();// TODO castear de url a Image
+    Image image = null;
+    imagenes.add(image);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     PersonaBuilder persona = new PersonaBuilder();
@@ -129,7 +134,7 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
       persona.agregarMedioNotificacion(mailer);
     }
 
-    MascotaPerdida mascotaPerdida = new MascotaPerdida(request.queryParams("estado"), null, new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
+    MascotaPerdida mascotaPerdida = new MascotaPerdida(request.queryParams("estado"), imagenes , new Posicion(Double.parseDouble(request.queryParams("longitud")), Double.parseDouble(request.queryParams("latitud"))));
 
     Rescatista rescatista = new Rescatista(persona.crearPersona(), LocalDate.now(), mascotaPerdida);
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.params("id"));
@@ -145,8 +150,15 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
   }
 
 
-  public ModelAndView listarRescates(Request request, Response response) {
+  public ModelAndView listarRescatesSinChapita(Request request, Response response) {
 
+    Map<String, Object> model = new HashMap<>();
+    List<Rescatista> rescates = RepositorioDeAsociaciones.getInstance().getAsociaciones().stream().map( asociacion -> asociacion.publicacionesACargo() ).flatMap(Collection::stream).map(publ -> publ.getRescatista()).collect(Collectors.toList());
+    model.put("rescates", rescates);
+    return new ModelAndView(model , "mascotasPerdidas/listado.html.hbs");
+  }
+
+  public ModelAndView listarRescatesPendientes(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     List<Rescatista> rescates = RepositorioDeRescates.getInstance().getRescates();
     model.put("rescates", rescates);

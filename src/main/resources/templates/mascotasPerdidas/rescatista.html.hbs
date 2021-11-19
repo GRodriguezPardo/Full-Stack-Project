@@ -1,7 +1,7 @@
 {{#partial "contenido"}}
 
     <div class="container">
-        <form action="/mascotas/:id/rescatista" method="POST">
+        <form action="/mascotas/{{idDeMascota}}/rescatista" method="POST">
 
             <div class="row">
                 <div class="col-sm-4">
@@ -27,7 +27,7 @@
                     <input type="text" id="telefono" name="telefono" placeholder="Telefono"><br>
 
                     <br><br>
-                    <a class="confirmar" href="/mascotas/:id/rescatista" role="button"></a>
+                    <a class="confirmar" href="/mascotas/{{idDeMascota}}/rescatista" role="button"></a>
                     <input class="confirmar" type="submit" value="Confirmar">
 
 
@@ -35,8 +35,8 @@
                 <div class="col-sm-4"><br><br><br><br><br><br><br><br><br><br>
                     <p class="text" class="fs-1">Ingrese el estado de la mascota perdida </p>
                     <input type="text" id="estado" name="estado" placeholder="estado"><br><br>
-                    <!--<input type="text" id="longitud" name="longitud" placeholder="Longitud"><br><br>
-                    <input type="text" id="latitud" name="latitud" placeholder="Latitud"><br><br>-->
+                    <input type="text" id="longitud" name="longitud" placeholder="Longitud"><br><br>
+                    <input type="text" id="latitud" name="latitud" placeholder="Latitud"><br><br>
                 </div>
             </div>
         </form>

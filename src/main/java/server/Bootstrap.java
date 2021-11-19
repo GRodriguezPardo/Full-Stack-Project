@@ -9,12 +9,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import mascotas.*;
-import org.jboss.logging.annotations.Pos;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import personas.*;
-import repositorios.RepositorioDeCaracteristicas;
+import repositorios.RepositorioDeMascotas;
 import repositorios.RepositorioDePreguntas;
 
 
@@ -30,12 +29,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       entityManager().persist(new Admin("admin","root"));
       entityManager().persist(new Asociacion(new Posicion(44.00,55.00)));
       entityManager().persist(new PublicacionMascotaPerdida(this.rescatista(55,66)));
-
-     // RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Numero de estremidades");
-      // RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Enfermedades");
-      //no anda haciendolo con el repositorio...
-    entityManager().persist(new PosibleCaracteristica("Numero de estremidades"));
-    entityManager().persist(new PosibleCaracteristica("Enfermedades"));
+      RepositorioDeMascotas.instance().agregarMascota(this.mascota("si"));
     });
   }
 
@@ -125,7 +119,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     Duenio duenio = new Duenio(personaBuilder.crearPersona());
     duenio.getPersona().agregarMedioNotificacion(smsSender);
     duenio.agregarMascota(this.mascota("FALSE"));
-    duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "Anto@Anto.com"));
+    duenio.getPersona().agregarContacto(new Contacto("Anto", "222", "matiashamide@gmail.com"));
     return duenio;
   }
 
