@@ -36,14 +36,11 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    //RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
-
-    //lo de abajo es porque no funciona haciendolo con el repositorio
     withTransaction(() -> {
                RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
-              //entityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
             });
-    response.redirect("/caracteristicas"); return  null;
+    response.redirect("/caracteristicas");
+    return  null;
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
