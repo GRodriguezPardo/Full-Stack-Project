@@ -10,9 +10,9 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Contacto extends PersistenceId {
-  private final String nombreApellido;
-  private final String telefono;
-  private final String email;
+  private String nombreApellido;
+  private String telefono;
+  private String email;
 
   /**
    * Constructor de la clase.
@@ -29,6 +29,7 @@ public class Contacto extends PersistenceId {
     this.email = _email;
   }
 
+  private Contacto(){}
   /**
    * Getter del nombre y apellido.
    *

@@ -46,7 +46,9 @@ public class Router {
 
     //Rutas de rescates
 
-    Spark.get("/rescates", mascotaPerdidaController::listarRescates, engine);
+    Spark.get("/rescates", mascotaPerdidaController::listarRescatesSinChapita, engine);
+
+    Spark.get("/rescates/todos" , mascotaPerdidaController:: listarRescatesPendientes, engine);
 
     Spark.get("/rescates/nueva", mascotaPerdidaController::perdidas, engine);
 
