@@ -7,6 +7,7 @@ import mascotas.PosibleCaracteristica;
 import persistence.PersistenceId;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,8 @@ import java.util.stream.Collectors;
 @Entity
 public class RepositorioDeCaracteristicas extends PersistenceId {
   private static final RepositorioDeCaracteristicas INSTANCE = new RepositorioDeCaracteristicas();
-  /*@ElementCollection
-  @MapKeyColumn(name = "nombre_caracteristica")
-  @Column(name = "caracteristica")
-   */
-  @Transient
+
+  @OneToMany
   private final List<PosibleCaracteristica> posiblesCaracteristicas = new ArrayList<>();
 
   /**

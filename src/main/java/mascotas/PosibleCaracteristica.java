@@ -1,6 +1,11 @@
 package mascotas;
 
-public class PosibleCaracteristica {
+import persistence.PersistenceId;
+
+import javax.persistence.Entity;
+
+@Entity
+public class PosibleCaracteristica extends PersistenceId {
   public String nombreCaracteristica;
 
   public PosibleCaracteristica(String nombre) {
