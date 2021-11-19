@@ -38,7 +38,7 @@ public class AdminController {
           .filter(unUsuario -> unUsuario.getUsuario().equals(request.queryParams("usuario")))
           .findFirst().get();
       request.session().attribute("admin_id", admin.getId());
-      response.redirect("/");
+      response.redirect("/caracteristicas");
     } else {
       response.redirect("/admin/login");
     }
@@ -46,6 +46,6 @@ public class AdminController {
   }
 
   public ModelAndView logoutAdmin(Request request, Response response) {
-    return null;
+    return null; //new ModelAndView(null , "login/admin.html.hbs");
   }
 }

@@ -4,24 +4,24 @@
         <div class="row">
             <div class="col-sm-4">
                 <h2>Caracteristicas</h2>
-                <ul>
-                    <li>
-                        {#caracteristicas}
-                        <form action="/caracteristicas/crear" method="DELETE">
-                            <input type="button" id="borrar" value="eliminar"> algo {Valor}
-                        </form>
-                        {/caracteristicas}
-                    </li>
-                </ul>
+
+                        {{#each caracteristicas}}
+                        <ul>
+                        <li>
+                            {{valor}}
+                        </li>
+                        </ul>
+                        {{/each}}
+
 
 
             </div>
             <div class="col-sm-4">
                 <h2>Agregar caracteristica</h2>
-                <p>Por favor, complete los datos que se mencionan a continuación:</p>
-                <form action="/caracteristicas/crear" method="POST">
+                <p>Por favor, ingrese el nombre de la nueva caracteristica:</p>
+                <form action="/caracteristicas" method="POST">
 
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de nueva caracteristica"><br><br>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre caracteristica"><br><br>
 
                     <input type="submit" value="Confirmar">
                 </form>

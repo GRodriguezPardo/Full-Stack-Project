@@ -1,26 +1,18 @@
 package controllers;
 
+import mascotas.PosibleCaracteristica;
+import personas.Rescatista;
+import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDeMascotas;
+import repositorios.RepositorioDeRescates;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CaracteristicaController {
-
-  private final static CaracteristicaController INSTANCE = new CaracteristicaController();
-
-  private CaracteristicaController() {
-  }
-
-  public static CaracteristicaController instance() {
-    return INSTANCE;
-  }
 
   public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
@@ -29,10 +21,12 @@ public class CaracteristicaController {
   }
 
   public ModelAndView caracteristicas(Request request, Response response) {
-    List<String> caracteristicas = RepositorioDeMascotas.instance().obtenerListado()
-            .stream().flatMap(m -> m.getCaracteristicas().keySet().stream()).collect(Collectors.toList());
+    List<PosibleCaracteristica> caracteristicas = RepositorioDeCaracteristicas.getInstance().getPosiblesCaracteristicas();
 
-    return new ModelAndView(caracteristicas, "caracteristicas/caracteristicas.html.hbs");
+    Map<String, Object> model = new HashMap<>();
+    model.put("caracteristicas", caracteristicas);
+
+    return new ModelAndView(model, "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {

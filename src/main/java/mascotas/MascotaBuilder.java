@@ -101,7 +101,7 @@ public class MascotaBuilder {
    * @param nombre es el nombre de la caracteristica a agregar.
    * @param valor  es el valor que tendra la caracteristica.
    */
-  public void agregarNuevaCaracteristica(String nombre, Object valor) {
+  public void agregarNuevaCaracteristica(String nombre, String valor) {
     if (Objects.isNull(nombre) || Objects.isNull(valor)) {
       throw new FaltanDatosException(
               "Debe proveer un nombre y un valor validos"

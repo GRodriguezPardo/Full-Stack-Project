@@ -3,10 +3,13 @@ package repositorios;
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import mascotas.Caracteristica;
+import mascotas.Mascota;
 import mascotas.PosibleCaracteristica;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import persistence.PersistenceId;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +20,8 @@ import java.util.stream.Collectors;
  * Clase singleton que guarda todas las posible caracteristicas que puede
  * tener una mascota, en un hashMap referenciadas por un nombre.
  */
-@Entity
-public class RepositorioDeCaracteristicas extends PersistenceId {
+public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
   private static final RepositorioDeCaracteristicas INSTANCE = new RepositorioDeCaracteristicas();
-  /*@ElementCollection
-  @MapKeyColumn(name = "nombre_caracteristica")
-  @Column(name = "caracteristica")
-   */
-  @Transient
-  private final List<PosibleCaracteristica> posiblesCaracteristicas = new ArrayList<>();
 
   /**
    * Contructor privado al ser singleton.
@@ -54,9 +50,14 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
     if (!this.caracteristicaExistente(nuevaCaracteristica)) {
-      this.posiblesCaracteristicas.add(new PosibleCaracteristica(nuevaCaracteristica));
+       entityManager().persist(new PosibleCaracteristica(nuevaCaracteristica));
+       entityManager().flush();
     }
 
+  }
+
+  public List<PosibleCaracteristica> getPosiblesCaracteristicas(){
+    return entityManager().createQuery("select a from PosibleCaracteristica a", PosibleCaracteristica.class).getResultList();
   }
 
   public void eliminarPosibleCaracteristica(String caracteristica) {
@@ -64,12 +65,12 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
     if (this.caracteristicaExistente(caracteristica)) {
-      this.posiblesCaracteristicas.remove(this.hallarPosibleCaracteristica(caracteristica));
+      entityManager().remove(this.hallarPosibleCaracteristica(caracteristica));
     }
   }
 
   private PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
-    List<PosibleCaracteristica> resultado = this.posiblesCaracteristicas.stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList());
+    List<PosibleCaracteristica> resultado = this.getPosiblesCaracteristicas().stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList());
     if(resultado.isEmpty()){return null;}
     else {return resultado.get(0);}
   }
@@ -87,13 +88,9 @@ public class RepositorioDeCaracteristicas extends PersistenceId {
    */
   public Caracteristica definirCaracteristica(String nombre) {
     if (this.caracteristicaExistente(nombre)) {
-      return new Caracteristica();
+      return new Caracteristica(nombre);
     } else {
       throw new DatosErroneosException("Caractetristica invalida");
     }
-    //Caracteristica caracteristica = caracteristicas.get(nombre);   return caracteristica.clonar();
-
-    //EntityManager..createQuery("select a from PosibleCaracteristica a",PosibleCaracteristica.class).getResultList()...;
-    //return new Caracteristica<String>();
   }
 }

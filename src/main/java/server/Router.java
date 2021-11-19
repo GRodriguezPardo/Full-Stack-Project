@@ -15,6 +15,7 @@ public class Router {
     MascotaPerdidaController mascotaPerdidaController = MascotaPerdidaController.instance();
     LoginController loginController = new LoginController();
     AdminController adminController = new AdminController();
+    CaracteristicaController caracteristicaController = new CaracteristicaController();
     expectionHandling();
 
     //Rutas generales
@@ -29,6 +30,8 @@ public class Router {
     Spark.get("/admin/login", adminController::showAdmin, engine);
     Spark.post("/admin/login", adminController::loginAdmin, engine);
     Spark.get("/admin/logout", adminController::logoutAdmin, engine);
+    //lo de caracteristicas
+    Spark.get("/caracteristicas",caracteristicaController::caracteristicas , engine);
 
     //------------------------------------------------------------------------------------//
 
