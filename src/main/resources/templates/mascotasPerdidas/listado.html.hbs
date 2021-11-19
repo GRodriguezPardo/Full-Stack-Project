@@ -9,8 +9,6 @@
                     <th>ubicacion(longitud)</th>
                     <th>ubicacion(latitud)</th>
                     <th>rescatista</th>
-
-                    <th></th>
                 </tr>
 
                 {{#each rescates}}
@@ -19,7 +17,6 @@
                         <td>{{mascota.posicion.longitud}}</td>
                         <td>{{mascota.posicion.latitud}}</td>
                         <td>{{persona.nombreYApellido}}</td>
-                        <td><a href="{{url}}">Ver</a><td>
                     </tr>
                 {{/each}}
             </table>

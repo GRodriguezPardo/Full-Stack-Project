@@ -46,14 +46,14 @@ public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
    * @param nuevaCaracteristica nombre de la nueva psoible Caracteristica.
    */
   public void agregarPosibleCaracteristica(String nuevaCaracteristica) {
-    if (Objects.isNull(nuevaCaracteristica)) {
+    if (Objects.isNull(nuevaCaracteristica) || nuevaCaracteristica.matches("")) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
     if (!this.caracteristicaExistente(nuevaCaracteristica)) {
        entityManager().persist(new PosibleCaracteristica(nuevaCaracteristica));
 
     }
-
+    System.out.print(nuevaCaracteristica);
   }
 
   public List<PosibleCaracteristica> getPosiblesCaracteristicas(){
@@ -61,7 +61,7 @@ public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
   }
 
   public void eliminarPosibleCaracteristica(String caracteristica) {
-    if (Objects.isNull(caracteristica)) {
+    if (Objects.isNull(caracteristica) || caracteristica.matches("")) {
       throw new FaltanDatosException("No ha aportado caracteristica");
     }
     if (this.caracteristicaExistente(caracteristica)) {
@@ -71,12 +71,15 @@ public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
 
   public PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
     List<PosibleCaracteristica> resultado = this.getPosiblesCaracteristicas().stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList());
-    if(resultado.isEmpty()){return null;}
-    else {return resultado.get(0);}
+    if (resultado.isEmpty()) {
+      return null;
+    } else {
+      return resultado.get(0);
+    }
   }
 
   public boolean caracteristicaExistente(String nombre) {
-    return this.hallarPosibleCaracteristica(nombre) == null;
+    return this.hallarPosibleCaracteristica(nombre) != null;
   }
 
   /**

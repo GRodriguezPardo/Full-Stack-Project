@@ -25,13 +25,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
   private void init() {
     withTransaction(() -> {
+      entityManager().persist(new PosibleCaracteristica("Color principal"));
+      entityManager().persist(new PosibleCaracteristica("Esta castrado"));
       entityManager().persist(this.unUsuario("UsuarioComun","clave", this.duenio()));
       entityManager().persist(new Admin("admin","root"));
       entityManager().persist(new Asociacion(new Posicion(44.00,55.00)));
       entityManager().persist(new PublicacionMascotaPerdida(this.rescatista(55,66)));
       RepositorioDeMascotas.instance().agregarMascota(this.mascota("si"));
-      entityManager().persist(new PosibleCaracteristica("Numero extremidades"));
-      entityManager().persist(new PosibleCaracteristica("Enfermedades"));
     });
   }
 

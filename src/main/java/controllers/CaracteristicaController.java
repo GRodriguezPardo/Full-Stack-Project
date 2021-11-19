@@ -31,25 +31,25 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
+    //RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
 
     //lo de abajo es porque no funciona haciendolo con el repositorio
     withTransaction(() -> {
-               // RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
-              entityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
+               RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
+              //ntityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
             });
     response.redirect("/caracteristicas"); return  null;
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-    String valor = request.pathInfo();
-     valor = valor.substring(17 , valor.length() - 7); //en 17 esta la segunda '/' y 7 ocupa el '/delete'
+    String valor = request.params("name");
 
-  RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(valor);
-  entityManager().remove(RepositorioDeCaracteristicas.getInstance().hallarPosibleCaracteristica(valor));
+    withTransaction(() -> {
+      RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(valor);
+    });
 
-   response.redirect("/caracteristicas");
-    return  null;
+    response.redirect("/caracteristicas");
+    return null;
   }
 
 }

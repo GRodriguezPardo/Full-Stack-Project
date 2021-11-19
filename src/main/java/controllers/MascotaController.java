@@ -79,7 +79,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setNombre(request.queryParams("nombre"));
       mascota.setTamanio(Tamanio.valueOf(request.queryParams("tamanno")));
       mascota.setEspecie(Especie.valueOf(request.queryParams("especie")));
-      mascota.setEdad(Short.parseShort("7"));
+      mascota.setEdad(Short.parseShort(request.queryParams("edad")));
       mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
       mascota.setDescripcion(request.queryParams("descripcion"));
