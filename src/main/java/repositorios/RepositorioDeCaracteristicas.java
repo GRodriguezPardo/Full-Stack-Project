@@ -69,7 +69,7 @@ public class RepositorioDeCaracteristicas implements WithGlobalEntityManager {
     }
   }
 
-  private PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
+  public PosibleCaracteristica hallarPosibleCaracteristica(String nombre) {
     List<PosibleCaracteristica> resultado = this.getPosiblesCaracteristicas().stream().filter(c -> c.seLlamaAsi(nombre)).collect(Collectors.toList());
     if(resultado.isEmpty()){return null;}
     else {return resultado.get(0);}

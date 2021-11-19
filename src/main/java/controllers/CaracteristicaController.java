@@ -46,9 +46,9 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
      valor = valor.substring(17 , valor.length() - 7); //en 17 esta la segunda '/' y 7 ocupa el '/delete'
 
   RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(valor);
+  entityManager().remove(RepositorioDeCaracteristicas.getInstance().hallarPosibleCaracteristica(valor));
 
-   // response.redirect("/caracteristicas");
-    response.redirect("/error");
+   response.redirect("/caracteristicas");
     return  null;
   }
 
