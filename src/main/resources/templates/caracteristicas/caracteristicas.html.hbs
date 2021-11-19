@@ -8,7 +8,10 @@
                         {{#each caracteristicas}}
                         <ul>
                         <li>
-                          {{valor}} <button onclick="/caracteristicas" method="get" >Eliminar </button>
+                            <form action="/caracteristicas/{{valor}}/delete" method="POST">
+                                {{valor}}
+                                <input type="submit" value="Eliminar">
+                            </form>
                         </li>
                         </ul>
                         {{/each}}
