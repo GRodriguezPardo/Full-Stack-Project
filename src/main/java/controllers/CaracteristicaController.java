@@ -1,6 +1,7 @@
 package controllers;
 
 import mascotas.PosibleCaracteristica;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import personas.Rescatista;
 import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDeMascotas;
@@ -12,7 +13,7 @@ import spark.Response;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CaracteristicaController {
+public class CaracteristicaController implements WithGlobalEntityManager {
 
   public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
@@ -25,16 +26,24 @@ public class CaracteristicaController {
 
     Map<String, Object> model = new HashMap<>();
     model.put("caracteristicas", caracteristicas);
-
     return new ModelAndView(model, "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView agregarCaracteristica(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
+    RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica(request.queryParams("nombre"));
+
+    //lo de abajo es porque no funciona haciendolo con el repositorio
+
+      entityManager().persist(new PosibleCaracteristica(request.queryParams("nombre")));
+    response.redirect("/caracteristicas"); return  null;
+    //return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
   }
 
   public ModelAndView eliminarCaracteristica(Request request, Response response) {
-    return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
+  RepositorioDeCaracteristicas.getInstance().eliminarPosibleCaracteristica(request.queryParams("nombre"));
+
+    response.redirect("/caracteristicas"); return  null;
+   // return new ModelAndView(obtenerSesion(request, response), "caracteristicas/caracteristicas.html.hbs");
   }
 
 }

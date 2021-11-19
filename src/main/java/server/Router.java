@@ -32,6 +32,7 @@ public class Router {
     Spark.get("/admin/logout", adminController::logoutAdmin, engine);
     //lo de caracteristicas
     Spark.get("/caracteristicas",caracteristicaController::caracteristicas , engine);
+    Spark.post("/caracteristicas",caracteristicaController::agregarCaracteristica , engine);
 
     //------------------------------------------------------------------------------------//
 
