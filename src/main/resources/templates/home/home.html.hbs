@@ -1,102 +1,19 @@
 {{#partial "contenido"}}
 
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-4">
-                <div class="home-image">
-                    <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple125/v4/98/bc/52/98bc52c5-84b0-7471-e76e-023408e6883c/source/256x256bb.jpg"
-                         width="100%" style="">
-                    <div style="position:absolute; width:100%; height:257px; top:255px; left:0px; padding-bottom:10px ">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="greyf s14"
-                               style=" cursor:pointer;">
-                            <tbody>
-                            <tr>
-                                <td align="center; end" style="padding-right:25px; padding-left:25px">
-                                    <a href="/mascotas/nueva">
-                                        <button class="btn btn-primary" type="button"
-                                                style="height:30px; width:100%; padding-top:0px ;border-radius:15px">
-                                            Registrar Mascota
-                                        </button>
-                                    </a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="home-image">
-                    <img src="https://www.webercountyutah.gov/Animal_Shelter/images/icons/Dog-256%20(1).png"
-                         width="100%" style="">
-                    <div style="position:absolute; width:100%; height:257px; top:255px; left:0px; padding-bottom:10px ">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="greyf s14"
-                               style=" cursor:pointer;">
-                            <tbody>
-                            <tr>
-                                <td align="center; end" style="padding-right:25px; padding-left:25px">
-                                    <a href="/rescates/nueva">
-                                        <button class="btn btn-primary" type="button"
-                                                style="height:30px; width:100%; padding-top:0px ;border-radius:15px">
-                                            Mascota Perdida
-                                        </button>
-                                    </a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="home-image">
-                    <img src="https://is4-ssl.mzstatic.com/image/thumb/Purple114/v4/98/33/29/983329e5-87a3-36cd-9473-6c9e5dc3baa7/source/256x256bb.jpg"
-                         width="100%" style="">
-                    <div style="position:absolute; width:100%; height:257px; top:255px; left:0px; padding-bottom:10px ">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="greyf s14"
-                               style=" cursor:pointer;">
-                            <tbody>
-                            <tr>
-                                <td align="center; end" style="padding-right:25px; padding-left:25px">
-                                    <a href="/rescates">
-                                        <button class="btn btn-primary" type="button"
-                                                style="height:30px; width:100%; padding-top:0px ;border-radius:15px">
-                                            Mascotas Encontrada
-                                        </button>
-                                    </a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    {{#if sesioniniciada}}
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="home-image">
-                    <img src="https://is5-ssl.mzstatic.com/image/thumb/Purple125/v4/98/bc/52/98bc52c5-84b0-7471-e76e-023408e6883c/source/256x256bb.jpg"
-                         width="100%" style="">
-                    <div style="position:absolute; width:100%; height:257px; top:255px; left:0px; padding-bottom:10px ">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="greyf s14"
-                               style=" cursor:pointer;">
-                            <tbody>
-                            <tr>
-                                <td align="center; end" style="padding-right:25px; padding-left:25px">
-                                    <a href="/mascotas">
-                                        <button class="btn btn-primary" type="button"
-                                                style="height:30px; width:100%; padding-top:0px ;border-radius:15px">
-                                            Mis Mascotas
-                                        </button>
-                                    </a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{/if}}
+    <div class="jumbotron">
+        {{#if sesioniniciada}}
+        <h1>Bienvenidos {{user}}!</h1>
+        <p> Somos una organización sin fines de lucro que busca dar una solución ante la perdida de una mascota</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="/mascotas" role="button">Mis Mascota</a>
+            <a class="btn btn-primary btn-lg" href="/mascotas/nueva" role="button">Agregar Mascota</a>
+            <a class="btn btn-primary btn-lg" href="/asociacion/nueva"role="button">Agregar Asociación</a>
+        </p>
+        {{else}}
+        <h1>Bienvenidos a Rescate Patitas!</h1>
+        <p> Somos una organización sin fines de lucro que busca dar una solución ante la perdida de una mascota</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Registrarse</a></p>
+        {{/if}}
     </div>
 
 {{/partial}}

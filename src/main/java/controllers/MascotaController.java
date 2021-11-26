@@ -7,6 +7,7 @@ import personas.Asociacion;
 import personas.Posicion;
 import personas.Usuario;
 import repositorios.RepositorioDeAsociaciones;
+import repositorios.RepositorioDeCaracteristicas;
 import repositorios.RepositorioDeMascotas;
 import repositorios.RepositorioDeUsuarios;
 import spark.ModelAndView;
@@ -28,6 +29,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
   public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
+    model.put("caracteristicas", RepositorioDeCaracteristicas.getInstance().getPosiblesCaracteristicas());
     return model;
   }
 
@@ -82,7 +84,9 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setEdad(Short.parseShort(request.queryParams("edad")));
       mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
-      mascota.setDescripcion(request.queryParams("descripcion"));
+      mascota.agregarNuevaCaracteristica(null,null);
+      //mascota.setDescripcion(request.queryParams("descripcion"));
+      mascota.setDescripcion("test");
       //TODO: Estoy guardando en un repo por separado las mascotas, hay que ver de asociarlo con los usuarios
       withTransaction(() -> {
             getUsuario(request).getDuenio().agregarMascota(mascota.finalizarMascota());

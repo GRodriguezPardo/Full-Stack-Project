@@ -40,7 +40,7 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
 
   public Map<String, Object> obtenerSesion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
-    model.put("sesioniniciada", Objects.isNull(request.session().attribute("user_id")));
+    model.put("sesioniniciada", !Objects.isNull(request.session().attribute("user_id")));
     return model;
   }
 
@@ -148,7 +148,6 @@ public class MascotaPerdidaController implements WithGlobalEntityManager, Transa
     response.redirect("/rescates/gracias");
     return null;
   }
-
 
   public ModelAndView listarRescatesSinChapita(Request request, Response response) {
 

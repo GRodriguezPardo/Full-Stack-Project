@@ -1,49 +1,53 @@
 <html>
 <header>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/estilos.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </header>
+<!-- BODY -->
 <body>
-<div style="background-color:#45B6FE;font-family:'Brush Script MT',cursive;" class="jumbotron text-center text-white">
-    <h1>Rescate de Patitas</h1>
-</div>
-
-<nav class="navbar navbar-default">
+<main>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Patitas</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav">
+                    <li><a class="nav-item active" aria-current="page" href="/">Home</a></li>
+                    <li><a class="nav-item" href="/rescates/nueva">Mascotas Perdida</a></li>
+                    <li><a class="nav-item" href="/rescates">Mascotas Encontradas</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                     <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Cuenta <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                     {{#if sesioniniciada}}
+                     <li><a class="nav-item" href="/mascotas/nueva">Registrar Mascotas</a></li>
+                     <li><a class="nav-item" href="/mascotas">Mis Mascotas</a></li>
+                     <li><a class="nav-item" href="/asociacion/nueva">Agregar Asociación</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a class="nav-item" href="/logout">Cerrar Sesión</a></li>
+                     {{else}}
+                     <li><a class="nav-item" href="/login">Iniciar Sesión</a></li>
+                     {{/if}}
+                     </ul>
+                     </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</main>
     <div class="container">
-        <div class="navbar-header">
-            <a style="cursor:pointer" class="navbar-brand" href="/">Home</a>
-        </div>
-        <div>
-            <ul class="nav navbar-nav">
-                {{#if sesioniniciada}}
-                    <li><a style="cursor:pointer" href="/logout">Cerrar sesion</a></li>
-                {{else}}
-                    <li><a style="cursor:pointer" href="/login">Iniciar sesion</a></li>
-                    <li><a style="cursor:pointer" href="/signup">Crear cuenta</a></li>
-                {{/if}}
-                <li><a style="cursor:pointer" href="/asociacion/nueva">Agregar asociacion</a></li>
-                <li><a style="cursor:pointer" href="/aboutus">Sobre nosotros</a></li>
-
-            </ul>
-        </div>
+        {{#block "contenido"}}
+        {{/block}}
     </div>
-</nav>
-<body>
-<div class="container">
-    {{#block "contenido"}}
-    {{/block}}
-</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </body>
-<footer class="footer">
-    <p class="text-center">
-        &copy; 2021 Rescate de Patitas
-    </p>
+
+<!-- FOOTER -->
+<footer class="container text-center">
+    <p>&copy; 2021 Rescate de Patitas &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
 </footer>
-</body>
+
 </html>

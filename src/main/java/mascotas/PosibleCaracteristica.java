@@ -19,4 +19,5 @@ public class PosibleCaracteristica extends PersistenceId {
   }
 
   public String getValor(){return this.nombreCaracteristica ;}
+
 }

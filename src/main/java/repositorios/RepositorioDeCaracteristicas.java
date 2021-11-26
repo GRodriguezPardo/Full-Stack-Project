@@ -3,15 +3,9 @@ package repositorios;
 import exceptions.DatosErroneosException;
 import exceptions.FaltanDatosException;
 import mascotas.Caracteristica;
-import mascotas.Mascota;
 import mascotas.PosibleCaracteristica;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import persistence.PersistenceId;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
