@@ -15,8 +15,23 @@
 </div>
 
 <div class="container">
+    <div class="row">
+        {{#if errorMessagePresent}}
 
+        <div class="col-sm-12">
+            <h2>ERROR:</h2>
+            <h2>{{errorMessage}}</h2><br>
+        </div>
+
+        {{else}}
+
+        <div class="col-sm-12">
+            <h2>ERROR:</h2>
+            <h2>Lo siento, no sabemos que sucedio</h2><br>
+        </div>
+
+        {{/if}}
+    </div>
     <img src="https://www.nicepng.com/png/detail/221-2215035_404doge-doge-404.png" alt="alternatetext" width="1083"
          height="384">
-
 </div>

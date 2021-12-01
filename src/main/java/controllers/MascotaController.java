@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.FaltanDatosException;
 import mascotas.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -50,7 +51,9 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     Mascota mascota = RepositorioDeMascotas.instance().obtenerMascota(request.params("mascotaId"));
 
     if (RepositorioDeUsuarios.getInstance().usuarioDuenioDe(mascota).getId() != usuario.getId()) {
-      throw new RuntimeException("Usted no es dueño de esta mascota");
+      request.session().attribute("errorMessage", "Usted no es dueño de esta mascota");
+      response.redirect("/error");
+      return null;
     }
 
     model.put("mascota", mascota);
@@ -84,17 +87,19 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       mascota.setEdad(Short.parseShort(request.queryParams("edad")));
       mascota.setSexo(Sexo.valueOf(request.queryParams("sexo")));
       mascota.agregarImagen("");
-      mascota.agregarNuevaCaracteristica(null,null);
+      //mascota.agregarNuevaCaracteristica("nueva-caract","test");
       //mascota.setDescripcion(request.queryParams("descripcion"));
       mascota.setDescripcion("test");
-      //TODO: Estoy guardando en un repo por separado las mascotas, hay que ver de asociarlo con los usuarios
       withTransaction(() -> {
             getUsuario(request).getDuenio().agregarMascota(mascota.finalizarMascota());
           }
       );
 
-    } catch (RuntimeException e) {
-      System.out.println(e.toString());
+    } catch (FaltanDatosException e) {
+      request.session().attribute("errorMessage", e.getMessage());
+      response.redirect("/error");
+    } catch (Exception e) {
+      request.session().attribute("errorMessage", "Algo salio mal");
       response.redirect("/error");
     }
     response.status(200);
@@ -103,10 +108,15 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     return null;
   }
 
-  //TODO: Esta reventando el Listar Mascotas
   public ModelAndView listarMascotas(Request req, Response res) {
     Map<String, Object> model = new HashMap<>();
     Usuario usuario = getUsuario(req);
+
+    if (Objects.isNull(usuario)) {
+      req.session().attribute("errorMessage", "Usted no existe");
+      res.redirect("/error");
+      return null;
+    }
 
     List<Mascota> mascotas = usuario.getDuenio().getMascotas();
 
@@ -124,7 +134,7 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     if (optionalUsuario.isPresent()) {
       usuario = optionalUsuario.get();
     } else {
-      throw new RuntimeException("Usted no existe");
+      return null;
     }
     return usuario;
   }

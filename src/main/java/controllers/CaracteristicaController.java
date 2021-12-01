@@ -24,6 +24,7 @@ public class CaracteristicaController implements WithGlobalEntityManager , Trans
 
   public ModelAndView caracteristicas(Request request, Response response) {
     if(request.session().attribute("admin_id") == null) {
+      request.session().attribute("errorMessage", "Usted no es administrador");
       response.redirect("/error");
       return null;
     }
