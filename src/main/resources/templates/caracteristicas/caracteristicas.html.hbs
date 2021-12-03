@@ -1,0 +1,37 @@
+{{#partial "contenido"}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2>Caracteristicas</h2>
+
+                        {{#each caracteristicas}}
+                        <ul>
+                        <li>
+                            <form action="/caracteristicas/{{valor}}/delete" method="POST">
+                                {{valor}}
+                                <input type="submit" value="Eliminar">
+                            </form>
+                        </li>
+                        </ul>
+                        {{/each}}
+
+
+
+            </div>
+            <div class="col-sm-4">
+                <h2>Agregar caracteristica</h2>
+                <p>Por favor, ingrese el nombre de la nueva caracteristica:</p>
+                <form action="/caracteristicas" method="POST">
+
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre caracteristica"><br><br>
+
+                    <input type="submit" value="Confirmar">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}

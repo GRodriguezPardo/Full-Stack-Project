@@ -1,0 +1,28 @@
+{{#partial "contenido"}}
+
+    <h2>publicaciones mascotas perdidas</h2>
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-stripped">
+                <tr>
+                    <th>Estado</th>
+                    <th>ubicacion(longitud)</th>
+                    <th>ubicacion(latitud)</th>
+                    <th>rescatista</th>
+                </tr>
+
+                {{#each rescates}}
+                    <tr>
+                        <td>{{mascota.descripcionEstado}}</td>
+                        <td>{{mascota.posicion.longitud}}</td>
+                        <td>{{mascota.posicion.latitud}}</td>
+                        <td>{{persona.nombreYApellido}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}

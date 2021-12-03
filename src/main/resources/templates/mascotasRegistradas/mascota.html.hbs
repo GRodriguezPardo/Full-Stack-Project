@@ -1,0 +1,38 @@
+{{#partial "contenido"}}
+    {{#with mascota}}
+        <h2>{{nombre}}</h2>
+        <div class="row">
+            <div class="col-sm-8">
+                <table class="table table-stripped">
+                    <tr>
+                        <th>Apodo</th>
+                        <td>{{apodo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Especie</th>
+                        <td>{{especie}}</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>{{edad}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sexo</th>
+                        <td>{{sexo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tamaño</th>
+                        <td>{{tamanio}}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripcion</th>
+                        <td>{{descripcion}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    {{/with}}
+{{/partial}}
+
+{{>layout.html.hbs}}

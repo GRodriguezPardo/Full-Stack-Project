@@ -1,0 +1,21 @@
+{{#partial "contenido"}}
+
+    <div class="jumbotron">
+        {{#if sesioniniciada}}
+        <h1>Bienvenidos {{user}}!</h1>
+        <p> Somos una organización sin fines de lucro que busca dar una solución ante la perdida de una mascota</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="/mascotas" role="button">Mis Mascota</a>
+            <a class="btn btn-primary btn-lg" href="/mascotas/nueva" role="button">Agregar Mascota</a>
+            <a class="btn btn-primary btn-lg" href="/asociacion/nueva"role="button">Agregar Asociación</a>
+        </p>
+        {{else}}
+        <h1>Bienvenidos a Rescate Patitas!</h1>
+        <p> Somos una organización sin fines de lucro que busca dar una solución ante la perdida de una mascota</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Registrarse</a></p>
+        {{/if}}
+    </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}
