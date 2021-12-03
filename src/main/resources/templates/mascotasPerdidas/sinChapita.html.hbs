@@ -1,0 +1,58 @@
+{{#partial "contenido"}}
+
+
+    <div class="container">
+        <form action="/rescates" method="POST">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>Datos del rescatista</h2>
+                    <p>Por favor, complete con sus datos personales:</p>
+
+                    <input type="text" id="email" name="email" placeholder="email"><br><br>
+                    <input type="text" id="nombre" name="nombre" placeholder="nombre"><br><br>
+                    <input type="text" id="domicilio" name="domicilio" placeholder="domicilio"><br><br>
+                    <p>fecha en la que encontro a la mascota</p>
+                    <!--  <input type="date" id="fecha" name="fecha"> <br><br> -->
+                    <input type="text" id="fecha" name="fecha" placeholder="dd/mm/aaaa"><br><br>
+                    <label for="favcolor">Prefencia de contacto: </label>
+                    <input type="radio" id="mail" name="mail" value="Email">
+                    <label for="html">Email</label>
+                    <input type="radio" id="SMS" name="SMS" value="SMS">
+                    <label for="css">SMS</label><br><br>
+                </div>
+                <div class="col-sm-4">
+                    <br><br>
+                    <input type="number" id="telefono" name="telefono" placeholder="Telefono"><br><br>
+                    <input type="text" id="estado" name="estado" placeholder="Estado de la mascota"><br><br>Incluya
+                    fotos de la mascota</label><br><br>
+                    <!-- <div class="input-group mb-3">
+                         <input type="file" id="ulr1" class="form-control" id="inputGroupFile02">
+                         <label class="input-group-text" for="inputGroupFile02">
+                     </div><br>
+                     <div class="input-group mb-3">
+                         <input type="file" id="url2" class="form-control" id="inputGroupFile02">
+                         <label class="input-group-text" for="inputGroupFile02">
+                     </div><br>
+                     <div class="input-group mb-3">
+                         <input type="file" id="url3" class="form-control" id="inputGroupFile02">
+                         <label class="input-group-text" for="inputGroupFile02">
+                     </div><br> URL DE LAS IMAGENES-->
+                    <br><br><br><br>
+                    <a class="btn-confirmacion" href="/rescates" role="button"></a>
+                    <input class="btn-confirmacion" type="submit" value="Confirmar">
+
+
+                </div>
+                <div class="col-sm-4">
+                    <p>seleccione la ubicación de donde encontro a la mascota</p><br>
+                    <input type="number" id="latitud" name="latitud" placeholder="Latitud de la ubicacion"><br><br>
+                    <input type="number" id="longitud" name="longitud" placeholder="Longitud de la ubicacion"><br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{{/partial}}
+
+{{>layout.html.hbs}}

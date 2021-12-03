@@ -1,0 +1,37 @@
+<header>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</header>
+
+<div style="background-color:#45B6FE;color:white" class="jumbotron text-center">
+    <h1>Rescate de Patitas</h1>
+    <p> Ups! Encontramos un error</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        {{#if errorMessagePresent}}
+
+        <div class="col-sm-12">
+            <h2>ERROR:</h2>
+            <h2>{{errorMessage}}</h2><br>
+        </div>
+
+        {{else}}
+
+        <div class="col-sm-12">
+            <h2>ERROR:</h2>
+            <h2>Lo siento, no sabemos que sucedio</h2><br>
+        </div>
+
+        {{/if}}
+    </div>
+    <img src="https://www.nicepng.com/png/detail/221-2215035_404doge-doge-404.png" alt="alternatetext" width="1083"
+         height="384">
+</div>
