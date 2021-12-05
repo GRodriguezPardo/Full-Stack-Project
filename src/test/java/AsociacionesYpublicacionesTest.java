@@ -19,11 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityManagerOps, WithGlobalEntityManager {
   Fixture fixture = new Fixture();
-
-  /*
-    MedioNotificacion emailSender = fixture.getEmailSenderMock();
-    MedioNotificacion smsSender = fixture.getSmsSenderMock();
-  */
   @BeforeAll
   public static void agregarPosiblesCaracteristicas() {
     RepositorioDeCaracteristicas.getInstance().agregarPosibleCaracteristica("Color principal");//, new Caracteristica<String>());
@@ -42,20 +37,14 @@ public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityM
 
   @Test
   public void puedoAgregarAsociacionesAlRepo() {
-
-
     Asociacion asociacion = new Asociacion(new Posicion(10, 20));
     RepositorioDeAsociaciones repo = RepositorioDeAsociaciones.getInstance();
     repo.agregarAsociacion(asociacion);
     assertTrue(repo.getAsociaciones().stream().anyMatch(unaAsociacion -> unaAsociacion.getId() == asociacion.getId()));
-
-
   }
 
   @Test
   public void lasPublicacionesSeAsignanCorrectamente() {
-
-
     Asociacion asociacion1 = new Asociacion(new Posicion(10, 10));
     Asociacion asociacion2 = new Asociacion(new Posicion(20, 20));
     PublicacionMascotaPerdida publicacion = new PublicacionMascotaPerdida(fixture.rescatista(0, 0));
@@ -64,8 +53,6 @@ public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityM
     repo.agregarAsociacion(asociacion2);
 
     assertEquals(repo.asociacionMasCercana(publicacion), asociacion1);
-
-
   }
 
   @Test
@@ -82,8 +69,6 @@ public class AsociacionesYpublicacionesTest implements TransactionalOps, EntityM
     assertTrue(repo.publicacionesAprobadas().isEmpty());
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada1));
     assertTrue(repo.publicacionesNoAprobadas().contains(publicacionDesaprobada2));
-
-
   }
 
   @Test

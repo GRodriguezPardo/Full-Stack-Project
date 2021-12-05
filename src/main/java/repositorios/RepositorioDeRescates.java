@@ -31,7 +31,6 @@ public class RepositorioDeRescates implements WithGlobalEntityManager {
     return INSTANCE;
   }
 
-
   /**
    * Permite agregar un nuevo aviso de rescate a la lista de rescates que posee
    * el singleton.
@@ -39,7 +38,6 @@ public class RepositorioDeRescates implements WithGlobalEntityManager {
    * @param nuevoRescate es el rescate a ser agregado.
    */
   public void agregarRescate(Rescatista nuevoRescate) {
-    //this.rescates.add(nuevoRescate);
     entityManager().persist(nuevoRescate);
   }
 
