@@ -9,7 +9,7 @@ import spark.debug.DebugScreen;
  */
 public class Application {
   public static void main(String[] argv) throws Exception {
-    String Port = System.getenv("PORT");
+    String Port = "8080";//System.getenv("PORT");
     JpaSchemaExport.execute("db", "schema.sql", true, true);
     Bootstrap.main(argv);
     Spark.port(Integer.decode(Port));
